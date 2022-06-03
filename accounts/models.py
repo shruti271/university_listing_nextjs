@@ -1,7 +1,7 @@
 from re import T
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from compo_server.main.models import University
+from main.models import University
 
 
 class User(AbstractUser):

@@ -1,0 +1,18 @@
+
+# Django files that can be regenerated on each dev local dev environment
+*.log
+*.pot
+*.pyc
+__pycache__
+
+# Django database 
+db.sqlite3
+
+#Django media files
+media
+
+# !! security warning !! env variable should not be pushed to remote repository
+.env 
+
+# Mac specific files
+.DS_Store
