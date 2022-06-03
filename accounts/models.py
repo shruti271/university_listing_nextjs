@@ -44,7 +44,7 @@ class Recommendation(models.Model):
 
 
 class OrganisationUser(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, primary_key=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     admin_user = models.BooleanField(default=False)
     marketing_user = models.BooleanField(default=False)
     analytics_user = models.BooleanField(default=False)
