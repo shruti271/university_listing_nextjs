@@ -12,7 +12,7 @@ db.sqlite3
 media
 
 # !! security warning !! env variable should not be pushed to remote repository
-.env 
+.env
 
 # Mac specific files
 .DS_Store
