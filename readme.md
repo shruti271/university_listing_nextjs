@@ -15,16 +15,17 @@
     
     # Activate virtual environment
     source env/bin/activate <env_name> mac/linux
-    env\Scripts\activate.bat
-    
-    # Install requirements
-    pip install -r requirements.txt
+    env\Scripts\activate.bat Windows
+   
 
     # clone the project
     git clone git@github.com:Composite-App/compo-server.git
     
     # Change into project directory
     cd compo_server
+     
+    # Install requirements (make sure env in active)
+    pip install -r requirements.txt
     
     # Start the development server
     python manage.py runserver
@@ -35,5 +36,5 @@
 - SECRET_KEY
 - DEBUG (set to 1 in dev mode)
 
-<p> <strong> Important note: </strong> Please don't push the .env file to the remote repository </p>
+<p> <strong> Important note: </strong> Please don't push your .env file to the remote repository </p>
 
