@@ -15,4 +15,4 @@ class ProgramPublicSerializer(serializers.ModelSerializer):
 class ScholarshipPublicSerializer(serializers.ModelSerializer):
     class Meta:
         model = Scholarship
-        fields = ['id', 'name', 'description', 'renewable']
+        fields = ['id', 'name', 'description', 'renewable', 'applicaiton_deadline']
