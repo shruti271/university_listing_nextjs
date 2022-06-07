@@ -1,7 +1,8 @@
 from django.urls import path
 from .views import  UniversitiesList, UniversityDetail, SearchUniversity, \
                     ProgramsList, ProgramsDetail, SearchProgram, \
-                    ScholarshipsList, ScholarshipDetail, SearchScholarship
+                    ScholarshipsList, ScholarshipDetail, SearchScholarship, \
+                    GlobalSearch
 
 urlpatterns = [
     path('universities/', UniversitiesList.as_view()),
@@ -15,4 +16,6 @@ urlpatterns = [
     path('scholarships/', ScholarshipsList.as_view()),
     path('scholarships/<int:pk>', ScholarshipDetail.as_view()),
     path('scholarships/filter/', SearchScholarship.as_view()),
+
+    path('search/', GlobalSearch.as_view())
 ]

@@ -8,6 +8,7 @@ class University(models.Model):
     city = models.CharField(max_length=200)
     UAE_Ranking = models.IntegerField(default=0)
     image = models.ImageField(upload_to='university_images/', blank=True)
+    description = models.TextField(blank=True)
     institute_type = models.CharField(max_length=200, blank=True)
     campus_settings = models.CharField(max_length=200, blank=True)
     student_body_size = models.IntegerField(default=0)
@@ -50,7 +51,7 @@ class Scholarship(models.Model):
     #other = 
     #award_ammount = 
     #slug
-    applicaiton_deadline = models.DateField(blank=True, null=True)
+    application_deadline = models.DateField(blank=True, null=True)
     renewable = models.BooleanField(default=False)
     competition_level = models.CharField(max_length=200, blank=True)
     effort_level = models.CharField(max_length=200, blank=True)

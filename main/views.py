@@ -1,13 +1,15 @@
+from django.views import View
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import authentication, permissions
 from rest_framework import status
-from django.http import Http404
+from django.http import Http404, HttpResponse
 
 from django.contrib.auth.models import User
 
 from main.models import University, Program, Scholarship
-from main.serializers import UniversityPublicSerializer, ProgramPublicSerializer, ScholarshipPublicSerializer
+from main.serializers import UniversityPublicSerializer, ProgramPublicSerializer, \
+    ScholarshipPublicSerializer, GlobalSearchSerializer
 
 
 class UniversitiesList(APIView):
@@ -145,12 +147,25 @@ class ScholarshipDetail(APIView):
 # This can also have machine learning to give smart search results
 
 from rest_framework import generics 
-from rest_framework import filters
-from django_filters.rest_framework import DjangoFilterBackend
+from django.db.models import Q
+from itertools import chain
 
 class GlobalSearch(generics.ListAPIView):
-    pass
+   serializer_class = GlobalSearchSerializer
 
+   def get_queryset(self):
+        query = self.request.query_params.get('query', None)
+        programs = Program.objects.filter(Q(name__icontains=query)  | Q(id__icontains=query) | Q(description__icontains=query) )
+        scholarship = Scholarship.objects.filter(Q(name__icontains=query) | Q(id__icontains=query) | Q(description__icontains=query))
+        universities = University.objects.filter(Q(name__icontains=query) | Q(id__icontains=query) | Q(description__icontains=query))
+        all_results = list(chain(programs, scholarship, universities)) 
+        #all_results.sort(key=lambda x: x.created)
+        return all_results 
+
+
+
+from rest_framework import filters
+from django_filters.rest_framework import DjangoFilterBackend
 
 class SearchUniversity(generics.ListAPIView):
 
@@ -191,9 +206,8 @@ class SearchScholarship(generics.ListAPIView):
     serializer_class = ScholarshipPublicSerializer
     queryset = Scholarship.objects.all()
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
-    # filterset_fields = ['applicaiton_deadline', 'renewable']
     filterset_fields = {
-            'applicaiton_deadline': ['gte', 'lte', 'exact', 'gt', 'lt'],
+            'application_deadline': ['gte', 'lte', 'exact', 'gt', 'lt'],
             'renewable': ['exact'],
         }
     search_fields = ['name', 'description']
