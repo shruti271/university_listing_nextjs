@@ -18,7 +18,7 @@ class ScholarshipPublicSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Scholarship
-        fields = ['id', 'name', 'description', 'renewable', 'applicaiton_deadline']
+        fields = ['id', 'name', 'description', 'renewable', 'application_deadline']
 
 class GlobalSearchSerializer(serializers.ModelSerializer):
 

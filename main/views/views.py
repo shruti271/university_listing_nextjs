@@ -192,7 +192,6 @@ class SearchProgram(generics.ListAPIView):
     serializer_class = ProgramPublicSerializer
     queryset = Program.objects.all()
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
-    # filterset_fields = ['application_deadline']
     filterset_fields = {
             'application_deadline': ['gte', 'lte', 'exact', 'gt', 'lt'],
         }
@@ -211,3 +210,21 @@ class SearchScholarship(generics.ListAPIView):
             'renewable': ['exact'],
         }
     search_fields = ['name', 'description']
+
+
+from django.forms.models import model_to_dict
+class WhoAmIView(APIView):
+    """ Simple endpoint to test auth """
+    permission_classes = [permissions.IsAuthenticated]
+    # authentication_classes = [authentication.JWTAuthentication]
+
+    def get(self, request, format=None):
+        """ Return request.user and request.auth """
+
+        return Response({
+            'request.user': model_to_dict(request.user),
+            'request.auth': request.auth
+        })
+
+    def put(self, request, format=None):
+        """ TODO : Update a user"""
