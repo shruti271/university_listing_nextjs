@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
-
 from main.models import University, Program, Scholarship
+
 class UniversityPublicSerializer(serializers.ModelSerializer):
     object_type = 'University'
     class Meta:
@@ -32,5 +32,5 @@ class GlobalSearchSerializer(serializers.ModelSerializer):
       elif isinstance(obj, Scholarship):
          serializer = ScholarshipPublicSerializer(obj)
       else:
-         raise Exception("Neither a Snippet nor a University!")
+         raise Exception("Sorry, we could not find what you're looking for.")
       return serializer.data

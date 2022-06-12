@@ -1,15 +1,15 @@
 from django.views import View
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import authentication, permissions
-from rest_framework import status
 from django.http import Http404, HttpResponse
-
 from django.contrib.auth.models import User
 
 from main.models import University, Program, Scholarship
 from main.serializers import UniversityPublicSerializer, ProgramPublicSerializer, \
-    ScholarshipPublicSerializer, GlobalSearchSerializer
+                                ScholarshipPublicSerializer, GlobalSearchSerializer
+
+from rest_framework import status
+from rest_framework import authentication, permissions
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
 
 class UniversitiesList(APIView):
@@ -19,6 +19,7 @@ class UniversitiesList(APIView):
 
     permission_classes = [permissions.AllowAny]
     serializer_class = UniversityPublicSerializer
+
     def get(self, request, format=None):
         """
         Return a list of all Universities.
@@ -46,13 +47,6 @@ class UniversityDetail(APIView):
         serializer = self.serializer_class(university)
         return Response(serializer.data)
 
-    def put(self, request, pk, format=None):
-        university = self.get_object(pk)
-        serializer = self.serializer_class(university, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class ProgramsList(APIView):
@@ -62,6 +56,7 @@ class ProgramsList(APIView):
 
     permission_classes = [permissions.AllowAny]
     serializer_class = ProgramPublicSerializer
+
     def get(self, request, format=None):
         """
         Return a list of all Programs.
@@ -89,14 +84,6 @@ class ProgramsDetail(APIView):
         serializer = self.serializer_class(program)
         return Response(serializer.data)
 
-    def put(self, request, pk, format=None):
-        program = self.get_object(pk)
-        serializer = self.serializer_class(program, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 
 class ScholarshipsList(APIView):
     """
@@ -105,6 +92,7 @@ class ScholarshipsList(APIView):
 
     permission_classes = [permissions.AllowAny]
     serializer_class = ScholarshipPublicSerializer
+
     def get(self, request, format=None):
         """
         Return a list of all Scholarships.
@@ -132,14 +120,6 @@ class ScholarshipDetail(APIView):
         scholarship = self.get_object(pk)
         serializer = self.serializer_class(scholarship)
         return Response(serializer.data)
-
-    def put(self, request, pk, format=None):
-        scholarship = self.get_object(pk)
-        serializer = self.serializer_class(scholarship, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 # Global search functionality that can search inside of the three database tables
@@ -173,16 +153,15 @@ class SearchUniversity(generics.ListAPIView):
     serializer_class = UniversityPublicSerializer
     queryset = University.objects.all()
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
-    # filterset_fields = ['UAE_Ranking']
     filterset_fields = {
             'UAE_Ranking':  ['gte', 'lte', 'exact', 'gt', 'lt'],
         }
     search_fields = ['name', 'city']
 
-    # double underscore gte is for greater than equal to
-    # double underscore gt is for greater than
-    # double underscore lte is for less than equal to
-    # double underscore lt is for less than
+    # gte is for greater than equal to
+    # gt is for greater than
+    # lte is for less than equal to
+    # lt is for less than
 
 
 
@@ -197,6 +176,10 @@ class SearchProgram(generics.ListAPIView):
         }
     search_fields = ['name', 'description',]
 
+    # gte is for greater than equal to
+    # gt is for greater than
+    # lte is for less than equal to
+    # lt is for less than
 
 
 class SearchScholarship(generics.ListAPIView):
@@ -211,20 +194,7 @@ class SearchScholarship(generics.ListAPIView):
         }
     search_fields = ['name', 'description']
 
-
-from django.forms.models import model_to_dict
-class WhoAmIView(APIView):
-    """ Simple endpoint to test auth """
-    permission_classes = [permissions.IsAuthenticated]
-    # authentication_classes = [authentication.JWTAuthentication]
-
-    def get(self, request, format=None):
-        """ Return request.user and request.auth """
-
-        return Response({
-            'request.user': model_to_dict(request.user),
-            'request.auth': request.auth
-        })
-
-    def put(self, request, format=None):
-        """ TODO : Update a user"""
+    # gte is for greater than equal to
+    # gt is for greater than
+    # lte is for less than equal to
+    # lt is for less than

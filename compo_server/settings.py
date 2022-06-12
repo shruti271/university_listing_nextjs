@@ -44,8 +44,31 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_filters',
     'accounts',
+    'rest_framework_simplejwt',
     'main',
 ]
+
+# Simple JWT config
+from datetime import timedelta
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=300),
+    'REFRESH_TOKEN_LIFETIME': timedelta(minutes=2000),
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': False,
+    'UPDATE_LAST_LOGIN': False,
+}
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
+
+# For the custom autentication
+AUTHENTICATION_BACKENDS = [
+   'django.contrib.auth.backends.ModelBackend',
+]
+AUTHENTICATION_BACKENDS = ('accounts.AuthBack.EmailBackend',)
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
