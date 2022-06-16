@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from main.models import University, Program, Scholarship
+from directory.models import University, Program, Scholarship
 
 class UniversityPublicSerializer(serializers.ModelSerializer):
     object_type = 'University'

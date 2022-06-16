@@ -1,5 +1,5 @@
 from django.urls import path
-from main.views.views import  UniversitiesList, UniversityDetail, SearchUniversity, \
+from directory.views.views import  UniversitiesList, UniversityDetail, SearchUniversity, \
                     ProgramsList, ProgramsDetail, SearchProgram, \
                     ScholarshipsList, ScholarshipDetail, SearchScholarship, \
                     GlobalSearch

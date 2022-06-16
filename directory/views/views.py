@@ -2,8 +2,8 @@ from django.views import View
 from django.http import Http404, HttpResponse
 from django.contrib.auth.models import User
 
-from main.models import University, Program, Scholarship
-from main.serializers import UniversityPublicSerializer, ProgramPublicSerializer, \
+from directory.models import University, Program, Scholarship
+from directory.serializers import UniversityPublicSerializer, ProgramPublicSerializer, \
                                 ScholarshipPublicSerializer, GlobalSearchSerializer
 
 from rest_framework import status

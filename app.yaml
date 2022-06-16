@@ -1,10 +1,10 @@
 # [START django_app]
 # [START gaestd_py_django_app_yaml]
-runtime: python39
+runtime: python310
 
 env_variables:
   # This setting is used in settings.py to configure your ALLOWED_HOSTS
-  APPENGINE_URL: https://www.composite.digital
+  APPENGINE_URL: https://api.composite.digital
 
 
 handlers:

@@ -58,7 +58,7 @@ else:
 #SECRET_KEY = os.getenv("SECRET_KEY")
 
 SECRET_KEY = env("SECRET_KEY")
-DEBUG = env("DEBUG")
+DEBUG = False
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -102,7 +102,7 @@ INSTALLED_APPS = [
     'django_filters',
     'accounts',
     'rest_framework_simplejwt',
-    'main',
+    'directory',
 ]
 
 # Simple JWT config
@@ -155,7 +155,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'compo_server.wsgi.application'
+WSGI_APPLICATION = "compo_server.wsgi.application"
 
 # Database
 # [START db_setup]
