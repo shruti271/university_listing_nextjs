@@ -198,3 +198,45 @@ class SearchScholarship(generics.ListAPIView):
     # gt is for greater than
     # lte is for less than equal to
     # lt is for less than
+
+
+    
+from django.shortcuts import render
+from bs4 import BeautifulSoup
+from django.http import HttpResponse
+from urllib.request import Request, urlopen
+from selenium import webdriver
+import requests
+from selenium.webdriver.chrome.options import Options
+
+def collectData(request):
+    
+    path = '/Users/mohamed/Downloads/chromedriver'
+    
+    chrome_options = Options()
+    chrome_options.add_argument("--headless")
+    browser = webdriver.Chrome(executable_path=path,
+                              chrome_options=chrome_options
+                             )
+
+    headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36'}
+    response = requests.get('https://www.timeshighereducation.com/sites/default/files/the_data_rankings/world_university_rankings_2022_0__e7070f0c2581be5fe6ab6392da206b36.json', headers=headers)
+
+    data = response.json()
+    #print(data['data'][0]['rank'])
+    for u in data['data'][1450:]:
+        desc = ''
+        url = "https://www.timeshighereducation.com" + u['url']
+        
+        browser.get(url)
+        soup = BeautifulSoup(browser.page_source, "lxml")
+        results = soup.find('div', {'class': 'read-more-processed'})
+        if results is not None: 
+            parags = results.find_all('p')
+            if parags is not None:
+                for p in parags:
+                    desc = desc + ' ' + p.text
+
+        University.objects.get_or_create(name = u['name'], rank=u['rank'], rank_order=u['rank_order'], description = desc, institute_type = '', campus_settings = '' , student_body_size = u['stats_number_students'].replace(',', ''), prince_range ='', scores_overall = u['scores_overall'], scores_teaching = u['scores_teaching'], scores_teaching_rank = u['scores_teaching_rank'], scores_research = u['scores_research'], scores_citations = u['scores_citations'], scores_industry_income = u['scores_industry_income'], scores_industry_income_rank = u['scores_industry_income_rank'], scores_international_outlook = u['scores_international_outlook'], scores_international_outlook_rank = u['scores_international_outlook_rank'], location = u['location'], city='', stats_student_staff_ratio = u['stats_student_staff_ratio'], stats_pc_intl_students = u['stats_pc_intl_students'], stats_female_male_ratio = u['stats_female_male_ratio'], subjects_offered = u['subjects_offered'], closed = u['closed'], unaccredited = u['unaccredited'])
+
+    return HttpResponse('data')

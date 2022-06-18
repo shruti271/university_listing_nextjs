@@ -58,7 +58,7 @@ else:
 #SECRET_KEY = os.getenv("SECRET_KEY")
 
 SECRET_KEY = env("SECRET_KEY")
-DEBUG = False
+DEBUG = True
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -166,7 +166,7 @@ DATABASES = {"default": env.db()}
 # If the flag as been set, configure to use proxy
 if os.getenv("USE_CLOUD_SQL_AUTH_PROXY", None):
     DATABASES["default"]["HOST"] = "127.0.0.1"
-    DATABASES["default"]["PORT"] = 5433
+    DATABASES["default"]["PORT"] = 5432
 
 # [END gaestd_py_django_database_config]
 # [END db_setup]

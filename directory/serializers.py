@@ -6,7 +6,7 @@ class UniversityPublicSerializer(serializers.ModelSerializer):
     object_type = 'University'
     class Meta:
         model = University
-        fields = ['id', 'name', 'description', 'city', 'UAE_Ranking']
+        fields = '__all__'
 
 class ProgramPublicSerializer(serializers.ModelSerializer):
 

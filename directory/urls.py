@@ -1,8 +1,10 @@
+from django import views
 from django.urls import path
 from directory.views.views import  UniversitiesList, UniversityDetail, SearchUniversity, \
                     ProgramsList, ProgramsDetail, SearchProgram, \
                     ScholarshipsList, ScholarshipDetail, SearchScholarship, \
-                    GlobalSearch
+                    GlobalSearch, collectData
+
 
 urlpatterns = [
 
@@ -23,4 +25,6 @@ urlpatterns = [
 
     # Global search view (public)
     path('search/', GlobalSearch.as_view()),
+
+    path('collect-data/', collectData)
 ]
