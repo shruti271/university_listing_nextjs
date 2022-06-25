@@ -1,0 +1,8 @@
+dispatch:
+  # Send all api traffic to the backend service.
+  - url: "api.composite.digital/*"
+    service: default
+
+  # Send all other traffic to the default (frontend).
+  - url: "*/*"
+    service: next

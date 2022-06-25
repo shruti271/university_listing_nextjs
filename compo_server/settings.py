@@ -58,7 +58,8 @@ else:
 #SECRET_KEY = os.getenv("SECRET_KEY")
 
 SECRET_KEY = env("SECRET_KEY")
-DEBUG = True
+# DEBUG = True
+DEBUG = env("DEBUG")
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -68,17 +69,21 @@ DEBUG = True
 # SECURITY WARNING: It's recommended that you use this when
 # running in production. The URL will be known once you first deploy
 # to App Engine. This code takes the URL and converts it to both these settings formats.
-APPENGINE_URL = env("APPENGINE_URL", default=None)
-if APPENGINE_URL:
-    # Ensure a scheme is present in the URL before it's processed.
-    if not urlparse(APPENGINE_URL).scheme:
-        APPENGINE_URL = f"https://{APPENGINE_URL}"
+# APPENGINE_URL = env("APPENGINE_URL", default=None)
+# if APPENGINE_URL:
+#     # Ensure a scheme is present in the URL before it's processed.
+#     if not urlparse(APPENGINE_URL).scheme:
+#         APPENGINE_URL = f"https://{APPENGINE_URL}"
 
-    ALLOWED_HOSTS = [urlparse(APPENGINE_URL).netloc]
-    CSRF_TRUSTED_ORIGINS = [APPENGINE_URL]
-    SECURE_SSL_REDIRECT = True
-else:
-    ALLOWED_HOSTS = ["*"]
+#     ALLOWED_HOSTS = [urlparse(APPENGINE_URL).netloc]
+#     CSRF_TRUSTED_ORIGINS = [APPENGINE_URL]
+#     SECURE_SSL_REDIRECT = True
+# else:
+#     ALLOWED_HOSTS = ["*"]
+
+ALLOWED_HOSTS = ["*"]
+
+
 # [END gaestd_py_django_csrf]
 
 
@@ -255,11 +260,20 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_ROOT = "static"
-STATIC_URL = "/static/"
+# STATIC_ROOT = "static"
+# STATIC_URL = "/static/"
 #STATICFILES_DIRS = [BASE_DIR+"/static"]
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
+
+
+GS_BUCKET_NAME = env("GS_BUCKET_NAME")
+STATIC_URL = "/static/"
+DEFAULT_FILE_STORAGE = "storages.backends.gcloud.GoogleCloudStorage"
+STATICFILES_STORAGE = "storages.backends.gcloud.GoogleCloudStorage"
+GS_DEFAULT_ACL = "publicRead"
+
+
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 

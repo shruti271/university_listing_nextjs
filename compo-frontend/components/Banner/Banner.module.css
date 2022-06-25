@@ -1,0 +1,189 @@
+.Header{
+    width: 1920px;
+    height: 813px;
+    left: calc(50% - 1920px/2);
+    background: #FFFFFF;
+}
+.background{
+    position: absolute;
+    width: 100%;
+    height: 813px;
+    margin-left: 0px;
+}
+.textSection{
+    position: absolute;
+    width: 669px;
+    height: 527px;
+    margin-left: 12vw;
+    margin-top: 136px;
+}
+.textHeader
+{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 68px;
+    line-height: 102px;
+    color: #000000;
+}
+.dot{
+    width: 82px;
+    height: 82px;
+    position: absolute;
+    left: calc(50% - 82px/2);
+    top: 318px;
+}
+.dot1{
+    position: absolute;
+    width: 23px;
+    height: 23px;
+    margin-left: calc(50% - 23px/2 + 88.5px);
+    margin-top: 185px;
+}
+.dot2{
+    position: absolute;
+    width: 34px;
+    height: 34px;
+    margin-left: calc(50% - 34px/2 + 666px);
+    margin-top: 135px;
+}
+.circle2{
+    position: absolute;
+    width: 36.11px;
+    height: 66px;
+    margin-left: 1450px;
+    margin-top: 261px;
+}
+.zigzak1{
+    position: absolute;
+    width: 77px;
+    height: 11px;
+    margin-left: calc(50% - 77px/2 - 2.5px);
+    margin-top: 400px;
+
+}
+.zigzak2{
+    position: absolute;
+    width: 77px;
+    height: 17px;
+    margin-left: calc(50% - 77px/2 - 2.5px);
+    margin-top: 422px;
+}
+.image1{
+    position: absolute;
+width: 200.16px;
+height: 200.16px;
+left: calc(50% - 239.16px/2 + 242.13px);
+top: 151.62px;
+
+}
+.image2{
+    position: absolute;
+width: 270.16px;
+height: 270.16px;
+margin-left: calc(50% - 307.16px/2 + 543.42px);
+margin-top: 114.24px;
+
+
+}
+.image3{
+    position: absolute;
+    width: 350px;
+    height: 350px;
+    margin-left: calc(50% - 418px/2 + 193px);
+    margin-top: 260.62px;
+    
+}
+.image4{
+    position: absolute;
+    width: 165.3px;
+    height: 165.3px;
+    margin-left: calc(50% - 165.3px/2 + 568.63px);
+    margin-top: 490.57px;
+}
+
+.button:hover{
+    background-color:#0364FF;
+    color: white;
+}
+.button{
+    /* Multi Selection */
+color:#0364FF;
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 9px 20px;
+gap: 25px;
+display: inline-block;
+margin-right:2%;
+width: 20%;
+height: 48px;
+
+/* color/white */
+background: #FFFFFF;
+/* color/primary */
+border: 1px solid #0364FF;
+border-radius: 51.5px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+}
+.buttonText{
+    /* WEDDING */
+
+width: 91px;
+height: 30px;
+
+/* type/smallest */
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 30px;
+/* identical to box height, or 188% */
+text-align: center;
+
+/* color/primary */
+
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+}
+.buttonClass{
+    display: inline;
+}
+.circle{
+    position: absolute;
+    margin-left: 109px;
+    margin-top: 89px;
+    transform: rotate(-90deg);
+}
+.text{
+    width: 531px;
+height: 60px;
+margin-top:75px;
+/* type/smallest */
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 30px;
+/* or 188% */
+
+/* color/black */
+color: #000000;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+}
