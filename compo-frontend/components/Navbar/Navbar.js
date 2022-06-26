@@ -12,9 +12,9 @@ import {
     PopoverTrigger,
     PopoverContent,
     useColorModeValue,
-    useBreakpointValue,
     useDisclosure,
   } from '@chakra-ui/react';
+  import Logo from "../../public/logo.png";
   import Image from 'next/image';
 import styles from './Navbar.module.css';
   import {
@@ -56,11 +56,11 @@ import styles from './Navbar.module.css';
           <Box className={styles.logo}>
           <Image
                 className="Logo"
-                src="/logo.png"
+                src={Logo}
                 alt="Picture of the author"
                 width={"220.07px"}
                 height={"50.74px"}
-                
+                priority 
             />
             </Box>
           <Flex pl={"20%"}  justify={{ base: 'center', md: 'start' }} >

@@ -1,13 +1,7 @@
-import React from "react";
+   
 import Image from "next/image";
 import { Heading } from "@chakra-ui/react";
 import { Box, Text, Stack, Input } from "@chakra-ui/react";
-import { Button } from "@chakra-ui/button";
-import {
-  TriangleUpIcon,
-  ChevronRightIcon,
-  ChevronLeftIcon,
-} from "@chakra-ui/icons";
 import styles from "./Subscriber.module.css";
 
 function Subscriber() {

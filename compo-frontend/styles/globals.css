@@ -1,36 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@700&display=swap');
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
     overflow-x: hidden;
-    font-family: 'Poppins';
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
+    font-family: 'poppins';
+ }
 
 * {
   box-sizing: border-box;
 }
 
-.logo {
-position: absolute;
-width: 220.07px;
-height: 50.74px;
-left: calc(50% - 220.07px/2 - 689.67px);
-top: 27.26px;
-}
-
-.Join
-{
-  width: 177px;
-  height: 60px;
-  left: calc(50% - 177px/2 + 721.5px);
-  top: 35px;
-  background: #0364FF;
-  border-radius: 14px;
-}

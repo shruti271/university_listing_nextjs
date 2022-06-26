@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Table,
   Thead,
@@ -7,7 +6,6 @@ import {
   Tr,
   Th,
   Td,
-  TableCaption,
   TableContainer,
 } from "@chakra-ui/react";
 import styles from "./University.module.css";
@@ -30,7 +28,7 @@ function dataTable() {
           <Tr>
             <Td><Image
                 className={styles.image}
-                style={{ position: "absolute" }}
+                  
                 src="/Star.png"
                 alt="Picture of the author"
                 width={"27px"}
@@ -42,7 +40,7 @@ function dataTable() {
           <Tr>
             <Td><Image
                 className={styles.image}
-                style={{ position: "absolute" }}
+                  
                 src="/Star.png"
                 alt="Picture of the author"
                 width={"27px"}
@@ -55,7 +53,7 @@ function dataTable() {
             <Td><Image
                                 className={styles.image}
 
-                style={{ position: "absolute" }}
+                  
                 src="/Star.png"
                 alt="Picture of the author"
                 width={"27px"}
@@ -68,7 +66,7 @@ function dataTable() {
             <Td >
                 
                 <Image
-                style={{ position: "absolute" }}
+                  
                 src="/Star.png"
                 alt="Picture of the author"
                 width={"27px"}
@@ -81,7 +79,7 @@ function dataTable() {
             <Td><Image
                             className={styles.image}
 
-                style={{ position: "absolute" }}
+                  
                 src="/Star.png"
                 alt="Picture of the author"
                 width={"27px"}
@@ -94,7 +92,7 @@ function dataTable() {
             <Td><Image
                             className={styles.image}
 
-                style={{ position: "absolute" }}
+                  
                 src="/Star.png"
                 alt="Picture of the author"
                 width={"27px"}
@@ -107,7 +105,7 @@ function dataTable() {
             <Td><Image
                             className={styles.image}
 
-                style={{ position: "absolute" }}
+                  
                 src="/Star.png"
                 alt="Picture of the author"
                 width={"27px"}
@@ -120,7 +118,7 @@ function dataTable() {
             <Td><Image
                             className={styles.image}
 
-                style={{ position: "absolute" }}
+                  
                 src="/Star.png"
                 alt="Picture of the author"
                 width={"27px"}

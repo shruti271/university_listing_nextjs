@@ -1,9 +1,6 @@
-import React from "react";
 import styles from "./University.module.css";
 import Image from "next/image";
-import { Heading } from "@chakra-ui/react";
-import DataTable from "./dataTable";
-import { Box, Text, Button, ButtonGroup, Stack } from "@chakra-ui/react";
+import { Box, Text, Stack } from "@chakra-ui/react";
 function BoxTable() {
   return (
     <Box>
@@ -17,7 +14,7 @@ function BoxTable() {
         <Stack isInline spacing={8} >
           <Box w={"10%"}><Image
                 className={styles.image}
-                style={{ position: "absolute" }}
+                  
                 src="/Star.png"
                 alt="Picture of the author"
                 width={"27px"}
@@ -31,7 +28,7 @@ function BoxTable() {
         <Stack isInline spacing={8} >
           <Box w={"10%"}><Image
                 className={styles.image}
-                style={{ position: "absolute" }}
+                  
                 src="/Star.png"
                 alt="Picture of the author"
                 width={"27px"}
@@ -46,7 +43,7 @@ function BoxTable() {
         <Stack isInline spacing={8} >
           <Box w={"10%"}><Image
                 className={styles.image}
-                style={{ position: "absolute" }}
+                  
                 src="/Star.png"
                 alt="Picture of the author"
                 width={"27px"}
@@ -59,7 +56,7 @@ function BoxTable() {
         </Stack>
         <Stack isInline spacing={8} className={styles.rowHighlight}>
           <Box w={"10%"}><Image
-                style={{ position: "absolute" }}
+                  
                 src="/Star.png"
                 alt="Picture of the author"
                 width={"27px"}
@@ -73,7 +70,7 @@ function BoxTable() {
         <Stack isInline spacing={8} >
           <Box w={"10%"}><Image
                 className={styles.image}
-                style={{ position: "absolute" }}
+                  
                 src="/Star.png"
                 alt="Picture of the author"
                 width={"27px"}
@@ -87,7 +84,7 @@ function BoxTable() {
         <hr/><Stack isInline spacing={8} >
           <Box w={"10%"}><Image
                 className={styles.image}
-                style={{ position: "absolute" }}
+                  
                 src="/Star.png"
                 alt="Picture of the author"
                 width={"27px"}
@@ -101,7 +98,7 @@ function BoxTable() {
         <hr/><Stack isInline spacing={8} >
           <Box w={"10%"}><Image
                 className={styles.image}
-                style={{ position: "absolute" }}
+                  
                 src="/Star.png"
                 alt="Picture of the author"
                 width={"27px"}
@@ -114,7 +111,7 @@ function BoxTable() {
         </Stack><hr/><Stack isInline spacing={8} >
           <Box w={"10%"}><Image
                 className={styles.image}
-                style={{ position: "absolute" }}
+                  
                 src="/Star.png"
                 alt="Picture of the author"
                 width={"27px"}

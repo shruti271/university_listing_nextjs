@@ -1,20 +1,20 @@
-import React from "react";
+
 import styles from "./About.module.css";
 import Image from "next/image";
 import { Heading } from "@chakra-ui/react";
-import { Box, Text, Button, ButtonGroup, Stack } from "@chakra-ui/react";
-import { Carousel } from "antd";
+import { Box, Text, Stack } from "@chakra-ui/react";
+import AboutPlaceholder from "../../public/About_placeholder.png";
+
 function About() {
   return (
-    <Stack isInline spacing={8} align="center">
+    <Stack isInline spacing={8} align="center" pr={"10%"}>
       <Box w="50%" className={styles.leftContainer}>
         <Box className={styles.placeholder}>
           
         </Box>
         <Box className={styles.aboutImage}>
         <Image
-          style={{ position: "absolute" }}
-          src="/About_placeholder.png"
+           src={AboutPlaceholder}
           alt="Picture of the author"
           width={"1000px"}
           height={"813px"}

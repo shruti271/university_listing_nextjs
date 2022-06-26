@@ -1,9 +1,7 @@
-import React from "react";
-import Image from "next/image";
+   
 import { Heading } from "@chakra-ui/react";
 import { Box, Text, Stack } from "@chakra-ui/react";
-import { Button } from "@chakra-ui/button";
-import { ArrowForwardIcon } from "@chakra-ui/icons";
+
 
 import styles from "./Degree.module.css";
 function Degree() {

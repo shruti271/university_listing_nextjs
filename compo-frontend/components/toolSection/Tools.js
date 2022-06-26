@@ -1,12 +1,12 @@
-import React from "react";
+   
 import Image from "next/image";
 import styles from "./Tools.module.css";
 import { Heading } from "@chakra-ui/react";
-import { Box, Text, Button, ButtonGroup, Stack } from "@chakra-ui/react";
-import { Carousel } from "antd";
+import { Box, Text, Stack } from "@chakra-ui/react";
 import { StarIcon, TriangleUpIcon } from "@chakra-ui/icons";
-
-import Card from "../Card/Card";
+import cardImage from "../../public/cardImage.png";
+import profiles from "../../public/profiles.png";
+import rise from "../../public/rise.png"
 function Tools() {
   return (
     <Box>
@@ -38,11 +38,11 @@ function Tools() {
             </Box>
             <Box w={"60%"} className={styles.card}>
               <Image
-                style={{ position: "absolute" }}
-                src="/cardImage.png"
+                src={cardImage}
                 alt="Picture of the author"
                 width={"330px"}
                 height={"189px"}
+                priority
               />
               <Box p={"5%"}>
                 <Text fontSize={"lg"} fontWeight={"bold"}>
@@ -74,11 +74,11 @@ function Tools() {
                 </Box>
                 <Box>
                   <Image
-                    style={{ position: "absolute" }}
-                    src="/profiles.png"
+                    src={profiles}
                     alt="Picture of the author"
                     width={"163px"}
                     height={"48px"}
+                    priority
                   />
                 </Box>
               </Stack>
@@ -86,8 +86,7 @@ function Tools() {
             <Box w={"25%"}>
               <Image
                 className={styles.riseImage}
-                style={{ position: "absolute" }}
-                src="/rise.png"
+                src={rise}
                 alt="Picture of the author"
                 width={"121px"}
                 height={"95.64px"}

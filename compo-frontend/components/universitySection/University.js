@@ -1,8 +1,5 @@
-import React from "react";
 import styles from "./University.module.css";
-import Image from "next/image";
 import { Heading } from "@chakra-ui/react";
-import DataTable from "./dataTable";
 import BoxTable from "./boxTable";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 
@@ -14,11 +11,11 @@ import {
   AccordionIcon,
 } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/button";
-import { Box, Text, ButtonGroup, Stack } from "@chakra-ui/react";
+import { Box, Text, Stack } from "@chakra-ui/react";
 function University() {
   return (
     <Box>
-      <Stack isInline spacing={8} align="center" ml={"10%"} mt={10}>
+      <Stack isInline spacing={8} align="center" ml={"10%"} mr={"10%"} mt={10}>
         <Box w={"55%"}>
           <Box
             className={styles.background}
