@@ -12,22 +12,19 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 
 
-class UniversitiesList(APIView):
+from rest_framework.pagination import PageNumberPagination
+from rest_framework.generics import ListAPIView
+
+class UniversitiesList(ListAPIView):
     """
-    View returns the list of Universities
+    View returns the list of Universities(20 universities)
     """
 
     permission_classes = [permissions.AllowAny]
+    queryset = University.objects.all()
     serializer_class = UniversityPublicSerializer
+    pagination_class = PageNumberPagination
 
-    def get(self, request, format=None):
-        """
-        Return a list of all Universities.
-        """
-        context = {'request': request}
-        universities = University.objects.all()
-        serializer = self.serializer_class(universities, many=True, context=context).data
-        return Response(serializer)
 
 class UniversityDetail(APIView):
     """
