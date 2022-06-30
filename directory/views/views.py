@@ -146,23 +146,33 @@ from django_filters.rest_framework import DjangoFilterBackend
 
 class SearchUniversity(generics.ListAPIView):
 
+    '''
+    This should filter and search through all the Universities.
+    '''
+
     permission_classes = [permissions.AllowAny]
     serializer_class = UniversityPublicSerializer
     queryset = University.objects.all()
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     filterset_fields = {
-            'UAE_Ranking':  ['gte', 'lte', 'exact', 'gt', 'lt'],
+            'rank_order':  ['gte', 'lte', 'exact', 'gt', 'lt'],
+            'institute_type': ['exact'],
+            'student_body_size':  ['gte', 'lte', 'exact', 'gt', 'lt'],
+            'location': ['exact'],
         }
     search_fields = ['name', 'city']
 
-    # gte is for greater than equal to
-    # gt is for greater than
-    # lte is for less than equal to
-    # lt is for less than
-
+    # gte: greater than or equal to
+    # gt: greater than
+    # lte: less than or equal to
+    # lt: less than
 
 
 class SearchProgram(generics.ListAPIView):
+
+    '''
+    This should filter and search through all the Programs.
+    '''
 
     permission_classes = [permissions.AllowAny]
     serializer_class = ProgramPublicSerializer
@@ -173,13 +183,17 @@ class SearchProgram(generics.ListAPIView):
         }
     search_fields = ['name', 'description',]
 
-    # gte is for greater than equal to
-    # gt is for greater than
-    # lte is for less than equal to
-    # lt is for less than
+    # gte: greater than or equal to
+    # gt: greater than
+    # lte: less than or equal to
+    # lt: less than
 
 
 class SearchScholarship(generics.ListAPIView):
+
+    '''
+    This should filter and search through all the Scholarships.
+    '''
 
     permission_classes = [permissions.AllowAny]
     serializer_class = ScholarshipPublicSerializer
@@ -191,10 +205,10 @@ class SearchScholarship(generics.ListAPIView):
         }
     search_fields = ['name', 'description']
 
-    # gte is for greater than equal to
-    # gt is for greater than
-    # lte is for less than equal to
-    # lt is for less than
+    # gte: greater than or equal to
+    # gt: greater than
+    # lte: less than or equal to
+    # lt: less than
 
 
     
