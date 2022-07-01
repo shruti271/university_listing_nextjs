@@ -20,3 +20,6 @@ __pycache__/
 package-lock.json
 compo-frontend/components
 compo-frontend/pages
+compo-frontend/public
+compo-frontend/assets
+

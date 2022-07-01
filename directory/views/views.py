@@ -17,7 +17,7 @@ from rest_framework.generics import ListAPIView
 
 class UniversitiesList(ListAPIView):
     """
-    View returns the list of Universities(20 universities)
+    View returns the list of Universities
     """
 
     permission_classes = [permissions.AllowAny]
@@ -25,6 +25,7 @@ class UniversitiesList(ListAPIView):
     serializer_class = UniversityPublicSerializer
     pagination_class = PageNumberPagination
 
+    
 
 class UniversityDetail(APIView):
     """
@@ -210,8 +211,6 @@ class SearchScholarship(generics.ListAPIView):
     # lte: less than or equal to
     # lt: less than
 
-
-    
 from django.shortcuts import render
 from bs4 import BeautifulSoup
 from django.http import HttpResponse
@@ -235,7 +234,7 @@ def collectData(request):
 
     data = response.json()
     #print(data['data'][0]['rank'])
-    for u in data['data'][1450:]:
+    for u in data['data'][:20]:
         desc = ''
         url = "https://www.timeshighereducation.com" + u['url']
         
