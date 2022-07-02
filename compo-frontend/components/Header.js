@@ -62,32 +62,32 @@ const Header = () => {
           <nav className="hidden lg:block">
             <div className="flex items-center gap-5 xl:gap-12">
               <ul className="flex items-center gap-5 xl:gap-8">
-                <li className={`${setActiveLink('/')} text-sm lg:text-base`}>
+                <li className={`${setActiveLink('/')} text-sm xl:text-base`}>
                   <Link href="/">Home</Link>
                 </li>
                 <li
                   className={`${setActiveLink(
                     '/universities'
-                  )} text-sm lg:text-base`}
+                  )} text-sm xl:text-base`}
                 >
                   <Link href="/universities">Universities</Link>
                 </li>
                 <li
                   className={`${setActiveLink(
                     '/scholarships'
-                  )} text-sm lg:text-base`}
+                  )} text-sm xl:text-base`}
                 >
                   <Link href="/scholarships">Scholarships</Link>
                 </li>
                 <li
-                  className={`${setActiveLink('/majors')} text-sm lg:text-base`}
+                  className={`${setActiveLink('/majors')} text-sm xl:text-base`}
                 >
                   <Link href="/majors">Majors</Link>
                 </li>
                 <li
                   className={`${setActiveLink(
                     '/articles'
-                  )} text-sm lg:text-base`}
+                  )} text-sm xl:text-base`}
                 >
                   <Link href="/articles">Articles</Link>
                 </li>
