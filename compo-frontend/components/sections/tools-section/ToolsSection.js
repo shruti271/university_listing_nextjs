@@ -1,13 +1,13 @@
-import Image from 'next/image';
-import StarRating from '../../svg/Star';
-import universityImage from '../../../assets/tools-section/university.png';
-import PersonImage from '../../../assets/tools-section/person.png';
-import Exponent from '../../svg/Exponent';
-import Parallax from '../../Parallax';
+import Image from "next/image";
+import StarRating from "../../svg/Star";
+import universityImage from "../../../assets/tools-section/university.png";
+import PersonImage from "../../../assets/tools-section/person.png";
+import Exponent from "../../svg/Exponent";
+import Parallax from "../../Parallax";
 
-const boxShadow = { boxShadow: '0px 8px 40px -2px rgba(6, 12, 59, 0.08)' };
+const boxShadow = { boxShadow: "0px 8px 40px -2px rgba(6, 12, 59, 0.08)" };
 
-const Rating = ({ className = '' }) => (
+const Rating = ({ className = "" }) => (
   <div
     className={`flex items-center gap-1 p-3 rounded-md ${className}`}
     style={boxShadow}
@@ -19,7 +19,7 @@ const Rating = ({ className = '' }) => (
   </div>
 );
 
-const Chances = ({ className = '' }) => (
+const Chances = ({ className = "" }) => (
   <div
     className={`p-6 flex flex-col items-center gap-2 rounded-md ${className}`}
     style={boxShadow}
@@ -32,10 +32,10 @@ const Chances = ({ className = '' }) => (
   </div>
 );
 
-const Scholarship = ({ className = '' }) => (
+const Scholarship = ({ className = "" }) => (
   <div
     className={`${className}`}
-    style={{ boxShadow: '0px 0px 10px 2px rgba(0, 0, 0, 0.13)' }}
+    style={{ boxShadow: "0px 0px 10px 2px rgba(0, 0, 0, 0.13)" }}
   >
     <div className="relative w-full h-[60%]">
       <Image
@@ -54,7 +54,7 @@ const Scholarship = ({ className = '' }) => (
   </div>
 );
 
-const Applications = ({ className = '' }) => {
+const Applications = ({ className = "" }) => {
   const people = [];
   for (let i = 0; i < 5; i++) {
     people.push(
@@ -82,7 +82,7 @@ const Applications = ({ className = '' }) => {
   );
 };
 
-const Stat = ({ className = '' }) => (
+const Stat = ({ className = "" }) => (
   <div className={`rounded-md p-7 relative ${className}`} style={boxShadow}>
     <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[100px] h-[72px] ">
       <Exponent />
