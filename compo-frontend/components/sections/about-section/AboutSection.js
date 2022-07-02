@@ -5,8 +5,8 @@ import AboutImage from '../../../assets/about-section/about-image.png';
 const AboutSection = () => {
   return (
     <section className="py-10 md:py-28">
-      <div className="container flex flex-col md:flex-row-reverse md:items-start gap-10 md:gap-20">
-        <div className="md:basis-1/2">
+      <div className="container flex flex-col lg:flex-row-reverse md:items-start gap-10 md:gap-20">
+        <div className="lg:basis-1/2">
           <h3 className="section-subtitle mb-2">What we do</h3>
           <h2 className="section-title mb-7">
             About <span className="text-colorPrimary">Composite</span>
@@ -32,7 +32,7 @@ const AboutSection = () => {
             recommendations.
           </p>
         </div>
-        <div className="relative w-[95%] h-[300px] md:h-[498px] mx-auto about-image md:basis-1/2">
+        <div className="relative w-[95%] h-[300px] md:h-[498px] mx-auto about-image lg:basis-1/2">
           <Image
             src={AboutImage}
             alt="Girl Looking up"
