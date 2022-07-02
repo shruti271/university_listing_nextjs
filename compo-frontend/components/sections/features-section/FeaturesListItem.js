@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 
 import SmallArrow from '../../svg/SmallArrow';
 
@@ -21,11 +22,23 @@ const FeaturesListItem = ({ title, description }) => {
         <h4 className={`font-semibold text-xl md:text-2xl mb-4 ${titleColor}`}>
           {title}
         </h4>
-        {isItemOpen && <p className="text-sm md:text-base">{description}</p>}
+        <AnimatePresence>
+          {isItemOpen && (
+            <motion.p
+              initial={{ scaleY: 0, opacity: 0 }}
+              animate={{ opacity: 1, scaleY: 1 }}
+              exit={{ scaleY: 0, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="text-sm md:text-base origin-top"
+            >
+              {description}
+            </motion.p>
+          )}
+        </AnimatePresence>
       </div>
       <button
         type="button"
-        className={`w-10 h-[10px] transition-transform ${arrowRotation}`}
+        className={`w-10 h-[10px] transition-transform duration-300 ${arrowRotation}`}
       >
         <SmallArrow fill={arrowFillColor} />
       </button>
