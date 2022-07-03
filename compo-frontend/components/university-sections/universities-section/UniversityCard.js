@@ -2,9 +2,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import dubaiUniLogo from '../../../assets/universities-page/universities-section/uni-dubai.jpg';
-import heartIcon from '../../../assets/universities-page/universities-section/heart.svg';
 import compassIcon from '../../../assets/universities-page/universities-section/Combined Shape.svg';
 import PrimaryButton from '../../PrimaryButton';
+import FavoriteButton from '../../FavoriteButton';
 
 const UniversityCard = ({ university }) => {
   const {
@@ -27,9 +27,7 @@ const UniversityCard = ({ university }) => {
         <div className="relative w-20 h-20">
           <Image src={logo} alt={`${name} logo`} layout="fill" />
         </div>
-        <button className="w-7 h-7 bg-colorPrimary rounded-md">
-          <Image src={heartIcon} alt="heart" width="12" height="12" />
-        </button>
+        <FavoriteButton />
       </div>
       <h3 className="text-colorSecondary mb-2">{location}</h3>
       <div className="text-[0.75rem] mb-4 flex items-center gap-2">
@@ -54,7 +52,7 @@ const UniversityCard = ({ university }) => {
         </li>
         <li className="bg-[#F1F1F5] p-2 rounded-md text-[0.625rem]">
           Number of students:{' '}
-          <span className="font-bold">{stats.numberOfStudents}</span>
+          <span className="font-bold">{stats.numberOfStudents}+</span>
         </li>
         <li className="bg-[#F1F1F5] p-2 rounded-md text-[0.625rem]">
           Average cost: <span className="font-bold">${stats.avgCost}</span>
