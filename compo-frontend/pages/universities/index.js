@@ -3,10 +3,10 @@ import UniversitiesSection from '../../components/university-sections/universiti
 
 const Universities = () => {
   return (
-    <>
+    <div className="bg-colorPale">
       <HeroSection />
       <UniversitiesSection />
-    </>
+    </div>
   );
 };
 

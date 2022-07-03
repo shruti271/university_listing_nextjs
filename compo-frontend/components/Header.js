@@ -28,7 +28,7 @@ const Header = () => {
         className={`${mobileMenuStyle}`}
         handleMobileMenuClick={handleMobileMenuClick}
       />
-      <header className="header py-7 absolute w-full left-0 top-0 z-20">
+      <header className="header py-7 absolute w-full left-0 top-0 z-20 bg-colorWhite">
         <div className="container flex items-center justify-between">
           <Link href="/">
             <div className="logo-container relative h-10 w-36 cursor-pointer">
