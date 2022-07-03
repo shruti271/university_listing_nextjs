@@ -5,7 +5,12 @@ const Universities = () => {
   return (
     <div className="bg-colorPale">
       <HeroSection />
-      <UniversitiesSection />
+      <div className="lg:flex">
+        <section className="lg:basis-1/5 hidden lg:block">
+          <h2>Filter option</h2>
+        </section>
+        <UniversitiesSection />
+      </div>
     </div>
   );
 };

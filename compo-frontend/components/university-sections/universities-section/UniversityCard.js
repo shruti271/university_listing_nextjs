@@ -63,7 +63,10 @@ const UniversityCard = ({ university }) => {
       </ul>
       <div className="flex gap-2">
         <Link href={linkApply} passHref>
-          <PrimaryButton type="button" className="basis-1/2 rounded-md">
+          <PrimaryButton
+            type="button"
+            className="basis-1/2 !rounded-md text-[0.75rem] md:text-[0.75rem]"
+          >
             Apply Now
           </PrimaryButton>
         </Link>
@@ -71,7 +74,7 @@ const UniversityCard = ({ university }) => {
           <PrimaryButton
             isPrimary={false}
             type="button"
-            className="basis-1/2 rounded-md"
+            className="basis-1/2 !rounded-md text-[0.75rem] md:text-[0.75rem]"
           >
             View
           </PrimaryButton>
