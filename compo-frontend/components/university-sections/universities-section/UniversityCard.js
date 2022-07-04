@@ -65,7 +65,7 @@ const UniversityCard = ({ university }) => {
         <Link href={linkApply} passHref>
           <PrimaryButton
             type="button"
-            className="basis-1/2 !rounded-md text-[0.75rem] md:text-[0.75rem]"
+            className="basis-1/2 !rounded-md text-[0.75rem] md:text-[0.75rem] !p-2"
           >
             Apply Now
           </PrimaryButton>
@@ -74,7 +74,7 @@ const UniversityCard = ({ university }) => {
           <PrimaryButton
             isPrimary={false}
             type="button"
-            className="basis-1/2 !rounded-md text-[0.75rem] md:text-[0.75rem]"
+            className="basis-1/2 !rounded-md text-[0.75rem] md:text-[0.75rem] !p-2"
           >
             View
           </PrimaryButton>
