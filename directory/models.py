@@ -82,12 +82,24 @@ class Scholarship(models.Model):
     description = models.TextField(blank=True, null=True)
     location = models.CharField(max_length=200, blank=True, null=True)
     field = models.CharField(max_length=200, blank=True, null=True)
-    #gender = models.CharField
+    #applicable_majors
     #ethnicity = 
     #enrollment_level = 
     #other = 
+    
+    #in addition?
+
+    # ---
+    #gender = models.CharField()
+    #elegibility_critetial = list of strings
+    #recommendations = list of strings
+    #app pricess and req = list of strings
     #award_ammount = 
-    #slug
+    # nationality requireements
+    #host institution
+    #INCLUDES   
+    # all contact info
+
     application_deadline = models.DateField(blank=True, null=True)
     renewable = models.BooleanField(default=False, blank=True, null=True)
     competition_level = models.CharField(max_length=200, blank=True, null=True)

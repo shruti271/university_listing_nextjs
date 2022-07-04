@@ -290,6 +290,9 @@ def collectScholarships(request):
     for i in list_extra:
         print(i.find('p').text)
 
+    # contact = detail_soup.find('table', {'id': 'w4'})
+    # print(contact)
+
 
     # for item in tds:
     #     print(item)
