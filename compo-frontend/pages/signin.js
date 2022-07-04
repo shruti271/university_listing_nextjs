@@ -66,12 +66,11 @@ export default function SignIn() {
                               font-normal
                               text-gray-700
                               bg-white bg-clip-padding
-                              border border-solid border-gray-300
-                              rounded
+                              border-b border-solid border-gray-300                       
                               transition
                               ease-in-out
                               m-0
-                              focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                              focus:text-gray-700 focus:bg-white focus:border-transparent focus:border-b-gray-300 focus:outline-none focus:ring-0"
                     id="floatingInput"
                     placeholder="Email"
                   />
@@ -91,12 +90,11 @@ export default function SignIn() {
                               font-normal
                               text-gray-700
                               bg-white bg-clip-padding
-                              border border-solid border-gray-300
-                              rounded
+                              border-b border-solid border-gray-300
                               transition
                               ease-in-out
                               m-0
-                              focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                              focus:text-gray-700 focus:bg-white focus:border-transparent focus:border-b-gray-300 focus:outline-none focus:ring-0"
                     id="floatingInput"
                     placeholder="password"
                   />
