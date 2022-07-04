@@ -1,59 +1,124 @@
 import Image from "next/image";
-import LoginImage from "../assets/login.svg";
+import CoverImage from "../assets/login.png";
+import emailIcon from "../assets/dashicons_email.svg";
+import passwordIcon from "../assets/dashicons_password.svg";
 
 export default function SignUp() {
   return (
     <>
-      {/* <div className="grid grid-cols-2 gap-4">
-        <div className="p-4">
-          <Image src={LoginImage} alt="LoginImage" />
+      <div
+        className="grid grid-cols-1 sm:grid-cols-2 gap-4"
+        style={{ height: "100vh" }}
+      >
+        <div
+          className="p-4 cover-image hidden sm:block"
+          style={{ height: "calc(100vh - 30px)" }}
+        >
+          <Image src={CoverImage} alt="CoverImage" />
         </div>
         <div className="p-4 ml-12">
-          <h3 className="font-medium leading-tight text-3xl mt-32">
+          <h3 className="text-2xl font-bold mb-6 pb-2 mt-32">
             Sing up to composite
           </h3>
           <div className="mt-12">
             <form>
-              <div>
-                <div className="text-sm text-gray-400 tracking-wide">
-                  Email Address
+              {/* <div className="mt-8 border-b border-gray-300 flex w-3/4">
+                <div className="px-3 py-2 flex items-center">
+                  <Image src={emailIcon} alt="emailIcon" />
                 </div>
-                <input
-                  className="w-3/4 text-lg text-gray-700 py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
-                  type=""
-                  placeholder="mike@gmail.com"
-                />
+                <div class="flex-col flex w-full ml-4">
+                  <div className="text-sm text-gray-400 tracking-wide text-start">
+                    Email Address
+                  </div>
+                  <input
+                    className="text-lg text-gray-700 py-2 focus:outline-none focus:border-indigo-500"
+                    type=""
+                    placeholder="youraddress@gmail.com"
+                  />
+                </div>
               </div>
-              <div className="mt-8">
-                <div>
-                  <div className="text-sm text-gray-400 tracking-wide">
+              <div className="mt-12 border-b border-gray-300 flex w-3/4">
+                <div className="px-3 py-2 flex items-center">
+                  <Image src={passwordIcon} alt="passwordIcon" />
+                </div>
+                <div class="flex-col flex w-full ml-4">
+                  <div className="text-sm text-gray-400 tracking-wide text-start">
                     Password
                   </div>
+                  <input
+                    className="text-lg text-gray-700 py-2 focus:outline-none focus:border-indigo-500"
+                    type=""
+                    placeholder="Enter your password"
+                  />
                 </div>
-                <input
-                  className="w-3/4 text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
-                  type=""
-                  placeholder="Enter your password"
-                />
-              </div>
-              <div className="mt-8">
-                <button
-                  className="bg-blue-500 text-gray-100 p-4 w-3/4 rounded-xl tracking-wide
+              </div> */}
+              <div className="flex flex-col">
+                <div className="form-floating mb-8">
+                  <input
+                    type="email"
+                    className="form-control
+                              block
+                              w-3/4
+                              px-3
+                              py-1.5
+                              text-base
+                              font-normal
+                              text-gray-700
+                              bg-white bg-clip-padding
+                              border border-solid border-gray-300
+                              rounded
+                              transition
+                              ease-in-out
+                              m-0
+                              focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                    id="floatingInput"
+                    placeholder="Email"
+                  />
+                  <label htmlFor="floatingInput" className="text-gray-700">
+                    Email address
+                  </label>
+                </div>
+                <div className="form-floating mb-4">
+                  <input
+                    type="password"
+                    className="form-control
+                              block
+                              w-3/4
+                              px-3
+                              py-1.5
+                              text-base
+                              font-normal
+                              text-gray-700
+                              bg-white bg-clip-padding
+                              border border-solid border-gray-300
+                              rounded
+                              transition
+                              ease-in-out
+                              m-0
+                              focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                    id="floatingInput"
+                    placeholder="password"
+                  />
+                  <label htmlFor="floatingInput" className="text-gray-700">
+                    Password
+                  </label>
+                </div>
+                <div className="mt-8">
+                  <button
+                    className="bg-blue-500 text-gray-100 p-4 w-3/4 rounded-xl tracking-wide
                   font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-blue-600
                   shadow-lg"
-                >
-                  Sign up
-                </button>
+                  >
+                    Sign up
+                  </button>
+                </div>
               </div>
             </form>
-            <div className="flex justify-between items-center flex-row mt-8 w-3/4">
+            <div className="mt-8 justify-between items-center flex-row  sm:w-3/4 w-full block lg:flex gap-12">
               <div>
-                <button
-                  type="button"
-                  className="text-white bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 mr-2 mb-2"
-                >
+                <button className="text-white bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center justify-center dark:focus:ring-[#4285F4]/55 mr-2 sm:mb-2 mb-4 sm:w-full w-3/4">
                   <svg
-                    className="w-4 h-4 mr-2 -ml-1"
+                    className="w-4 h-4 mr-2 ml-1"
                     aria-hidden="true"
                     focusable="false"
                     data-prefix="fab"
@@ -73,7 +138,7 @@ export default function SignUp() {
               <div>
                 <button
                   type="button"
-                  className="text-white bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#3b5998]/55 mr-2 mb-2"
+                  className="text-white bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center justify-center dark:focus:ring-[#3b5998]/55 mr-2 mb-2 sm:w-full w-3/4"
                 >
                   <svg
                     className="w-4 h-4 mr-2 -ml-1"
@@ -107,8 +172,8 @@ export default function SignUp() {
             </div>
           </div>
         </div>
-      </div> */}
-      <div>
+      </div>
+      {/* <div>
         <section class="text-gray-800 text-center md:text-left">
           <div class="block rounded-lg shadow-lg bg-white">
             <div class="flex flex-wrap items-center">
@@ -220,7 +285,7 @@ export default function SignUp() {
             </div>
           </div>
         </section>
-      </div>
+      </div> */}
     </>
   );
 }

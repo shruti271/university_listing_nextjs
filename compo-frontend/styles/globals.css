@@ -111,3 +111,6 @@ h6 {
   width: 10px;
   height: 5px;
 }
+.cover-image > span {
+  height: inherit !important;
+}

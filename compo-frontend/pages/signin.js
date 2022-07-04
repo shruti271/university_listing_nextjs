@@ -2,6 +2,7 @@ import Image from "next/image";
 import CoverImage from "../assets/login.png";
 import emailIcon from "../assets/dashicons_email.svg";
 import passwordIcon from "../assets/dashicons_password.svg";
+import Link from "next/link";
 
 export default function SignIn() {
   return (
@@ -22,7 +23,7 @@ export default function SignIn() {
           </h3>
           <div className="mt-12">
             <form>
-              <div className="mt-8 border-b border-gray-300 flex w-3/4">
+              {/* <div className="mt-8 border-b border-gray-300 flex w-3/4">
                 <div className="px-3 py-2 flex items-center">
                   <Image src={emailIcon} alt="emailIcon" />
                 </div>
@@ -51,8 +52,59 @@ export default function SignIn() {
                     Email address
                   </label>
                 </div>
-              </div>
-              <div className="mt-12 border-b border-gray-300 flex w-3/4">
+              </div> */}
+              <div className="flex flex-col">
+                <div className="form-floating mb-8">
+                  <input
+                    type="email"
+                    className="form-control
+                              block
+                              w-3/4
+                              px-3
+                              py-1.5
+                              text-base
+                              font-normal
+                              text-gray-700
+                              bg-white bg-clip-padding
+                              border border-solid border-gray-300
+                              rounded
+                              transition
+                              ease-in-out
+                              m-0
+                              focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                    id="floatingInput"
+                    placeholder="Email"
+                  />
+                  <label htmlFor="floatingInput" className="text-gray-700">
+                    Email address
+                  </label>
+                </div>
+                <div className="form-floating mb-4">
+                  <input
+                    type="password"
+                    className="form-control
+                              block
+                              w-3/4
+                              px-3
+                              py-1.5
+                              text-base
+                              font-normal
+                              text-gray-700
+                              bg-white bg-clip-padding
+                              border border-solid border-gray-300
+                              rounded
+                              transition
+                              ease-in-out
+                              m-0
+                              focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                    id="floatingInput"
+                    placeholder="password"
+                  />
+                  <label htmlFor="floatingInput" className="text-gray-700">
+                    Password
+                  </label>
+                </div>
+                {/* <div className="mt-12 border-b border-gray-300 flex w-3/4">
                 <div className="px-3 py-2 flex items-center">
                   <Image src={passwordIcon} alt="passwordIcon" />
                 </div>
@@ -81,24 +133,25 @@ export default function SignIn() {
                     Password
                   </label>
                 </div>
-              </div>
+              </div> */}
 
-              <div className="mb-6 w-3/4 mt-8 flex">
-                <a
-                  href="/forgotPassword"
-                  className="text-gray-400 hover:text-gray-700 focus:text-gray-700 transition duration-200 ease-in-out ml-auto"
-                >
-                  Forgot password?
-                </a>
-              </div>
-              <div className="mt-8">
-                <button
-                  className="bg-blue-500 text-gray-100 p-4 w-3/4 rounded-xl tracking-wide
+                <div className="flex justify-end mb-11 w-3/4">
+                  <Link
+                    href="/signin"
+                    className="text-gray-400 hover:text-gray-700 focus:text-gray-700 transition duration-200 ease-in-out ml-auto"
+                  >
+                    Forgot password?
+                  </Link>
+                </div>
+                <div className="">
+                  <button
+                    className="bg-blue-500 text-gray-100 p-4 w-3/4 rounded-xl tracking-wide
                   font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-blue-600
                   shadow-lg"
-                >
-                  Login to continue
-                </button>
+                  >
+                    Login to continue
+                  </button>
+                </div>
               </div>
             </form>
             <div className="mt-8 justify-between items-center flex-row  sm:w-3/4 w-full block lg:flex gap-12">
