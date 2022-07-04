@@ -1,16 +1,14 @@
 import { useState } from 'react';
+import CardWrapper from '../shared/card-wrapper/CardWrapper';
+import FilterTitle from '../shared/filter-title/FilterTitle';
 import { useSearch } from './hooks';
 
 const SearchLocation = ({ className = '' }) => {
   const [searchValue, handleSearchChange] = useSearch('');
 
   return (
-    <div
-      className={`bg-colorWhite border border-[#F0F0F0] rounded-md ${className}`}
-    >
-      <div className="p-8 pb-10 border-b border-[#F0F0F0]">
-        <h4 className="font-semibold text-2xl">Location</h4>
-      </div>
+    <CardWrapper>
+      <FilterTitle>Location</FilterTitle>
       <div className="px-8 pt-5 pb-8">
         <form>
           <input
@@ -23,7 +21,7 @@ const SearchLocation = ({ className = '' }) => {
           />
         </form>
       </div>
-    </div>
+    </CardWrapper>
   );
 };
 
