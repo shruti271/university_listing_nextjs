@@ -114,3 +114,6 @@ h6 {
 .cover-image > span {
   height: inherit !important;
 }
+.social-icon > span {
+  margin: 10px !important;
+}
