@@ -1,8 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
-import Logo from "../assets/logo.svg";
-import emailIcon from "../assets/dashicons_email.svg";
-import backIcon from "../assets/backIcon.svg";
+import Logo from "../../assets/logo.svg";
+import emailIcon from "../../assets/dashicons_email.svg";
+import backIcon from "../../assets/backIcon.svg";
 
 export default function ForgotPassword() {
   return (
@@ -15,7 +15,7 @@ export default function ForgotPassword() {
       <div className="block p-4 rounded-lg shadow-lg bg-white text-center col-span-10 sm:col-span-8 md:col-span-8 lg:col-span-6 xl:col-span-4">
         <div className="grid grid-cols-3">
           <div className="text-start">
-            <Link href="/signin">
+            <Link href="/auth/signin">
               <button className="text-white  focus:ring-0 focus:outline-none font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center border">
                 <Image src={backIcon} alt="back" />
               </button>

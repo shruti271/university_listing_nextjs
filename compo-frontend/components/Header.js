@@ -1,24 +1,24 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import { useState } from 'react';
-import { useRouter } from 'next/router';
+import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
+import { useRouter } from "next/router";
 
-import HamburgerIcon from '../assets/hamburger-icon.svg';
-import CompositeLogo from '../assets/composite-logo.svg';
-import SearchIcon from '../assets/search-icon.svg';
-import MobileMenu from './MobileMenu';
-import PrimaryButton from './PrimaryButton';
+import HamburgerIcon from "../assets/hamburger-icon.svg";
+import CompositeLogo from "../assets/composite-logo.svg";
+import SearchIcon from "../assets/search-icon.svg";
+import MobileMenu from "./MobileMenu";
+import PrimaryButton from "./PrimaryButton";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState();
-  const mobileMenuStyle = isMenuOpen ? 'translate-x-0' : 'translate-x-full';
+  const mobileMenuStyle = isMenuOpen ? "translate-x-0" : "translate-x-full";
   const handleMobileMenuClick = () => setIsMenuOpen(!isMenuOpen);
 
   const router = useRouter();
   const setActiveLink = (path) => {
     return router.pathname === path
-      ? 'text-[#06040A] hover:text-[#06040A]'
-      : 'text-[#544E5D] hover:opacity-50';
+      ? "text-[#06040A] hover:text-[#06040A]"
+      : "text-[#544E5D] hover:opacity-50";
   };
 
   return (
@@ -37,14 +37,14 @@ const Header = () => {
           </Link>
           <div className="flex items-center gap-8 lg:hidden">
             <div className="hidden md:block">
-              <Link href="/signin">
+              <Link href="/auth/signin">
                 <PrimaryButton type="button" isPrimary={false}>
                   Sign In
                 </PrimaryButton>
               </Link>
             </div>
             <div className="hidden md:block">
-              <Link href="/signup">
+              <Link href="/auth/signup">
                 <PrimaryButton type="button">Join Now</PrimaryButton>
               </Link>
             </div>
@@ -62,31 +62,31 @@ const Header = () => {
           <nav className="hidden lg:block">
             <div className="flex items-center gap-5 xl:gap-12">
               <ul className="flex items-center gap-5 xl:gap-8">
-                <li className={`${setActiveLink('/')} text-sm lg:text-base`}>
+                <li className={`${setActiveLink("/")} text-sm lg:text-base`}>
                   <Link href="/">Home</Link>
                 </li>
                 <li
                   className={`${setActiveLink(
-                    '/universities'
+                    "/universities"
                   )} text-sm lg:text-base`}
                 >
                   <Link href="/universities">Universities</Link>
                 </li>
                 <li
                   className={`${setActiveLink(
-                    '/scholarships'
+                    "/scholarships"
                   )} text-sm lg:text-base`}
                 >
                   <Link href="/scholarships">Scholarships</Link>
                 </li>
                 <li
-                  className={`${setActiveLink('/majors')} text-sm lg:text-base`}
+                  className={`${setActiveLink("/majors")} text-sm lg:text-base`}
                 >
                   <Link href="/majors">Majors</Link>
                 </li>
                 <li
                   className={`${setActiveLink(
-                    '/articles'
+                    "/articles"
                   )} text-sm lg:text-base`}
                 >
                   <Link href="/articles">Articles</Link>
@@ -98,12 +98,12 @@ const Header = () => {
                 </li>
               </ul>
               <ul className="flex items-center gap-3">
-                <Link href="/signin">
+                <Link href="/auth/signin">
                   <PrimaryButton type="button" isPrimary={false}>
                     Sign In
                   </PrimaryButton>
                 </Link>
-                <Link href="/signup">
+                <Link href="/auth/signup">
                   <PrimaryButton className="btn-shadow" type="button">
                     Join Now
                   </PrimaryButton>
