@@ -271,27 +271,80 @@ def collectScholarships(request):
     # for r in results:
     #     print(r.find_all('td'))
 
+    
+
+    import requests
+
+    cookies = {
+    '__gads': 'ID=a823a139bae56e82-224977dd18d40014:T=1656680701:RT=1656680701:S=ALNI_MYe9lYqo39BYO1MrIjbZ6tUgx_xzw',
+    '_gid': 'GA1.2.164466046.1656954148',
+    'cookieconsent_status': 'dismiss',
+    '__gpi': 'UID=000009875f769037:T=1656680701:RT=1657035649:S=ALNI_Mb9Fnc8sLWPDYkjZ9wA20vqwVL0dA',
+    '_gat_UA-12565915-9': '1',
+    'PHPSESSID': 'beedf2b69e5cade61a1269dc58da9930',
+    '_csrf': '165b33c11455566e26d7b1b7260a101f08859195d78dd0db3cb529b945001792a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22NZAH7vHjyN9fOzogi7Ej1Yvyce2H7_5O%22%3B%7D',
+    '_ga': 'GA1.2.2120178691.1656680701',
+    '_ga_KXQ425PMLX': 'GS1.1.1657041736.6.1.1657042183.0',
+    }
+
+    headers = {
+        'authority': 'www.internationalscholarships.com',
+        'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+        'accept-language': 'en,en-US;q=0.9,fr;q=0.8',
+        'cache-control': 'max-age=0',
+        # Requests sorts cookies= alphabetically
+        # 'cookie': '__gads=ID=a823a139bae56e82-224977dd18d40014:T=1656680701:RT=1656680701:S=ALNI_MYe9lYqo39BYO1MrIjbZ6tUgx_xzw; _gid=GA1.2.164466046.1656954148; cookieconsent_status=dismiss; __gpi=UID=000009875f769037:T=1656680701:RT=1657035649:S=ALNI_Mb9Fnc8sLWPDYkjZ9wA20vqwVL0dA; _gat_UA-12565915-9=1; PHPSESSID=beedf2b69e5cade61a1269dc58da9930; _csrf=165b33c11455566e26d7b1b7260a101f08859195d78dd0db3cb529b945001792a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22NZAH7vHjyN9fOzogi7Ej1Yvyce2H7_5O%22%3B%7D; _ga=GA1.2.2120178691.1656680701; _ga_KXQ425PMLX=GS1.1.1657041736.6.1.1657042183.0',
+        'referer': 'https://www.internationalscholarships.com/login',
+        'sec-ch-ua': '".Not/A)Brand";v="99", "Google Chrome";v="103", "Chromium";v="103"',
+        'sec-ch-ua-mobile': '?0',
+        'sec-ch-ua-platform': '"macOS"',
+        'sec-fetch-dest': 'document',
+        'sec-fetch-mode': 'navigate',
+        'sec-fetch-site': 'same-origin',
+        'sec-fetch-user': '?1',
+        'upgrade-insecure-requests': '1',
+        'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36',
+    }
+
+    
+    
     tds = results[0].find_all('td')[0]
     link0 = tds.find_all('a')[0]['href']
-    br = webdriver.Chrome(executable_path=path,
-                              chrome_options=chrome_options
-                             )
-    br.get(url + link0)
-    detail_soup = BeautifulSoup(br.page_source, "lxml")
+    # br = webdriver.Chrome(executable_path=path,
+    #                           chrome_options=chrome_options
+    #                          )
+    # br.get(url + link0)
+    response = requests.get(url + link0, cookies=cookies, headers=headers)
+    detail_soup = BeautifulSoup(response.content, "html.parser")
     results_detail0 = detail_soup.find('h1', {'class': 'title'})
-    #print(results_detail0.text.strip())
+
 
     div_desc = detail_soup.find('div', {'class': 'award-description'})
+
+    #description
     desc = div_desc.find_all('p')[0].text
+
+    #moreinfo
     more_info = div_desc.find_all('p')[1].text
+    list_of_dots_and_titles = more_info.split('•')
+    print(list_of_dots_and_titles)
+    list_of_ELIGIBILITY = []
+    list_of_ELIGIBILITY = []
+    list_of_ELIGIBILITY = []
+    for i in list_of_dots_and_titles:
+        i.replace(' ','')
+
 
     list_extra = detail_soup.find_all('div', {'class': "clear {class}"})
     #print(list_extra)
-    for i in list_extra:
-        print(i.find('p').text)
+    # for i in list_extra:
+    #     print(i.find('p').text)
 
-    # contact = detail_soup.find('table', {'id': 'w4'})
-    # print(contact)
+    #contact = detail_soup.find('table', {'id': 'w4'})
+    #print(contact.find_all('td'))
+    #contact_info = contact.find_all('td')
+    # for i in contact_info:
+    #     print(i.text)
 
 
     # for item in tds:

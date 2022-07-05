@@ -81,7 +81,7 @@ class Scholarship(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     description = models.TextField(blank=True, null=True)
     location = models.CharField(max_length=200, blank=True, null=True)
-    field = models.CharField(max_length=200, blank=True, null=True)
+    
     #applicable_majors
     #ethnicity = 
     #enrollment_level = 
@@ -90,17 +90,27 @@ class Scholarship(models.Model):
     #in addition?
 
     # ---
-    #gender = models.CharField()
-    #elegibility_critetial = list of strings
-    #recommendations = list of strings
-    #app pricess and req = list of strings
+    #gender = models.CharField(max_length=200, blank=True, null=True) ?
+    
     #award_ammount = 
-    # nationality requireements
-    #host institution
-    #INCLUDES   
-    # all contact info
-
+    
     application_deadline = models.DateField(blank=True, null=True)
+    nationality_requirements = models.CharField(max_length=200, blank=True, null=True)
+    applicable_majors = models.TextField(blank=True, null=True)
+    host_institution = models.CharField(max_length=200, blank=True, null=True)
+    includes = models.CharField(max_length=200, blank=True, null=True)
+    contact_name = models.CharField(max_length=200, blank=True, null=True)
+    address = models.TextField(blank=True, null=True)
+    phone = models.CharField(max_length=200, blank=True, null=True)
+    email = models.EmailField(max_length=200, blank=True, null=True)
+    #fax 
+    link = models.URLField(max_length = 200, blank=True, null=True)
+
+    #------- Those does not exist in every detail page.
+    # elegibility_critetial = list of strings
+    # recommendations = list of strings
+    # application procedure and requirements = list of strings
+
     renewable = models.BooleanField(default=False, blank=True, null=True)
     competition_level = models.CharField(max_length=200, blank=True, null=True)
     effort_level = models.CharField(max_length=200, blank=True, null=True)
