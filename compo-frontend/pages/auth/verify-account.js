@@ -2,6 +2,8 @@ import Link from "next/link";
 import Image from "next/image";
 import Logo from "../../assets/logo.svg";
 import backIcon from "../../assets/backIcon.svg";
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 
 export default function VerifyAccount() {
   return (
@@ -29,61 +31,37 @@ export default function VerifyAccount() {
           <h1 className="text-gray-900 text-xl font-bold mb-2">
             Verify Account
           </h1>
-          <p className="text-gray-700 text-base mb-4">
+          <p className="text-gray-700 text-base mb-8">
             Please enter the verification received on your registered email.
           </p>
 
           <div className="flex justify-between">
-            <input
-              type="tel"
-              maxLength="1"
-              className="border-b border-gray-500 w-10 h-10 text-center"
-            />
-            <input
-              type="tel"
-              maxLength="1"
-              className="border-b border-gray-500 w-10 h-10 text-center"
-            />
-            <input
-              type="tel"
-              maxLength="1"
-              className="border-b border-gray-500 w-10 h-10 text-center"
-            />
-            <input
-              type="tel"
-              maxLength="1"
-              className="border-b border-gray-500 w-10 h-10 text-center"
-            />
-            <input
-              type="tel"
-              maxLength="1"
-              className="border-b border-gray-500 w-10 h-10 text-center"
-            />
-            <input
-              type="tel"
-              maxLength="1"
-              className="border-b border-gray-500 w-10 h-10 text-center"
-            />
+           
+            <TextField variant="standard" inputProps={{ maxLength: 1 }} className="w-10 h-10 text-center" />
+            <TextField variant="standard" inputProps={{ maxLength: 1 }} className="w-10 h-10 text-center" />
+            <TextField variant="standard" inputProps={{ maxLength: 1 }} className="w-10 h-10 text-center" />
+            <TextField variant="standard" inputProps={{ maxLength: 1 }} className="w-10 h-10 text-center" />
+            <TextField variant="standard" inputProps={{ maxLength: 1 }} className="w-10 h-10 text-center" />
+            <TextField variant="standard" inputProps={{ maxLength: 1 }} className="w-10 h-10 text-center" />
+
+          
           </div>
           <div className="flex items-center mt-8">
             <div className="ml-auto">
-              didn't get the code ?
-              <a
-                // href="/signin"
-                className="cursor-pointer text-[#0364FF] ml-1"
-              >
-                Resend
-              </a>
+               <span className="text-black">didn't get the code ?</span>
+              <Link href="/auth/signup">
+             <span className="cursor-pointer text-[#0364FF] ml-1">
+                Resend </span>
+                </Link>
+                  
             </div>
           </div>
           <div className="mt-48">
-            <button
-              className="bg-[#0364FF] text-gray-100 p-3 w-full rounded-xl tracking-wide
-                  font-semibold font-display focus:outline-none focus:shadow-outline 
-                  shadow-lg"
-            >
+                <Button variant="contained" className="bg-[#0364FF] hover:bg-[#0364FF] text-gray-100 p-3 w-full rounded-xl tracking-wide
+                  font-semibold font-display focus:outline-none focus:shadow-outline
+                  shadow-lg capitalize text-lg">  
               Reset
-            </button>
+            </Button>
           </div>
         </div>
       </div>

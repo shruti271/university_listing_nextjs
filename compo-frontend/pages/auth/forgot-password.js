@@ -1,9 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
 import Logo from "../../assets/logo.svg";
-import emailIcon from "../../assets/dashicons_email.svg";
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 import backIcon from "../../assets/backIcon.svg";
-
+import Box from '@mui/material/Box';
+import EmailIcon from '@mui/icons-material/Email';
+import ArrowBackIosNewOutlinedIcon from '@mui/icons-material/ArrowBackIosNewOutlined';
 export default function ForgotPassword() {
   return (
     <div
@@ -19,6 +22,9 @@ export default function ForgotPassword() {
               <button className="text-white  focus:ring-0 focus:outline-none font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center border">
                 <Image src={backIcon} alt="back" />
               </button>
+              {/* <Button variant="outlined" sx={{color:"gray"}} className="focus:ring-0 focus:outline-none font-medium rounded-lg text-sm text-center inline-flex items-center border-gray-300 hover:border-gray-300">
+        <ArrowBackIosNewOutlinedIcon/>
+      </Button> */}
             </Link>
           </div>
           <div className="col-span-2.5 flex items-center justify-center">
@@ -38,38 +44,18 @@ export default function ForgotPassword() {
             For security reasons, we do NOT store your password. So rest assured
             that we will never send your password via email.
           </p>
-          <div className="form-floating mb-8 flex justify-start items-center border-b border-solid border-gray-300 w-full">
-            <Image src={emailIcon} alt="emailIcon" />
-            <input
-              type="email"
-              className="form-control
-                              block
-                              ml-4
-                              px-3
-                              py-1.5
-                              text-base
-                              font-normal
-                              text-gray-700
-                              bg-white bg-clip-padding w-full                                       
-                              transition
-                              ease-in-out
-                              m-0
-                              focus:text-gray-700 focus:bg-white focus:border-transparent focus:border-b-gray-300 focus:outline-none focus:ring-0"
-              id="floatingInput"
-              placeholder="Email"
-            />
-            <label htmlFor="floatingInput" className="text-gray-700 ml-8">
-              Email address
-            </label>
-          </div>
+          <Box sx={{ display: 'flex', alignItems: 'flex-end' }} className="mb-6">
+        <EmailIcon sx={{  mr: 2, my: 0.5 }} className="text-black" />
+        <TextField id="input-with-sx" label="Email Address" variant="standard" className="w-full" />
+      </Box>
           <div className="mt-8">
-            <button
-              className="bg-[#0364FF] text-gray-100 p-3 w-full rounded-xl tracking-wide
+            
+
+                         <Button variant="contained" className="bg-[#0364FF] hover:bg-[#0364FF] text-gray-100 p-3 w-full rounded-xl tracking-wide
                   font-semibold font-display focus:outline-none focus:shadow-outline
-                  shadow-lg"
-            >
+                  shadow-lg capitalize text-lg">  
               Reset
-            </button>
+            </Button>
           </div>
         </div>
       </div>
