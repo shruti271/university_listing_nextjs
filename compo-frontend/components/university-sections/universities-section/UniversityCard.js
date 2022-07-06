@@ -10,7 +10,7 @@ const UniversityCard = ({ university }) => {
   const {
     logo = dubaiUniLogo,
     location,
-    public: isPublic = true,
+    type = 'public',
     acceptanceRate,
     name,
     description,
@@ -31,8 +31,8 @@ const UniversityCard = ({ university }) => {
       </div>
       <h3 className="text-colorSecondary mb-2">{location}</h3>
       <div className="text-[0.75rem] mb-4 flex items-center gap-2">
-        <span className="text-colorBlack pr-2 border-r-2 border-colorBlack">
-          {isPublic ? 'Public' : 'Private'}
+        <span className="text-colorBlack pr-2 border-r-2 border-colorBlack capitalize">
+          {type}
         </span>
         <span className="text-[#92929D]">
           <span className="text-colorBlack">{acceptanceRate}%</span> Acceptance

@@ -4,7 +4,7 @@ import FilterTitle from '../shared/filter-title/FilterTitle';
 import InstituteOptions from './institute-options/InstiuteOptions';
 
 const InstituteType = ({ className = '' }) => {
-  const [cardOpen, setCardOpen] = useState(false);
+  const [cardOpen, setCardOpen] = useState(true);
   const handleOpenClick = () => setCardOpen(!cardOpen);
 
   return (

@@ -6,7 +6,7 @@ export const universities = [
     id: 1,
     logo: dubaiUniLogo,
     location: 'Dubai, United Arab Emirates',
-    public: true,
+    type: 'public',
     acceptanceRate: '59',
     name: 'University of Dubai',
     description:
@@ -19,7 +19,7 @@ export const universities = [
     id: 2,
     logo: floridaUniLogo,
     location: 'Florida, United States',
-    public: false,
+    type: 'private',
     acceptanceRate: '76',
     name: 'University of Central Florida',
     description:
@@ -32,7 +32,7 @@ export const universities = [
     id: 3,
     logo: floridaUniLogo,
     location: 'Florida, United States',
-    public: false,
+    type: 'private',
     acceptanceRate: '76',
     name: 'University of Central Florida',
     description:
@@ -45,11 +45,24 @@ export const universities = [
     id: 4,
     logo: dubaiUniLogo,
     location: 'Dubai, United Arab Emirates',
-    public: true,
+    type: 'public',
     acceptanceRate: '59',
     name: 'University of Dubai',
     description:
       'The University of Dubai has been home to talented students and faculty drawn from around the world to teach, create, and study.',
+    stats: { ranking: 10, numberOfStudents: 8000, avgCost: 2300, avgACT: 29 },
+    linkApply: '/universities',
+    linkView: '/universities',
+  },
+  {
+    id: 5,
+    logo: dubaiUniLogo,
+    location: 'New York, United Arab Emirates',
+    type: 'private',
+    acceptanceRate: '59',
+    name: 'University of New York',
+    description:
+      'The University of New York has been home to talented students and faculty drawn from around the world to teach, create, and study.',
     stats: { ranking: 10, numberOfStudents: 8000, avgCost: 2300, avgACT: 29 },
     linkApply: '/universities',
     linkView: '/universities',

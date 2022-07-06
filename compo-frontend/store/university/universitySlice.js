@@ -31,6 +31,11 @@ export const universitySlice = createSlice({
         uni.location.toLowerCase().includes(action.payload.toLowerCase())
       );
     },
+    filterUniversitiesByType: (state, action) => {
+      state.filteredUniversities = state.universities.filter((uni) =>
+        uni.type.toLowerCase().includes(action.payload.toLowerCase())
+      );
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -49,7 +54,10 @@ export const universitySlice = createSlice({
   },
 });
 
-export const { rehydrate, filterUniversitiesByLocation } =
-  universitySlice.actions;
+export const {
+  rehydrate,
+  filterUniversitiesByLocation,
+  filterUniversitiesByType,
+} = universitySlice.actions;
 
 export default universitySlice.reducer;
