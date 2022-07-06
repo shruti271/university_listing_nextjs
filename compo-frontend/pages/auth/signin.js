@@ -8,6 +8,12 @@ import googleIcon from "../../assets/googleIcon.svg";
 import fbIcon from "../../assets/fbIcon.svg";
 import showPassIcon from "../../assets/auth/show-pass.svg";
 import hidePassIcon from "../../assets/auth/hide-pass.svg";
+import Box from '@mui/material/Box';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+
+import TextField from '@mui/material/TextField';
+import InputAdornment from '@mui/material/InputAdornment';
 
 export default function SignIn() {
   const [showPassword, setShowPassword] = useState(false);
@@ -32,36 +38,23 @@ export default function SignIn() {
             <form>
               <div className="flex flex-col">
                 <div className="flex justify-center sm:block">
-                  <div className="form-floating mb-8 flex  justify-start  items-center border-b border-solid border-gray-300 w-3/4 md:w-5/6 lg:w-3/4">
-                    <Image src={emailIcon} alt="emailIcon" />
-                    <input
-                      type="email"
-                      className="form-control
-                              block
-                              ml-4
-                              px-3
-                              py-1.5
-                              text-base
-                              font-normal
-                              text-gray-700
-                              bg-white bg-clip-padding w-full                                       
-                              transition
-                              ease-in-out
-                              m-0
-                              focus:text-gray-700 focus:bg-white focus:border-transparent focus:border-b-gray-300 focus:outline-none focus:ring-0"
-                      id="floatingInput"
-                      placeholder="Email"
-                    />
-                    <label
-                      htmlFor="floatingInput"
-                      className="text-gray-700 ml-8"
-                    >
-                      Email address
-                    </label>
-                  </div>
+                   <Box sx={{ display: 'flex', alignItems: 'flex-end' }} className="mb-6 w-3/4 md:w-5/6 lg:w-3/4 border-b">
+        <AccountCircle sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
+        <TextField id="input-with-sx" label="With sx" variant="standard" className="w-full" />
+      </Box>
                 </div>
                 <div className="flex justify-center sm:block">
-                  <div className="form-floating mb-6 border-b border-solid border-gray-300 flex items-center justify-start w-3/4 md:w-5/6 lg:w-3/4">
+                <Box sx={{ display: 'flex', alignItems: 'flex-end' }} className="mb-6 w-3/4 md:w-5/6 lg:w-3/4">
+        <AccountCircle sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
+        <TextField id="input-with-sx" label="With sx" variant="standard" className="w-full" InputProps={{
+          endAdornment: (
+            <InputAdornment position="start">
+              <VisibilityOffIcon />
+            </InputAdornment>
+          ),
+        }} />
+      </Box>
+                  {/* <div className="form-floating mb-6 border-b border-solid border-gray-300 flex items-center justify-start w-3/4 md:w-5/6 lg:w-3/4">
                     <Image src={passwordIcon} alt="passwordIcon" />
                     <input
                       type={showPassword ? "text" : "password"}
@@ -111,7 +104,7 @@ export default function SignIn() {
                     >
                       Password
                     </label>
-                  </div>
+                  </div> */}
                 </div>
                 <div className="flex justify-center sm:block">
                   <div className="flex justify-end mb-6 sm:mb-12 w-3/4 md:w-5/6 lg:w-3/4">
