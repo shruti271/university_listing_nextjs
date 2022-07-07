@@ -1,12 +1,14 @@
 import Link from "next/link";
 import Image from "next/image";
 import Logo from "../../assets/logo.svg";
-import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import backIcon from "../../assets/backIcon.svg";
 import Box from '@mui/material/Box';
 import EmailIcon from '@mui/icons-material/Email';
 import ArrowBackIosNewOutlinedIcon from '@mui/icons-material/ArrowBackIosNewOutlined';
+import { CustomTextField } from "../../components/core/CustomForms";
+
+
 export default function ForgotPassword() {
   return (
     <div
@@ -22,9 +24,7 @@ export default function ForgotPassword() {
               <button className="text-white  focus:ring-0 focus:outline-none font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center border">
                 <Image src={backIcon} alt="back" />
               </button>
-              {/* <Button variant="outlined" sx={{color:"gray"}} className="focus:ring-0 focus:outline-none font-medium rounded-lg text-sm text-center inline-flex items-center border-gray-300 hover:border-gray-300">
-        <ArrowBackIosNewOutlinedIcon/>
-      </Button> */}
+             
             </Link>
           </div>
           <div className="col-span-2.5 flex items-center justify-center">
@@ -46,13 +46,13 @@ export default function ForgotPassword() {
           </p>
           <Box sx={{ display: 'flex', alignItems: 'flex-end' }} className="mb-6">
         <EmailIcon sx={{  mr: 2, my: 0.5 }} className="text-black" />
-        <TextField id="input-with-sx" label="Email Address" variant="standard" className="w-full" />
+        <CustomTextField id="input-with-sx" label="Email Address" variant="standard" className="w-full" />
       </Box>
           <div className="mt-8">
             
 
-                         <Button variant="contained" className="bg-[#0364FF] hover:bg-[#0364FF] text-gray-100 p-3 w-full rounded-xl tracking-wide
-                  font-semibold font-display focus:outline-none focus:shadow-outline
+                         <Button variant="contained" className="bg-[#0364FF] hover:bg-[#0364FF] text-gray-100 p-3 w-full rounded-xl
+                  font-semibold focus:outline-none focus:shadow-outline
                   shadow-lg capitalize text-lg">  
               Reset
             </Button>

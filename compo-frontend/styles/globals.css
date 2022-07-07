@@ -114,8 +114,3 @@ h6 {
 .cover-image > span {
   height: inherit !important;
 }
-.input-icon > span {
-  margin-right :8px !important;  
-  margin-top:2px !important;
-  margin-bottom:2px !important;
-}

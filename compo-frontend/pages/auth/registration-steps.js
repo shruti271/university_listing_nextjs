@@ -1,11 +1,8 @@
 import Image from "next/image";
-import CoverImage from "../../assets/steps-cover-1.png";
-import eduIcon from "../../assets/edu-icon.svg";
-import userIcon from "../../assets/user-icon.svg";
-import dobIcon from "../../assets/dob-icon.svg";
-import locationIcon from "../../assets/location-icon.svg";
-import professionIcon from "../../assets/profession.svg";
-import majorIcon from "../../assets/major.svg";
+import CoverImage1 from "../../assets/reg-step-1.png";
+import CoverImage2 from "../../assets/reg-step-2.png";
+import CoverImage3 from "../../assets/reg-step-3.png";
+
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
@@ -21,11 +18,43 @@ import GroupAddIcon from "@mui/icons-material/GroupAdd";
 import VideoLabelIcon from "@mui/icons-material/VideoLabel";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
-import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
+import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
 import StepConnector, {
   stepConnectorClasses,
 } from "@mui/material/StepConnector";
 import PropTypes from "prop-types";
+import PersonIcon from "@mui/icons-material/Person";
+import InputAdornment from "@mui/material/InputAdornment";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import DateRangeIcon from "@mui/icons-material/DateRange";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Checkbox from "@mui/material/Checkbox";
+import FormGroup from "@mui/material/FormGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import WorkIcon from "@mui/icons-material/Work";
+import SchoolIcon from "@mui/icons-material/School";
+import LocalLibraryIcon from "@mui/icons-material/LocalLibrary";
+import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
+import {
+  createTheme,
+  StyledEngineProvider,
+  ThemeProvider,
+} from "@mui/material/styles";
+import { CustomTextField } from "../../components/core/CustomForms";
+import { CustomSelect } from "../../components/core/CustomForms";
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#0364ff",
+    },
+  },
+});
 
 const QontoConnector = styled(StepConnector)(({ theme }) => ({
   [`&.${stepConnectorClasses.alternativeLabel}`]: {
@@ -76,13 +105,13 @@ function QontoStepIcon(props) {
 
   return (
     <QontoStepIconRoot ownerState={{ active }} className={className}>
-      {
-        active ? (<RadioButtonCheckedIcon className="QontoStepIcon-completedIcon" />) : completed ? (
-          <CheckCircleOutlineIcon className="QontoStepIcon-completedIcon" />
-        ) : (
-          <RadioButtonUncheckedIcon className="QontoStepIcon-completedIcon" />
-        )
-      }
+      {active ? (
+        <RadioButtonCheckedIcon className="QontoStepIcon-completedIcon" />
+      ) : completed ? (
+        <CheckCircleOutlineIcon className="QontoStepIcon-completedIcon" />
+      ) : (
+        <RadioButtonUncheckedIcon className="QontoStepIcon-completedIcon" />
+      )}
     </QontoStepIconRoot>
   );
 }
@@ -190,11 +219,17 @@ const steps = [
   "Create an ad group",
   "Create an ad",
 ];
+const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
 export default function RegistrationSteps() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [completed, setCompleted] = React.useState([]);
+  const [value, setValue] = React.useState(null);
+  const [age, setAge] = React.useState("");
 
+  const handleChange = (event) => {
+    setAge(event.target.value);
+  };
   const totalSteps = () => {
     return steps.length;
   };
@@ -246,17 +281,25 @@ export default function RegistrationSteps() {
       style={{ height: "100vh" }}
     >
       <div
-        className="p-4 cover-image hidden sm:block animate__animated animate__zoomIn"
+        className="p-4 cover-image hidden sm:block"
         style={{ height: "calc(100vh - 30px)" }}
       >
-        <Image src={CoverImage} alt="CoverImage" />
+        {activeStep === 0 && <Image src={CoverImage1} alt="CoverImage1" className="animate__animated animate__zoomIn"/>}
+        {activeStep === 1 && <Image src={CoverImage2} alt="CoverImage2" className="animate__animated animate__zoomIn"/>}
+        {activeStep === 2 && <Image src={CoverImage3} alt="CoverImage3" className="animate__animated animate__zoomIn"/>}
       </div>
-      <div className="p-4 ml-0 sm:ml-4 md:ml-4 lg:ml-12 animate__animated animate__zoomIn">
-        <Box sx={{ width: "45%" }}>
+      <div className="p-4 ml-0 sm:ml-4 md:ml-4 lg:ml-12">
+        <Box>
+          
           <Stepper
             alternativeLabel
             activeStep={activeStep}
             connector={<QontoConnector />}
+            className={
+              (activeStep === 0 && "mt-8 sm:mt-16 w-full sm:w-72 ml-0 sm:-ml-9") ||
+              (activeStep === 1 && "mt-8 sm:mt-8 w-full sm:w-72 ml-0 sm:-ml-9") ||
+              (activeStep === 2 && "mt-8 sm:mt-36 w-full sm:w-72 ml-0 sm:-ml-9")
+            }
           >
             {steps.map((index, label) => (
               <Step key={index}>
@@ -265,21 +308,303 @@ export default function RegistrationSteps() {
             ))}
           </Stepper>
           <React.Fragment>
-            <Typography sx={{ mt: 2, mb: 1 }}>Step {activeStep + 1}</Typography>
-            <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-              <Button
-                color="inherit"
-                disabled={activeStep === 0}
-                onClick={handleBack}
-                sx={{ mr: 1 }}
+            {activeStep === 0 && (
+              <div>
+                <h3 className="pb-2 mt-8 font-semibold text-2xl text-[#03014C] flex justify-center sm:block">
+                  Tell us about yourself
+                </h3>
+                <p className=" text-[#92929D] text-base mb-4 flex justify-center sm:block">
+                  No data will be shared to any third party
+                </p>
+                <form>
+                  <div className="flex flex-col mt-8">
+                    <div className="flex justify-center sm:block">
+                      <Box
+                        sx={{ display: "flex", alignItems: "flex-end" }}
+                        className="mb-6 w-3/4 md:w-5/6 lg:w-3/4"
+                      >
+                        <PersonIcon
+                          sx={{ mr: 2, my: 0.5 }}
+                          className="text-black"
+                        />
+                        <CustomTextField
+                          id="input-with-sx"
+                          label="Firstname"
+                          variant="standard"
+                          className="w-full"
+                        />
+                      </Box>
+                    </div>
+                    <div className="flex justify-center sm:block">
+                      <Box
+                        sx={{ display: "flex", alignItems: "flex-end" }}
+                        className="mb-6 w-3/4 md:w-5/6 lg:w-3/4"
+                      >
+                        <PersonIcon
+                          sx={{ mr: 2, my: 0.5 }}
+                          className="text-black"
+                        />
+                        <CustomTextField
+                          id="input-with-sx"
+                          label="Lastname"
+                          variant="standard"
+                          className="w-full"
+                        />
+                      </Box>
+                    </div>
+
+                    <div className="flex justify-center sm:block">
+                      <Box
+                        sx={{ display: "flex", alignItems: "flex-end" }}
+                        className="mb-6 w-3/4 md:w-5/6 lg:w-3/4"
+                      >
+                        <DateRangeIcon
+                          sx={{ mr: 2, my: 0.5 }}
+                          className="text-black"
+                        />
+                        <LocalizationProvider dateAdapter={AdapterDateFns}>
+                          <DesktopDatePicker
+                            label="Projected Graduation Date"
+                            value={value}
+                            onChange={(newValue) => {
+                              setValue(newValue);
+                            }}
+                            renderInput={(params) => (
+                              <CustomTextField
+                                {...params}
+                                className="w-full"
+                                variant="standard"
+                              />
+                            )}
+                          />{" "}
+                        </LocalizationProvider>
+                      </Box>
+                    </div>
+
+                    <div className="flex justify-center sm:block">
+                      <Box
+                        sx={{ display: "flex", alignItems: "flex-end" }}
+                        className="mb-6 w-3/4 md:w-5/6 lg:w-3/4"
+                      >
+                        <LocationOnIcon
+                          sx={{ mr: 2, my: 0.5 }}
+                          className="text-black"
+                        />
+                        <CustomTextField
+                          id="input-with-sx"
+                          label="Current Location"
+                          variant="standard"
+                          className="w-full"
+                        />
+                      </Box>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            )}
+            {activeStep === 1 && (
+              <div>
+                <h3 className="pb-2 mt-8 font-semibold text-2xl text-[#03014C] flex justify-center sm:block">
+                  Insights of your education
+                </h3>
+                <p className=" text-[#92929D] text-base mb-4 flex justify-center sm:block">
+                  For us to filter the best results for you
+                </p>
+                <form>
+                  <div className="flex flex-col mt-8">
+                    <div className="flex justify-center sm:block">
+                      <Box
+                        sx={{ display: "flex", alignItems: "flex-end" }}
+                        className="mb-6 w-3/4 md:w-5/6 lg:w-3/4"
+                      >
+                        <SchoolIcon
+                          sx={{ mr: 2, my: 0.5 }}
+                          className="text-black"
+                        />
+                        <FormControl variant="standard" className="w-full">
+                          <InputLabel id="demo-simple-select-standard-label">
+                            Education Level
+                          </InputLabel>
+                          <CustomSelect
+                            labelId="demo-simple-select-standard-label"
+                            id="demo-simple-select-standard"
+                            value={age}
+                            onChange={handleChange}
+                            label="Education Level"
+                          >
+                            <MenuItem value="">
+                              <em>None</em>
+                            </MenuItem>
+                            <MenuItem value={10}>Ten</MenuItem>
+                            <MenuItem value={20}>Twenty</MenuItem>
+                            <MenuItem value={30}>Thirty</MenuItem>
+                          </CustomSelect>
+                        </FormControl>
+                      </Box>
+                    </div>
+
+                    <div className="flex justify-center sm:block">
+                      <Box
+                        sx={{ display: "flex", alignItems: "flex-end" }}
+                        className="mb-6 w-3/4 md:w-5/6 lg:w-3/4"
+                      >
+                        <SchoolIcon
+                          sx={{ mr: 2, my: 0.5 }}
+                          className="text-black"
+                        />
+                        <CustomTextField
+                          id="input-with-sx"
+                          label="Institure Name"
+                          variant="standard"
+                          className="w-full"
+                        />
+                      </Box>
+                    </div>
+                    <div className="flex justify-center sm:block">
+                      <Box
+                        sx={{ display: "flex", alignItems: "flex-end" }}
+                        className="mb-6 w-3/4 md:w-5/6 lg:w-3/4"
+                      >
+                        <LocationOnIcon
+                          sx={{ mr: 2, my: 0.5 }}
+                          className="text-black"
+                        />
+                        <CustomTextField
+                          id="input-with-sx"
+                          label="Institure Location"
+                          variant="standard"
+                          className="w-full"
+                        />
+                      </Box>
+                    </div>
+
+                    <div className="flex justify-center sm:block">
+                      <div className="mb-4 mt-2 flex justify-between items-center w-3/4 md:w-5/6 lg:w-3/4">
+                        <p className="pb-2 mt-2.5 font-semibold text-md text-[#11142D]">
+                          Are you graduated?
+                        </p>
+                        <ThemeProvider theme={theme}>
+                          <FormGroup row>
+                            <FormControlLabel
+                              value="yes"
+                              control={<Checkbox />}
+                              label="Yes"
+                              labelPlacement="end"
+                            />
+                            <FormControlLabel
+                              value="no"
+                              control={<Checkbox />}
+                              label="No"
+                              labelPlacement="end"
+                            />
+                          </FormGroup>
+                        </ThemeProvider>
+                      </div>
+                    </div>
+                    <div className="flex justify-center sm:block">
+                      <Box
+                        sx={{ display: "flex", alignItems: "flex-end" }}
+                        className="mb-6 w-3/4 md:w-5/6 lg:w-3/4"
+                      >
+                        <DateRangeIcon
+                          sx={{ mr: 2, my: 0.5 }}
+                          className="text-black"
+                        />
+
+                        <LocalizationProvider dateAdapter={AdapterDateFns}>
+                          <DesktopDatePicker
+                            label="Projected Graduation Date"
+                            value={value}
+                            onChange={(newValue) => {
+                              setValue(newValue);
+                            }}
+                            renderInput={(params) => (
+                              <CustomTextField
+                                {...params}
+                                className="w-full"
+                                variant="standard"
+                              />
+                            )}
+                          />{" "}
+                        </LocalizationProvider>
+                      </Box>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            )}
+            {activeStep === 2 && (
+              <div>
+                <h3 className="pb-2 mt-8 font-semibold text-2xl text-[#03014C] flex justify-center sm:block">
+                  Your future plans
+                </h3>
+                <p className=" text-[#92929D] text-base mb-4 flex justify-center sm:block">
+                  To serve the best possible way
+                </p>
+                <form>
+                  <div className="flex flex-col mt-8">
+                    <div className="flex justify-center sm:block">
+                      <Box
+                        sx={{ display: "flex", alignItems: "flex-end" }}
+                        className="mb-6 w-3/4 md:w-5/6 lg:w-3/4"
+                      >
+                        <WorkIcon
+                          sx={{ mr: 2, my: 0.5 }}
+                          className="text-black"
+                        />
+                        <CustomTextField
+                          id="input-with-sx"
+                          label="Desired profession"
+                          variant="standard"
+                          className="w-full"
+                        />
+                      </Box>
+                    </div>
+                    <div className="flex justify-center sm:block">
+                      <Box
+                        sx={{ display: "flex", alignItems: "flex-end" }}
+                        className="mb-6 w-3/4 md:w-5/6 lg:w-3/4"
+                      >
+                        <LocalLibraryIcon
+                          sx={{ mr: 2, my: 0.5 }}
+                          className="text-black"
+                        />
+                        <CustomTextField
+                          id="input-with-sx"
+                          label="Desired major"
+                          variant="standard"
+                          className="w-full"
+                        />
+                      </Box>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            )}
+            <div className="flex justify-center sm:block">
+              <Box
+                sx={{ display: "flex", flexDirection: "row", pt: 2 }}
+                className="mt-4 w-3/4 md:w-5/6 lg:w-3/4"
               >
-                Back
-              </Button>
-              <Box sx={{ flex: "1 1 auto" }} />
-              <Button onClick={handleNext} sx={{ mr: 1 }}>
-                Next
-              </Button>
-            </Box>
+                <Button
+                  disabled={activeStep === 0}
+                  onClick={handleBack}
+                  sx={{ mr: 1 }}
+                  className="text-lg text-[#544E5D] font-semibold	 capitalize bg-[#F9F9FA] hover:bg-[#F9F9FA] px-9 py-3 rounded-xl focus:outline-none focus:shadow-outline"
+                >
+                  Back
+                </Button>
+                <Box sx={{ flex: "1 1 auto" }} />
+                <Button
+                  onClick={handleNext}
+                  sx={{ mr: 1 }}
+                  className="bg-[#0364FF] hover:bg-[#0364FF] text-white px-9 py-3 rounded-xl font-semibold focus:outline-none focus:shadow-outline 
+                  shadow-lg capitalize text-lg"
+                >
+                  Next
+                </Button>
+              </Box>
+            </div>
           </React.Fragment>
         </Box>
       </div>

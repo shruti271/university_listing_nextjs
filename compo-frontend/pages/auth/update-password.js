@@ -8,9 +8,9 @@ import Box from '@mui/material/Box';
 import LockIcon from '@mui/icons-material/Lock';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 import Button from '@mui/material/Button';
+import { CustomTextField } from "../../components/core/CustomForms";
 
 export default function UpdatePassword() {
   const [showPassword, setShowPassword] = useState(false);
@@ -47,7 +47,7 @@ export default function UpdatePassword() {
 
            <Box sx={{ display: 'flex', alignItems: 'flex-end' }} className="mb-6">
         <LockIcon sx={{  mr: 2, my: 0.5 }} className="text-black" />
-        <TextField  type={showPassword ? "text" : "password"} id="input-with-sx" label="Password" variant="standard" className="w-full" InputProps={{
+        <CustomTextField  type={showPassword ? "text" : "password"} id="input-with-sx" label="Password" variant="standard" className="w-full" InputProps={{
           endAdornment: (
             <InputAdornment position="start" className="cursor-pointer" onClick={() => setShowPassword((show) => !show)}>
            {!showPassword?    <VisibilityOffIcon /> :<RemoveRedEyeIcon/>}
@@ -57,7 +57,7 @@ export default function UpdatePassword() {
       </Box>
           <Box sx={{ display: 'flex', alignItems: 'flex-end' }} className="mb-6">
         <LockIcon sx={{  mr: 2, my: 0.5 }} className="text-black" />
-        <TextField  type={showConfirmPassword ? "text" : "password"} id="input-with-sx" label="Confirm Password" variant="standard" className="w-full" InputProps={{
+        <CustomTextField  type={showConfirmPassword ? "text" : "password"} id="input-with-sx" label="Confirm Password" variant="standard" className="w-full" InputProps={{
           endAdornment: (
             <InputAdornment position="start" className="cursor-pointer" onClick={() => setShowConfirmPassword((show) => !show)}>
            {!showConfirmPassword?    <VisibilityOffIcon /> :<RemoveRedEyeIcon/>}
@@ -67,8 +67,8 @@ export default function UpdatePassword() {
       </Box>
           <div className="mt-8">
           
-                         <Button variant="contained" className="bg-[#0364FF] hover:bg-[#0364FF] text-gray-100 p-3 w-full rounded-xl tracking-wide
-                  font-semibold font-display focus:outline-none focus:shadow-outline
+                         <Button variant="contained" className="bg-[#0364FF] hover:bg-[#0364FF] text-gray-100 p-3 w-full rounded-xl
+                  font-semibold focus:outline-none focus:shadow-outline
                   shadow-lg capitalize text-lg">  
               Update
             </Button>
