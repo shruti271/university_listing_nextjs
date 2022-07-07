@@ -80,21 +80,20 @@ class Scholarship(models.Model):
     slug = AutoSlugField(populate_from='name', always_update=True, unique = True, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     description = models.TextField(blank=True, null=True)
+    more_info = models.TextField(blank=True, null=True)
     location = models.CharField(max_length=200, blank=True, null=True)
     
     #applicable_majors
     #ethnicity = 
     #enrollment_level = 
     #other = 
-    
     #in addition?
 
     # ---
-    #gender = models.CharField(max_length=200, blank=True, null=True) ?
-    
-    #award_ammount = 
-    
-    application_deadline = models.DateField(blank=True, null=True)
+
+    gender = models.CharField(max_length=200, blank=True, null=True)
+    award_ammount = models.CharField(max_length=100, blank=True, null=True)
+    application_deadline = models.CharField(max_length=100, blank=True, null=True)
     nationality_requirements = models.CharField(max_length=200, blank=True, null=True)
     applicable_majors = models.TextField(blank=True, null=True)
     host_institution = models.CharField(max_length=200, blank=True, null=True)
@@ -103,7 +102,7 @@ class Scholarship(models.Model):
     address = models.TextField(blank=True, null=True)
     phone = models.CharField(max_length=200, blank=True, null=True)
     email = models.EmailField(max_length=200, blank=True, null=True)
-    #fax 
+    fax = models.CharField(max_length=100, blank=True, null=True)
     link = models.URLField(max_length = 200, blank=True, null=True)
 
     #------- Those does not exist in every detail page.

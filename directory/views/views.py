@@ -1,6 +1,8 @@
 from django.views import View
 from django.http import Http404, HttpResponse
-from django.contrib.auth.models import User
+#from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 from directory.models import University, Program, Scholarship
 from directory.serializers import UniversityPublicSerializer, ProgramPublicSerializer, \
@@ -262,12 +264,14 @@ def collectScholarships(request):
 
     headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36'}
     #response = requests.get('https://www.internationalscholarships.com/scholarships', headers=headers)
+    url_number = "https://www.internationalscholarships.com/scholarships?per-page=30"
     url = "https://www.internationalscholarships.com/scholarships"
         
-    browser.get(url)
+    browser.get(url_number)
     soup = BeautifulSoup(browser.page_source, "lxml")
 
-    results = soup.find_all('tr', {'class': 'featured'})
+    results = soup.find_all('tr', {'class': ''})
+    #print(results)
     # for r in results:
     #     print(r.find_all('td'))
 
@@ -276,15 +280,15 @@ def collectScholarships(request):
     import requests
 
     cookies = {
-    '__gads': 'ID=a823a139bae56e82-224977dd18d40014:T=1656680701:RT=1656680701:S=ALNI_MYe9lYqo39BYO1MrIjbZ6tUgx_xzw',
-    '_gid': 'GA1.2.164466046.1656954148',
-    'cookieconsent_status': 'dismiss',
-    '__gpi': 'UID=000009875f769037:T=1656680701:RT=1657035649:S=ALNI_Mb9Fnc8sLWPDYkjZ9wA20vqwVL0dA',
-    '_gat_UA-12565915-9': '1',
-    'PHPSESSID': 'beedf2b69e5cade61a1269dc58da9930',
-    '_csrf': '165b33c11455566e26d7b1b7260a101f08859195d78dd0db3cb529b945001792a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22NZAH7vHjyN9fOzogi7Ej1Yvyce2H7_5O%22%3B%7D',
-    '_ga': 'GA1.2.2120178691.1656680701',
-    '_ga_KXQ425PMLX': 'GS1.1.1657041736.6.1.1657042183.0',
+        '__gads': 'ID=a823a139bae56e82-224977dd18d40014:T=1656680701:RT=1656680701:S=ALNI_MYe9lYqo39BYO1MrIjbZ6tUgx_xzw',
+        '_gid': 'GA1.2.164466046.1656954148',
+        'cookieconsent_status': 'dismiss',
+        '_gat_UA-12565915-9': '1',
+        '__gpi': 'UID=000009875f769037:T=1656680701:RT=1657182446:S=ALNI_Mb9Fnc8sLWPDYkjZ9wA20vqwVL0dA',
+        'PHPSESSID': '2529e137e32d8a0cab2e3b8f3f96dcf3',
+        '_csrf': '6d910b58cd9f7600623212b9c03fd8c091afdc02685c234475408e5391dbcbbba%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%2253FMDarfR0CSGPxToHdy1w9tKz5QbOag%22%3B%7D',
+        '_ga': 'GA1.2.2120178691.1656680701',
+        '_ga_KXQ425PMLX': 'GS1.1.1657182445.11.1.1657182462.0',
     }
 
     headers = {
@@ -293,7 +297,7 @@ def collectScholarships(request):
         'accept-language': 'en,en-US;q=0.9,fr;q=0.8',
         'cache-control': 'max-age=0',
         # Requests sorts cookies= alphabetically
-        # 'cookie': '__gads=ID=a823a139bae56e82-224977dd18d40014:T=1656680701:RT=1656680701:S=ALNI_MYe9lYqo39BYO1MrIjbZ6tUgx_xzw; _gid=GA1.2.164466046.1656954148; cookieconsent_status=dismiss; __gpi=UID=000009875f769037:T=1656680701:RT=1657035649:S=ALNI_Mb9Fnc8sLWPDYkjZ9wA20vqwVL0dA; _gat_UA-12565915-9=1; PHPSESSID=beedf2b69e5cade61a1269dc58da9930; _csrf=165b33c11455566e26d7b1b7260a101f08859195d78dd0db3cb529b945001792a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22NZAH7vHjyN9fOzogi7Ej1Yvyce2H7_5O%22%3B%7D; _ga=GA1.2.2120178691.1656680701; _ga_KXQ425PMLX=GS1.1.1657041736.6.1.1657042183.0',
+        # 'cookie': '__gads=ID=a823a139bae56e82-224977dd18d40014:T=1656680701:RT=1656680701:S=ALNI_MYe9lYqo39BYO1MrIjbZ6tUgx_xzw; _gid=GA1.2.164466046.1656954148; cookieconsent_status=dismiss; _gat_UA-12565915-9=1; __gpi=UID=000009875f769037:T=1656680701:RT=1657182446:S=ALNI_Mb9Fnc8sLWPDYkjZ9wA20vqwVL0dA; PHPSESSID=2529e137e32d8a0cab2e3b8f3f96dcf3; _csrf=6d910b58cd9f7600623212b9c03fd8c091afdc02685c234475408e5391dbcbbba%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%2253FMDarfR0CSGPxToHdy1w9tKz5QbOag%22%3B%7D; _ga=GA1.2.2120178691.1656680701; _ga_KXQ425PMLX=GS1.1.1657182445.11.1.1657182462.0',
         'referer': 'https://www.internationalscholarships.com/login',
         'sec-ch-ua': '".Not/A)Brand";v="99", "Google Chrome";v="103", "Chromium";v="103"',
         'sec-ch-ua-mobile': '?0',
@@ -306,48 +310,93 @@ def collectScholarships(request):
         'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36',
     }
 
+
+    for r in results[1:]:
+        tds = r.find_all('td')[0]
+
+        link0 = tds.find('a').get('href')
+        print(link0)
+            
+        response = requests.get(url + link0, cookies=cookies, headers=headers)
+        detail_soup = BeautifulSoup(response.content, "html.parser")
+        title = detail_soup.find('h1', {'class': 'title'})
     
-    
-    tds = results[0].find_all('td')[0]
-    link0 = tds.find_all('a')[0]['href']
-    # br = webdriver.Chrome(executable_path=path,
-    #                           chrome_options=chrome_options
-    #                          )
-    # br.get(url + link0)
-    response = requests.get(url + link0, cookies=cookies, headers=headers)
-    detail_soup = BeautifulSoup(response.content, "html.parser")
-    results_detail0 = detail_soup.find('h1', {'class': 'title'})
+
+        div_desc = detail_soup.find('div', {'class': 'award-description'})
+
+        #description
+        description = div_desc.find_all('p')[0].text
+
+        #moreinfo
+        try:
+            more_info = div_desc.find_all('p')[1].text
+        except:
+            more_info = None
+        
+        list_extra = detail_soup.find_all('div', {'class': "clear {class}"})
+        list_indxs = []
+        list_items = []
+
+        for i in list_extra:
+            list_indxs.append(i.find('h4').text)
+            list_items.append(i.find('p').text)
+
+        dictionary = dict(zip(list_indxs,list_items))
+        print(dictionary)
+        amount = dictionary['Amount'] if 'Amount' in dictionary else None
+        application_deadline = dictionary['Deadline'] if 'Deadline' in dictionary else None
+        nationality_requirements = dictionary['You must be studying in one of the following countries:'] if 'You must be studying in one of the following countries:' in dictionary else None
+        award_ammount = dictionary['Number of Awards'] if 'Number of Awards' in dictionary else None
+
+        applicable_majors = dictionary['You must be studying one of the following:'] if 'You must be studying one of the following:' in dictionary else None
+        host_institution = dictionary['Host Institution'] if 'Host Institution' in dictionary else None
+        includes = dictionary['Includes'] if 'Includes' in dictionary else None
+
+        list_indxs_contact = []
+        list_items_contact = []
+        contact = detail_soup.find('table', {'id': 'w4'})
+        indexes_contact = contact.find_all('th')
+        contact_info = contact.find_all('td')
+
+        for i in contact_info:
+            if i.text == 'View Website':
+                list_items_contact.append(i.find('a').get('href'))
+            else:
+                list_items_contact.append(i.text)
+
+        for i in indexes_contact:
+            list_indxs_contact.append(i.text)
+
+        contact_dictionary = dict(zip(list_indxs_contact,list_items_contact))
+
+        contact_name = contact_dictionary['Contact Name'] if 'Contact Name' in contact_dictionary else None
+        address = contact_dictionary['Address'] if 'Address' in contact_dictionary else None
+        phone = contact_dictionary['Phone'] if 'Phone' in contact_dictionary else None
+        email = contact_dictionary['E-mail'] if 'E-mail' in contact_dictionary else None
+        fax = contact_dictionary['Fax'] if 'Fax' in contact_dictionary else None
+        link = contact_dictionary['Link'] if 'Link' in contact_dictionary else None
 
 
-    div_desc = detail_soup.find('div', {'class': 'award-description'})
+        admin = User.objects.get(username='admin')
+        scholarship, created = Scholarship.objects.get_or_create(
+            name = title.text.strip(),
+            user = admin,
+            description = description,
+            more_info = more_info,
+            #location,
+            #gender,
+            award_ammount = amount,
+            application_deadline = application_deadline,
+            nationality_requirements = nationality_requirements,
+            applicable_majors = applicable_majors,
+            host_institution = host_institution,
+            includes = includes,
+            contact_name = contact_name,
+            address = address,
+            phone = phone,
+            email = email,
+            link = link,
+        )
 
-    #description
-    desc = div_desc.find_all('p')[0].text
-
-    #moreinfo
-    more_info = div_desc.find_all('p')[1].text
-    list_of_dots_and_titles = more_info.split('•')
-    print(list_of_dots_and_titles)
-    list_of_ELIGIBILITY = []
-    list_of_ELIGIBILITY = []
-    list_of_ELIGIBILITY = []
-    for i in list_of_dots_and_titles:
-        i.replace(' ','')
-
-
-    list_extra = detail_soup.find_all('div', {'class': "clear {class}"})
-    #print(list_extra)
-    # for i in list_extra:
-    #     print(i.find('p').text)
-
-    #contact = detail_soup.find('table', {'id': 'w4'})
-    #print(contact.find_all('td'))
-    #contact_info = contact.find_all('td')
-    # for i in contact_info:
-    #     print(i.text)
-
-
-    # for item in tds:
-    #     print(item)
 
     return HttpResponse('scholarships done')
