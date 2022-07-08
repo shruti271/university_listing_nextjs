@@ -5,29 +5,11 @@ from accounts.serializers import ClosedStudentSerializer
 from rest_framework import permissions, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.exceptions import APIException, NotFound
+from rest_framework.exceptions import NotFound
 from rest_framework_simplejwt import authentication
 from rest_framework_simplejwt.tokens import RefreshToken
 
-class DuplicateException(APIException):
-    status_code = 303
-    default_detail = 'There is already a user with that email.'
-    default_code = 'User already exists'
-
-class WrongCreds(APIException):
-    status_code = 303
-    default_detail = 'Incorrect username or password.'
-    default_code = 'Wrong credentials'
-
-class IncativeAccount(APIException):
-    status_code = 300
-    default_detail = 'Your account is not activated.'
-    default_code = 'Inactive account'
-
-
-
-
-
+from accounts.exceptions import *
 
 
 class StudentSignupView(APIView):
@@ -54,9 +36,21 @@ class StudentSignupView(APIView):
 
         # A simple check that the user is not authenticated
         if not request.user.is_authenticated:
-            if User.objects.filter(email=email).exists():
-                raise DuplicateException
+            if User.objects.filter(email=email).exists() and Student.objects.filter(user = User.objects.get(email=email)).exists():
+                user = User.objects.get(email=email)
+                student = Student.objects.get(user=user)
 
+                if user.is_active == True:
+                    raise DuplicateException
+                
+                else:
+                    if not student.is_onboarded:
+                        raise NotOnboarded
+                    else:
+                        raise IncativeAccount
+
+                
+            # Else, create a user with is_active=Fase
             else:
                 # First, we remove everything on the right of @
                 e=email.split('@')[0] 
@@ -86,20 +80,20 @@ class StudentSignupView(APIView):
                         'detail': 'User created.',
                     })
                     return Response(data, status=status.HTTP_201_CREATED)
-                else:
-                    raise DuplicateException
+                
 
         else:
             if not Student.objects.filter(user=request.user).exists():
                 raise NotFound
 
-            refresh = RefreshToken.for_user(request.user)
-            data= ({
-                #'user': self.serializer_class(student, context=serializer_context).data,
-                'refresh': str(refresh),
-                'access': str(refresh.access_token)})
+            elif request.user.is_active and Student.objects.get(user=request.user).is_onboarded:
+                refresh = RefreshToken.for_user(request.user)
+                data= ({
+                    #'user': self.serializer_class(student, context=serializer_context).data,
+                    'refresh': str(refresh),
+                    'access': str(refresh.access_token)})
 
-            return Response(data, status=status.HTTP_200_OK)
+                return Response(data, status=status.HTTP_200_OK)
 
     def put(self, request):
 

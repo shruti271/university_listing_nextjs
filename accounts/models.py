@@ -8,6 +8,7 @@ class User(AbstractUser):
 
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    #is_onboarded = models.BooleanField(default=False, null=True, blank=True)
     date_of_birth = models.DateField(null=True, blank=True)
     current_location = models.CharField(max_length=200, null=True, blank=True)
     profile_picture = models.ImageField(upload_to='profile_pictures/', blank=True, null=True)
