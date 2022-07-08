@@ -38,7 +38,7 @@ const socials = [
 
 const Footer = () => {
   return (
-    <footer className="pt-20 text-sm">
+    <footer className="pt-20 text-sm bg-colorWhite">
       <div className="container pb-20">
         <div className="flex flex-col lg:flex-row items-start gap-20 lg:gap-10">
           <div className="flex flex-col items-start gap-10 max-w-[420px]">

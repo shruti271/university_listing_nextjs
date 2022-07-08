@@ -1,18 +1,26 @@
-import "../styles/globals.css";
-import "animate.css";
-
+import Head from 'next/head';
+import { Provider } from 'react-redux';
 import {  store } from "../redux/store";
-import { Provider } from "react-redux";
 
+import Footer from '../components/Footer';
+import Header from '../components/Header';
+import getStore from '../store/store';
+import '../styles/globals.css';
+import "animate.css";
 
 function MyApp({ Component, pageProps }) {
   return (
     <>
-      <main>
-        <Provider store={store}>
+      <Provider store={getStore(pageProps.initialState)}>
+        <Head>
+          <title>Composite</title>
+        </Head>
+        <Header />
+        <main>
           <Component {...pageProps} />
-        </Provider>
-      </main>
+        </main>
+        <Footer />
+      </Provider>
     </>
   );
 }

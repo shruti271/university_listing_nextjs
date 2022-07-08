@@ -56,7 +56,7 @@ const OffersSection = () => {
             offers.map((offer) => (
               <li
                 key={offer.id}
-                className="offer-item flex flex-col items-start sm:flex-row gap-4 md:gap-8"
+                className="offer-item flex flex-col items-start lg:flex-row gap-4 md:gap-8"
               >
                 <div
                   className={`${offer.iconColor} p-3 w-16 h-16 md:w-20 md:h-20 rounded-2xl flex-none`}

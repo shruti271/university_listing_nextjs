@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import PrimaryButton from '../../PrimaryButton';
 import Link from 'next/link';
 import BtnArrow from '../../svg/btnArrow';
@@ -25,7 +26,15 @@ const GetStartedOption = ({ optionParams }) => {
           </PrimaryButton>
         </Link>
       </div>
-      <div className="self-center pr-3 translate-y-8">{illustration}</div>
+      <motion.div
+        initial={{ y: '100%' }}
+        whileInView={{ y: 32 }}
+        transition={{ type: 'spring', stiffness: 100 }}
+        viewport={{ once: true }}
+        className="self-center pr-3 translate-y-8"
+      >
+        {illustration}
+      </motion.div>
     </li>
   );
 };

@@ -41,7 +41,7 @@ const HeroIllustration = () => {
       initial="hidden"
       whileInView="show"
       viewport={{ once: true }}
-      className="absolute -right-[18rem] sm:-right-[10rem] md:-right-[18rem] lg:-right-[10rem] -bottom-[7rem] md:bottom-auto md:-top-[2rem] lg:-top-[13rem] -z-10 w-[790px] md:w-[900px] lg:w-[1300px]"
+      className="absolute -right-[18rem] sm:-right-[10rem] md:-right-[18rem] lg:-right-[23rem] -bottom-[7rem] md:bottom-auto md:top-[7rem] lg:-top-[3rem] -z-10 w-[790px] md:w-[900px] lg:w-[1300px] xl:-top-[13rem] xl:-right-[17rem]"
     >
       <Parallax offset={80}>
         <motion.div

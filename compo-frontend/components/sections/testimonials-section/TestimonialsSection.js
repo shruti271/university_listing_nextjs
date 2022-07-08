@@ -73,7 +73,7 @@ const TestimonialsSection = () => {
           </div>
         </div>
         <div className="grid grid-cols-8 grid-rows-6 md:basis-1/2">
-          <div className="w-full h-full col-span-7 sm:col-span-6 sm:col-start-1 lg:col-span-3 lg:col-start-1 row-span-4 row-start-1 col-start-1">
+          <div className="w-full h-full col-span-7 sm:col-span-6 sm:col-start-1 md:row-start-1 md:row-end-4 lg:row-end-5 lg:col-span-3 lg:col-start-1 row-span-4 row-start-1 col-start-1">
             <div className="relative w-full h-full">
               <Image
                 src={testimonials[activeTestimonial].image}

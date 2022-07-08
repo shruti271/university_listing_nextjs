@@ -10,6 +10,7 @@ import PathsSection from "../components/sections/paths-section/PathsSection";
 import TestimonialsSection from "../components/sections/testimonials-section/TestimonialsSection";
 import ToolsSection from "../components/sections/tools-section/ToolsSection";
 
+
 export default function Home() {
   return (
     <>

@@ -14,6 +14,16 @@ class DuplicateException(APIException):
     default_detail = 'There is already a user with that email.'
     default_code = 'User already exists'
 
+class WrongCreds(APIException):
+    status_code = 303
+    default_detail = 'Incorrect username or password.'
+    default_code = 'Wrong credentials'
+
+class IncativeAccount(APIException):
+    status_code = 300
+    default_detail = 'Your account is not activated.'
+    default_code = 'Inactive account'
+
 
 
 
@@ -31,6 +41,10 @@ class StudentSignupView(APIView):
     serializer_class = ClosedStudentSerializer
 
     def post(self, request):
+
+        """
+        User creation, with active set to False.
+        """
         data = request.data
         email = data['email']
 
@@ -43,43 +57,87 @@ class StudentSignupView(APIView):
             if User.objects.filter(email=email).exists():
                 raise DuplicateException
 
-            # First, we remove everything on the right of @
-            e=email.split('@')[0] 
-            username = ''
-            # Let's populate the username variable
-            for i in e:
-                #Then, we remove every special character.
-                if i.isalnum():
-                    username+=i
-            username = username 
-            #Removing numbers from the username 
-            username = ''.join([i for i in username if not i.isdigit()]) 
-            if User.objects.filter(username=username).exists():
-                username = e
-            user = User.objects.create_user(
-                username, email, password=data.get('password')
-            )
-            user.save()
-            student, created = Student.objects.get_or_create(user = user)
+            else:
+                # First, we remove everything on the right of @
+                e=email.split('@')[0] 
+                username = ''
 
-            refresh = RefreshToken.for_user(user)
-            data = ({
-                'user': self.serializer_class(student, context=serializer_context).data,
-                'refresh': str(refresh),
-                'access': str(refresh.access_token)
-            })
-            return Response(data, status=status.HTTP_201_CREATED)
+                # Let's populate the username variable
+                for i in e:
+                    #Then, we remove every special character.
+                    if i.isalnum():
+                        username+=i
+                username = username
+
+                # Here, we're checking if the user with a username without numbers exist, if does not, we remove the numbers from the username
+                if not User.objects.filter(username=''.join([i for i in username if not i.isdigit()]) ).exists():
+                    username = ''.join([i for i in username if not i.isdigit()]) 
+                    
+                # Creating a User
+                user = User.objects.create_user(username, email, password=data.get('password'))
+
+                user.is_active = False
+                user.save()
+                # Creating a student instance
+                student, created = Student.objects.get_or_create(user = user)
+
+                if created:
+                    data = ({
+                        'detail': 'User created.',
+                    })
+                    return Response(data, status=status.HTTP_201_CREATED)
+                else:
+                    raise DuplicateException
+
         else:
-            student = Student.objects.get(user=request.user)
-            if not student:
+            if not Student.objects.filter(user=request.user).exists():
                 raise NotFound
+
             refresh = RefreshToken.for_user(request.user)
             data= ({
-                'user': self.serializer_class(student, context=serializer_context).data,
+                #'user': self.serializer_class(student, context=serializer_context).data,
                 'refresh': str(refresh),
                 'access': str(refresh.access_token)})
 
             return Response(data, status=status.HTTP_200_OK)
+
+    def put(self, request):
+
+        """
+        Onboarding.
+        """
+
+        data = request.data
+        email = data.get('email')
+        first_name = data.get('first_name')
+        last_name = data.get('last_name')
+
+        if User.objects.filter(email=email).exists():
+            user = User.objects.get(email=email)
+            user.first_name = first_name
+            user.last_name = last_name
+            user.save()
+            student = Student.objects.get(user=user)
+            
+
+            # Updating the student object
+            if user.is_active == False:
+                for key in data:
+                    setattr(student, key, data[key])
+                student.save()
+
+            # send verification email.
+            refresh = RefreshToken.for_user(user)
+            return Response({
+                'detail': 'Verification email (feature on hold).',
+                'refresh_token': str(refresh),
+                'access_token': str(refresh.access_token),
+                })
+
+        else:
+            raise NotFound
+
+        
 
 class StudentLoginView(APIView):
     """
@@ -92,30 +150,30 @@ class StudentLoginView(APIView):
     def post(self, request, format=None):
         data = request.data
         base_user = None
-        serializer_context = {
-            'request': request,
-        }
+
         email = str(data.get('email'))
         password = str(data.get('password'))
+        
         if User.objects.filter(email=email).exists():
             base_user = User.objects.get(email=email)
-            student = Student.objects.get(user=base_user)
 
             is_auth = base_user.check_password(password)
-            if is_auth:
-                refresh = RefreshToken.for_user(base_user)
-                u = self.serializer_class(student, context=serializer_context).data
+            
+            # if base_user.is_active==False:
+            #     raise IncativeAccount
 
+            if is_auth and not base_user.is_active==False:
+                refresh = RefreshToken.for_user(base_user)
                 return Response({
-                    'user': u,
                     'refresh_token': str(refresh),
                     'access_token': str(refresh.access_token),
                 })
+           
             else:
-                return Response(status=status.HTTP_401_UNAUTHORIZED)
+                raise WrongCreds
         else:
-            return Response(status=status.HTTP_404_NOT_FOUND)
-                
+            raise NotFound
+
 
 from django.forms.models import model_to_dict
 class WhoAmIView(APIView):
