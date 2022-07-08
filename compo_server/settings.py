@@ -10,23 +10,88 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+from http.client import ImproperConnectionState
+import io
 from pathlib import Path
 import os
+from urllib.parse import urlparse
+
+import environ
+from google.cloud import secretmanager
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+#BASE_DIR = Path(__file__).resolve().parent.parent
 
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+env = environ.Env(DEBUG=(bool, False))
+env_file = os.path.join(BASE_DIR, ".env")
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
+if os.path.isfile(env_file):
+    # Use a local secret file, if provided
+    env.read_env(env_file)
+
+elif os.getenv("TRAMPOLINE_CI", None):
+    # Create local settings if running with CI, for unit testing
+
+    placeholder = (
+        f"SECRET_KEY=a\n"
+        f"DATABASE_URL=sqlite://{os.path.join(BASE_DIR, 'db.sqlite3')}"
+    )
+    env.read_env(io.StringIO(placeholder))
+# [END_EXCLUDE]
+elif os.environ.get("GOOGLE_CLOUD_PROJECT", None):
+    # Pull secrets from Secret Manager
+    project_id = os.environ.get("GOOGLE_CLOUD_PROJECT")
+
+    client = secretmanager.SecretManagerServiceClient()
+    settings_name = os.environ.get("SETTINGS_NAME", "django_settings")
+    name = f"projects/{project_id}/secrets/{settings_name}/versions/latest"
+    payload = client.access_secret_version(name=name).payload.data.decode("UTF-8")
+
+    env.read_env(io.StringIO(payload))
+else:
+    raise Exception("No local .env or GOOGLE_CLOUD_PROJECT detected. No secrets found.")
+# [END gaestd_py_django_secret_config]
+
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv("SECRET_KEY")
+#SECRET_KEY = os.getenv("SECRET_KEY")
+
+SECRET_KEY = env("SECRET_KEY")
+# DEBUG = True
+DEBUG = env("DEBUG")
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG') == '1'
+#DEBUG = os.getenv('DEBUG') == '1'
 
-ALLOWED_HOSTS = []
+# [START gaestd_py_django_csrf]
+# SECURITY WARNING: It's recommended that you use this when
+# running in production. The URL will be known once you first deploy
+# to App Engine. This code takes the URL and converts it to both these settings formats.
+# APPENGINE_URL = env("APPENGINE_URL", default=None)
+# if APPENGINE_URL:
+#     # Ensure a scheme is present in the URL before it's processed.
+#     if not urlparse(APPENGINE_URL).scheme:
+#         APPENGINE_URL = f"https://{APPENGINE_URL}"
+
+#     ALLOWED_HOSTS = [urlparse(APPENGINE_URL).netloc]
+#     CSRF_TRUSTED_ORIGINS = [APPENGINE_URL]
+#     SECURE_SSL_REDIRECT = True
+# else:
+#     ALLOWED_HOSTS = ["*"]
+
+ALLOWED_HOSTS = ["*"]
+
+
+# [END gaestd_py_django_csrf]
+
+
+
+# ENV_ALLOWED_HOST = os.getenv('ALLOWED_HOST') or None
+# ALLOWED_HOSTS = []
+# if not DEBUG:
+#     ALLOWED_HOSTS += [os.getenv('ALLOWED_HOST')]
 
 
 # Application definition
@@ -39,19 +104,50 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'django_filters',
     'accounts',
-    'main'
+    'rest_framework_simplejwt',
+    'directory',
+    'corsheaders',
 ]
+
+# Simple JWT config
+from datetime import timedelta
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=300),
+    'REFRESH_TOKEN_LIFETIME': timedelta(minutes=2000),
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': False,
+    'UPDATE_LAST_LOGIN': False,
+}
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 20,
+    'DATE_INPUT_FORMATS': ['iso-8601', '%Y-%m-%d'],
+}
+
+# For the custom autentication
+AUTHENTICATION_BACKENDS = [
+   'django.contrib.auth.backends.ModelBackend',
+]
+AUTHENTICATION_BACKENDS = ('accounts.AuthBack.EmailBackend',)
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 ROOT_URLCONF = 'compo_server.urls'
 
@@ -71,45 +167,70 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'compo_server.wsgi.application'
+WSGI_APPLICATION = "compo_server.wsgi.application"
+
+# Database
+# [START db_setup]
+# [START gaestd_py_django_database_config]
+# Use django-environ to parse the connection string
+DATABASES = {"default": env.db()}
+
+# If the flag as been set, configure to use proxy
+if os.getenv("USE_CLOUD_SQL_AUTH_PROXY", None):
+    DATABASES["default"]["HOST"] = "127.0.0.1"
+    DATABASES["default"]["PORT"] = 5432
+
+# [END gaestd_py_django_database_config]
+# [END db_setup]
+
+# Use a in-memory sqlite3 database when testing in CI systems
+# TODO(glasnt) CHECK IF THIS IS REQUIRED because we're setting a val above
+if os.getenv("TRAMPOLINE_CI", None):
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+        }
+    }
 
 
+#==================================================
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
-# Postgres configuration
-POSTGRES_DB = os.getenv("POSTGRES_DB")
-POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD")
-POSTGRES_USER = os.getenv("POSTGRES_USER")
-POSTGRES_HOST = os.getenv("POSTGRES_HOST")
-POSTGRES_PORT = os.getenv("POSTGRES_PORT")
+# # Postgres configuration
+# POSTGRES_DB = os.getenv("POSTGRES_DB")
+# POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD")
+# POSTGRES_USER = os.getenv("POSTGRES_USER")
+# POSTGRES_HOST = os.getenv("POSTGRES_HOST")
+# POSTGRES_PORT = os.getenv("POSTGRES_PORT")
 
-POSTGRES_READY = (
-    POSTGRES_DB is not None
-    and POSTGRES_PASSWORD is not None
-    and POSTGRES_USER is not None
-    and POSTGRES_HOST is not None
-    and POSTGRES_PORT is not None
-)
+# POSTGRES_READY = (
+#     POSTGRES_DB is not None
+#     and POSTGRES_PASSWORD is not None
+#     and POSTGRES_USER is not None
+#     and POSTGRES_HOST is not None
+#     and POSTGRES_PORT is not None
+# )
 
-if POSTGRES_READY:
-    DATABASES = {
-        "default": {
-            "ENGINE": 'django.db.backends.postgresql_psycopg2',
-            "NAME": POSTGRES_DB,
-            "USER": POSTGRES_USER,
-            "PASSWORD": POSTGRES_PASSWORD,
-            "HOST": POSTGRES_HOST,
-            "PORT": POSTGRES_PORT,
-        }
-    }
+# if POSTGRES_READY:
+#     DATABASES = {
+#         "default": {
+#             "ENGINE": 'django.db.backends.postgresql_psycopg2',
+#             "NAME": POSTGRES_DB,
+#             "USER": POSTGRES_USER,
+#             "PASSWORD": POSTGRES_PASSWORD,
+#             "HOST": POSTGRES_HOST,
+#             "PORT": POSTGRES_PORT,
+#         }
+#     }
 
 
 # Password validation
@@ -146,10 +267,20 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
-
+# STATIC_ROOT = "static"
+# STATIC_URL = "/static/"
+#STATICFILES_DIRS = [BASE_DIR+"/static"]
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
+
+
+GS_BUCKET_NAME = env("GS_BUCKET_NAME")
+STATIC_URL = "/static/"
+DEFAULT_FILE_STORAGE = "storages.backends.gcloud.GoogleCloudStorage"
+STATICFILES_STORAGE = "storages.backends.gcloud.GoogleCloudStorage"
+GS_DEFAULT_ACL = "publicRead"
+
+
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 

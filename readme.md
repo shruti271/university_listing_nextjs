@@ -38,3 +38,26 @@
 
 <p> <strong> Important note: </strong> Please don't push your .env file to the remote repository </p>
 
+
+<h1> Composite frontend server </h1>
+
+First, install packages:
+
+```bash
+npm install
+```
+then, build packages:
+
+```bash
+npm run build
+```
+
+Then run prod:
+
+```bash
+npm run start
+```
+
+# or alternatively deploy to gcloud for live deployment
+
+
