@@ -1,8 +1,6 @@
 import axios from "axios";
 import appConfig from "../config/index";
 
-
-
 export const signIn = async (payload) => {
     let result = {};
     try {
@@ -16,8 +14,6 @@ export const signIn = async (payload) => {
         };
     }
 };
-
-
 
 export const signUp = async (payload) => {
     let result = {};

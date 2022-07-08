@@ -16,11 +16,12 @@ import { useForm } from "react-hook-form";
 import { signUp } from "../../services/auth";
 import Router from "next/router";
 import { useDispatch } from "react-redux";
-import { getSampleData } from "../../redux/actions/sampleAction";
+import { setEmail } from "../../redux/actions/email";
 
 export default function SignUp() {
+
   const [showPassword, setShowPassword] = useState(false);
- const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const {
     register,
@@ -32,19 +33,16 @@ export default function SignUp() {
     getValues,
   } = useForm();
   const onSubmit = async (data) => {
-    console.log("dataaa", data);
 
     const response = await signUp({
       email: data.email,
       password: data.password,
     });
-    console.log("resss" , response)
+
     if (response.success) {
-        dispatch(getSampleData(data.email));
-        Router.push('/auth/onboarding');
-      }
-
-
+      dispatch(setEmail(data.email));
+      Router.push("/auth/onboarding");
+    }
   };
   const onError = (errors) => console.log("Errors Occurred !! :", errors);
 
@@ -143,10 +141,8 @@ export default function SignUp() {
                 </div>
 
                 <div className="flex justify-center sm:block">
-                  
                   <button
                     type="submit"
-
                     className="bg-[#0364FF] hover:bg-[#0364FF] text-gray-100 p-4 w-3/4 md:w-5/6 lg:w-3/4 rounded-xl tracking-wide
                   font-semibold font-display focus:outline-none focus:shadow-outline 
                   shadow-lg"
