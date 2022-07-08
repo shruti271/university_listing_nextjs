@@ -4,17 +4,50 @@ import { useState } from "react";
 import CoverImage from "../../assets/login-cover.png";
 import googleIcon from "../../assets/googleIcon.svg";
 import fbIcon from "../../assets/fbIcon.svg";
-import Box from '@mui/material/Box';
-import EmailIcon from '@mui/icons-material/Email';
-import LockIcon from '@mui/icons-material/Lock';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-import InputAdornment from '@mui/material/InputAdornment';
-import Button from '@mui/material/Button';
+import Box from "@mui/material/Box";
+import EmailIcon from "@mui/icons-material/Email";
+import LockIcon from "@mui/icons-material/Lock";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import InputAdornment from "@mui/material/InputAdornment";
+import Button from "@mui/material/Button";
 import { CustomTextField } from "../../components/core/CustomForms";
+import { useForm } from "react-hook-form";
+import { signUp } from "../../services/auth";
+import Router from "next/router";
+import { useDispatch } from "react-redux";
+import { getSampleData } from "../../redux/actions/sampleAction";
 
 export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
+ const dispatch = useDispatch();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+    reset,
+    watch,
+    getValues,
+  } = useForm();
+  const onSubmit = async (data) => {
+    console.log("dataaa", data);
+
+    const response = await signUp({
+      email: data.email,
+      password: data.password,
+    });
+    console.log("resss" , response)
+    if (response.success) {
+        dispatch(getSampleData(data.email));
+        Router.push('/auth/onboarding');
+      }
+
+
+  };
+  const onError = (errors) => console.log("Errors Occurred !! :", errors);
+
   return (
     <>
       <div
@@ -32,32 +65,94 @@ export default function SignUp() {
             Sign up to Compoisite
           </h3>
           <div className="mt-4 sm:mt-8">
-            <form>
+            <form onSubmit={handleSubmit(onSubmit, onError)} onReset={reset}>
               <div className="flex flex-col">
-                <div className="flex justify-center sm:block">
-                 <Box sx={{ display: 'flex', alignItems: 'flex-end' }} className="mb-6 w-3/4 md:w-5/6 lg:w-3/4">
-        <EmailIcon sx={{  mr: 2, my: 0.5 }} className="text-black" />
-        <CustomTextField id="input-with-sx" label="Email Address" variant="standard" className="w-full" />
-      </Box>
+                <div className="flex sm:block justify-center">
+                  <div className="flex  sm:block flex-col mb-6 w-3/4 md:w-5/6 lg:w-3/4">
+                    <Box sx={{ display: "flex", alignItems: "flex-end" }}>
+                      <EmailIcon
+                        sx={{ mr: 2, my: 0.5 }}
+                        className="text-black"
+                      />
+                      <CustomTextField
+                        id="input-with-sx"
+                        label="Email Address"
+                        variant="standard"
+                        className="w-full"
+                        {...register("email", {
+                          required: "Email is required",
+                          pattern: {
+                            value:
+                              /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                            message: "Please enter a valid email",
+                          },
+                        })}
+                      />
+                    </Box>
+                    <div className="mt-2 ml-9">
+                      {errors.email && (
+                        <span style={{ color: "red" }} className="-mb-6">
+                          {errors.email?.message}
+                        </span>
+                      )}
+                    </div>
+                  </div>
                 </div>
-                <div className="flex justify-center sm:block">
-                <Box sx={{ display: 'flex', alignItems: 'flex-end' }} className="mb-12 w-3/4 md:w-5/6 lg:w-3/4">
-        <LockIcon sx={{  mr: 2, my: 0.5 }} className="text-black" />
-        <CustomTextField  type={showPassword ? "text" : "password"} id="input-with-sx" label="Password" variant="standard" className="w-full" InputProps={{
-          endAdornment: (
-            <InputAdornment position="start" className="cursor-pointer" onClick={() => setShowPassword((show) => !show)}>
-           {!showPassword?    <VisibilityOffIcon /> :<RemoveRedEyeIcon/>}
-            </InputAdornment>
-          ),
-        }} />
-      </Box>
+
+                <div className="flex sm:block justify-center">
+                  <div className="flex  sm:block flex-col mb-6 w-3/4 md:w-5/6 lg:w-3/4">
+                    <Box sx={{ display: "flex", alignItems: "flex-end" }}>
+                      <LockIcon
+                        sx={{ mr: 2, my: 0.5 }}
+                        className="text-black"
+                      />
+                      <CustomTextField
+                        type={showPassword ? "text" : "password"}
+                        id="input-with-sx"
+                        label="Password"
+                        variant="standard"
+                        className="w-full"
+                        {...register("password", {
+                          required: "Password is required",
+                        })}
+                        InputProps={{
+                          endAdornment: (
+                            <InputAdornment
+                              position="start"
+                              className="cursor-pointer"
+                              onClick={() => setShowPassword((show) => !show)}
+                            >
+                              {!showPassword ? (
+                                <VisibilityOffIcon />
+                              ) : (
+                                <RemoveRedEyeIcon />
+                              )}
+                            </InputAdornment>
+                          ),
+                        }}
+                      />
+                    </Box>
+                    <div className="mt-2 ml-9">
+                      {errors.password && (
+                        <span style={{ color: "red" }} className="-mb-6">
+                          {errors.password?.message}
+                        </span>
+                      )}
+                    </div>
+                  </div>
                 </div>
 
                 <div className="flex justify-center sm:block">
-                  <Button variant="contained" className="bg-[#0364FF] hover:bg-[#0364FF] text-gray-100 p-4 w-3/4 md:w-5/6 lg:w-3/4 rounded-xl focus:outline-none focus:shadow-outline 
-                  shadow-lg capitalize text-lg">     
+                  
+                  <button
+                    type="submit"
+
+                    className="bg-[#0364FF] hover:bg-[#0364FF] text-gray-100 p-4 w-3/4 md:w-5/6 lg:w-3/4 rounded-xl tracking-wide
+                  font-semibold font-display focus:outline-none focus:shadow-outline 
+                  shadow-lg"
+                  >
                     Sign up
-                  </Button>
+                  </button>
                 </div>
               </div>
             </form>

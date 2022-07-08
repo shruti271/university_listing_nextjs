@@ -1,10 +1,7 @@
-
 import { styled } from "@mui/material/styles";
-import TextField from '@mui/material/TextField';
+import TextField from "@mui/material/TextField";
 
-
-import Select from "@mui/material/Select";
-
+import NativeSelect from '@mui/material/NativeSelect';
 
 export const CustomTextField = styled(TextField)(({ theme }) => ({
   [`& .MuiInput-input`]: {
@@ -12,7 +9,7 @@ export const CustomTextField = styled(TextField)(({ theme }) => ({
     color: "#000000",
   },
   [`& .MuiInput-root:after`]: {
-    borderBottom:0
+    borderBottom: 0,
   },
   [`& label`]: {
     fontWeight: 400,
@@ -23,22 +20,18 @@ export const CustomTextField = styled(TextField)(({ theme }) => ({
 
     opacity: 0.5,
   },
-
-[`& .MuiInputLabel-root.Mui-focused`]:{
-        color: "#544E5D",
-
-  }
-  
-    
+  [`& .MuiInputLabel-root.Mui-focused`]: {
+    color: "#544E5D",
+  },
 }));
 
-export const CustomSelect = styled(Select)(({ theme }) => ({
+export const CustomSelect = styled(NativeSelect)(({ theme }) => ({
   [`& .MuiInput-input`]: {
     fontWeight: 600,
     color: "#000000",
   },
   [`& .MuiInput-root:after`]: {
-    borderBottom:0
+    borderBottom: 0,
   },
   [`& label`]: {
     fontWeight: 400,
@@ -50,10 +43,7 @@ export const CustomSelect = styled(Select)(({ theme }) => ({
     opacity: 0.5,
   },
 
-[`& .MuiInputLabel-root.Mui-focused`]:{
-        color: "#544E5D",
-
-  }
-  
+  [`& .MuiInputLabel-root.Mui-focused`]: {
+    color: "#544E5D",
+  },
 }));
-

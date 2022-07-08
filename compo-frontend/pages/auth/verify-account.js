@@ -90,14 +90,17 @@ export default function VerifyAccount() {
             </div>
           </div>
           <div className="mt-48">
-            <Button
-              variant="contained"
-              className="bg-[#0364FF] hover:bg-[#0364FF] text-gray-100 p-3 w-full rounded-xl
-                  font-semibold focus:outline-none focus:shadow-outline
-                  shadow-lg capitalize text-lg"
+         
+
+            <button
+              type="submit"
+
+              className="bg-[#0364FF] hover:bg-[#0364FF] text-gray-100 p-3 w-full rounded-xl tracking-wide
+                  font-semibold font-display focus:outline-none focus:shadow-outline 
+                  shadow-lg"
             >
               Reset
-            </Button>
+            </button>
           </div>
         </div>
       </div>

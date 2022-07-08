@@ -3,18 +3,32 @@ import Image from "next/image";
 import Logo from "../../assets/logo.svg";
 import { useState } from "react";
 import backIcon from "../../assets/backIcon.svg";
-import Box from '@mui/material/Box';
+import Box from "@mui/material/Box";
 
-import LockIcon from '@mui/icons-material/Lock';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-import InputAdornment from '@mui/material/InputAdornment';
-import Button from '@mui/material/Button';
+import LockIcon from "@mui/icons-material/Lock";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import InputAdornment from "@mui/material/InputAdornment";
+import Button from "@mui/material/Button";
 import { CustomTextField } from "../../components/core/CustomForms";
+import { useForm } from "react-hook-form";
 
 export default function UpdatePassword() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+    reset,
+    watch,
+    getValues,
+  } = useForm();
+  const onSubmit = async (data) => {
+    console.log("dataaa", data);
+  };
+  const onError = (errors) => console.log("Errors Occurred !! :", errors);
 
   return (
     <div
@@ -44,35 +58,99 @@ export default function UpdatePassword() {
           <p className="text-gray-700 text-sm mb-12">
             update your new password
           </p>
+          <form onSubmit={handleSubmit(onSubmit, onError)} onReset={reset}>
+            <div className="flex  sm:block flex-col mb-6 ">
+              <Box sx={{ display: "flex", alignItems: "flex-end" }}>
+                <LockIcon sx={{ mr: 2, my: 0.5 }} className="text-black" />
+                <CustomTextField
+                  type={showPassword ? "text" : "password"}
+                  id="input-with-sx"
+                  label="Password"
+                  variant="standard"
+                  className="w-full"
+                  {...register("password", {
+                    required: "Password is required",
+                  })}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment
+                        position="start"
+                        className="cursor-pointer"
+                        onClick={() => setShowPassword((show) => !show)}
+                      >
+                        {!showPassword ? (
+                          <VisibilityOffIcon />
+                        ) : (
+                          <RemoveRedEyeIcon />
+                        )}
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              </Box>
+              <div className="ml-9 mt-2 text-start">
+                {errors.password && (
+                  <span style={{ color: "red" }} className="-mb-6">
+                    {errors.password?.message}
+                  </span>
+                )}
+              </div>
+            </div>
+            <div className="flex  sm:block flex-col mb-6 ">
+              <Box sx={{ display: "flex", alignItems: "flex-end" }}>
+                <LockIcon sx={{ mr: 2, my: 0.5 }} className="text-black" />
+                <CustomTextField
+                  type={showConfirmPassword ? "text" : "password"}
+                  id="input-with-sx"
+                  label="Confirm Password"
+                  variant="standard"
+                  className="w-full"
+                  {...register("confirm_password", {
+                    validate: (value) => {
+                      const { password } = getValues();
+                      return password === value || "Passwords does not match!";
+                    },
+                  })}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment
+                        position="start"
+                        className="cursor-pointer"
+                        onClick={() => setShowConfirmPassword((show) => !show)}
+                      >
+                        {!showConfirmPassword ? (
+                          <VisibilityOffIcon />
+                        ) : (
+                          <RemoveRedEyeIcon />
+                        )}
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              </Box>
+              <div className="ml-9 mt-2 text-start">
+                {errors.confirm_password && (
+                  <span style={{ color: "red" }}>
+                    {errors.confirm_password?.message}
+                  </span>
+                )}{" "}
+              </div>
+            </div>
 
-           <Box sx={{ display: 'flex', alignItems: 'flex-end' }} className="mb-6">
-        <LockIcon sx={{  mr: 2, my: 0.5 }} className="text-black" />
-        <CustomTextField  type={showPassword ? "text" : "password"} id="input-with-sx" label="Password" variant="standard" className="w-full" InputProps={{
-          endAdornment: (
-            <InputAdornment position="start" className="cursor-pointer" onClick={() => setShowPassword((show) => !show)}>
-           {!showPassword?    <VisibilityOffIcon /> :<RemoveRedEyeIcon/>}
-            </InputAdornment>
-          ),
-        }} />
-      </Box>
-          <Box sx={{ display: 'flex', alignItems: 'flex-end' }} className="mb-6">
-        <LockIcon sx={{  mr: 2, my: 0.5 }} className="text-black" />
-        <CustomTextField  type={showConfirmPassword ? "text" : "password"} id="input-with-sx" label="Confirm Password" variant="standard" className="w-full" InputProps={{
-          endAdornment: (
-            <InputAdornment position="start" className="cursor-pointer" onClick={() => setShowConfirmPassword((show) => !show)}>
-           {!showConfirmPassword?    <VisibilityOffIcon /> :<RemoveRedEyeIcon/>}
-            </InputAdornment>
-          ),
-        }} />
-      </Box>
-          <div className="mt-8">
-          
-                         <Button variant="contained" className="bg-[#0364FF] hover:bg-[#0364FF] text-gray-100 p-3 w-full rounded-xl
-                  font-semibold focus:outline-none focus:shadow-outline
-                  shadow-lg capitalize text-lg">  
-              Update
-            </Button>
-          </div>
+            <div className="mt-8">
+             
+
+              <button
+                type="submit"
+
+                className="bg-[#0364FF] hover:bg-[#0364FF] text-gray-100 p-3 w-full rounded-xl tracking-wide
+                  font-semibold font-display focus:outline-none focus:shadow-outline 
+                  shadow-lg"
+              >
+                Update
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
