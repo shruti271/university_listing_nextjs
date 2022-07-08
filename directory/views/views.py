@@ -281,14 +281,14 @@ def collectScholarships(request):
 
     cookies = {
         '__gads': 'ID=a823a139bae56e82-224977dd18d40014:T=1656680701:RT=1656680701:S=ALNI_MYe9lYqo39BYO1MrIjbZ6tUgx_xzw',
-        '_gid': 'GA1.2.164466046.1656954148',
         'cookieconsent_status': 'dismiss',
+        '__gpi': 'UID=000009875f769037:T=1656680701:RT=1657272966:S=ALNI_Mb9Fnc8sLWPDYkjZ9wA20vqwVL0dA',
+        '_gid': 'GA1.2.1806460644.1657272967',
         '_gat_UA-12565915-9': '1',
-        '__gpi': 'UID=000009875f769037:T=1656680701:RT=1657182446:S=ALNI_Mb9Fnc8sLWPDYkjZ9wA20vqwVL0dA',
-        'PHPSESSID': '2529e137e32d8a0cab2e3b8f3f96dcf3',
-        '_csrf': '6d910b58cd9f7600623212b9c03fd8c091afdc02685c234475408e5391dbcbbba%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%2253FMDarfR0CSGPxToHdy1w9tKz5QbOag%22%3B%7D',
-        '_ga': 'GA1.2.2120178691.1656680701',
-        '_ga_KXQ425PMLX': 'GS1.1.1657182445.11.1.1657182462.0',
+        'PHPSESSID': '696f65b672e42d8809ece4586c230bb9',
+        '_csrf': 'b6ac7bddf45a2e00f7a34963eb8bb2070c3fd86c36067d9a6cb74824cea1793ea%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22C6niMZMAh3lJoUBsVtfPfkc0At6E3PRE%22%3B%7D',
+        '_ga_KXQ425PMLX': 'GS1.1.1657272967.12.1.1657272985.0',
+        '_ga': 'GA1.1.2120178691.1656680701',
     }
 
     headers = {
@@ -297,7 +297,7 @@ def collectScholarships(request):
         'accept-language': 'en,en-US;q=0.9,fr;q=0.8',
         'cache-control': 'max-age=0',
         # Requests sorts cookies= alphabetically
-        # 'cookie': '__gads=ID=a823a139bae56e82-224977dd18d40014:T=1656680701:RT=1656680701:S=ALNI_MYe9lYqo39BYO1MrIjbZ6tUgx_xzw; _gid=GA1.2.164466046.1656954148; cookieconsent_status=dismiss; _gat_UA-12565915-9=1; __gpi=UID=000009875f769037:T=1656680701:RT=1657182446:S=ALNI_Mb9Fnc8sLWPDYkjZ9wA20vqwVL0dA; PHPSESSID=2529e137e32d8a0cab2e3b8f3f96dcf3; _csrf=6d910b58cd9f7600623212b9c03fd8c091afdc02685c234475408e5391dbcbbba%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%2253FMDarfR0CSGPxToHdy1w9tKz5QbOag%22%3B%7D; _ga=GA1.2.2120178691.1656680701; _ga_KXQ425PMLX=GS1.1.1657182445.11.1.1657182462.0',
+        # 'cookie': '__gads=ID=a823a139bae56e82-224977dd18d40014:T=1656680701:RT=1656680701:S=ALNI_MYe9lYqo39BYO1MrIjbZ6tUgx_xzw; cookieconsent_status=dismiss; __gpi=UID=000009875f769037:T=1656680701:RT=1657272966:S=ALNI_Mb9Fnc8sLWPDYkjZ9wA20vqwVL0dA; _gid=GA1.2.1806460644.1657272967; _gat_UA-12565915-9=1; PHPSESSID=696f65b672e42d8809ece4586c230bb9; _csrf=b6ac7bddf45a2e00f7a34963eb8bb2070c3fd86c36067d9a6cb74824cea1793ea%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22C6niMZMAh3lJoUBsVtfPfkc0At6E3PRE%22%3B%7D; _ga_KXQ425PMLX=GS1.1.1657272967.12.1.1657272985.0; _ga=GA1.1.2120178691.1656680701',
         'referer': 'https://www.internationalscholarships.com/login',
         'sec-ch-ua': '".Not/A)Brand";v="99", "Google Chrome";v="103", "Chromium";v="103"',
         'sec-ch-ua-mobile': '?0',

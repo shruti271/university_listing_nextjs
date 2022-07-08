@@ -75,6 +75,8 @@ class Program(models.Model):
     def get_absolute_url(self):
         return reverse("program-detail", kwargs={"pk": self.pk})
 
+from django.core.validators import URLValidator
+
 class Scholarship(models.Model):
     name = models.CharField(max_length=200, null=True)
     slug = AutoSlugField(populate_from='name', always_update=True, unique = True, null=True)
@@ -94,16 +96,16 @@ class Scholarship(models.Model):
     gender = models.CharField(max_length=200, blank=True, null=True)
     award_ammount = models.CharField(max_length=100, blank=True, null=True)
     application_deadline = models.CharField(max_length=100, blank=True, null=True)
-    nationality_requirements = models.CharField(max_length=200, blank=True, null=True)
+    nationality_requirements = models.TextField(blank=True, null=True)
     applicable_majors = models.TextField(blank=True, null=True)
     host_institution = models.CharField(max_length=200, blank=True, null=True)
-    includes = models.CharField(max_length=200, blank=True, null=True)
+    includes = models.TextField(blank=True, null=True)
     contact_name = models.CharField(max_length=200, blank=True, null=True)
     address = models.TextField(blank=True, null=True)
     phone = models.CharField(max_length=200, blank=True, null=True)
     email = models.EmailField(max_length=200, blank=True, null=True)
     fax = models.CharField(max_length=100, blank=True, null=True)
-    link = models.URLField(max_length = 200, blank=True, null=True)
+    link = models.TextField(validators=[URLValidator()], blank=True, null=True)
 
     #------- Those does not exist in every detail page.
     # elegibility_critetial = list of strings
