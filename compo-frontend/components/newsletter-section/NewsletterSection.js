@@ -1,5 +1,4 @@
-import waveElement from '../../../assets/newsletter-section/waveElement.svg';
-
+import waveElement from '../../assets/newsletter-section/waveElement.svg';
 const NewsletterSection = () => {
   return (
     <section className="">

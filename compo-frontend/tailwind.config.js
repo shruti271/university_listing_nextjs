@@ -13,6 +13,7 @@ module.exports = {
         colorWhite: '#FFFFFF',
         colorStone: '#544E5D',
         colorPale: '#F9F9FA',
+        colorGrey: '#F0F0F0',
         colorTransparent: 'transparent',
       },
     },
