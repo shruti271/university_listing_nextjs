@@ -106,7 +106,7 @@ class StudentSignupView(APIView):
         first_name = data.get('first_name')
         last_name = data.get('last_name')
 
-        if User.objects.filter(email=email).exists():
+        if User.objects.filter(email=email).exists() and Student.objects.filter(user = User.objects.get(email=email)).exists():
             user = User.objects.get(email=email)
             user.first_name = first_name
             user.last_name = last_name
@@ -115,18 +115,18 @@ class StudentSignupView(APIView):
             
 
             # Updating the student object
-            if user.is_active == False:
+            if student.is_onboarded == False and user.is_active == False:
                 for key in data:
                     setattr(student, key, data[key])
+                student.is_onboarded = True
                 student.save()
-
-            # send verification email.
-            refresh = RefreshToken.for_user(user)
-            return Response({
-                'detail': 'Verification email (feature on hold).',
-                'refresh_token': str(refresh),
-                'access_token': str(refresh.access_token),
-                })
+                # send verification email.
+                return Response({
+                    'detail': 'Email verification sent.',
+                    })
+            elif student.is_onboarded == False:
+                AlreadyOnboarded
+                
 
         else:
             raise NotFound
@@ -148,20 +148,25 @@ class StudentLoginView(APIView):
         email = str(data.get('email'))
         password = str(data.get('password'))
         
-        if User.objects.filter(email=email).exists():
+        if User.objects.filter(email=email).exists() and Student.objects.filter(user = User.objects.get(email=email)).exists():
             base_user = User.objects.get(email=email)
+            student = Student.objects.get(user=base_user)
 
             is_auth = base_user.check_password(password)
             
-            # if base_user.is_active==False:
-            #     raise IncativeAccount
 
-            if is_auth and not base_user.is_active==False:
+            if is_auth and base_user.is_active==True and student.onboarded==True:
                 refresh = RefreshToken.for_user(base_user)
                 return Response({
                     'refresh_token': str(refresh),
                     'access_token': str(refresh.access_token),
                 })
+
+            elif is_auth and base_user.is_active==False and student.onboarded==True:
+                raise IncativeAccount
+
+            elif is_auth and base_user.is_active==False and student.onboarded==False:
+                raise NotOnboarded
            
             else:
                 raise WrongCreds
