@@ -1,6 +1,6 @@
 import Head from 'next/head';
-import { Provider } from 'react-redux';
 import {  store } from "../redux/store";
+import { Provider } from 'react-redux';
 
 import Footer from '../components/Footer';
 import Header from '../components/Header';
@@ -17,7 +17,9 @@ function MyApp({ Component, pageProps }) {
         </Head>
         <Header />
         <main>
+        <Provider store={store}>
           <Component {...pageProps} />
+        </Provider>
         </main>
         <Footer />
       </Provider>

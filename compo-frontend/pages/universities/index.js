@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import Filter from '../../components/filter/Filter';
-import NewsletterSection from '../../components/newsletter-section/NewsletterSection';
+import NewsletterSection from '../../components/sections/newsletter-section/NewsletterSection';
 import HeroSection from '../../components/university-sections/hero-section/HeroSection';
 import UniversitiesSection from '../../components/university-sections/universities-section/UniversitiesSection';
 import getStore from '../../store/store';
