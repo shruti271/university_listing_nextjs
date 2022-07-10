@@ -24,7 +24,6 @@ export default function Home() {
       <PathsSection />
       <TestimonialsSection />
       <NewsletterSection />
-      <Footer />
     </>
   );
 }
