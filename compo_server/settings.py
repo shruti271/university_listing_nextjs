@@ -108,6 +108,7 @@ INSTALLED_APPS = [
     'accounts',
     'rest_framework_simplejwt',
     'directory',
+    'corsheaders',
 ]
 
 # Simple JWT config
@@ -124,7 +125,8 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-    'PAGE_SIZE': 20
+    'PAGE_SIZE': 20,
+    'DATE_INPUT_FORMATS': ['iso-8601', '%Y-%m-%d'],
 }
 
 # For the custom autentication
@@ -137,12 +139,15 @@ AUTHENTICATION_BACKENDS = ('accounts.AuthBack.EmailBackend',)
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 ROOT_URLCONF = 'compo_server.urls'
 
