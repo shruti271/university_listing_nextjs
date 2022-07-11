@@ -15,13 +15,10 @@ import { CustomTextField } from "../../components/core/CustomForms";
 import { useForm } from "react-hook-form";
 import { signUp } from "../../services/auth";
 import Router from "next/router";
-import { useDispatch } from "react-redux";
-import { setEmail } from "../../redux/actions/email";
 
 export default function SignUp() {
 
   const [showPassword, setShowPassword] = useState(false);
-  const dispatch = useDispatch();
 
   const {
     register,
@@ -40,7 +37,7 @@ export default function SignUp() {
     });
 
     if (response.success) {
-      dispatch(setEmail(data.email));
+      localStorage.setItem("email", data.email);
       Router.push("/auth/onboarding");
     }
   };
