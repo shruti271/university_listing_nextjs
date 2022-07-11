@@ -138,10 +138,8 @@ export default function RegistrationSteps() {
   } = useForm();
 
   React.useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const email = localStorage.getItem("email");
-      setEmail(email)
-    }
+    const email = localStorage.getItem("email");
+    setEmail(email)
   }, [])
 
   console.log("Email Provide: ", email);
