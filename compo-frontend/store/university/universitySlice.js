@@ -12,8 +12,8 @@ let rankOrderLTE = '';
 let studentBodySize = '';
 let studentBodySizeLT = '';
 let studentBodySizeGT = '';
-let studentBodySizeGTE = '';
-let studentBodySizeLTE = '';
+let studentBodySizeGTE = '0';
+let studentBodySizeLTE = '500000';
 
 const initialState = {
   universities: [],
@@ -24,7 +24,7 @@ const initialState = {
 };
 
 const setCurrentFilter = () => {
-  const currentFilter = `http://api.composite.digital/v1/universities/filter/?institute_type=&location=${location}&offset=&rank_order=&rank_order__gt=&rank_order__gte=&rank_order__lt=&rank_order__lte=&student_body_size=&student_body_size__gt=&student_body_size__gte=&student_body_size__lt=&student_body_size__lte=`;
+  const currentFilter = `http://api.composite.digital/v1/universities/filter/?institute_type=&location=${location}&offset=&rank_order=&rank_order__gt=&rank_order__gte=&rank_order__lt=&rank_order__lte=&student_body_size=&student_body_size__gt=&student_body_size__gte=${studentBodySizeGTE}&student_body_size__lt=${studentBodySizeLTE}&student_body_size__lte=`;
 
   return currentFilter;
 };
@@ -42,6 +42,18 @@ export const filterByNameAndLocation = createAsyncThunk(
   'universities/filterByNameAndLocation',
   async (searchValue) => {
     location = searchValue;
+    const res = await fetch(setCurrentFilter());
+    const data = await res.json();
+    return { results: data.results, count: data.count };
+  }
+);
+
+export const filterByStudentBodySize = createAsyncThunk(
+  'universities/filterByStudentBodySize',
+  async (searchValue) => {
+    const [min, max] = searchValue;
+    studentBodySizeGTE = min;
+    studentBodySizeLTE = max;
     const res = await fetch(setCurrentFilter());
     const data = await res.json();
     return { results: data.results, count: data.count };
@@ -94,6 +106,19 @@ export const universitySlice = createSlice({
         state.countUniversities = payload.count;
       })
       .addCase(filterByNameAndLocation.rejected, (state) => {
+        state.pending = false;
+        state.error = true;
+      })
+      .addCase(filterByStudentBodySize.pending, (state) => {
+        state.pending = true;
+      })
+      .addCase(filterByStudentBodySize.fulfilled, (state, { payload }) => {
+        state.pending = false;
+        state.universities = payload.results;
+        state.filteredUniversities = payload.results;
+        state.countUniversities = payload.count;
+      })
+      .addCase(filterByStudentBodySize.rejected, (state) => {
         state.pending = false;
         state.error = true;
       });

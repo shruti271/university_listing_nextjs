@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   @apply bg-colorWhite text-colorStone;
 }
 
@@ -17,7 +17,7 @@ h6 {
 }
 
 .container {
-  @apply w-[100%] max-w-[px] mx-auto;
+  @apply w-[950%] max-w-[px] mx-auto;
 }
 
 .container-fluid {
