@@ -36,7 +36,7 @@ const UniversityCard = ({ university }) => {
           {institute_type}
         </span>
         <span className="text-[#92929D]">
-          <span className="text-colorBlack">{stats_pc_intl_students}%</span>{' '}
+          <span className="text-colorBlack">{stats_pc_intl_students}</span>{' '}
           Acceptance rate
         </span>
       </div>

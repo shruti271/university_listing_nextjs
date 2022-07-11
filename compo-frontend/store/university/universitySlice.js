@@ -19,6 +19,17 @@ export const getUniversities = createAsyncThunk(
   }
 );
 
+export const filterByNameAndLocation = createAsyncThunk(
+  'universities/filterByNameAndLocation',
+  async (searchValue) => {
+    const res = await fetch(
+      `https://api.composite.digital/v1/universities/filter/?format=json&search=${searchValue}`
+    );
+    const data = await res.json();
+    return data.results;
+  }
+);
+
 export const universitySlice = createSlice({
   name: 'universities',
   initialState,
@@ -51,6 +62,18 @@ export const universitySlice = createSlice({
         state.filteredUniversities = payload;
       })
       .addCase(getUniversities.rejected, (state) => {
+        state.pending = false;
+        state.error = true;
+      })
+      .addCase(filterByNameAndLocation.pending, (state) => {
+        state.pending = true;
+      })
+      .addCase(filterByNameAndLocation.fulfilled, (state, { payload }) => {
+        state.pending = false;
+        state.universities = payload;
+        state.filteredUniversities = payload;
+      })
+      .addCase(filterByNameAndLocation.rejected, (state) => {
         state.pending = false;
         state.error = true;
       });

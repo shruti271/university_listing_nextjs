@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { filterUniversitiesByLocation } from '../../../store/university/universitySlice';
 import { useDispatch } from 'react-redux';
+import { filterByNameAndLocation } from '../../../store/university/universitySlice';
 
-export const useSearchLocation = (initialValue) => {
+export const useSearchLocation = () => {
   const [searchValue, setSearchValue] = useState('');
   const dispatch = useDispatch();
 
@@ -11,11 +11,8 @@ export const useSearchLocation = (initialValue) => {
     setSearchValue(e.target.value);
   };
 
-  const filterByLocation = (location) =>
-    dispatch(filterUniversitiesByLocation(location));
-
   useEffect(() => {
-    filterByLocation(searchValue);
+    dispatch(filterByNameAndLocation(searchValue));
   }, [searchValue]);
 
   const handleSubmit = (e) => {
