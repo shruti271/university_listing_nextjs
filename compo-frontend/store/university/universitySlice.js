@@ -11,8 +11,11 @@ const initialState = {
 export const getUniversities = createAsyncThunk(
   'universities/getUniversities',
   async () => {
-    const res = universities;
-    return res;
+    const res = await fetch(
+      'http://api.composite.digital/v1/universities/?format=json'
+    );
+    const data = await res.json();
+    return data.results;
   }
 );
 

@@ -4,30 +4,7 @@ import Filter from '../../components/filter/Filter';
 import NewsletterSection from '../../components/newsletter-section/NewsletterSection';
 import HeroSection from '../../components/university-sections/hero-section/HeroSection';
 import UniversitiesSection from '../../components/university-sections/universities-section/UniversitiesSection';
-import getStore from '../../store/store';
-import {
-  getUniversities,
-  rehydrate,
-} from '../../store/university/universitySlice';
-
-export const getServerSideProps = async () => {
-  const store = getStore();
-  await store.dispatch(getUniversities());
-
-  return {
-    props: {
-      initialState: store.getState(),
-    },
-  };
-};
-
-const Universities = ({ initialState }) => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(rehydrate(initialState.universities));
-  }, [dispatch, initialState]);
-
+const Universities = () => {
   return (
     <div className="bg-colorPale pb-20 md:pb-28">
       <HeroSection />
