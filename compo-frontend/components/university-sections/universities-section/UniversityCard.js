@@ -15,7 +15,7 @@ const UniversityCard = ({ university }) => {
     name,
     description,
     student_body_size,
-    rank,
+    rank_order,
     linkApply = '/',
     linkView = '/',
   } = university;
@@ -51,10 +51,10 @@ const UniversityCard = ({ university }) => {
       </p>
       <ul className="flex items-center justify-start gap-1 flex-wrap mb-8">
         <li className="bg-[#F1F1F5] p-2 rounded-md text-[0.625rem]">
-          Ranking: <span className="font-bold">{rank}</span>
+          Ranking: <span className="font-bold">{rank_order}</span>
         </li>
         <li className="bg-[#F1F1F5] p-2 rounded-md text-[0.625rem]">
-          Number of students:{' '}
+          Student Body Size:{' '}
           <span className="font-bold">{student_body_size}+</span>
         </li>
         <li className="bg-[#F1F1F5] p-2 rounded-md text-[0.625rem]">

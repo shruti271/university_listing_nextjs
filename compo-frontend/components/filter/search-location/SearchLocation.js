@@ -9,7 +9,7 @@ const SearchLocation = ({ className = '' }) => {
     <CardWrapper>
       <FilterTitle>Location</FilterTitle>
       <div className="px-8 pt-5 pb-8">
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} autoComplete="off">
           <input
             type="search"
             name="searchLocation"

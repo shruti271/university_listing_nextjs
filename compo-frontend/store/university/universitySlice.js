@@ -1,32 +1,50 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { universities } from '../../components/university-sections/universities-section/universityData';
 
+let insitituteType = '';
+let location = '';
+let offset = '';
+let rankOrder = '';
+let rankOrderGT = '';
+let rankOrderLT = '';
+let rankOrderGTE = '';
+let rankOrderLTE = '';
+let studentBodySize = '';
+let studentBodySizeLT = '';
+let studentBodySizeGT = '';
+let studentBodySizeGTE = '';
+let studentBodySizeLTE = '';
+
 const initialState = {
   universities: [],
   filteredUniversities: [],
+  countUniversities: 0,
   pending: false,
   error: false,
+};
+
+const setCurrentFilter = () => {
+  const currentFilter = `http://api.composite.digital/v1/universities/filter/?institute_type=&location=${location}&offset=&rank_order=&rank_order__gt=&rank_order__gte=&rank_order__lt=&rank_order__lte=&student_body_size=&student_body_size__gt=&student_body_size__gte=&student_body_size__lt=&student_body_size__lte=`;
+
+  return currentFilter;
 };
 
 export const getUniversities = createAsyncThunk(
   'universities/getUniversities',
   async () => {
-    const res = await fetch(
-      'http://api.composite.digital/v1/universities/?format=json'
-    );
+    const res = await fetch(setCurrentFilter());
     const data = await res.json();
-    return data.results;
+    return { results: data.results, count: data.count };
   }
 );
 
 export const filterByNameAndLocation = createAsyncThunk(
   'universities/filterByNameAndLocation',
   async (searchValue) => {
-    const res = await fetch(
-      `https://api.composite.digital/v1/universities/filter/?format=json&search=${searchValue}`
-    );
+    location = searchValue;
+    const res = await fetch(setCurrentFilter());
     const data = await res.json();
-    return data.results;
+    return { results: data.results, count: data.count };
   }
 );
 
@@ -58,8 +76,9 @@ export const universitySlice = createSlice({
       })
       .addCase(getUniversities.fulfilled, (state, { payload }) => {
         state.pending = false;
-        state.universities = payload;
-        state.filteredUniversities = payload;
+        state.universities = payload.results;
+        state.filteredUniversities = payload.results;
+        state.countUniversities = payload.count;
       })
       .addCase(getUniversities.rejected, (state) => {
         state.pending = false;
@@ -70,8 +89,9 @@ export const universitySlice = createSlice({
       })
       .addCase(filterByNameAndLocation.fulfilled, (state, { payload }) => {
         state.pending = false;
-        state.universities = payload;
-        state.filteredUniversities = payload;
+        state.universities = payload.results;
+        state.filteredUniversities = payload.results;
+        state.countUniversities = payload.count;
       })
       .addCase(filterByNameAndLocation.rejected, (state) => {
         state.pending = false;

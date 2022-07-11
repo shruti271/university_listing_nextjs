@@ -10,6 +10,9 @@ const UniversitiesSection = ({ className = '' }) => {
   const universities = useSelector(
     (state) => state.universities.filteredUniversities
   );
+  const countUniversities = useSelector(
+    (state) => state.universities.countUniversities
+  );
 
   useEffect(() => {
     dispatch(getUniversities());
@@ -18,10 +21,13 @@ const UniversitiesSection = ({ className = '' }) => {
   return (
     <section className={`pt-32 pb-11 ${className}`}>
       <UpperFilter />
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-11">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-11 mb-14">
         {universities?.map((university) => (
           <UniversityCard key={university.id} university={university} />
         ))}
+      </div>
+      <div>
+        <h2 className="">{countUniversities && countUniversities}</h2>
       </div>
     </section>
   );
