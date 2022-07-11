@@ -177,7 +177,7 @@ export default function RegistrationSteps() {
         localStorage.removeItem("email");
         localStorage.setItem("access_token", response.data.access_token)
         localStorage.setItem("refresh_token", response.data.refresh_token)
-        Router.push("/home");
+        Router.push("/universities");
       }
     }
   };
