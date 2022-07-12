@@ -16,7 +16,7 @@ class DuplicateException(APIException):
 
 class NotOnboarded(APIException):
     status_code = 303
-    default_detail = 'User exists, please go through the onboarding to be able to login.'
+    default_detail = 'Please go through the onboarding first.'
     default_code = 'User not onboarded'
 
 class IncativeAccount(APIException):
@@ -28,3 +28,13 @@ class AlreadyOnboarded(APIException):
     status_code = 303
     default_detail = 'You aready went through the onboarding.'
     default_code = 'User already onboarded'
+
+class AlreadyActivated(APIException):
+    status_code = 400
+    default_detail = 'Your account is already verified.'
+    default_code = 'User already verified'
+
+class InvalidToken(APIException):
+    status_code = 400
+    default_detail = 'The code you entered is not valid.'
+    default_code = 'Invalid code'

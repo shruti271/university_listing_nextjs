@@ -61,3 +61,20 @@ class OrganisationUser(models.Model):
     analytics_user = models.BooleanField(default=False, null=True)
     curator_user = models.BooleanField(default=False, null=True)
     publisher_user = models.BooleanField(default=False, null=True)
+
+import uuid
+
+PURPOSES = (
+    ("Activation", "Activation"),
+    ("Password Reset", "Password Reset"),
+)
+
+class Verification(models.Model):
+    hash = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    used = models.BooleanField(default=False, null=True)
+    purpose = models.CharField(max_length=100, choices=PURPOSES, null=True)
+    latest_update = models.DateTimeField(auto_now_add=True, null=True)
+
+    def __str__(self):
+        return self.purpose + ' for: ' + str(self.user.username)

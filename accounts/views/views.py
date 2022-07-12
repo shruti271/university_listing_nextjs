@@ -1,6 +1,7 @@
+from http.client import FORBIDDEN
 from django.shortcuts import render
-from accounts.models import User, Student
-from accounts.serializers import ClosedStudentSerializer
+from accounts.models import User, Student, Verification
+from accounts.serializers import ClosedStudentSerializer, ResetpasswordSerializer
 
 from rest_framework import permissions, status
 from rest_framework.views import APIView
@@ -11,6 +12,8 @@ from rest_framework_simplejwt.tokens import RefreshToken
 
 from accounts.exceptions import *
 
+from django.core.mail import send_mail
+import uuid
 
 class StudentSignupView(APIView):
     """ 
@@ -121,6 +124,26 @@ class StudentSignupView(APIView):
                 student.is_onboarded = True
                 student.save()
                 # send verification email.
+
+                verification = Verification.objects.get_or_create(user=user, purpose='Activation')
+                protocol = 'http'
+                # mail_subject = 'Please activate your account'
+                # message = render_to_string('accounts/activation.html', {
+                #     'user': user,
+                #     'verification_token': str(verification.hash),
+                #     'protocol': protocol,
+                # })
+                # to_email = user.email
+                # email = 'contact@composite.digital'
+
+                print('hash: ', str(verification.hash))
+
+                # send_mail(
+                # mail_subject,
+                # message,
+                # email,
+                # [to_email],
+                # fail_silently=False)
                 return Response({
                     'detail': 'Email verification sent.',
                     })
@@ -155,17 +178,17 @@ class StudentLoginView(APIView):
             is_auth = base_user.check_password(password)
             
 
-            if is_auth and base_user.is_active==True and student.onboarded==True:
+            if is_auth and base_user.is_active==True and student.is_onboarded==True:
                 refresh = RefreshToken.for_user(base_user)
                 return Response({
                     'refresh_token': str(refresh),
                     'access_token': str(refresh.access_token),
                 })
 
-            elif is_auth and base_user.is_active==False and student.onboarded==True:
+            elif is_auth and base_user.is_active==False and student.is_onboarded==True:
                 raise IncativeAccount
 
-            elif is_auth and base_user.is_active==False and student.onboarded==False:
+            elif is_auth and base_user.is_active==False and student.is_onboarded==False:
                 raise NotOnboarded
            
             else:
@@ -190,3 +213,154 @@ class WhoAmIView(APIView):
 
     def put(self, request, format=None):
         """ TODO : Update a user"""
+
+import datetime
+class ActivateAccount(APIView):
+
+    permission_classes = [permissions.AllowAny]
+
+    def post(self, request, format=None):
+        data = request.data
+        email = str(data.get('email'))
+        token_request = str(data.get('token'))
+
+        if User.objects.filter(email=email).exists() and Student.objects.filter(user = User.objects.get(email=email)).exists() and Verification.objects.filter(user=User.objects.get(email=email), used=False, latest_update__gte=datetime.datetime.now() - datetime.timedelta(minutes=5)).exists():
+
+            user = User.objects.get(email=email)
+            student = Student.objects.get(user=user)
+            verification = Verification.objects.get(user=user, used=False, latest_update__gte=datetime.datetime.now() - datetime.timedelta(minutes=5))
+
+            if user.is_active == True:
+                raise AlreadyActivated
+
+            if not student.is_onboarded == True:
+                raise NotOnboarded
+
+            if token_request == str(verification.hash):
+                user.is_active = True
+                user.save()
+                verification.used = True
+                verification.save()
+                return Response({'detail': u'Your account is activated.'}, status = status.HTTP_200_OK)
+            else:
+                raise InvalidToken
+        else:
+            raise NotFound
+
+class SendActivation(APIView):
+    permission_classes = [permissions.AllowAny]
+
+    def post(self, request, format=None):
+        data = request.data
+        email = str(data.get('email'))
+
+        if User.objects.filter(email=email).exists() and Student.objects.filter(user = User.objects.get(email=email)).exists():
+            user = User.objects.get(email=email)
+            student = Student.objects.get(user=user)
+        
+            if user.is_active==False and student.is_onboarded==True:
+                verification = Verification.objects.create(user=user, purpose='Activation')
+                print('verification: ', str(verification.hash))
+                # protocol = 'http'
+                # mail_subject = 'Please activate your account'
+                # message = render_to_string('accounts/activation.html', {
+                #     'user': user,
+                #     'verification_token': str(verification.hash),
+                #     'protocol': protocol,
+                # })
+                # to_email = user.email
+                # email = 'contact@composite.digital'
+                # send_mail(
+                # mail_subject,
+                # message,
+                # email,
+                # [to_email],
+                # fail_silently=False)
+
+                return Response({'detail': u'Activation email sent'}, status = status.HTTP_200_OK)
+
+            elif user.is_active==False and student.is_onboarded==False:
+                raise NotOnboarded
+            
+            elif user.is_active==True:
+                raise AlreadyActivated
+        
+        else:
+            raise NotFound
+
+class ResetPass(APIView):
+
+    permission_classes = [permissions.AllowAny]
+
+    def post(self, request, format=None):
+        data = request.data
+        email = str(data.get('email'))
+        token_request = str(data.get('token'))
+
+        if User.objects.filter(email=email).exists() and Student.objects.filter(user = User.objects.get(email=email)).exists() and Verification.objects.filter(user=User.objects.get(email=email), used=False, purpose = 'Password Reset',latest_update__gte=datetime.datetime.now() - datetime.timedelta(minutes=5)).exists(): 
+
+            user = User.objects.get(email=email)
+            student = Student.objects.get(user=user)
+            verification = Verification.objects.get(user=user, used=False, purpose = 'Password Reset', latest_update__gte=datetime.datetime.now() - datetime.timedelta(minutes=5))
+
+            if not student.is_onboarded == True:
+                raise NotOnboarded
+
+            if user.is_active == True and student.is_onboarded == True:
+                if str(verification.hash) == token_request:
+                    serializer=ResetpasswordSerializer(data=request.data)
+                    if serializer.is_valid(raise_exception=True):
+                        serializer.save()
+                        verification.used=True
+                        verification.save()
+                        return Response({'detail': u'Your password is updated.'}, status = status.HTTP_200_OK)
+                else:
+                    raise InvalidToken
+
+        else:
+            raise NotFound
+            
+
+class SendReset(APIView):
+    permission_classes = [permissions.AllowAny]
+
+    def post(self, request, format=None):
+        data = request.data
+        email = str(data.get('email'))
+
+        if User.objects.filter(email=email).exists() and Student.objects.filter(user = User.objects.get(email=email)).exists():
+            user = User.objects.get(email=email)
+            student = Student.objects.get(user=user)
+        
+            if user.is_active==True and student.is_onboarded==True:
+                verification = Verification.objects.filter(user=user, used=False, purpose = 'Password Reset', latest_update__gte=datetime.datetime.now() - datetime.timedelta(minutes=5))
+                if len(verification)>0:
+                    for v in verification:
+                        v.delete()
+                        verification = Verification.objects.create(user=user, purpose='Password Reset')
+                else:
+                    verification = Verification.objects.create(user=user, purpose='Password Reset')
+                print('verification: ', str(verification.hash))
+                # protocol = 'http'
+                # mail_subject = 'Please activate your account'
+                # message = render_to_string('accounts/activation.html', {
+                #     'user': user,
+                #     'verification_token': str(verification.hash),
+                #     'protocol': protocol,
+                # })
+                # to_email = user.email
+                # email = 'contact@composite.digital'
+                # send_mail(
+                # mail_subject,
+                # message,
+                # email,
+                # [to_email],
+                # fail_silently=False)
+
+                return Response({'detail': u"We've emailed you the instructions to reset your password."}, status = status.HTTP_200_OK)
+
+            else:
+                raise FORBIDDEN
+        
+        else:
+            raise NotFound
