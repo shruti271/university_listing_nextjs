@@ -53,6 +53,7 @@ export const filterByStudentBodySize = createAsyncThunk(
   'universities/filterByStudentBodySize',
   async (searchValue) => {
     const [min, max] = searchValue;
+
     studentBodySizeGTE = min;
     studentBodySizeLTE = max;
     const res = await fetch(setCurrentFilter());
