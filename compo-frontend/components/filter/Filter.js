@@ -11,12 +11,12 @@ const Filter = () => {
   return (
     <div className="flex flex-col space-y-4">
       <SearchLocation />
+      <StudentPopulation />
       <InstituteType />
       <Cost />
       <Majors />
       <Selectivity />
       <CampusSetting />
-      <StudentPopulation />
       <CollegeType />
     </div>
   );

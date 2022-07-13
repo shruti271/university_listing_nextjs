@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUniversities } from '../../../store/university/universitySlice';
+import PaginationControlled from '../../PaginationControlled/PaginationControlled';
 import UpperFilter from '../../upper-filter/UpperFilter';
 import UniversityCard from './UniversityCard';
-// import { universities } from './universityData';
 
 const UniversitiesSection = ({ className = '' }) => {
   const dispatch = useDispatch();
@@ -26,8 +26,16 @@ const UniversitiesSection = ({ className = '' }) => {
           <UniversityCard key={university.id} university={university} />
         ))}
       </div>
-      <div>
-        <h2 className="">{countUniversities && countUniversities}</h2>
+      <div className="flex items-center justify-between">
+        <span className="text-colorBlack">
+          Showing {universities.length} of {countUniversities}
+        </span>
+        <div>
+          <PaginationControlled
+            countPages={countUniversities}
+            itemsPerPage={20}
+          />
+        </div>
       </div>
     </section>
   );

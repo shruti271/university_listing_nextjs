@@ -11,6 +11,7 @@ countryNames.sort();
 
 const SearchLocation = ({ className = '' }) => {
   const [countryName, handleSelectChange] = useSearchLocation();
+
   return (
     <CardWrapper>
       <FilterTitle>Location</FilterTitle>
@@ -20,7 +21,6 @@ const SearchLocation = ({ className = '' }) => {
             value={countryName}
             className="w-full"
             onChange={handleSelectChange}
-            placeholder="Location"
           >
             <MenuItem value="">All</MenuItem>
             {countryNames.map((name) => (
