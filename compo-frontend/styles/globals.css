@@ -17,7 +17,7 @@ h6 {
 }
 
 .container {
-  @apply w-[950%] max-w-[px] mx-auto;
+  @apply w-[95%] max-w-[1536px] mx-auto;
 }
 
 .container-fluid {
