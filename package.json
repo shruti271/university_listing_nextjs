@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "countries-list": "^2.6.1",
+    "lodash": "^4.17.21"
+  }
+}

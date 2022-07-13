@@ -3,20 +3,20 @@ import { useDispatch } from 'react-redux';
 import { filterByNameAndLocation } from '../../../store/university/universitySlice';
 
 export const useSearchLocation = () => {
-  const [searchValue, setSearchValue] = useState('');
+  const [countryName, setCountryName] = useState([]);
   const dispatch = useDispatch();
 
-  const handleSearchChange = (e) => {
-    e.preventDefault();
-    setSearchValue(e.target.value);
+  const handleSelectChange = (e) => {
+    const {
+      target: { value },
+    } = e;
+    setCountryName(typeof value === 'string' ? value.split(',') : value);
+    dispatch(filterByNameAndLocation(countryName));
   };
 
   useEffect(() => {
-    dispatch(filterByNameAndLocation(searchValue));
-  }, [searchValue]);
+    dispatch(filterByNameAndLocation(countryName));
+  }, [countryName]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
-  return [searchValue, handleSearchChange, handleSubmit];
+  return [countryName, handleSelectChange];
 };

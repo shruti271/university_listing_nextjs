@@ -5,7 +5,10 @@ import { styled, alpha, Box } from '@mui/system';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { debounce } from 'lodash';
 import { filterByStudentBodySize } from '../../../../store/university/universitySlice';
+import { useCallback } from 'react';
+import { useMemo } from 'react';
 
 const StyledSlider = styled(SliderUnstyled)(
   ({ theme }) => `
@@ -116,15 +119,21 @@ export default function RangeSlider() {
   const [value, setValue] = useState([0, 500000]);
 
   const handleChange = (event, newValue) => {
-    setTimeout(() => {
-      setValue(newValue);
-    }, 200);
+    setValue(newValue);
   };
+
+  const debouncedOnChange = useMemo(() => {
+    return debounce(handleChange, 500);
+  }, []);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(filterByStudentBodySize(value));
+
+    return () => {
+      debouncedOnChange.cancel();
+    };
   }, [value]);
 
   return (
@@ -132,12 +141,13 @@ export default function RangeSlider() {
       {/* controlled: */}
       <StyledSlider
         value={value}
-        onChange={handleChange}
+        onChange={debouncedOnChange}
         getAriaLabel={() => 'Student Body range'}
         getAriaValueText={valuetext}
         min={0}
         max={500000}
         valueLabelDisplay="auto"
+        step={5000}
       />
     </Box>
   );
