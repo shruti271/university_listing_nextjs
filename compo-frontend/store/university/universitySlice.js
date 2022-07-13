@@ -14,6 +14,7 @@ let studentBodySizeLT = '';
 let studentBodySizeGT = '';
 let studentBodySizeGTE = '0';
 let studentBodySizeLTE = '500000';
+let pageOffset = 0;
 
 const initialState = {
   universities: [],
@@ -24,7 +25,7 @@ const initialState = {
 };
 
 const setCurrentFilter = () => {
-  const currentFilter = `http://api.composite.digital/v1/universities/filter/?institute_type=&location=${location}&offset=&rank_order=&rank_order__gt=&rank_order__gte=&rank_order__lt=&rank_order__lte=&student_body_size=&student_body_size__gt=&student_body_size__gte=${studentBodySizeGTE}&student_body_size__lt=&student_body_size__lte=${studentBodySizeLTE}`;
+  const currentFilter = `http://api.composite.digital/v1/universities/filter/?institute_type=&location=${location}&offset=${pageOffset}&rank_order=&rank_order__gt=&rank_order__gte=&rank_order__lt=&rank_order__lte=&student_body_size=&student_body_size__gt=&student_body_size__gte=${studentBodySizeGTE}&student_body_size__lt=&student_body_size__lte=${studentBodySizeLTE}`;
 
   return currentFilter;
 };
@@ -54,6 +55,16 @@ export const filterByStudentBodySize = createAsyncThunk(
     const [min, max] = searchValue;
     studentBodySizeGTE = min;
     studentBodySizeLTE = max;
+    const res = await fetch(setCurrentFilter());
+    const data = await res.json();
+    return { results: data.results, count: data.count };
+  }
+);
+
+export const setNewPage = createAsyncThunk(
+  'universities/setNewPage',
+  async (page) => {
+    pageOffset = (page - 1) * 20;
     const res = await fetch(setCurrentFilter());
     const data = await res.json();
     return { results: data.results, count: data.count };
@@ -119,6 +130,19 @@ export const universitySlice = createSlice({
         state.countUniversities = payload.count;
       })
       .addCase(filterByStudentBodySize.rejected, (state) => {
+        state.pending = false;
+        state.error = true;
+      })
+      .addCase(setNewPage.pending, (state) => {
+        state.pending = true;
+      })
+      .addCase(setNewPage.fulfilled, (state, { payload }) => {
+        state.pending = false;
+        state.universities = payload.results;
+        state.filteredUniversities = payload.results;
+        state.countUniversities = payload.count;
+      })
+      .addCase(setNewPage.rejected, (state) => {
         state.pending = false;
         state.error = true;
       });

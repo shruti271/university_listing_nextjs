@@ -6,6 +6,7 @@ import Header from '../../components/Header';
 import NewsletterSection from '../../components/sections/newsletter-section/NewsletterSection';
 import HeroSection from '../../components/university-sections/hero-section/HeroSection';
 import UniversitiesSection from '../../components/university-sections/universities-section/UniversitiesSection';
+
 const Universities = () => {
   return (
     <>

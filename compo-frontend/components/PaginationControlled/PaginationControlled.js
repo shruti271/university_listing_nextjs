@@ -1,11 +1,20 @@
 import Pagination from '@mui/material/Pagination';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { setNewPage } from '../../store/university/universitySlice';
 
 const PaginationControlled = ({ countPages, itemsPerPage }) => {
   const [page, setPage] = useState(1);
+
+  const dispatch = useDispatch();
+
   const handleChange = (e, value) => {
     setPage(value);
   };
+
+  useEffect(() => {
+    dispatch(setNewPage(page));
+  }, [page]);
 
   return (
     <Pagination
