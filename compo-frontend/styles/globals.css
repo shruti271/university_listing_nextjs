@@ -114,3 +114,33 @@ h6 {
 .cover-image > span {
   height: inherit !important;
 }
+.uni-logo > span {
+  width: 179px !important;
+  height: 179px !important;
+  top: -40px !important;
+  left: 35px !important;
+}
+.carousel-image > span {
+  margin-right: 25px !important;
+}
+ @media only screen and (max-width: 900px) {
+ .uni-logo > span {
+  width:150px !important;
+  left: 20px !important;
+ 
+}
+}
+
+/*
+@media only screen and (max-width: 700px) {
+ .uni-logo > span {
+  width:130px !important;
+ 
+}
+}
+@media only screen and (max-width: 600px) {
+ .uni-logo > span {
+  width:0px !important;
+ 
+}
+} */
