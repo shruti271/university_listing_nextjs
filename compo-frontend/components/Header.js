@@ -2,17 +2,29 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import * as React from 'react';
 
 import HamburgerIcon from "../assets/hamburger-icon.svg";
 import CompositeLogo from "../assets/composite-logo.svg";
 import SearchIcon from "../assets/search-icon.svg";
 import MobileMenu from "./MobileMenu";
 import PrimaryButton from "./PrimaryButton";
+import AuthModal from "../components/core/AuthModal"
+import { AuthType } from "./core/Enum";
+
+
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState();
   const mobileMenuStyle = isMenuOpen ? "translate-x-0" : "translate-x-full";
   const handleMobileMenuClick = () => setIsMenuOpen(!isMenuOpen);
+
+  const [authType, setAuthType] = React.useState();
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleClose = () => setOpen(false);
+
 
   const router = useRouter();
   const setActiveLink = (path) => {
@@ -37,16 +49,22 @@ const Header = () => {
           </Link>
           <div className="flex items-center gap-8 lg:hidden">
             <div className="hidden md:block">
-              <Link href="/auth/signin">
-                <PrimaryButton type="button" isPrimary={false}>
-                  Sign In
-                </PrimaryButton>
-              </Link>
+              {/* <Link href="/auth/signin"> */}
+              <PrimaryButton type="button" isPrimary={false} onClick={() => {
+                setOpen(true),
+                  setAuthType(AuthType[0])
+              }}>
+                Sign In
+              </PrimaryButton>
+              {/* </Link> */}
             </div>
             <div className="hidden md:block">
-              <Link href="/auth/signup">
-                <PrimaryButton type="button">Join Now</PrimaryButton>
-              </Link>
+              {/* <Link href="/auth/signup"> */}
+              <PrimaryButton type="button" onClick={() => {
+                setOpen(true),
+                  setAuthType(AuthType[1])
+              }}>Join Now</PrimaryButton>
+              {/* </Link> */}
             </div>
             <button type="button" className="relative w-5 h-5">
               <Image src={SearchIcon} alt="Search" layout="fill" />
@@ -98,17 +116,29 @@ const Header = () => {
                 </li>
               </ul>
               <ul className="flex items-center gap-3">
-                <Link href="/auth/signin">
-                  <PrimaryButton type="button" isPrimary={false}>
-                    Sign In
-                  </PrimaryButton>
-                </Link>
-                <Link href="/auth/signup">
-                  <PrimaryButton className="btn-shadow" type="button">
-                    Join Now
-                  </PrimaryButton>
-                </Link>
+
+                <PrimaryButton type="button" isPrimary={false} onClick={() => {
+                  setOpen(true),
+                    setAuthType(AuthType[0])
+                }}>
+                  Sign In
+                </PrimaryButton>
+
+
+
+                <PrimaryButton className="btn-shadow" type="button" onClick={() => {
+                  setOpen(true),
+                    setAuthType(AuthType[1])
+                }}>
+                  Join Now
+                </PrimaryButton>
+
               </ul>
+              <AuthModal
+                open={open}
+                handleClose={handleClose}
+                authType={authType}
+              />
             </div>
           </nav>
         </div>

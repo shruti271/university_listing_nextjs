@@ -29,13 +29,22 @@ import SchoolIcon from "@mui/icons-material/School";
 import LocalLibraryIcon from "@mui/icons-material/LocalLibrary";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { CustomTextField } from "../../components/core/CustomForms";
+import { CustomTextField } from "../../core/CustomMUIComponents";
+
 import { useForm, Controller } from "react-hook-form";
 import Router from "next/router";
-import { onBoarding } from "../../services/auth";
-import CoverImage1 from "../../assets/reg-step-1.png";
-import CoverImage2 from "../../assets/reg-step-2.png";
-import CoverImage3 from "../../assets/reg-step-3.png";
+import { onBoarding } from "../../../services/auth";
+import CoverImage1 from "../../../assets/reg-step-1.png";
+import CoverImage2 from "../../../assets/reg-step-2.png";
+import CoverImage3 from "../../../assets/reg-step-3.png";
+
+
+import countries from 'countries-list';
+
+const countryCodes = Object.keys(countries.countries);
+const countryNames = countryCodes.map((code) => countries.countries[code].name);
+countryNames.sort();
+
 
 const theme = createTheme({
   palette: {
@@ -178,6 +187,7 @@ export default function RegistrationSteps() {
         localStorage.setItem("access_token", response.data.access_token)
         localStorage.setItem("refresh_token", response.data.refresh_token)
         Router.push("/universities");
+
       }
     }
   };
@@ -228,12 +238,10 @@ export default function RegistrationSteps() {
 
   return (
     <div
-      className="grid grid-cols-1 sm:grid-cols-2"
-      style={{ height: "100vh" }}
+      className="grid grid-cols-1 sm:grid-cols-2 h-full"
     >
       <div
-        className="p-4 cover-image hidden sm:block"
-        style={{ height: "calc(100vh - 30px)" }}
+        className="p-4 cover-image hidden sm:block h-full"
       >
         {activeStep === 0 && (
           <Image
@@ -434,14 +442,22 @@ export default function RegistrationSteps() {
                             className="text-black"
                           />
                           <CustomTextField
-                            id="input-with-sx"
                             label="Current Location"
                             variant="standard"
-                            className="w-full"
+                            select
+                            fullWidth
                             {...register("current_location", {
                               required: "Current Location is required",
                             })}
-                          />
+                          >
+                            {
+                              countryNames.map((country) => (
+
+
+                                <MenuItem value={country}>{country}</MenuItem>
+                              ))
+                            }
+                          </CustomTextField>
                         </Box>
                         <div className="mt-2 ml-9">
                           {errors.current_location && (
@@ -505,7 +521,6 @@ export default function RegistrationSteps() {
                           className="text-black"
                         />
                         <CustomTextField
-                          id="input-with-sx"
                           label="Institute Name"
                           variant="standard"
                           className="w-full"
@@ -531,14 +546,20 @@ export default function RegistrationSteps() {
                           className="text-black"
                         />
                         <CustomTextField
-                          id="input-with-sx"
                           label="Institute Location"
                           variant="standard"
-                          className="w-full"
+                          select
+                          fullWidth
                           {...register("institute_location", {
                             required: "Institute Location is required",
                           })}
-                        />
+                        >
+                          {
+                            countryNames.map((country) => (
+                              <MenuItem value={country}>{country}</MenuItem>
+                            ))
+                          }
+                        </CustomTextField>
                       </Box>
                       <div className="mt-2 ml-9">
                         {errors.institute_location && (

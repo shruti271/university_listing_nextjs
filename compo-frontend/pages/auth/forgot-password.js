@@ -6,7 +6,7 @@ import backIcon from "../../assets/backIcon.svg";
 import Box from "@mui/material/Box";
 import EmailIcon from "@mui/icons-material/Email";
 import ArrowBackIosNewOutlinedIcon from "@mui/icons-material/ArrowBackIosNewOutlined";
-import { CustomTextField } from "../../components/core/CustomForms";
+import { CustomTextField } from "../../components/core/CustomMUIComponents";
 
 import { useForm } from "react-hook-form";
 
@@ -35,7 +35,7 @@ export default function ForgotPassword() {
       <div className="block p-4 rounded-lg shadow-lg bg-white text-center col-span-10 sm:col-span-8 md:col-span-8 lg:col-span-6 xl:col-span-4">
         <div className="grid grid-cols-3">
           <div className="text-start">
-            <Link href="/auth/signin">
+            <Link href="/">
               <button className="text-white  focus:ring-0 focus:outline-none font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center border">
                 <Image src={backIcon} alt="back" />
               </button>

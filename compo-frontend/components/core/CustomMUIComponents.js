@@ -3,6 +3,8 @@ import TextField from "@mui/material/TextField";
 
 import NativeSelect from '@mui/material/NativeSelect';
 import { LinearProgress, linearProgressClasses, Tabs } from "@mui/material";
+import PropTypes from 'prop-types';
+import { Box, Typography } from '@mui/material';
 
 export const CustomTextField = styled(TextField)(({ theme }) => ({
   [`& .MuiInput-input`]: {
@@ -24,6 +26,8 @@ export const CustomTextField = styled(TextField)(({ theme }) => ({
   [`& .MuiInputLabel-root.Mui-focused`]: {
     color: "#544E5D",
   },
+
+
 }));
 
 export const CustomSelect = styled(NativeSelect)(({ theme }) => ({
@@ -49,6 +53,16 @@ export const CustomSelect = styled(NativeSelect)(({ theme }) => ({
   },
 }));
 
+export const CustomBorderLinearProgress = styled(LinearProgress)(({ theme, setColor }) => ({
+  height: 10,
+  borderRadius: 5,
+  backgroundColor: "#F9F9FA",
+
+  [`& .${linearProgressClasses.bar}`]: {
+    borderRadius: 5,
+    backgroundColor: setColor,
+  },
+}));
 
 
 export const CustomTab = styled(Tabs)(({ theme }) => ({
@@ -59,8 +73,8 @@ export const CustomTab = styled(Tabs)(({ theme }) => ({
     fontSize: "14px",
     lineHeight: "21px",
     minHeight: "55px",
-    justifyContent:"start",
-    width:"100%"
+    justifyContent: "start",
+    width: "100%"
   },
   [`& .Mui-selected`]: {
     color: "#0364FF",
@@ -86,14 +100,36 @@ export const CustomTab = styled(Tabs)(({ theme }) => ({
 }));
 
 
-export const CustomBorderLinearProgress = styled(LinearProgress)(({ theme ,setColor}) => ({
-  height: 10,
-  borderRadius: 5,
-  backgroundColor: "#F9F9FA",
 
-  [`& .${linearProgressClasses.bar}`]: {
-    borderRadius: 5,
-    backgroundColor: setColor,
-  },
-}));
+export function TabPanel(props) {
+  const { children, value, index, ...other } = props;
 
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`vertical-tabpanel-${index}`}
+      aria-labelledby={`vertical-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box >
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
+};
+
+export function a11yProps(index) {
+  return {
+    id: `vertical-tab-${index}`,
+    'aria-controls': `vertical-tabpanel-${index}`,
+  };
+}

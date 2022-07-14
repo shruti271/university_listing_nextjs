@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import withAuth from '../../components/core/PrivateRoute';
 import Filter from '../../components/filter/Filter';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';

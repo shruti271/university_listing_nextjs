@@ -1,12 +1,25 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import { useState } from "react";
 
+import * as React from 'react';
 import closeIcon from '../assets/close-icon.svg';
 import PrimaryButton from './PrimaryButton';
+import AuthModal from './core/AuthModal';
+import { AuthType } from "./core/Enum";
 
 const MobileMenu = ({ className = '', handleMobileMenuClick, isMenuOpen }) => {
+  
+
+  const [authType, setAuthType] = React.useState();
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleClose = () => setOpen(false);
+
   const router = useRouter();
+
   const setActiveLink = (path) => {
     return router.pathname === path ? 'text-[#06040A]' : 'text-[#544E5D]';
   };
@@ -60,18 +73,27 @@ const MobileMenu = ({ className = '', handleMobileMenuClick, isMenuOpen }) => {
               <Link href="/articles">Articles</Link>
             </li>
             <li className={`md:hidden`} onClick={handleMobileMenuClick}>
-              <Link href="/signin" passHref>
-                <PrimaryButton type="button" isPrimary={false}>
+                              <PrimaryButton type="button" isPrimary={false} onClick={() => {
+                  setOpen(true),
+                    setAuthType(AuthType[0])
+                }}>
                   Sign In
                 </PrimaryButton>
-              </Link>
             </li>
             <li className={`md:hidden`} onClick={handleMobileMenuClick}>
-              <Link href="/signup" passHref>
-                <PrimaryButton type="button">Join Now</PrimaryButton>
-              </Link>
+               <PrimaryButton className="btn-shadow" type="button" onClick={() => {
+                  setOpen(true),
+                    setAuthType(AuthType[1])
+                }}>
+                  Join Now
+                </PrimaryButton>
             </li>
           </ul>
+          <AuthModal
+            open={open}
+            handleClose={handleClose}
+            authType={authType}
+          />
         </nav>
       </div>
     </>

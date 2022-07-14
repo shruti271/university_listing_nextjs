@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import CoverImage from "../../assets/login-cover.png";
-import googleIcon from "../../assets/googleIcon.svg";
-import fbIcon from "../../assets/fbIcon.svg";
+import CoverImage from "../../../assets/login-cover.png";
+import googleIcon from "../../../assets/googleIcon.svg";
+import fbIcon from "../../../assets/fbIcon.svg";
 import Box from "@mui/material/Box";
 import EmailIcon from "@mui/icons-material/Email";
 import LockIcon from "@mui/icons-material/Lock";
@@ -11,13 +11,13 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import InputAdornment from "@mui/material/InputAdornment";
 import Button from "@mui/material/Button";
-import { CustomTextField } from "../../components/core/CustomForms";
+import { CustomTextField } from "../../core/CustomMUIComponents";
 import { useForm } from "react-hook-form";
-import { signUp } from "../../services/auth";
+import { signUp } from "../../../services/auth";
 import Router from "next/router";
 import Alert from '@mui/material/Alert';
 
-export default function SignUp() {
+export default function SignUp({ signUpType, onBoardingType }) {
 
   const [showPassword, setShowPassword] = useState(false);
   const [invalid, setInvalid] = useState(false);
@@ -47,7 +47,8 @@ export default function SignUp() {
 
     if (response.success) {
       localStorage.setItem("email", data.email);
-      Router.push("/auth/onboarding");
+      onBoardingType()
+      // Router.push("/auth/onboarding");
     }
   };
   const onError = (errors) => console.log("Errors Occurred !! :", errors);
@@ -55,17 +56,15 @@ export default function SignUp() {
   return (
     <>
       <div
-        className="grid grid-cols-1 sm:grid-cols-2"
-        style={{ height: "100vh" }}
+        className="grid grid-cols-1 sm:grid-cols-2 h-full"
       >
         <div
-          className="p-4 cover-image hidden sm:block animate__animated animate__zoomIn"
-          style={{ height: "calc(100vh - 30px)" }}
+          className="p-4 cover-image hidden sm:block animate__animated animate__zoomIn h-full"
         >
           <Image src={CoverImage} alt="CoverImage" />
         </div>
         <div className="p-4 ml-0 sm:ml-4 md:ml-4 lg:ml-12 animate__animated animate__zoomIn">
-          <h3 className="pb-2 mt-8 sm:mt-32 font-semibold text-2xl text-[#03014C] flex justify-center sm:block">
+          <h3 className="pb-2 mt-8 sm:mt-32 font-semibold text-xl sm:text-2xl text-[#03014C] flex justify-center sm:block">
             Sign up to Compoisite
           </h3>
           <div className="mt-4 sm:mt-8">
@@ -197,11 +196,11 @@ export default function SignUp() {
             <div className="flex justify-center sm:justify-between items-center mb-6  w-full md:w-5/6 lg:w-3/4 mt-6 sm:mt-8 whitespace-nowrap">
               <div className="ml-0 sm:ml-auto">
                 <span className="text-black">Already have an account?</span>
-                <Link href="/auth/signin">
-                  <span className="cursor-pointer text-[#0364FF] ml-1 font-bold">
-                    Login
-                  </span>
-                </Link>
+                {/* <Link href="/auth/signin"> */}
+                <span className="cursor-pointer text-[#0364FF] ml-1 font-bold" onClick={signUpType}>
+                  Login
+                </span>
+                {/* </Link> */}
               </div>
             </div>
           </div>
