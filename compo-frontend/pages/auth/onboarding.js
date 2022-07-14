@@ -31,9 +31,8 @@ import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { CustomTextField } from "../../components/core/CustomForms";
 import { useForm, Controller } from "react-hook-form";
-import Router, { useRouter } from "next/router";
+import Router from "next/router";
 import { onBoarding } from "../../services/auth";
-import { useSelector } from "react-redux";
 import CoverImage1 from "../../assets/reg-step-1.png";
 import CoverImage2 from "../../assets/reg-step-2.png";
 import CoverImage3 from "../../assets/reg-step-3.png";
@@ -125,7 +124,7 @@ const steps = ["About", "Education", "Profession"];
 export default function RegistrationSteps() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [completed, setCompleted] = React.useState([]);
-
+  const [email, setEmail] = React.useState();
   const {
     register,
     handleSubmit,
@@ -138,7 +137,10 @@ export default function RegistrationSteps() {
     control,
   } = useForm();
 
-  const { email } = useSelector((state) => state.email);
+  React.useEffect(() => {
+    const email = localStorage.getItem("email");
+    setEmail(email)
+  }, [])
 
   console.log("Email Provide: ", email);
 
@@ -147,7 +149,7 @@ export default function RegistrationSteps() {
     const month = date.toLocaleString('default', { month: '2-digit' });
     const year = date.toLocaleString('default', { year: 'numeric' });
     return year + '-' + month + '-' + day;
-}
+  }
 
   const onSubmit = async (data) => {
     if (activeStep !== 2) {
@@ -170,15 +172,18 @@ export default function RegistrationSteps() {
         desired_profession: data.desired_profession,
         desired_major: data.desired_major,
       });
-      
+      console.log("resss", response)
       if (response.success) {
-        Router.push("/home");
+        localStorage.removeItem("email");
+        localStorage.setItem("access_token", response.data.access_token)
+        localStorage.setItem("refresh_token", response.data.refresh_token)
+        Router.push("/universities");
       }
     }
   };
 
   const onError = (errors) => console.log("Errors Occurred !! :", errors);
-  
+
   const totalSteps = () => {
     return steps.length;
   };
@@ -199,8 +204,8 @@ export default function RegistrationSteps() {
     const newActiveStep =
       isLastStep() && !allStepsCompleted()
         ? // It's the last step, but not all steps have been completed,
-          // find the first step that has been completed
-          steps.findIndex((step, i) => !(i in completed))
+        // find the first step that has been completed
+        steps.findIndex((step, i) => !(i in completed))
         : activeStep + 1;
     setActiveStep(newActiveStep);
   };
@@ -411,7 +416,7 @@ export default function RegistrationSteps() {
                           </LocalizationProvider>
                         </Box>
                         <div className="mt-2 ml-9">
-                          {errors.date_of_birth?.type &&  errors.date_of_birth?.type === "required" && (
+                          {errors.date_of_birth?.type && errors.date_of_birth?.type === "required" && (
                             <span style={{ color: "red" }} className="-mb-6">
                               Date of birth is required
                             </span>
@@ -618,12 +623,12 @@ export default function RegistrationSteps() {
                         </LocalizationProvider>
                       </Box>
                       <div className="mt-2 ml-9">
-                          {errors.graduated_date?.type &&  errors.graduated_date?.type === "required" && (
-                            <span style={{ color: "red" }} className="-mb-6">
-                              Graduation Date is required
-                            </span>
-                          )}
-                        </div>
+                        {errors.graduated_date?.type && errors.graduated_date?.type === "required" && (
+                          <span style={{ color: "red" }} className="-mb-6">
+                            Graduation Date is required
+                          </span>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>

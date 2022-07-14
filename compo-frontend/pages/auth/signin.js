@@ -15,9 +15,13 @@ import { CustomTextField } from "../../components/core/CustomForms";
 import { useForm } from "react-hook-form";
 import Router, { withRouter } from 'next/router'
 import { signIn } from "../../services/auth";
+import { Alert } from "@mui/material";
 
 export default function Signin() {
   const [showPassword, setShowPassword] = useState(false);
+  const [invalid, setInvalid] = useState(false);
+  const [errorMsg, setErrorMsg] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -27,24 +31,30 @@ export default function Signin() {
     watch,
     getValues,
   } = useForm();
-  const onSubmit = async (data,event) => {
-    event. preventDefault();
+  const onSubmit = async (data, event) => {
+    event.preventDefault();
 
     console.log("dataaa", (data));
-            
+
 
     const response = await signIn({
       email: data.email,
       password: data.password,
     });
     console.log("resss", response)
+    if (!response.success) {
+      console.log('errorrrrr', response.message.response.data.detail);
+      setInvalid(true);
+      setErrorMsg(response.message.response.data.detail)
+    }
     if (response.success) {
-
-      Router.push('/home');
+      localStorage.setItem("access_token", response.data.access_token)
+      localStorage.setItem("refresh_token", response.data.refresh_token)
+      Router.push('/universities');
     }
 
 
-    
+
   };
   const onError = (errors) => console.log("Errors Occurred !! :", errors);
 
@@ -69,6 +79,8 @@ export default function Signin() {
               <div className="flex flex-col">
                 <div className="flex sm:block justify-center">
                   <div className="flex  sm:block flex-col mb-6 w-3/4 md:w-5/6 lg:w-3/4">
+                    {invalid && (<Alert severity="error" className="mb-4 -mt-4">{errorMsg}</Alert>)}
+
                     <Box sx={{ display: "flex", alignItems: "flex-end" }}>
                       <EmailIcon
                         sx={{ mr: 2, my: 0.5 }}
@@ -81,6 +93,9 @@ export default function Signin() {
                         className="w-full"
                         {...register("email", {
                           required: "Email is required",
+                          onChange: (e) => {
+                            setInvalid(false);
+                          },
                           pattern: {
                             value:
                               /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
@@ -114,6 +129,9 @@ export default function Signin() {
                         className="w-full"
                         {...register("password", {
                           required: "Password is required",
+                          onChange: (e) => {
+                            setInvalid(false);
+                          },
                         })}
                         InputProps={{
                           endAdornment: (
@@ -153,7 +171,7 @@ export default function Signin() {
                 </div>
 
                 <div className="flex justify-center sm:block">
-                  
+
                   <button
                     type="submit"
 

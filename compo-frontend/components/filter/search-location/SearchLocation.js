@@ -1,23 +1,34 @@
 import CardWrapper from '../shared/card-wrapper/CardWrapper';
 import FilterTitle from '../shared/filter-title/FilterTitle';
 import { useSearchLocation } from './hooks';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import countries from 'countries-list';
+
+const countryCodes = Object.keys(countries.countries);
+const countryNames = countryCodes.map((code) => countries.countries[code].name);
+countryNames.sort();
 
 const SearchLocation = ({ className = '' }) => {
-  const [searchValue, handleSearchChange, handleSubmit] = useSearchLocation();
+  const [countryName, handleSelectChange] = useSearchLocation();
 
   return (
     <CardWrapper>
       <FilterTitle>Location</FilterTitle>
       <div className="px-8 pt-5 pb-8">
-        <form onSubmit={handleSubmit}>
-          <input
-            type="search"
-            name="searchLocation"
-            placeholder="Search"
-            value={searchValue}
-            onChange={handleSearchChange}
-            className="border px-3 py-2 w-full outline-none rounded-md"
-          />
+        <form autoComplete="off">
+          <Select
+            value={countryName}
+            className="w-full"
+            onChange={handleSelectChange}
+          >
+            <MenuItem value="">All</MenuItem>
+            {countryNames.map((name) => (
+              <MenuItem key={name} value={name}>
+                {name}
+              </MenuItem>
+            ))}
+          </Select>
         </form>
       </div>
     </CardWrapper>

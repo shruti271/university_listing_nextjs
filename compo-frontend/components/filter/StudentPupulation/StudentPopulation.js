@@ -1,10 +1,11 @@
 import CardInteractive from '../shared/card-interactive/CardInteractive';
+import RangeSlider from './RangeSlider/RangeSlider';
 
 const StudentPopulation = () => {
   return (
     <CardInteractive
       cardTitle="Student Population"
-      bottomComponent={<h2>range</h2>}
+      bottomComponent={<RangeSlider />}
     />
   );
 };
