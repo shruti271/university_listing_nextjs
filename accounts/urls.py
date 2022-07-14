@@ -1,6 +1,6 @@
 from django.urls import path
-from accounts.views.views import  WhoAmIView, StudentSignupView, StudentLoginView, \
-             ActivateAccount, SendActivation, ResetPass, SendReset
+from accounts.views.views import  WhoAmIView, StudentSignupView, StudentLoginView
+from accounts.views.verification import ActivateAccount, SendActivation, ResetPass, SendReset
 
 urlpatterns = [
     path('signup/student/',  StudentSignupView.as_view()),

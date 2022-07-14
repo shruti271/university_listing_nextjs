@@ -1,7 +1,5 @@
-from http.client import FORBIDDEN
-from django.shortcuts import render
 from accounts.models import User, Student, Verification
-from accounts.serializers import ClosedStudentSerializer, ResetpasswordSerializer
+from accounts.serializers import ClosedStudentSerializer
 
 from rest_framework import permissions, status
 from rest_framework.views import APIView
@@ -13,7 +11,9 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from accounts.exceptions import *
 
 from django.core.mail import send_mail
-import uuid
+from django.template.loader import render_to_string
+
+from django.conf import settings
 
 class StudentSignupView(APIView):
     """ 
@@ -40,18 +40,8 @@ class StudentSignupView(APIView):
         # A simple check that the user is not authenticated
         if not request.user.is_authenticated:
             if User.objects.filter(email=email).exists() and Student.objects.filter(user = User.objects.get(email=email)).exists():
-                user = User.objects.get(email=email)
-                student = Student.objects.get(user=user)
 
-                if user.is_active == True:
-                    raise DuplicateException
-                
-                else:
-                    if not student.is_onboarded:
-                        raise NotOnboarded
-                    else:
-                        raise IncativeAccount
-
+                raise DuplicateException
                 
             # Else, create a user with is_active=Fase
             else:
@@ -83,20 +73,10 @@ class StudentSignupView(APIView):
                         'detail': 'User created.',
                     })
                     return Response(data, status=status.HTTP_201_CREATED)
-                
 
         else:
-            if not Student.objects.filter(user=request.user).exists():
-                raise NotFound
+            raise DuplicateException
 
-            elif request.user.is_active and Student.objects.get(user=request.user).is_onboarded:
-                refresh = RefreshToken.for_user(request.user)
-                data= ({
-                    #'user': self.serializer_class(student, context=serializer_context).data,
-                    'refresh': str(refresh),
-                    'access': str(refresh.access_token)})
-
-                return Response(data, status=status.HTTP_200_OK)
 
     def put(self, request):
 
@@ -121,36 +101,36 @@ class StudentSignupView(APIView):
             if student.is_onboarded == False and user.is_active == False:
                 for key in data:
                     setattr(student, key, data[key])
+
+                # send verification email.
+                verification, created = Verification.objects.get_or_create(user=user, purpose='Activation', used=False)
+                protocol = 'http'
+                mail_subject = 'Please activate your account'
+                message = render_to_string('accounts/activation.html', {
+                    'domain':'localhost:3000/activate/',
+                    'user': user,
+                    'verification_token': str(verification.hash),
+                    'protocol': protocol,
+                })
+                to_email = user.email
+                email = settings.EMAIL_HOST_USER
+                send_mail(
+                mail_subject,
+                message,
+                email,
+                [to_email],
+                fail_silently=False)
+
                 student.is_onboarded = True
                 student.save()
-                # send verification email.
 
-                verification = Verification.objects.get_or_create(user=user, purpose='Activation')
-                protocol = 'http'
-                # mail_subject = 'Please activate your account'
-                # message = render_to_string('accounts/activation.html', {
-                #     'user': user,
-                #     'verification_token': str(verification.hash),
-                #     'protocol': protocol,
-                # })
-                # to_email = user.email
-                # email = 'contact@composite.digital'
-
-                print('hash: ', str(verification.hash))
-
-                # send_mail(
-                # mail_subject,
-                # message,
-                # email,
-                # [to_email],
-                # fail_silently=False)
                 return Response({
                     'detail': 'Email verification sent.',
                     })
-            elif student.is_onboarded == False:
-                AlreadyOnboarded
-                
+            else:
+                raise NotFound
 
+                
         else:
             raise NotFound
 
@@ -177,7 +157,6 @@ class StudentLoginView(APIView):
 
             is_auth = base_user.check_password(password)
             
-
             if is_auth and base_user.is_active==True and student.is_onboarded==True:
                 refresh = RefreshToken.for_user(base_user)
                 return Response({
@@ -186,9 +165,11 @@ class StudentLoginView(APIView):
                 })
 
             elif is_auth and base_user.is_active==False and student.is_onboarded==True:
+                #send activation email
                 raise IncativeAccount
 
             elif is_auth and base_user.is_active==False and student.is_onboarded==False:
+                #redirect the user to the onbording
                 raise NotOnboarded
            
             else:
@@ -213,154 +194,3 @@ class WhoAmIView(APIView):
 
     def put(self, request, format=None):
         """ TODO : Update a user"""
-
-import datetime
-class ActivateAccount(APIView):
-
-    permission_classes = [permissions.AllowAny]
-
-    def post(self, request, format=None):
-        data = request.data
-        email = str(data.get('email'))
-        token_request = str(data.get('token'))
-
-        if User.objects.filter(email=email).exists() and Student.objects.filter(user = User.objects.get(email=email)).exists() and Verification.objects.filter(user=User.objects.get(email=email), used=False, latest_update__gte=datetime.datetime.now() - datetime.timedelta(minutes=5)).exists():
-
-            user = User.objects.get(email=email)
-            student = Student.objects.get(user=user)
-            verification = Verification.objects.get(user=user, used=False, latest_update__gte=datetime.datetime.now() - datetime.timedelta(minutes=5))
-
-            if user.is_active == True:
-                raise AlreadyActivated
-
-            if not student.is_onboarded == True:
-                raise NotOnboarded
-
-            if token_request == str(verification.hash):
-                user.is_active = True
-                user.save()
-                verification.used = True
-                verification.save()
-                return Response({'detail': u'Your account is activated.'}, status = status.HTTP_200_OK)
-            else:
-                raise InvalidToken
-        else:
-            raise NotFound
-
-class SendActivation(APIView):
-    permission_classes = [permissions.AllowAny]
-
-    def post(self, request, format=None):
-        data = request.data
-        email = str(data.get('email'))
-
-        if User.objects.filter(email=email).exists() and Student.objects.filter(user = User.objects.get(email=email)).exists():
-            user = User.objects.get(email=email)
-            student = Student.objects.get(user=user)
-        
-            if user.is_active==False and student.is_onboarded==True:
-                verification = Verification.objects.create(user=user, purpose='Activation')
-                print('verification: ', str(verification.hash))
-                # protocol = 'http'
-                # mail_subject = 'Please activate your account'
-                # message = render_to_string('accounts/activation.html', {
-                #     'user': user,
-                #     'verification_token': str(verification.hash),
-                #     'protocol': protocol,
-                # })
-                # to_email = user.email
-                # email = 'contact@composite.digital'
-                # send_mail(
-                # mail_subject,
-                # message,
-                # email,
-                # [to_email],
-                # fail_silently=False)
-
-                return Response({'detail': u'Activation email sent'}, status = status.HTTP_200_OK)
-
-            elif user.is_active==False and student.is_onboarded==False:
-                raise NotOnboarded
-            
-            elif user.is_active==True:
-                raise AlreadyActivated
-        
-        else:
-            raise NotFound
-
-class ResetPass(APIView):
-
-    permission_classes = [permissions.AllowAny]
-
-    def post(self, request, format=None):
-        data = request.data
-        email = str(data.get('email'))
-        token_request = str(data.get('token'))
-
-        if User.objects.filter(email=email).exists() and Student.objects.filter(user = User.objects.get(email=email)).exists() and Verification.objects.filter(user=User.objects.get(email=email), used=False, purpose = 'Password Reset',latest_update__gte=datetime.datetime.now() - datetime.timedelta(minutes=5)).exists(): 
-
-            user = User.objects.get(email=email)
-            student = Student.objects.get(user=user)
-            verification = Verification.objects.get(user=user, used=False, purpose = 'Password Reset', latest_update__gte=datetime.datetime.now() - datetime.timedelta(minutes=5))
-
-            if not student.is_onboarded == True:
-                raise NotOnboarded
-
-            if user.is_active == True and student.is_onboarded == True:
-                if str(verification.hash) == token_request:
-                    serializer=ResetpasswordSerializer(data=request.data)
-                    if serializer.is_valid(raise_exception=True):
-                        serializer.save()
-                        verification.used=True
-                        verification.save()
-                        return Response({'detail': u'Your password is updated.'}, status = status.HTTP_200_OK)
-                else:
-                    raise InvalidToken
-
-        else:
-            raise NotFound
-            
-
-class SendReset(APIView):
-    permission_classes = [permissions.AllowAny]
-
-    def post(self, request, format=None):
-        data = request.data
-        email = str(data.get('email'))
-
-        if User.objects.filter(email=email).exists() and Student.objects.filter(user = User.objects.get(email=email)).exists():
-            user = User.objects.get(email=email)
-            student = Student.objects.get(user=user)
-        
-            if user.is_active==True and student.is_onboarded==True:
-                verification = Verification.objects.filter(user=user, used=False, purpose = 'Password Reset', latest_update__gte=datetime.datetime.now() - datetime.timedelta(minutes=5))
-                if len(verification)>0:
-                    for v in verification:
-                        v.delete()
-                        verification = Verification.objects.create(user=user, purpose='Password Reset')
-                else:
-                    verification = Verification.objects.create(user=user, purpose='Password Reset')
-                print('verification: ', str(verification.hash))
-                # protocol = 'http'
-                # mail_subject = 'Please activate your account'
-                # message = render_to_string('accounts/activation.html', {
-                #     'user': user,
-                #     'verification_token': str(verification.hash),
-                #     'protocol': protocol,
-                # })
-                # to_email = user.email
-                # email = 'contact@composite.digital'
-                # send_mail(
-                # mail_subject,
-                # message,
-                # email,
-                # [to_email],
-                # fail_silently=False)
-
-                return Response({'detail': u"We've emailed you the instructions to reset your password."}, status = status.HTTP_200_OK)
-
-            else:
-                raise FORBIDDEN
-        
-        else:
-            raise NotFound
