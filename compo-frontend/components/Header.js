@@ -10,7 +10,7 @@ import SearchIcon from "../assets/search-icon.svg";
 import MobileMenu from "./MobileMenu";
 import PrimaryButton from "./PrimaryButton";
 import AuthModal from "../components/core/AuthModal"
-import { AuthType } from "./core/Enum";
+import { AuthTypeModal } from "./core/Enum";
 
 
 
@@ -19,11 +19,9 @@ const Header = () => {
   const mobileMenuStyle = isMenuOpen ? "translate-x-0" : "translate-x-full";
   const handleMobileMenuClick = () => setIsMenuOpen(!isMenuOpen);
 
-  const [authType, setAuthType] = React.useState();
+  const [authTypeModal, setauthTypeModal] = React.useState();
 
   const [open, setOpen] = React.useState(false);
-
-  const handleClose = () => { setOpen(false), setAuthType() }
 
 
   const router = useRouter();
@@ -52,7 +50,7 @@ const Header = () => {
               {/* <Link href="/auth/signin"> */}
               <PrimaryButton type="button" isPrimary={false} onClick={() => {
                 setOpen(true),
-                  setAuthType(AuthType[0])
+                  setauthTypeModal(AuthTypeModal.Signin)
               }}>
                 Sign In
               </PrimaryButton>
@@ -62,7 +60,7 @@ const Header = () => {
               {/* <Link href="/auth/signup"> */}
               <PrimaryButton type="button" onClick={() => {
                 setOpen(true),
-                  setAuthType(AuthType[1])
+                  setauthTypeModal(AuthTypeModal.Signup)
               }}>Join Now</PrimaryButton>
               {/* </Link> */}
             </div>
@@ -119,7 +117,7 @@ const Header = () => {
 
                 <PrimaryButton type="button" isPrimary={false} onClick={() => {
                   setOpen(true),
-                    setAuthType(AuthType[0])
+                    setauthTypeModal(AuthTypeModal.Signin)
                 }}>
                   Sign In
                 </PrimaryButton>
@@ -128,7 +126,7 @@ const Header = () => {
 
                 <PrimaryButton className="btn-shadow" type="button" onClick={() => {
                   setOpen(true),
-                    setAuthType(AuthType[1])
+                    setauthTypeModal(AuthTypeModal.Signup)
                 }}>
                   Join Now
                 </PrimaryButton>
@@ -136,8 +134,9 @@ const Header = () => {
               </ul>
               <AuthModal
                 open={open}
-                handleClose={handleClose}
-                authType={authType}
+                handleClose={() => {setOpen(false);} }
+                authTypeModal={authTypeModal}
+                setauthTypeModal={setauthTypeModal}
               />
             </div>
           </nav>

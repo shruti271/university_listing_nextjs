@@ -17,8 +17,9 @@ import { signUp } from "../../../services/auth";
 import Router from "next/router";
 import Alert from '@mui/material/Alert';
 import CloseIcon from '@mui/icons-material/Close';
+import { AuthTypeModal } from "../../core/Enum";
 
-export default function SignUp({ signUpType, onBoardingType, handleClose }) {
+export default function SignUp({ changeAuthModalType, handleClose }) {
 
   const [showPassword, setShowPassword] = useState(false);
   const [invalid, setInvalid] = useState(false);
@@ -42,7 +43,7 @@ export default function SignUp({ signUpType, onBoardingType, handleClose }) {
 
       console.log("resss", res);
         localStorage.setItem("email", data.email);
-        onBoardingType()
+        changeAuthModalType(AuthTypeModal.Onboarding)
     }, (error) => {
       console.log("error....", error);
       setInvalid(true);
@@ -200,7 +201,7 @@ export default function SignUp({ signUpType, onBoardingType, handleClose }) {
             <div className="flex justify-center sm:justify-between items-center mb-6  w-full md:w-5/6 lg:w-3/4 mt-6 sm:mt-8 whitespace-nowrap">
               <div className="ml-0 sm:ml-auto">
                 <span className="text-black">Already have an account?</span>
-                <span className="cursor-pointer text-[#0364FF] ml-1 font-bold" onClick={signUpType}>
+                <span className="cursor-pointer text-[#0364FF] ml-1 font-bold" onClick={()=> changeAuthModalType(AuthTypeModal.Signin)}>
                   Login
                 </span>
               </div>

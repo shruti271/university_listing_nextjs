@@ -10,11 +10,12 @@ import { AuthType } from "../components/core/Enum";
 
 
 export default function Activate() {
-    const [email, setEmail] = useState();
-    const [verified, setVerified] = useState(false);
     const router = useRouter();
+
+
+    const [email, setEmail] = useState();
+    const [verified, setVerified] = useState(false)
     const { token } = router.query
-    console.log("::::::", token);
     const [authType, setAuthType] = useState();
 
     const [open, setOpen] = useState(false);
@@ -27,20 +28,20 @@ export default function Activate() {
             email: email,
             token: token
         }).then((res) => {
-            console.log("ress", res);
+            console.log("response", res);
             setVerified(true);
         }, (error) => {
             console.log("error", error)
         })
     }
-    useEffect(() => {
-        const getEmail = window.localStorage.getItem("email");
-        setEmail(getEmail);
-        console.log("email", email)
-        console.log("token", token)
-        activateEmail()
 
-    }, [token])
+    useEffect(() => {
+        const useremail = localStorage.getItem("email");
+        setEmail(useremail);
+        if(email && token){
+            activateEmail()
+        }
+    }, [token, email])
     return (
         <div
             className="grid grid-cols-12 justify-center items-center"

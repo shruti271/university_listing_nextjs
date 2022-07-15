@@ -1,5 +1,5 @@
-export const AuthType = {
-    0: 'signin',
-    1: 'signup',
-    2: 'onboarding',
+export const AuthTypeModal = {
+	Signin: "signin",
+	Signup: "signup",
+	Onboarding: "onboarding",
 }

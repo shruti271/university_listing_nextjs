@@ -111,9 +111,6 @@ h6 {
   width: 10px;
   height: 5px;
 }
-.cover-image > span {
-  height: inherit !important;
-}
 .uni-logo > span {
   width: 170px !important;
   height: 170px !important;

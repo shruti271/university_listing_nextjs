@@ -16,8 +16,9 @@ import Router from 'next/router'
 import { signIn } from "../../../services/auth";
 import { Alert } from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
+import { AuthTypeModal } from "../../core/Enum";
 
-export default function Signin({ signInType, handleClose, onBoardingType }) {
+export default function Signin({ changeAuthModalType, handleClose }) {
   const [showPassword, setShowPassword] = useState(false);
   const [invalid, setInvalid] = useState(false);
   const [errorMsg, setErrorMsg] = useState(false);
@@ -58,8 +59,7 @@ export default function Signin({ signInType, handleClose, onBoardingType }) {
 
       if (error.response.status === 303) {
         localStorage.setItem("email", data.email);
-        setInterval(onBoardingType, 2000)
-
+        setInterval(changeAuthModalType(AuthTypeModal.Onboarding), 2000)
       }
     });
 
@@ -76,10 +76,10 @@ export default function Signin({ signInType, handleClose, onBoardingType }) {
   return (
     <>
       <div
-        className="grid grid-cols-1 sm:grid-cols-2 h-full"
+        className="grid grid-cols-1 sm:grid-cols-2"
       >
         <div
-          className="p-4 cover-image hidden sm:block animate__animated animate__zoomIn h-full"
+          className="p-4 hidden sm:block animate__animated animate__zoomIn"
         >
           <Image src={CoverImage} alt="CoverImage" />
         </div>
@@ -87,7 +87,7 @@ export default function Signin({ signInType, handleClose, onBoardingType }) {
           <div onClick={handleClose} className="flex">
             <CloseIcon className="text-black ml-auto cursor-pointer" />
           </div>
-          <h3 className="pb-2 mt-8 sm:mt-32 font-semibold text-xl sm:text-2xl text-[#03014C] flex justify-center sm:block">
+          <h3 className="pb-2 font-semibold text-xl sm:text-2xl text-[#03014C] flex justify-center sm:block">
             Login to your account!
           </h3>
           <div className="mt-4 sm:mt-8">
@@ -232,7 +232,7 @@ export default function Signin({ signInType, handleClose, onBoardingType }) {
             <div className="flex justify-center sm:justify-between items-center mb-6 w-full md:w-5/6 lg:w-3/4 mt-6 sm:mt-8 whitespace-nowrap">
               <div className="ml-0 sm:ml-auto">
                 <span className="text-black">Don't have an account ?</span>
-                <span className="cursor-pointer text-[#0364FF] ml-1 font-bold" onClick={signInType}>
+                <span className="cursor-pointer text-[#0364FF] ml-1 font-bold" onClick={() => changeAuthModalType(AuthTypeModal.Signup)}>
                   Sign up
                 </span>
               </div>
