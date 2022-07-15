@@ -1,5 +1,3 @@
-import CardWrapper from '../shared/card-wrapper/CardWrapper';
-import FilterTitle from '../shared/filter-title/FilterTitle';
 import { useSearchLocation } from './hooks';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';

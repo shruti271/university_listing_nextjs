@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { universities } from '../../components/university-sections/universities-section/universityData';
 
+let searchQuery = '';
 let insitituteType = '';
 let location = '';
 let offset = '';
@@ -25,7 +26,7 @@ const initialState = {
 };
 
 const setCurrentFilter = () => {
-  const currentFilter = `http://api.composite.digital/v1/universities/filter/?institute_type=&location=${location}&offset=${pageOffset}&rank_order=&rank_order__gt=&rank_order__gte=&rank_order__lt=&rank_order__lte=&student_body_size=&student_body_size__gt=&student_body_size__gte=${studentBodySizeGTE}&student_body_size__lt=&student_body_size__lte=${studentBodySizeLTE}`;
+  const currentFilter = `http://api.composite.digital/v1/universities/filter/?institute_type=&location=${location}&offset=${pageOffset}&rank_order=&rank_order__gt=&rank_order__gte=&rank_order__lt=&rank_order__lte=&student_body_size=&student_body_size__gt=&student_body_size__gte=${studentBodySizeGTE}&student_body_size__lt=&student_body_size__lte=${studentBodySizeLTE}&search=${searchQuery}`;
 
   return currentFilter;
 };
@@ -33,6 +34,16 @@ const setCurrentFilter = () => {
 export const getUniversities = createAsyncThunk(
   'universities/getUniversities',
   async () => {
+    const res = await fetch(setCurrentFilter());
+    const data = await res.json();
+    return { results: data.results, count: data.count };
+  }
+);
+
+export const filterMainSearch = createAsyncThunk(
+  'universities/filterMainSearch',
+  async (query) => {
+    searchQuery = query;
     const res = await fetch(setCurrentFilter());
     const data = await res.json();
     return { results: data.results, count: data.count };
@@ -144,6 +155,19 @@ export const universitySlice = createSlice({
         state.countUniversities = payload.count;
       })
       .addCase(setNewPage.rejected, (state) => {
+        state.pending = false;
+        state.error = true;
+      })
+      .addCase(filterMainSearch.pending, (state) => {
+        state.pending = true;
+      })
+      .addCase(filterMainSearch.fulfilled, (state, { payload }) => {
+        state.pending = false;
+        state.universities = payload.results;
+        state.filteredUniversities = payload.results;
+        state.countUniversities = payload.count;
+      })
+      .addCase(filterMainSearch.rejected, (state) => {
         state.pending = false;
         state.error = true;
       });
