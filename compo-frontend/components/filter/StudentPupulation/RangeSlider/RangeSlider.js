@@ -118,30 +118,21 @@ function valuetext(value) {
 export default function RangeSlider() {
   const [value, setValue] = useState([0, 500000]);
 
-  const handleChange = (event, newValue) => {
+  const handleChange = debounce((event, newValue) => {
     setValue(newValue);
-  };
-
-  const debouncedOnChange = useMemo(() => {
-    return debounce(handleChange, 500);
-  }, []);
+  }, 300);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(filterByStudentBodySize(value));
-
-    return () => {
-      debouncedOnChange.cancel();
-    };
   }, [value]);
 
   return (
     <Box sx={{ width: '100%' }}>
-      {/* controlled: */}
       <StyledSlider
         value={value}
-        onChange={debouncedOnChange}
+        onChange={handleChange}
         getAriaLabel={() => 'Student Body range'}
         getAriaValueText={valuetext}
         min={0}

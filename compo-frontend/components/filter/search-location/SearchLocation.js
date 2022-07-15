@@ -1,9 +1,12 @@
 import CardWrapper from '../shared/card-wrapper/CardWrapper';
 import FilterTitle from '../shared/filter-title/FilterTitle';
 import { useSearchLocation } from './hooks';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import countries from 'countries-list';
+import CardInteractive from '../shared/card-interactive/CardInteractive';
 
 const countryCodes = Object.keys(countries.countries);
 const countryNames = countryCodes.map((code) => countries.countries[code].name);
@@ -13,14 +16,17 @@ const SearchLocation = ({ className = '' }) => {
   const [countryName, handleSelectChange] = useSearchLocation();
 
   return (
-    <CardWrapper>
-      <FilterTitle>Location</FilterTitle>
-      <div className="px-8 pt-5 pb-8">
-        <form autoComplete="off">
+    <CardInteractive
+      cardTitle="Location"
+      bottomComponent={
+        <FormControl fullWidth>
+          <InputLabel id="select-small">Location</InputLabel>
+
           <Select
-            value={countryName}
+            labelId="select-small"
             className="w-full"
             onChange={handleSelectChange}
+            label="Location"
           >
             <MenuItem value="">All</MenuItem>
             {countryNames.map((name) => (
@@ -29,9 +35,9 @@ const SearchLocation = ({ className = '' }) => {
               </MenuItem>
             ))}
           </Select>
-        </form>
-      </div>
-    </CardWrapper>
+        </FormControl>
+      }
+    />
   );
 };
 
