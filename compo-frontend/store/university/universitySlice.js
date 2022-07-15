@@ -21,6 +21,24 @@ let studentBodySizeGTE = FILTER_MIN_BODY_SIZE;
 let studentBodySizeLTE = FILTER_MAX_BODY_SIZE;
 let pageOffset = 0;
 
+const resetConstants = () => {
+  searchQuery = '';
+  insitituteType = '';
+  location = '';
+  offset = '';
+  rankOrder = '';
+  rankOrderGT = '';
+  rankOrderLT = '';
+  rankOrderGTE = '';
+  rankOrderLTE = '';
+  studentBodySize = '';
+  studentBodySizeLT = '';
+  studentBodySizeGT = '';
+  studentBodySizeGTE = FILTER_MIN_BODY_SIZE;
+  studentBodySizeLTE = FILTER_MAX_BODY_SIZE;
+  pageOffset = 0;
+};
+
 const initialState = {
   universities: [],
   filteredUniversities: [],
@@ -40,6 +58,16 @@ const setCurrentFilter = () => {
 export const getUniversities = createAsyncThunk(
   'universities/getUniversities',
   async () => {
+    const res = await fetch(setCurrentFilter());
+    const data = await res.json();
+    return { results: data.results, count: data.count };
+  }
+);
+
+export const resetFilter = createAsyncThunk(
+  'universities/resetFilter',
+  async () => {
+    resetConstants();
     const res = await fetch(setCurrentFilter());
     const data = await res.json();
     return { results: data.results, count: data.count };
@@ -174,6 +202,19 @@ export const universitySlice = createSlice({
         state.countUniversities = payload.count;
       })
       .addCase(filterMainSearch.rejected, (state) => {
+        state.pending = false;
+        state.error = true;
+      })
+      .addCase(resetFilter.pending, (state) => {
+        state.pending = true;
+      })
+      .addCase(resetFilter.fulfilled, (state, { payload }) => {
+        state.pending = false;
+        state.universities = payload.results;
+        state.filteredUniversities = payload.results;
+        state.countUniversities = payload.count;
+      })
+      .addCase(resetFilter.rejected, (state) => {
         state.pending = false;
         state.error = true;
       });
