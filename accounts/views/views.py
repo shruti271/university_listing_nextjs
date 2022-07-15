@@ -1,34 +1,19 @@
-from django.shortcuts import render
-from accounts.models import User, Student
+from accounts.models import User, Student, Verification
 from accounts.serializers import ClosedStudentSerializer
 
 from rest_framework import permissions, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.exceptions import APIException, NotFound
+from rest_framework.exceptions import NotFound
 from rest_framework_simplejwt import authentication
 from rest_framework_simplejwt.tokens import RefreshToken
 
-class DuplicateException(APIException):
-    status_code = 303
-    default_detail = 'There is already a user with that email.'
-    default_code = 'User already exists'
+from accounts.exceptions import *
 
-class WrongCreds(APIException):
-    status_code = 303
-    default_detail = 'Incorrect username or password.'
-    default_code = 'Wrong credentials'
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
 
-class IncativeAccount(APIException):
-    status_code = 300
-    default_detail = 'Your account is not activated.'
-    default_code = 'Inactive account'
-
-
-
-
-
-
+from django.conf import settings
 
 class StudentSignupView(APIView):
     """ 
@@ -54,9 +39,11 @@ class StudentSignupView(APIView):
 
         # A simple check that the user is not authenticated
         if not request.user.is_authenticated:
-            if User.objects.filter(email=email).exists():
-                raise DuplicateException
+            if User.objects.filter(email=email).exists() and Student.objects.filter(user = User.objects.get(email=email)).exists():
 
+                raise DuplicateException
+                
+            # Else, create a user with is_active=Fase
             else:
                 # First, we remove everything on the right of @
                 e=email.split('@')[0] 
@@ -86,20 +73,10 @@ class StudentSignupView(APIView):
                         'detail': 'User created.',
                     })
                     return Response(data, status=status.HTTP_201_CREATED)
-                else:
-                    raise DuplicateException
 
         else:
-            if not Student.objects.filter(user=request.user).exists():
-                raise NotFound
+            raise DuplicateException
 
-            refresh = RefreshToken.for_user(request.user)
-            data= ({
-                #'user': self.serializer_class(student, context=serializer_context).data,
-                'refresh': str(refresh),
-                'access': str(refresh.access_token)})
-
-            return Response(data, status=status.HTTP_200_OK)
 
     def put(self, request):
 
@@ -112,7 +89,7 @@ class StudentSignupView(APIView):
         first_name = data.get('first_name')
         last_name = data.get('last_name')
 
-        if User.objects.filter(email=email).exists():
+        if User.objects.filter(email=email).exists() and Student.objects.filter(user = User.objects.get(email=email)).exists():
             user = User.objects.get(email=email)
             user.first_name = first_name
             user.last_name = last_name
@@ -121,19 +98,39 @@ class StudentSignupView(APIView):
             
 
             # Updating the student object
-            if user.is_active == False:
+            if student.is_onboarded == False and user.is_active == False:
                 for key in data:
                     setattr(student, key, data[key])
+
+                # send verification email.
+                verification, created = Verification.objects.get_or_create(user=user, purpose='Activation', used=False)
+                protocol = 'http'
+                mail_subject = 'Please activate your account'
+                message = render_to_string('accounts/activation.html', {
+                    'domain':'localhost:3000/activate/',
+                    'user': user,
+                    'verification_token': str(verification.hash),
+                    'protocol': protocol,
+                })
+                to_email = user.email
+                email = settings.EMAIL_HOST_USER
+                send_mail(
+                mail_subject,
+                message,
+                email,
+                [to_email],
+                fail_silently=False)
+
+                student.is_onboarded = True
                 student.save()
 
-            # send verification email.
-            refresh = RefreshToken.for_user(user)
-            return Response({
-                'detail': 'Verification email (feature on hold).',
-                'refresh_token': str(refresh),
-                'access_token': str(refresh.access_token),
-                })
+                return Response({
+                    'detail': 'Email verification sent.',
+                    })
+            else:
+                raise NotFound
 
+                
         else:
             raise NotFound
 
@@ -154,20 +151,26 @@ class StudentLoginView(APIView):
         email = str(data.get('email'))
         password = str(data.get('password'))
         
-        if User.objects.filter(email=email).exists():
+        if User.objects.filter(email=email).exists() and Student.objects.filter(user = User.objects.get(email=email)).exists():
             base_user = User.objects.get(email=email)
+            student = Student.objects.get(user=base_user)
 
             is_auth = base_user.check_password(password)
             
-            # if base_user.is_active==False:
-            #     raise IncativeAccount
-
-            if is_auth and not base_user.is_active==False:
+            if is_auth and base_user.is_active==True and student.is_onboarded==True:
                 refresh = RefreshToken.for_user(base_user)
                 return Response({
                     'refresh_token': str(refresh),
                     'access_token': str(refresh.access_token),
                 })
+
+            elif is_auth and base_user.is_active==False and student.is_onboarded==True:
+                #send activation email
+                raise IncativeAccount
+
+            elif is_auth and base_user.is_active==False and student.is_onboarded==False:
+                #redirect the user to the onbording
+                raise NotOnboarded
            
             else:
                 raise WrongCreds

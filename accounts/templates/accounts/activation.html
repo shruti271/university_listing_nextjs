@@ -1,0 +1,5 @@
+{% autoescape off %}
+Hey {{ user.username }},
+Please click on the link bellow to activate your account.
+{{ protocol }}://{{ domain }}?token={{verification_token}}
+{% endautoescape %}
