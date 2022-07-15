@@ -10,7 +10,7 @@ const FilterActions = () => {
   return (
     <div className="mb-2">
       <button
-        className="bg-colorPrimary px-5 py-1 rounded-md text-colorWhite"
+        className="bg-[#131045] px-5 py-1 rounded-md text-colorWhite"
         onClick={handleClick}
       >
         Reset
