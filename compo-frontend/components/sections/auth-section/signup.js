@@ -16,8 +16,9 @@ import { useForm } from "react-hook-form";
 import { signUp } from "../../../services/auth";
 import Router from "next/router";
 import Alert from '@mui/material/Alert';
+import CloseIcon from '@mui/icons-material/Close';
 
-export default function SignUp({ signUpType, onBoardingType }) {
+export default function SignUp({ signUpType, onBoardingType, handleClose }) {
 
   const [showPassword, setShowPassword] = useState(false);
   const [invalid, setInvalid] = useState(false);
@@ -32,25 +33,25 @@ export default function SignUp({ signUpType, onBoardingType }) {
     watch,
     getValues,
   } = useForm();
-  const onSubmit = async (data) => {
+  const onSubmit = (data) => {
 
-    const response = await signUp({
+    signUp({
       email: data.email,
       password: data.password,
-    });
-    console.log("resss", response)
-    if (!response.success) {
-      console.log('errorrrrr', response.message.response.data.detail);
-      setInvalid(true);
-      setErrorMsg(response.message.response.data.detail)
-    }
+    }).then((res) => {
 
-    if (response.success) {
-      localStorage.setItem("email", data.email);
-      onBoardingType()
-      // Router.push("/auth/onboarding");
-    }
-  };
+      console.log("resss", res);
+        localStorage.setItem("email", data.email);
+        onBoardingType()
+    }, (error) => {
+      console.log("error....", error);
+      setInvalid(true);
+
+      setErrorMsg(error.response.data.detail)
+
+
+    });
+  }
   const onError = (errors) => console.log("Errors Occurred !! :", errors);
 
   return (
@@ -64,6 +65,9 @@ export default function SignUp({ signUpType, onBoardingType }) {
           <Image src={CoverImage} alt="CoverImage" />
         </div>
         <div className="p-4 ml-0 sm:ml-4 md:ml-4 lg:ml-12 animate__animated animate__zoomIn">
+          <div onClick={handleClose} className="flex">
+            <CloseIcon className="text-black ml-auto cursor-pointer" />
+          </div>
           <h3 className="pb-2 mt-8 sm:mt-32 font-semibold text-xl sm:text-2xl text-[#03014C] flex justify-center sm:block">
             Sign up to Compoisite
           </h3>
@@ -196,11 +200,9 @@ export default function SignUp({ signUpType, onBoardingType }) {
             <div className="flex justify-center sm:justify-between items-center mb-6  w-full md:w-5/6 lg:w-3/4 mt-6 sm:mt-8 whitespace-nowrap">
               <div className="ml-0 sm:ml-auto">
                 <span className="text-black">Already have an account?</span>
-                {/* <Link href="/auth/signin"> */}
                 <span className="cursor-pointer text-[#0364FF] ml-1 font-bold" onClick={signUpType}>
                   Login
                 </span>
-                {/* </Link> */}
               </div>
             </div>
           </div>
@@ -208,4 +210,4 @@ export default function SignUp({ signUpType, onBoardingType }) {
       </div>
     </>
   );
-}
+};

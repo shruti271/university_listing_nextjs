@@ -23,7 +23,7 @@ const Header = () => {
 
   const [open, setOpen] = React.useState(false);
 
-  const handleClose = () => setOpen(false);
+  const handleClose = () => { setOpen(false), setAuthType() }
 
 
   const router = useRouter();

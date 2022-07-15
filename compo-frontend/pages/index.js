@@ -11,9 +11,12 @@ import TestimonialsSection from "../components/sections/testimonials-section/Tes
 import ToolsSection from "../components/sections/tools-section/ToolsSection";
 
 
+
 export default function Home() {
+
   return (
     <>
+
       <Header />
       <HeroSection />
       <AboutSection />

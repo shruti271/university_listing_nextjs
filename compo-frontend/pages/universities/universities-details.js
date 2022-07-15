@@ -110,22 +110,27 @@ const UniversitiesDetails = () => {
     };
     const responsive = {
         0: {
-            items: 2,
+            items: 1,
         },
         512: {
+            items: 2,
+        },
+        1024: {
+            items: 3,
+        },
+        1240: {
             items: 4,
         },
     };
 
 
-    const items = [Gallery1, Gallery2, Gallery3].map((img) => {
+    const items = [Gallery1, Gallery2, Gallery3, Gallery3].map((img) => {
 
         return (
             <div className='flex items-center cursor-pointer text-white carousel-image' key={img}>
                 <Image
                     src={img}
                     alt={img}
-
                 />
 
             </div>
@@ -172,7 +177,7 @@ const UniversitiesDetails = () => {
                                         </div>
                                     </div>
                                     <div className='mt-8 ml-4'>
-                                        <ul className="flex items-center justify-start gap-4 flex-wrap mb-8">
+                                        <ul className="flex items-center justify-start gap-4 flex-wrap mb-8 ml-4 lg:ml-0">
                                             <li className="bg-[#F1F1F5] p-2 rounded-md text-[0.625rem]">
                                                 Location: <span className="font-bold">Dubai,UAE</span>
                                             </li>
@@ -418,8 +423,8 @@ const UniversitiesDetails = () => {
 
 
                     </div>
-                    <div className="w-full  sm:w-10/12 mx-auto flex mt-24 justify-between">
-                        <h4 className="font-semibold text-4xl text-[#363848]">
+                    <div className="w-full  sm:w-10/12 mx-auto flex mt-24 justify-between items-center">
+                        <h4 className="font-semibold text-2xl md:text-3xl lg:text-4xl text-[#363848]">
                             Related univeristies
                         </h4>
                         <button

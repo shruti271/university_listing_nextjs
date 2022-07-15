@@ -4,17 +4,7 @@ import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import * as React from "react";
 import StepLabel from "@mui/material/StepLabel";
-import { styled } from "@mui/material/styles";
-import SettingsIcon from "@mui/icons-material/Settings";
-import GroupAddIcon from "@mui/icons-material/GroupAdd";
-import VideoLabelIcon from "@mui/icons-material/VideoLabel";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
-import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
-import StepConnector, {
-  stepConnectorClasses,
-} from "@mui/material/StepConnector";
-import PropTypes from "prop-types";
+
 import PersonIcon from "@mui/icons-material/Person";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import DateRangeIcon from "@mui/icons-material/DateRange";
@@ -29,7 +19,7 @@ import SchoolIcon from "@mui/icons-material/School";
 import LocalLibraryIcon from "@mui/icons-material/LocalLibrary";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { CustomTextField } from "../../core/CustomMUIComponents";
+import { CustomTextField, QontoConnector, QontoStepIcon } from "../../core/CustomMUIComponents";
 
 import { useForm, Controller } from "react-hook-form";
 import Router from "next/router";
@@ -54,79 +44,6 @@ const theme = createTheme({
   },
 });
 
-const QontoConnector = styled(StepConnector)(({ theme }) => ({
-  [`&.${stepConnectorClasses.alternativeLabel}`]: {
-    top: 10,
-    left: "calc(-50% + 16px)",
-    right: "calc(50% + 16px)",
-  },
-  [`&.${stepConnectorClasses.active}`]: {
-    [`& .${stepConnectorClasses.line}`]: {
-      borderColor: "#0364FF",
-    },
-  },
-  [`&.${stepConnectorClasses.completed}`]: {
-    [`& .${stepConnectorClasses.line}`]: {
-      borderColor: "#0364FF",
-    },
-  },
-  [`& .${stepConnectorClasses.line}`]: {
-    borderColor: "#eaeaf0",
-    borderTopWidth: 3,
-    borderRadius: 1,
-  },
-}));
-
-const QontoStepIconRoot = styled("div")(({ theme, ownerState }) => ({
-  color: theme.palette.mode === "dark" ? theme.palette.grey[700] : "#eaeaf0",
-  display: "flex",
-  height: 22,
-  alignItems: "center",
-  ...(ownerState.active && {
-    color: "#784af4",
-  }),
-  "& .QontoStepIcon-completedIcon": {
-    color: "#0364FF",
-    zIndex: 1,
-    fontSize: 24,
-  },
-  "& .QontoStepIcon-circle": {
-    width: 8,
-    height: 8,
-    borderRadius: "50%",
-    backgroundColor: "currentColor",
-  },
-}));
-
-function QontoStepIcon(props) {
-  const { active, completed, className } = props;
-
-  return (
-    <QontoStepIconRoot ownerState={{ active }} className={className}>
-      {active ? (
-        <RadioButtonCheckedIcon className="QontoStepIcon-completedIcon" />
-      ) : completed ? (
-        <CheckCircleOutlineIcon className="QontoStepIcon-completedIcon" />
-      ) : (
-        <RadioButtonUncheckedIcon className="QontoStepIcon-completedIcon" />
-      )}
-    </QontoStepIconRoot>
-  );
-}
-
-QontoStepIcon.propTypes = {
-  /**
-   * Whether this step is active.
-   * @default false
-   */
-  active: PropTypes.bool,
-  className: PropTypes.string,
-  /**
-   * Mark the step as completed. Is passed to child components.
-   * @default false
-   */
-  completed: PropTypes.bool,
-};
 
 const steps = ["About", "Education", "Profession"];
 
@@ -160,7 +77,7 @@ export default function RegistrationSteps() {
     return year + '-' + month + '-' + day;
   }
 
-  const onSubmit = async (data) => {
+  const onSubmit = (data) => {
     if (activeStep !== 2) {
       handleNext();
     } else {
@@ -168,7 +85,7 @@ export default function RegistrationSteps() {
       console.log("Data To be Submitted !!", data)
       console.log("email !!", email)
 
-      const response = await onBoarding({
+      onBoarding({
         email: email,
         first_name: data.first_name,
         last_name: data.last_name,
@@ -180,16 +97,18 @@ export default function RegistrationSteps() {
         graduated_date: formatDate(data.graduated_date),
         desired_profession: data.desired_profession,
         desired_major: data.desired_major,
-      });
-      console.log("resss", response)
-      if (response.success) {
-        localStorage.removeItem("email");
-        localStorage.setItem("access_token", response.data.access_token)
-        localStorage.setItem("refresh_token", response.data.refresh_token)
-        Router.push("/universities");
+      }).then((res) => {
 
-      }
+        console.log("resss", res);
+
+        Router.push("/auth/verificationMsg");
+
+      }, (error) => {
+        console.log("error....", error);
+      });
+
     }
+
   };
 
   const onError = (errors) => console.log("Errors Occurred !! :", errors);
@@ -736,7 +655,6 @@ export default function RegistrationSteps() {
 
                 <button
                   type="submit"
-                  // onClick={handleNext}
                   onClick={handleSubmit(onSubmit, onError)}
                   className="bg-[#0364FF] hover:bg-[#0364FF] mr-1 text-white px-9 py-3 rounded-xl font-semibold focus:outline-none focus:shadow-outline 
                   shadow-lg"

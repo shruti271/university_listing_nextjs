@@ -15,8 +15,9 @@ import { useForm } from "react-hook-form";
 import Router from 'next/router'
 import { signIn } from "../../../services/auth";
 import { Alert } from "@mui/material";
+import CloseIcon from '@mui/icons-material/Close';
 
-export default function Signin({ signInType }) {
+export default function Signin({ signInType, handleClose, onBoardingType }) {
   const [showPassword, setShowPassword] = useState(false);
   const [invalid, setInvalid] = useState(false);
   const [errorMsg, setErrorMsg] = useState(false);
@@ -33,27 +34,39 @@ export default function Signin({ signInType }) {
     watch,
     getValues,
   } = useForm();
-  const onSubmit = async (data, event) => {
+  const onSubmit = (data, event) => {
     event.preventDefault();
 
     console.log("dataaa", (data));
 
 
-    const response = await signIn({
+    signIn({
       email: data.email,
       password: data.password,
-    });
-    console.log("resss", response)
-    if (!response.success) {
-      console.log('errorrrrr', response.message.response.data.detail);
-      setInvalid(true);
-      setErrorMsg(response.message.response.data.detail)
-    }
-    if (response.success) {
-      localStorage.setItem("access_token", response.data.access_token)
-      localStorage.setItem("refresh_token", response.data.refresh_token)
+    }).then((res) => {
+
+      console.log("resss", res);
+      localStorage.setItem("access_token", res.data.access_token);
+      localStorage.setItem("refresh_token", res.data.refresh_token);
       Router.push('/universities');
-    }
+      handleClose();
+    }, (error) => {
+      console.log("error....", error);
+      setInvalid(true);
+
+      setErrorMsg(error.response.data.detail)
+
+      if (error.response.status === 303) {
+        localStorage.setItem("email", data.email);
+        setInterval(onBoardingType, 2000)
+
+      }
+    });
+
+
+
+
+
 
 
 
@@ -71,6 +84,9 @@ export default function Signin({ signInType }) {
           <Image src={CoverImage} alt="CoverImage" />
         </div>
         <div className="p-4 ml-0 sm:ml-4 md:ml-4 lg:ml-12 animate__animated animate__zoomIn">
+          <div onClick={handleClose} className="flex">
+            <CloseIcon className="text-black ml-auto cursor-pointer" />
+          </div>
           <h3 className="pb-2 mt-8 sm:mt-32 font-semibold text-xl sm:text-2xl text-[#03014C] flex justify-center sm:block">
             Login to your account!
           </h3>
@@ -216,11 +232,9 @@ export default function Signin({ signInType }) {
             <div className="flex justify-center sm:justify-between items-center mb-6 w-full md:w-5/6 lg:w-3/4 mt-6 sm:mt-8 whitespace-nowrap">
               <div className="ml-0 sm:ml-auto">
                 <span className="text-black">Don't have an account ?</span>
-                {/* <Link href="/auth/signup"> */}
                 <span className="cursor-pointer text-[#0364FF] ml-1 font-bold" onClick={signInType}>
                   Sign up
                 </span>
-                {/* </Link> */}
               </div>
             </div>
           </div>

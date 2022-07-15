@@ -19,7 +19,7 @@ const style = {
     bgcolor: 'background.paper',
     border: '0px solid #000',
     boxShadow: 24,
-    borderRadius:"12px"
+    borderRadius: "12px"
 
 };
 
@@ -28,6 +28,7 @@ const AuthModal = (props) => {
     const [authModalType, setAuthModalType] = useState();
 
     React.useEffect(() => {
+        console.log("first::", authType)
 
         setAuthModalType(authType)
     }, [authType])
@@ -43,7 +44,6 @@ const AuthModal = (props) => {
         setAuthModalType(AuthType[2])
     };
 
-
     return (
         <Modal
             open={open}
@@ -53,14 +53,14 @@ const AuthModal = (props) => {
             <Box sx={style}>
                 {
 
-                    authModalType === AuthType[0] && <Signin signInType={signInType} />
+                    authModalType === AuthType[0] && <Signin signInType={signInType} onBoardingType={onBoardingType} handleClose={handleClose} />
                 }
 
                 {
-                    authModalType === AuthType[1] && <Signup signUpType={signUpType} onBoardingType={onBoardingType} />
+                    authModalType === AuthType[1] && <Signup signUpType={signUpType} onBoardingType={onBoardingType} handleClose={handleClose} />
                 }
                 {
-                    authModalType === AuthType[2] && <OnBoarding  />
+                    authModalType === AuthType[2] && <OnBoarding />
                 }
             </Box>
         </Modal>
