@@ -18,13 +18,13 @@ const SearchLocation = ({ className = '' }) => {
       cardTitle="Location"
       bottomComponent={
         <FormControl fullWidth>
-          <InputLabel id="select-small">Location</InputLabel>
+          <InputLabel id="select-small">Country</InputLabel>
 
           <Select
             labelId="select-small"
             className="w-full"
             onChange={handleSelectChange}
-            label="Location"
+            label="Country"
           >
             <MenuItem value="">All</MenuItem>
             {countryNames.map((name) => (

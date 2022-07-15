@@ -1,5 +1,9 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { universities } from '../../components/university-sections/universities-section/universityData';
+import {
+  FILTER_MAX_BODY_SIZE,
+  FILTER_MIN_BODY_SIZE,
+} from '../../data/constants';
 
 let searchQuery = '';
 let insitituteType = '';
@@ -13,8 +17,8 @@ let rankOrderLTE = '';
 let studentBodySize = '';
 let studentBodySizeLT = '';
 let studentBodySizeGT = '';
-let studentBodySizeGTE = '0';
-let studentBodySizeLTE = '500000';
+let studentBodySizeGTE = FILTER_MIN_BODY_SIZE;
+let studentBodySizeLTE = FILTER_MAX_BODY_SIZE;
 let pageOffset = 0;
 
 const initialState = {
@@ -26,7 +30,9 @@ const initialState = {
 };
 
 const setCurrentFilter = () => {
-  const currentFilter = `http://api.composite.digital/v1/universities/filter/?institute_type=&location=${location}&offset=${pageOffset}&rank_order=&rank_order__gt=&rank_order__gte=&rank_order__lt=&rank_order__lte=&student_body_size=&student_body_size__gt=&student_body_size__gte=${studentBodySizeGTE}&student_body_size__lt=&student_body_size__lte=${studentBodySizeLTE}&search=${searchQuery}`;
+  const currentFilter = `http://api.composite.digital/v1/universities/filter/?institute_type=&location=${location}&offset=${pageOffset}&rank_order=&rank_order__gt=&rank_order__gte=&rank_order__lt=&rank_order__lte=&student_body_size=&student_body_size__gt=&student_body_size__gte=${studentBodySizeGTE}&student_body_size__lt=&student_body_size__lte=${
+    studentBodySizeLTE < FILTER_MAX_BODY_SIZE ? studentBodySizeLTE : ''
+  }&search=${searchQuery}`;
 
   return currentFilter;
 };
