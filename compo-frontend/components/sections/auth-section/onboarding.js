@@ -161,35 +161,23 @@ export default function RegistrationSteps({handleClose}) {
       className="grid grid-cols-1 sm:grid-cols-2 h-full"
     >
       <div
-        className="p-4 cover-image hidden sm:block h-full"
+        className="p-4 hidden sm:block h-full"
       >
-        {activeStep === 0 && (
-          <Image
-            src={CoverImage1}
-            alt="CoverImage1"
-            className="animate__animated animate__zoomIn"
-          />
-        )}
-        {activeStep === 1 && (
-          <Image
-            src={CoverImage2}
-            alt="CoverImage2"
-            className="animate__animated animate__zoomIn"
-          />
-        )}
-        {activeStep === 2 && (
-          <Image
-            src={CoverImage3}
-            alt="CoverImage3"
-            className="animate__animated animate__zoomIn"
-          />
-        )}
+        {
+          activeStep === 0 && <div className="bg-cover w-full h-full animate__animated animate__zoomIn onboarding1-cover"></div>
+        }
+        {
+          activeStep === 1 && <div className="bg-cover w-full h-full animate__animated animate__zoomIn onboarding2-cover"></div>
+        }
+        {
+          activeStep === 2 && <div className="bg-cover w-full h-full animate__animated animate__zoomIn onboarding3-cover"></div>
+        }
       </div>
       <div className="p-4 ml-0 sm:ml-4 md:ml-4 lg:ml-12">
       <div onClick={handleClose} className="flex">
             <CloseIcon className="text-black ml-auto cursor-pointer" />
       </div>
-        <Box>
+        <Box className="mt-3 sm:mt-16">
           <Stepper
             alternativeLabel
             activeStep={activeStep}

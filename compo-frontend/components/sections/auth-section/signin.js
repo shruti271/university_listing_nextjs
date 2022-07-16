@@ -68,20 +68,20 @@ export default function Signin({ changeAuthModalType, handleClose }) {
   return (
     <>
       <div
-        className="grid grid-cols-1 sm:grid-cols-2"
+        className="grid grid-cols-1 sm:grid-cols-2 h-full"
       >
         <div
-          className="p-4 hidden sm:block animate__animated animate__zoomIn"
+          className="p-4 hidden sm:block animate__animated animate__zoomIn  h-full"
         >
-          <div className="auth-cover w-full h-full">
+          <div className="bg-cover auth-cover w-full h-full">
             {/* <Image src={CoverImage} alt="CoverImage" /> */}
           </div>
         </div>
-        <div className="p-4 mt-3 sm:mt-0  animate__animated animate__zoomIn">
+        <div className="p-4 mt-3 sm:mt-0 ml-0 sm:ml-4 md:ml-4 lg:ml-12  animate__animated animate__zoomIn">
           <div onClick={handleClose} className="flex">
             <CloseIcon className="text-black ml-auto cursor-pointer" />
           </div>
-          <h3 className="pb-2 font-semibold text-xl sm:text-2xl text-[#03014C] flex justify-center sm:block">
+          <h3 className="pb-2 mt-3 sm:mt-16 font-semibold text-xl sm:text-2xl text-[#03014C] flex justify-center sm:block">
             Login to your account!
           </h3>
           <div className="mt-4 sm:mt-8">

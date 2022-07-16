@@ -64,7 +64,7 @@ export default function SignUp({ changeAuthModalType, handleClose }) {
         <div
           className="p-4 hidden sm:block animate__animated animate__zoomIn  h-full"
         >
-          <div className="auth-cover w-full h-full">
+          <div className="bg-cover auth-cover w-full h-full">
             {/* <Image src={CoverImage} alt="CoverImage" /> */}
           </div>
         </div>
@@ -72,7 +72,7 @@ export default function SignUp({ changeAuthModalType, handleClose }) {
           <div onClick={handleClose} className="flex">
             <CloseIcon className="text-black ml-auto cursor-pointer" />
           </div>
-          <h3 className="pb-2 mt-3 sm:mt-0 font-semibold text-xl sm:text-2xl text-[#03014C] flex justify-center sm:block">
+          <h3 className="pb-2 mt-3 sm:mt-16 font-semibold text-xl sm:text-2xl text-[#03014C] flex justify-center sm:block">
             Sign up to Compoisite
           </h3>
           <div className="mt-4 sm:mt-8">

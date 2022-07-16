@@ -132,10 +132,25 @@ h6 {
   max-height: 25% !important;
 }
 
+.bg-cover {
+  -webkit-background-size: cover !important;
+  -moz-background-size: cover !important;
+  -o-background-size: cover !important;
+  background-size: 100% 100% !important;
+}
+
 .auth-cover {
   background: url("../assets/login-cover.png") no-repeat center center fixed; 
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+}
+
+.onboarding1-cover {
+  background: url("../assets/reg-step-1.png") no-repeat center center fixed; 
+}
+
+.onboarding2-cover {
+  background: url("../assets/reg-step-2.png") no-repeat center center fixed; 
+}
+
+.onboarding3-cover {
+  background: url("../assets/reg-step-3.png") no-repeat center center fixed; 
 }
