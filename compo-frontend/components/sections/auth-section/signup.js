@@ -36,23 +36,22 @@ export default function SignUp({ changeAuthModalType, handleClose }) {
   } = useForm();
   const onSubmit = (data) => {
 
-    // signUp({
-    //   email: data.email,
-    //   password: data.password,
-    // }).then((res) => {
+    signUp({
+      email: data.email,
+      password: data.password,
+    }).then((res) => {
 
-    //   console.log("resss", res);
-    //     localStorage.setItem("email", data.email);
-    //     changeAuthModalType(AuthTypeModal.Onboarding)
-    // }, (error) => {
-    //   console.log("error....", error);
-    //   setInvalid(true);
+      console.log("resss", res);
+        localStorage.setItem("email", data.email);
+        changeAuthModalType(AuthTypeModal.Onboarding)
+    }, (error) => {
+      console.log("error....", error);
+      setInvalid(true);
 
-    //   setErrorMsg(error.response.data.detail)
+      setErrorMsg(error.response.data.detail)
 
 
-    // });
-    changeAuthModalType(AuthTypeModal.Onboarding)
+    });
   }
   const onError = (errors) => console.log("Errors Occurred !! :", errors);
 
