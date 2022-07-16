@@ -131,3 +131,16 @@ h6 {
 .MuiPopover-paper {
   max-height: 25% !important;
 }
+.abc span:first-child {
+  height: inherit !important;
+}
+.abc span:last-child {
+  position: absolute !important;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.xyz span:last-child {
+  bottom: 50px !important;
+  top: unset !important;
+}

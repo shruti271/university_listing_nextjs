@@ -19,7 +19,11 @@ import SchoolIcon from "@mui/icons-material/School";
 import LocalLibraryIcon from "@mui/icons-material/LocalLibrary";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { CustomTextField, QontoConnector, QontoStepIcon } from "../../core/CustomMUIComponents";
+import {
+  CustomTextField,
+  QontoConnector,
+  QontoStepIcon,
+} from "../../core/CustomMUIComponents";
 
 import { useForm, Controller } from "react-hook-form";
 import Router from "next/router";
@@ -27,14 +31,14 @@ import { onBoarding } from "../../../services/auth";
 import CoverImage1 from "../../../assets/reg-step-1.png";
 import CoverImage2 from "../../../assets/reg-step-2.png";
 import CoverImage3 from "../../../assets/reg-step-3.png";
+import LoginLogo from "../../../assets/LoginLogo.svg";
+import CircularProgress from "@mui/material/CircularProgress";
 
-
-import countries from 'countries-list';
+import countries from "countries-list";
 
 const countryCodes = Object.keys(countries.countries);
 const countryNames = countryCodes.map((code) => countries.countries[code].name);
 countryNames.sort();
-
 
 const theme = createTheme({
   palette: {
@@ -44,13 +48,14 @@ const theme = createTheme({
   },
 });
 
-
 const steps = ["About", "Education", "Profession"];
 
 export default function RegistrationSteps() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [completed, setCompleted] = React.useState([]);
   const [email, setEmail] = React.useState();
+  const [loading, setLoading] = React.useState(false);
+
   const {
     register,
     handleSubmit,
@@ -65,25 +70,25 @@ export default function RegistrationSteps() {
 
   React.useEffect(() => {
     const email = localStorage.getItem("email");
-    setEmail(email)
-  }, [])
+    setEmail(email);
+  }, []);
 
   console.log("Email Provide: ", email);
 
   const formatDate = (date) => {
-    const day = date.toLocaleString('default', { day: '2-digit' });
-    const month = date.toLocaleString('default', { month: '2-digit' });
-    const year = date.toLocaleString('default', { year: 'numeric' });
-    return year + '-' + month + '-' + day;
-  }
+    const day = date.toLocaleString("default", { day: "2-digit" });
+    const month = date.toLocaleString("default", { month: "2-digit" });
+    const year = date.toLocaleString("default", { year: "numeric" });
+    return year + "-" + month + "-" + day;
+  };
 
   const onSubmit = (data) => {
     if (activeStep !== 2) {
       handleNext();
     } else {
-
-      console.log("Data To be Submitted !!", data)
-      console.log("email !!", email)
+      setLoading(true);
+      console.log("Data To be Submitted !!", data);
+      console.log("email !!", email);
 
       onBoarding({
         email: email,
@@ -97,18 +102,18 @@ export default function RegistrationSteps() {
         graduated_date: formatDate(data.graduated_date),
         desired_profession: data.desired_profession,
         desired_major: data.desired_major,
-      }).then((res) => {
+      }).then(
+        (res) => {
+          console.log("resss", res);
 
-        console.log("resss", res);
-
-        Router.push("/auth/verificationMsg");
-
-      }, (error) => {
-        console.log("error....", error);
-      });
-
+          Router.push("/auth/verificationMsg");
+        },
+        (error) => {
+          console.log("error....", error);
+          setLoading(false);
+        }
+      );
     }
-
   };
 
   const onError = (errors) => console.log("Errors Occurred !! :", errors);
@@ -133,8 +138,8 @@ export default function RegistrationSteps() {
     const newActiveStep =
       isLastStep() && !allStepsCompleted()
         ? // It's the last step, but not all steps have been completed,
-        // find the first step that has been completed
-        steps.findIndex((step, i) => !(i in completed))
+          // find the first step that has been completed
+          steps.findIndex((step, i) => !(i in completed))
         : activeStep + 1;
     setActiveStep(newActiveStep);
   };
@@ -152,38 +157,41 @@ export default function RegistrationSteps() {
   // }, [setError])
 
   React.useEffect(() => {
-    console.log("errors :", errors)
-  }, [errors])
+    console.log("errors :", errors);
+  }, [errors]);
 
   return (
-    <div
-      className="grid grid-cols-1 sm:grid-cols-2 h-full"
-    >
-      <div
-        className="p-4 cover-image hidden sm:block h-full"
-      >
-        {activeStep === 0 && (
+    <div className="grid grid-cols-1 sm:grid-cols-2 h-full">
+      {activeStep === 0 && (
+        <div className="abc relative p-4  cover-image hidden sm:block h-full">
           <Image
             src={CoverImage1}
             alt="CoverImage1"
             className="animate__animated animate__zoomIn"
           />
-        )}
-        {activeStep === 1 && (
+          <Image src={LoginLogo} alt="CoverImage" />
+        </div>
+      )}
+      {activeStep === 1 && (
+        <div className="abc xyz relative p-4  cover-image hidden sm:block h-full">
           <Image
             src={CoverImage2}
             alt="CoverImage2"
             className="animate__animated animate__zoomIn"
           />
-        )}
-        {activeStep === 2 && (
+          <Image src={LoginLogo} alt="CoverImage" />
+        </div>
+      )}
+      {activeStep === 2 && (
+        <div className="abc relative p-4  cover-image hidden sm:block h-full">
           <Image
             src={CoverImage3}
             alt="CoverImage3"
             className="animate__animated animate__zoomIn"
           />
-        )}
-      </div>
+          <Image src={LoginLogo} alt="CoverImage" />
+        </div>
+      )}
       <div className="p-4 ml-0 sm:ml-4 md:ml-4 lg:ml-12">
         <Box>
           <Stepper
@@ -343,11 +351,12 @@ export default function RegistrationSteps() {
                           </LocalizationProvider>
                         </Box>
                         <div className="mt-2 ml-9">
-                          {errors.date_of_birth?.type && errors.date_of_birth?.type === "required" && (
-                            <span style={{ color: "red" }} className="-mb-6">
-                              Date of birth is required
-                            </span>
-                          )}
+                          {errors.date_of_birth?.type &&
+                            errors.date_of_birth?.type === "required" && (
+                              <span style={{ color: "red" }} className="-mb-6">
+                                Date of birth is required
+                              </span>
+                            )}
                         </div>
                       </div>
                     </div>
@@ -369,13 +378,9 @@ export default function RegistrationSteps() {
                               required: "Current Location is required",
                             })}
                           >
-                            {
-                              countryNames.map((country) => (
-
-
-                                <MenuItem value={country}>{country}</MenuItem>
-                              ))
-                            }
+                            {countryNames.map((country) => (
+                              <MenuItem value={country}>{country}</MenuItem>
+                            ))}
                           </CustomTextField>
                         </Box>
                         <div className="mt-2 ml-9">
@@ -473,11 +478,9 @@ export default function RegistrationSteps() {
                             required: "Institute Location is required",
                           })}
                         >
-                          {
-                            countryNames.map((country) => (
-                              <MenuItem value={country}>{country}</MenuItem>
-                            ))
-                          }
+                          {countryNames.map((country) => (
+                            <MenuItem value={country}>{country}</MenuItem>
+                          ))}
                         </CustomTextField>
                       </Box>
                       <div className="mt-2 ml-9">
@@ -563,11 +566,12 @@ export default function RegistrationSteps() {
                         </LocalizationProvider>
                       </Box>
                       <div className="mt-2 ml-9">
-                        {errors.graduated_date?.type && errors.graduated_date?.type === "required" && (
-                          <span style={{ color: "red" }} className="-mb-6">
-                            Graduation Date is required
-                          </span>
-                        )}
+                        {errors.graduated_date?.type &&
+                          errors.graduated_date?.type === "required" && (
+                            <span style={{ color: "red" }} className="-mb-6">
+                              Graduation Date is required
+                            </span>
+                          )}
                       </div>
                     </div>
                   </div>
@@ -657,8 +661,15 @@ export default function RegistrationSteps() {
                   type="submit"
                   onClick={handleSubmit(onSubmit, onError)}
                   className="bg-[#0364FF] hover:bg-[#0364FF] mr-1 text-white px-9 py-3 rounded-xl font-semibold focus:outline-none focus:shadow-outline 
-                  shadow-lg"
+                  shadow-lg flex items-center justify-center"
                 >
+                  {loading && (
+                    <CircularProgress
+                      size={20}
+                      color="primary"
+                      sx={{ color: "white", mr: 1 }}
+                    />
+                  )}
                   Next
                 </button>
               </Box>

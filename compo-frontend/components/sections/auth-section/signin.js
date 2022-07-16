@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import CoverImage from "../../../assets/login-cover.png";
+import LoginLogo from "../../../assets/LoginLogo.svg";
 import googleIcon from "../../../assets/googleIcon.svg";
 import fbIcon from "../../../assets/fbIcon.svg";
 import Box from "@mui/material/Box";
@@ -12,20 +13,18 @@ import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import InputAdornment from "@mui/material/InputAdornment";
 import { CustomTextField } from "../../core/CustomMUIComponents";
 import { useForm } from "react-hook-form";
-import Router from 'next/router'
+import Router from "next/router";
 import { signIn } from "../../../services/auth";
 import { Alert } from "@mui/material";
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from "@mui/icons-material/Close";
 import { AuthTypeModal } from "../../core/Enum";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export default function Signin({ changeAuthModalType, handleClose }) {
   const [showPassword, setShowPassword] = useState(false);
   const [invalid, setInvalid] = useState(false);
   const [errorMsg, setErrorMsg] = useState(false);
-
-
-
-
+  const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -35,59 +34,49 @@ export default function Signin({ changeAuthModalType, handleClose }) {
     watch,
     getValues,
   } = useForm();
-  const onSubmit = (data, event) => {
-    event.preventDefault();
+  const onSubmit = (data) => {
+    setLoading(true);
 
-    console.log("dataaa", (data));
-
+    console.log("dataaa", data);
 
     signIn({
       email: data.email,
       password: data.password,
-    }).then((res) => {
+    }).then(
+      (res) => {
+        console.log("resss", res);
+        localStorage.setItem("access_token", res.data.access_token);
+        localStorage.setItem("refresh_token", res.data.refresh_token);
+        Router.push("/universities");
+        handleClose();
+      },
+      (error) => {
+        console.log("error....", error);
+        setLoading(false);
+        setInvalid(true);
+        setErrorMsg(error.response.data.detail);
 
-      console.log("resss", res);
-      localStorage.setItem("access_token", res.data.access_token);
-      localStorage.setItem("refresh_token", res.data.refresh_token);
-      Router.push('/universities');
-      handleClose();
-    }, (error) => {
-      console.log("error....", error);
-      setInvalid(true);
-
-      setErrorMsg(error.response.data.detail)
-
-      if (error.response.status === 303) {
-        localStorage.setItem("email", data.email);
-        setInterval(changeAuthModalType(AuthTypeModal.Onboarding), 2000)
+        if (error.response.status === 303) {
+          localStorage.setItem("email", data.email);
+          setInterval(changeAuthModalType(AuthTypeModal.Onboarding), 3000);
+        }
       }
-    });
-
-
-
-
-
-
-
-
+    );
   };
   const onError = (errors) => console.log("Errors Occurred !! :", errors);
 
   return (
     <>
-      <div
-        className="grid grid-cols-1 sm:grid-cols-2"
-      >
-        <div
-          className="p-4 hidden sm:block animate__animated animate__zoomIn"
-        >
+      <div className="grid grid-cols-1 sm:grid-cols-2 h-full">
+        <div className="p-4 abc hidden sm:block animate__animated animate__zoomIn h-full relative">
           <Image src={CoverImage} alt="CoverImage" />
+          <Image src={LoginLogo} alt="CoverImage" />
         </div>
         <div className="p-4 ml-0 sm:ml-4 md:ml-4 lg:ml-12 animate__animated animate__zoomIn">
           <div onClick={handleClose} className="flex">
             <CloseIcon className="text-black ml-auto cursor-pointer" />
           </div>
-          <h3 className="pb-2 font-semibold text-xl sm:text-2xl text-[#03014C] flex justify-center sm:block">
+          <h3 className="pb-2 mt-8 sm:mt-32 font-semibold text-xl sm:text-2xl text-[#03014C] flex justify-center sm:block">
             Login to your account!
           </h3>
           <div className="mt-4 sm:mt-8">
@@ -95,7 +84,11 @@ export default function Signin({ changeAuthModalType, handleClose }) {
               <div className="flex flex-col">
                 <div className="flex sm:block justify-center">
                   <div className="flex  sm:block flex-col mb-6 w-3/4 md:w-5/6 lg:w-3/4">
-                    {invalid && (<Alert severity="error" className="mb-4 -mt-4">{errorMsg}</Alert>)}
+                    {invalid && (
+                      <Alert severity="error" className="mb-4 -mt-4">
+                        {errorMsg}
+                      </Alert>
+                    )}
 
                     <Box sx={{ display: "flex", alignItems: "flex-end" }}>
                       <EmailIcon
@@ -187,14 +180,19 @@ export default function Signin({ changeAuthModalType, handleClose }) {
                 </div>
 
                 <div className="flex justify-center sm:block">
-
                   <button
                     type="submit"
-
                     className="bg-[#0364FF] hover:bg-[#0364FF] text-gray-100 p-4 w-3/4 md:w-5/6 lg:w-3/4 rounded-xl tracking-wide
                   font-semibold font-display focus:outline-none focus:shadow-outline 
-                  shadow-lg"
+                  shadow-lg flex items-center justify-center"
                   >
+                    {loading && (
+                      <CircularProgress
+                        size={20}
+                        color="primary"
+                        sx={{ color: "white", mr: 1 }}
+                      />
+                    )}
                     Login to Continue
                   </button>
                 </div>
@@ -232,7 +230,10 @@ export default function Signin({ changeAuthModalType, handleClose }) {
             <div className="flex justify-center sm:justify-between items-center mb-6 w-full md:w-5/6 lg:w-3/4 mt-6 sm:mt-8 whitespace-nowrap">
               <div className="ml-0 sm:ml-auto">
                 <span className="text-black">Don't have an account ?</span>
-                <span className="cursor-pointer text-[#0364FF] ml-1 font-bold" onClick={() => changeAuthModalType(AuthTypeModal.Signup)}>
+                <span
+                  className="cursor-pointer text-[#0364FF] ml-1 font-bold"
+                  onClick={() => changeAuthModalType(AuthTypeModal.Signup)}
+                >
                   Sign up
                 </span>
               </div>

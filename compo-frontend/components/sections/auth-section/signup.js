@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import CoverImage from "../../../assets/login-cover.png";
+import LoginLogo from "../../../assets/LoginLogo.svg";
 import googleIcon from "../../../assets/googleIcon.svg";
 import fbIcon from "../../../assets/fbIcon.svg";
 import Box from "@mui/material/Box";
@@ -15,15 +16,16 @@ import { CustomTextField } from "../../core/CustomMUIComponents";
 import { useForm } from "react-hook-form";
 import { signUp } from "../../../services/auth";
 import Router from "next/router";
-import Alert from '@mui/material/Alert';
-import CloseIcon from '@mui/icons-material/Close';
+import Alert from "@mui/material/Alert";
+import CloseIcon from "@mui/icons-material/Close";
 import { AuthTypeModal } from "../../core/Enum";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export default function SignUp({ changeAuthModalType, handleClose }) {
-
   const [showPassword, setShowPassword] = useState(false);
   const [invalid, setInvalid] = useState(false);
   const [errorMsg, setErrorMsg] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const {
     register,
@@ -35,35 +37,35 @@ export default function SignUp({ changeAuthModalType, handleClose }) {
     getValues,
   } = useForm();
   const onSubmit = (data) => {
+    setLoading(true);
 
     signUp({
       email: data.email,
       password: data.password,
-    }).then((res) => {
-
-      console.log("resss", res);
+    }).then(
+      (res) => {
+        console.log("resss", res);
         localStorage.setItem("email", data.email);
-        changeAuthModalType(AuthTypeModal.Onboarding)
-    }, (error) => {
-      console.log("error....", error);
-      setInvalid(true);
+        changeAuthModalType(AuthTypeModal.Onboarding);
+      },
+      (error) => {
+        console.log("error....", error);
+        setLoading(false);
 
-      setErrorMsg(error.response.data.detail)
+        setInvalid(true);
 
-
-    });
-  }
+        setErrorMsg(error.response.data.detail);
+      }
+    );
+  };
   const onError = (errors) => console.log("Errors Occurred !! :", errors);
 
   return (
     <>
-      <div
-        className="grid grid-cols-1 sm:grid-cols-2 h-full"
-      >
-        <div
-          className="p-4 cover-image hidden sm:block animate__animated animate__zoomIn h-full"
-        >
+      <div className="grid grid-cols-1 sm:grid-cols-2 h-full">
+        <div className="p-4 abc cover-image hidden sm:block animate__animated animate__zoomIn h-full relative">
           <Image src={CoverImage} alt="CoverImage" />
+          <Image src={LoginLogo} alt="CoverImage" />
         </div>
         <div className="p-4 ml-0 sm:ml-4 md:ml-4 lg:ml-12 animate__animated animate__zoomIn">
           <div onClick={handleClose} className="flex">
@@ -77,7 +79,11 @@ export default function SignUp({ changeAuthModalType, handleClose }) {
               <div className="flex flex-col">
                 <div className="flex sm:block justify-center">
                   <div className="flex  sm:block flex-col mb-6 w-3/4 md:w-5/6 lg:w-3/4">
-                    {invalid && (<Alert severity="error" className="mb-4 -mt-4">{errorMsg}</Alert>)}
+                    {invalid && (
+                      <Alert severity="error" className="mb-4 -mt-4">
+                        {errorMsg}
+                      </Alert>
+                    )}
                     <Box sx={{ display: "flex", alignItems: "flex-end" }}>
                       <EmailIcon
                         sx={{ mr: 2, my: 0.5 }}
@@ -162,8 +168,15 @@ export default function SignUp({ changeAuthModalType, handleClose }) {
                     type="submit"
                     className="bg-[#0364FF] hover:bg-[#0364FF] text-gray-100 p-4 w-3/4 md:w-5/6 lg:w-3/4 rounded-xl tracking-wide
                   font-semibold font-display focus:outline-none focus:shadow-outline 
-                  shadow-lg"
+                  shadow-lg flex items-center justify-center"
                   >
+                    {loading && (
+                      <CircularProgress
+                        size={20}
+                        color="primary"
+                        sx={{ color: "white", mr: 1 }}
+                      />
+                    )}
                     Sign up
                   </button>
                 </div>
@@ -201,7 +214,10 @@ export default function SignUp({ changeAuthModalType, handleClose }) {
             <div className="flex justify-center sm:justify-between items-center mb-6  w-full md:w-5/6 lg:w-3/4 mt-6 sm:mt-8 whitespace-nowrap">
               <div className="ml-0 sm:ml-auto">
                 <span className="text-black">Already have an account?</span>
-                <span className="cursor-pointer text-[#0364FF] ml-1 font-bold" onClick={()=> changeAuthModalType(AuthTypeModal.Signin)}>
+                <span
+                  className="cursor-pointer text-[#0364FF] ml-1 font-bold"
+                  onClick={() => changeAuthModalType(AuthTypeModal.Signin)}
+                >
                   Login
                 </span>
               </div>
@@ -211,4 +227,4 @@ export default function SignUp({ changeAuthModalType, handleClose }) {
       </div>
     </>
   );
-};
+}
