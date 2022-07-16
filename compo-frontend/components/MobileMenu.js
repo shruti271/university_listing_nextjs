@@ -68,7 +68,6 @@ const MobileMenu = ({ className = "", handleMobileMenuClick, isMenuOpen }) => {
               <Link href="/articles">Articles</Link>
             </li>
             <li className={`md:hidden`} onClick={handleMobileMenuClick}>
-<<<<<<< HEAD
               <PrimaryButton
                 type="button"
                 isPrimary={false}
@@ -89,33 +88,13 @@ const MobileMenu = ({ className = "", handleMobileMenuClick, isMenuOpen }) => {
               >
                 Join Now
               </PrimaryButton>
-=======
-                              <PrimaryButton type="button" isPrimary={false} onClick={() => {
-                  setOpen(true),
-                  setauthTypeModal(AuthTypeModal.Signin)
-                }}>
-                  Sign In
-                </PrimaryButton>
-            </li>
-            <li className={`md:hidden`} onClick={handleMobileMenuClick}>
-               <PrimaryButton className="btn-shadow" type="button" onClick={() => {
-                  setOpen(true),
-                  setauthTypeModal(AuthTypeModal.Signup)
-                }}>
-                  Join Now
-                </PrimaryButton>
->>>>>>> 9a298cabf560cea5b3bdded14a30e2f2ddb07617
             </li>
           </ul>
           <AuthModal
             open={open}
-<<<<<<< HEAD
             handleClose={() => {
               setOpen(false);
             }}
-=======
-            handleClose={handleClose}
->>>>>>> 9a298cabf560cea5b3bdded14a30e2f2ddb07617
             authTypeModal={authTypeModal}
             setauthTypeModal={setauthTypeModal}
           />
