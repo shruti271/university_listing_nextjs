@@ -25,6 +25,7 @@ const style = {
 const AuthModal = (props) => {
   const { open, handleClose, authTypeModal, setauthTypeModal } = props;
 
+<<<<<<< HEAD
   return (
     <Modal
       open={open}
@@ -49,6 +50,27 @@ const AuthModal = (props) => {
       </Box>
     </Modal>
   );
+=======
+    return (
+        <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description">
+            <Box sx={style}>
+                {
+                    authTypeModal === AuthTypeModal.Signin && <Signin changeAuthModalType={setauthTypeModal} handleClose={handleClose} />
+                }
+                {
+                    authTypeModal === AuthTypeModal.Signup && <Signup changeAuthModalType={setauthTypeModal} handleClose={handleClose} />
+                }
+                {
+                    authTypeModal === AuthTypeModal.Onboarding && <OnBoarding handleClose={handleClose} />
+                }
+            </Box>
+        </Modal>
+    );
+>>>>>>> 9a298cabf560cea5b3bdded14a30e2f2ddb07617
 };
 
 export default AuthModal;

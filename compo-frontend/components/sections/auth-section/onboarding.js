@@ -50,7 +50,7 @@ const theme = createTheme({
 
 const steps = ["About", "Education", "Profession"];
 
-export default function RegistrationSteps() {
+export default function RegistrationSteps({ handleClose }) {
   const [activeStep, setActiveStep] = React.useState(0);
   const [completed, setCompleted] = React.useState([]);
   const [email, setEmail] = React.useState();
@@ -193,17 +193,20 @@ export default function RegistrationSteps() {
         </div>
       )}
       <div className="p-4 ml-0 sm:ml-4 md:ml-4 lg:ml-12">
-        <Box>
+        <div onClick={handleClose} className="flex">
+          <CloseIcon className="text-black ml-auto cursor-pointer" />
+        </div>
+        <Box className="mt-3 sm:mt-16">
           <Stepper
             alternativeLabel
             activeStep={activeStep}
             connector={<QontoConnector />}
             className={
               (activeStep === 0 &&
-                "mt-8 sm:mt-16 w-full sm:w-72 ml-0 sm:-ml-9") ||
+                "mt-2 sm:mt-8 w-full sm:w-72 ml-0 sm:-ml-9") ||
               (activeStep === 1 &&
-                "mt-8 sm:mt-8 w-full sm:w-72 ml-0 sm:-ml-9") ||
-              (activeStep === 2 && "mt-8 sm:mt-36 w-full sm:w-72 ml-0 sm:-ml-9")
+                "mt-2 sm:mt-8 w-full sm:w-72 ml-0 sm:-ml-9") ||
+              (activeStep === 2 && "mt-2 sm:mt-8 w-full sm:w-72 ml-0 sm:-ml-9")
             }
           >
             {steps.map((index, label) => (
@@ -215,16 +218,16 @@ export default function RegistrationSteps() {
           <React.Fragment>
             {activeStep === 0 && (
               <div>
-                <h3 className="pb-2 mt-8 font-semibold text-2xl text-[#03014C] flex justify-center sm:block">
+                <h3 className="pb-2 mt-8 font-semibold text-[21px] sm:text-2xl text-[#03014C] flex justify-center sm:block whitespace-nowrap">
                   Tell us about yourself
                 </h3>
-                <p className=" text-[#92929D] text-base mb-4 flex justify-center sm:block">
+                <span className="text-[#92929D] text-base mb-4 flex justify-center sm:block text-center sm:text-start">
                   No data will be shared to any third party
-                </p>
+                </span>
                 <form>
                   <div className="flex flex-col mt-8">
                     <div className="flex justify-center sm:block">
-                      <div className="flex  sm:block flex-col mb-6 w-3/4 md:w-5/6 lg:w-3/4">
+                      <div className="flex  sm:block flex-col mb-6 w-[90%] md:w-5/6 lg:w-3/4">
                         <Box sx={{ display: "flex", alignItems: "flex-end" }}>
                           <PersonIcon
                             sx={{ mr: 2, my: 0.5 }}
@@ -251,7 +254,7 @@ export default function RegistrationSteps() {
                     </div>
 
                     <div className="flex sm:block justify-center">
-                      <div className="flex  sm:block flex-col mb-6 w-3/4 md:w-5/6 lg:w-3/4">
+                      <div className="flex  sm:block flex-col mb-6 w-[90%] md:w-5/6 lg:w-3/4">
                         <Box sx={{ display: "flex", alignItems: "flex-end" }}>
                           <PersonIcon
                             sx={{ mr: 2, my: 0.5 }}
@@ -277,56 +280,13 @@ export default function RegistrationSteps() {
                       </div>
                     </div>
                     <div className="flex sm:block justify-center">
-                      <div className="flex  sm:block flex-col mb-6 w-3/4 md:w-5/6 lg:w-3/4">
+                      <div className="flex  sm:block flex-col mb-6 w-[90%] md:w-5/6 lg:w-3/4">
                         <Box sx={{ display: "flex", alignItems: "flex-end" }}>
                           <DateRangeIcon
                             sx={{ mr: 2, my: 0.5 }}
                             className="text-black"
                           />
                           <LocalizationProvider dateAdapter={AdapterDateFns}>
-                            {/* <DesktopDatePicker
-                              label="Date of Birth"
-                              value={date}
-                              onChange={(newDate) => {
-                                setDate(newDate);
-                              }}
-                             
-                              renderInput={(params) => (
-                                <CustomTextField
-                                  {...params}
-                                  className="w-full"
-                                  variant="standard"
-                                   {...register("dob", {
-                                required: "Date of Birth is required",
-                              })}
-                                />
-                              )}
-                            /> */}
-
-                            {/* <Controller
-                            name="date_of_birth"
-                            control={control}
-                            defaultValue={null}
-                            render={({
-                              field: { ref, ...rest },
-                              fieldState: { error },
-                            }) => (
-                              <DesktopDatePicker
-                                label="Date of Birth"
-                                error={!!error}
-                                helperText={error ? error.message : null}
-                                renderInput={(params) => (
-                                  <CustomTextField
-                                    {...params}
-                                    className="w-full"
-                                    variant="standard"
-                                  />
-                                )}
-                                {...rest}
-                              />
-                            )}
-                          /> */}
-
                             <Controller
                               control={control}
                               name="date_of_birth"
@@ -363,7 +323,7 @@ export default function RegistrationSteps() {
                     {/* <span style={{ color: "red" }}>{errors.dob?.message}</span> */}
 
                     <div className="flex sm:block justify-center">
-                      <div className="flex  sm:block flex-col mb-6 w-3/4 md:w-5/6 lg:w-3/4">
+                      <div className="flex  sm:block flex-col mb-6 w-[90%] md:w-5/6 lg:w-3/4">
                         <Box sx={{ display: "flex", alignItems: "flex-end" }}>
                           <LocationOnIcon
                             sx={{ mr: 2, my: 0.5 }}
@@ -398,16 +358,16 @@ export default function RegistrationSteps() {
             )}
             {activeStep === 1 && (
               <div>
-                <h3 className="pb-2 mt-8 font-semibold text-2xl text-[#03014C] flex justify-center sm:block">
+                <h3 className="pb-2 mt-8 font-semibold text-2xl text-[#03014C] flex justify-center sm:block text-[21px] sm:text-2xl whitespace-nowrap">
                   Insights of your education
                 </h3>
-                <p className=" text-[#92929D] text-base mb-4 flex justify-center sm:block">
+                <p className=" text-[#92929D] text-base mb-4 flex justify-center sm:block text-center sm:text-start">
                   For us to filter the best results for you
                 </p>
 
-                <div className="flex flex-col mt-8">
+                <div className="flex flex-col mt-8 max-h-[316px] sm:max-h-full overflow-y-scroll">
                   <div className="flex justify-center sm:block">
-                    <div className="flex  sm:block flex-col mb-6 w-3/4 md:w-5/6 lg:w-3/4">
+                    <div className="flex  sm:block flex-col mb-6 w-[90%] md:w-5/6 lg:w-3/4">
                       <Box sx={{ display: "flex", alignItems: "flex-end" }}>
                         <SchoolIcon
                           sx={{ mr: 2, my: 0.5 }}
@@ -438,7 +398,7 @@ export default function RegistrationSteps() {
                   </div>
 
                   <div className="flex sm:block justify-center">
-                    <div className="flex  sm:block flex-col mb-6 w-3/4 md:w-5/6 lg:w-3/4">
+                    <div className="flex  sm:block flex-col mb-6 w-[90%] md:w-5/6 lg:w-3/4">
                       <Box sx={{ display: "flex", alignItems: "flex-end" }}>
                         <SchoolIcon
                           sx={{ mr: 2, my: 0.5 }}
@@ -463,7 +423,7 @@ export default function RegistrationSteps() {
                     </div>
                   </div>
                   <div className="flex sm:block justify-center">
-                    <div className="flex  sm:block flex-col mb-6 w-3/4 md:w-5/6 lg:w-3/4">
+                    <div className="flex  sm:block flex-col mb-6 w-[90%] md:w-5/6 lg:w-3/4">
                       <Box sx={{ display: "flex", alignItems: "flex-end" }}>
                         <LocationOnIcon
                           sx={{ mr: 2, my: 0.5 }}
@@ -492,16 +452,17 @@ export default function RegistrationSteps() {
                       </div>
                     </div>
                   </div>
-                  <div className="flex justify-center sm:block">
-                    <div className="mb-4 mt-2 flex justify-between items-center w-3/4 md:w-5/6 lg:w-3/4">
-                      <p className="pb-2 mt-2.5 font-semibold text-md text-[#11142D] ml-9">
+                  <div className="flex sm:justify-center sm:block">
+                    <div className="mb-4 mt-2 flex flex-col sm:flex-row sm:justify-between sm:items-center w-[90%] md:w-5/6 lg:w-3/4">
+                      <span className="pb-2 mt-2.5 font-semibold text-md text-[#11142D] ml-5 sm:ml-9">
                         Are you graduated?
-                      </p>
+                      </span>
                       <ThemeProvider theme={theme}>
                         <RadioGroup
                           row
                           aria-labelledby="demo-form-control-label-placement"
                           name="position"
+                          className="ml-5 sm:ml-0"
                         >
                           <FormControlLabel
                             value="True"
@@ -518,27 +479,13 @@ export default function RegistrationSteps() {
                     </div>
                   </div>
                   <div className="flex sm:block justify-center">
-                    <div className="flex  sm:block flex-col mb-6 w-3/4 md:w-5/6 lg:w-3/4">
+                    <div className="flex  sm:block flex-col mb-6 w-[90%] md:w-5/6 lg:w-3/4">
                       <Box sx={{ display: "flex", alignItems: "flex-end" }}>
                         <DateRangeIcon
                           sx={{ mr: 2, my: 0.5 }}
                           className="text-black"
                         />
                         <LocalizationProvider dateAdapter={AdapterDateFns}>
-                          {/* <DesktopDatePicker
-                              label="Projected Graduation Date"
-                              value={gDate}
-                              onChange={(newGDate) => {
-                                setGDate(newGDate);
-                              }}
-                              renderInput={(params) => (
-                                <CustomTextField
-                                  {...params}
-                                  className="w-full"
-                                  variant="standard"
-                                />
-                              )}
-                            /> */}
                           <Controller
                             name="graduated_date"
                             control={control}
@@ -580,15 +527,15 @@ export default function RegistrationSteps() {
             )}
             {activeStep === 2 && (
               <div>
-                <h3 className="pb-2 mt-8 font-semibold text-2xl text-[#03014C] flex justify-center sm:block">
+                <h3 className="pb-2 mt-8 font-semibold text-2xl text-[#03014C] flex justify-center sm:block text-[21px] sm:text-2xl whitespace-nowrap">
                   Your future plans
                 </h3>
-                <p className=" text-[#92929D] text-base mb-4 flex justify-center sm:block">
+                <span className=" text-[#92929D] text-base mb-4 flex justify-center sm:block text-center sm:text-start">
                   To serve the best possible way
-                </p>
+                </span>
                 <div className="flex flex-col mt-8">
                   <div className="flex justify-center sm:block">
-                    <div className="flex  sm:block flex-col mb-6 w-3/4 md:w-5/6 lg:w-3/4">
+                    <div className="flex  sm:block flex-col mb-6 w-[90%] md:w-5/6 lg:w-3/4">
                       <Box sx={{ display: "flex", alignItems: "flex-end" }}>
                         <WorkIcon
                           sx={{ mr: 2, my: 0.5 }}
@@ -614,7 +561,7 @@ export default function RegistrationSteps() {
                     </div>
                   </div>
                   <div className="flex sm:block justify-center">
-                    <div className="flex  sm:block flex-col mb-6 w-3/4 md:w-5/6 lg:w-3/4">
+                    <div className="flex  sm:block flex-col mb-6 w-[90%] md:w-5/6 lg:w-3/4">
                       <Box sx={{ display: "flex", alignItems: "flex-end" }}>
                         <LocalLibraryIcon
                           sx={{ mr: 2, my: 0.5 }}
@@ -643,10 +590,7 @@ export default function RegistrationSteps() {
               </div>
             )}
             <div className="flex justify-center sm:block">
-              <Box
-                sx={{ display: "flex", flexDirection: "row", pt: 2 }}
-                className="mt-4 w-3/4 md:w-5/6 lg:w-3/4"
-              >
+              <Box className="flex pt-2 mt-4 w-[90%] sm:w-3/4 md:w-5/6 lg:w-3/4 justify-between">
                 <button
                   type="submit"
                   disabled={activeStep === 0}
@@ -655,7 +599,6 @@ export default function RegistrationSteps() {
                 >
                   Back
                 </button>
-                <Box sx={{ flex: "1 1 auto" }} />
 
                 <button
                   type="submit"

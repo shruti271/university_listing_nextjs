@@ -71,7 +71,7 @@ export default function SignUp({ changeAuthModalType, handleClose }) {
           <div onClick={handleClose} className="flex">
             <CloseIcon className="text-black ml-auto cursor-pointer" />
           </div>
-          <h3 className="pb-2 mt-8 sm:mt-32 font-semibold text-xl sm:text-2xl text-[#03014C] flex justify-center sm:block">
+          <h3 className="pb-2 mt-3 sm:mt-16 font-semibold text-xl sm:text-2xl text-[#03014C] flex justify-center sm:block">
             Sign up to Compoisite
           </h3>
           <div className="mt-4 sm:mt-8">
@@ -118,7 +118,7 @@ export default function SignUp({ changeAuthModalType, handleClose }) {
                 </div>
 
                 <div className="flex sm:block justify-center">
-                  <div className="flex  sm:block flex-col mb-6 w-3/4 md:w-5/6 lg:w-3/4">
+                  <div className="flex  sm:block flex-col mb-6 w-[85%] md:w-5/6 lg:w-3/4">
                     <Box sx={{ display: "flex", alignItems: "flex-end" }}>
                       <LockIcon
                         sx={{ mr: 2, my: 0.5 }}
@@ -166,7 +166,7 @@ export default function SignUp({ changeAuthModalType, handleClose }) {
                 <div className="flex justify-center sm:block">
                   <button
                     type="submit"
-                    className="bg-[#0364FF] hover:bg-[#0364FF] text-gray-100 p-4 w-3/4 md:w-5/6 lg:w-3/4 rounded-xl tracking-wide
+                    className="bg-[#0364FF] hover:bg-[#0364FF] text-gray-100 p-4 w-[85%] md:w-5/6 lg:w-3/4 rounded-xl tracking-wide
                   font-semibold font-display focus:outline-none focus:shadow-outline 
                   shadow-lg flex items-center justify-center"
                   >
@@ -183,8 +183,8 @@ export default function SignUp({ changeAuthModalType, handleClose }) {
               </div>
             </form>
             <div className="flex justify-center sm:block">
-              <div className="mt-6 sm:mt-12 gap-6 justify-between items-center flex-row  w-3/4 md:w-5/6 lg:w-3/4 block lg:flex">
-                <button className="pt-3 pb-3 w-full focus:ring-0 focus:outline-none font-medium rounded-xl text-sm text-center inline-flex items-center justify-center border">
+              <div className="mt-6 sm:mt-12 gap-6 justify-between items-center flex-row  w-[85%] md:w-5/6 lg:w-3/4 block lg:flex">
+                <button className="pt-3 pb-3 pr-2 pl-2 w-full focus:ring-0 focus:outline-none font-medium rounded-xl text-sm text-center inline-flex items-center justify-center border">
                   <div className="flex justify-center items-center mr-3">
                     <Image
                       src={googleIcon}
@@ -194,10 +194,12 @@ export default function SignUp({ changeAuthModalType, handleClose }) {
                       layout="fixed"
                     />
                   </div>
-                  <span className="text-black">Login with Google</span>
+                  <span className="text-black whitespace-nowrap">
+                    Login with Google
+                  </span>
                 </button>
 
-                <button className="pt-3 pb-3 w-full focus:ring-0 focus:outline-none font-medium rounded-xl text-sm text-center inline-flex items-center justify-center border mt-4 lg:mt-0">
+                <button className="pt-3 pb-3 pr-2 pl-2 w-full focus:ring-0 focus:outline-none font-medium rounded-xl text-sm text-center inline-flex items-center justify-center border mt-4 lg:mt-0">
                   <div className="flex justify-center items-center mr-3">
                     <Image
                       src={fbIcon}
@@ -207,7 +209,9 @@ export default function SignUp({ changeAuthModalType, handleClose }) {
                       layout="fixed"
                     />
                   </div>
-                  <span className="text-black">Login with Facebook</span>
+                  <span className="text-black whitespace-nowrap">
+                    Login with Facebook
+                  </span>
                 </button>
               </div>
             </div>
