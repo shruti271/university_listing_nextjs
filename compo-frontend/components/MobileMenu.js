@@ -7,12 +7,12 @@ import * as React from 'react';
 import closeIcon from '../assets/close-icon.svg';
 import PrimaryButton from './PrimaryButton';
 import AuthModal from './core/AuthModal';
-import { AuthType } from "./core/Enum";
+import { AuthTypeModal } from "./core/Enum";
 
 const MobileMenu = ({ className = '', handleMobileMenuClick, isMenuOpen }) => {
   
 
-  const [authType, setAuthType] = React.useState();
+  const [authTypeModal, setauthTypeModal] = React.useState();
 
   const [open, setOpen] = React.useState(false);
 
@@ -75,7 +75,7 @@ const MobileMenu = ({ className = '', handleMobileMenuClick, isMenuOpen }) => {
             <li className={`md:hidden`} onClick={handleMobileMenuClick}>
                               <PrimaryButton type="button" isPrimary={false} onClick={() => {
                   setOpen(true),
-                    setAuthType(AuthType[0])
+                  setauthTypeModal(AuthTypeModal.Signin)
                 }}>
                   Sign In
                 </PrimaryButton>
@@ -83,7 +83,7 @@ const MobileMenu = ({ className = '', handleMobileMenuClick, isMenuOpen }) => {
             <li className={`md:hidden`} onClick={handleMobileMenuClick}>
                <PrimaryButton className="btn-shadow" type="button" onClick={() => {
                   setOpen(true),
-                    setAuthType(AuthType[1])
+                  setauthTypeModal(AuthTypeModal.Signup)
                 }}>
                   Join Now
                 </PrimaryButton>
@@ -92,7 +92,8 @@ const MobileMenu = ({ className = '', handleMobileMenuClick, isMenuOpen }) => {
           <AuthModal
             open={open}
             handleClose={handleClose}
-            authType={authType}
+            authTypeModal={authTypeModal}
+            setauthTypeModal={setauthTypeModal}
           />
         </nav>
       </div>

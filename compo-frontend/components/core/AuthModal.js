@@ -20,7 +20,7 @@ const style = {
     border: '0px solid #000',
     boxShadow: 24,
     borderRadius: "12px",
-    height:"80%"
+    height:"85%"
 };
 
 const AuthModal = (props) => {
@@ -40,7 +40,7 @@ const AuthModal = (props) => {
                     authTypeModal === AuthTypeModal.Signup && <Signup changeAuthModalType={setauthTypeModal} handleClose={handleClose} />
                 }
                 {
-                    authTypeModal === AuthTypeModal.Onboarding && <OnBoarding />
+                    authTypeModal === AuthTypeModal.Onboarding && <OnBoarding handleClose={handleClose} />
                 }
             </Box>
         </Modal>

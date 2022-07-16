@@ -36,22 +36,23 @@ export default function SignUp({ changeAuthModalType, handleClose }) {
   } = useForm();
   const onSubmit = (data) => {
 
-    signUp({
-      email: data.email,
-      password: data.password,
-    }).then((res) => {
+    // signUp({
+    //   email: data.email,
+    //   password: data.password,
+    // }).then((res) => {
 
-      console.log("resss", res);
-        localStorage.setItem("email", data.email);
-        changeAuthModalType(AuthTypeModal.Onboarding)
-    }, (error) => {
-      console.log("error....", error);
-      setInvalid(true);
+    //   console.log("resss", res);
+    //     localStorage.setItem("email", data.email);
+    //     changeAuthModalType(AuthTypeModal.Onboarding)
+    // }, (error) => {
+    //   console.log("error....", error);
+    //   setInvalid(true);
 
-      setErrorMsg(error.response.data.detail)
+    //   setErrorMsg(error.response.data.detail)
 
 
-    });
+    // });
+    changeAuthModalType(AuthTypeModal.Onboarding)
   }
   const onError = (errors) => console.log("Errors Occurred !! :", errors);
 
@@ -61,22 +62,24 @@ export default function SignUp({ changeAuthModalType, handleClose }) {
         className="grid grid-cols-1 sm:grid-cols-2 h-full"
       >
         <div
-          className="p-4 cover-image hidden sm:block animate__animated animate__zoomIn h-full"
+          className="p-4 hidden sm:block animate__animated animate__zoomIn  h-full"
         >
-          <Image src={CoverImage} alt="CoverImage" />
+          <div className="auth-cover w-full h-full">
+            {/* <Image src={CoverImage} alt="CoverImage" /> */}
+          </div>
         </div>
         <div className="p-4 ml-0 sm:ml-4 md:ml-4 lg:ml-12 animate__animated animate__zoomIn">
           <div onClick={handleClose} className="flex">
             <CloseIcon className="text-black ml-auto cursor-pointer" />
           </div>
-          <h3 className="pb-2 mt-8 sm:mt-32 font-semibold text-xl sm:text-2xl text-[#03014C] flex justify-center sm:block">
+          <h3 className="pb-2 mt-3 sm:mt-0 font-semibold text-xl sm:text-2xl text-[#03014C] flex justify-center sm:block">
             Sign up to Compoisite
           </h3>
           <div className="mt-4 sm:mt-8">
             <form onSubmit={handleSubmit(onSubmit, onError)} onReset={reset}>
               <div className="flex flex-col">
                 <div className="flex sm:block justify-center">
-                  <div className="flex  sm:block flex-col mb-6 w-3/4 md:w-5/6 lg:w-3/4">
+                  <div className="flex  sm:block flex-col mb-6 w-[85%] md:w-5/6 lg:w-3/4">
                     {invalid && (<Alert severity="error" className="mb-4 -mt-4">{errorMsg}</Alert>)}
                     <Box sx={{ display: "flex", alignItems: "flex-end" }}>
                       <EmailIcon
@@ -112,7 +115,7 @@ export default function SignUp({ changeAuthModalType, handleClose }) {
                 </div>
 
                 <div className="flex sm:block justify-center">
-                  <div className="flex  sm:block flex-col mb-6 w-3/4 md:w-5/6 lg:w-3/4">
+                  <div className="flex  sm:block flex-col mb-6 w-[85%] md:w-5/6 lg:w-3/4">
                     <Box sx={{ display: "flex", alignItems: "flex-end" }}>
                       <LockIcon
                         sx={{ mr: 2, my: 0.5 }}
@@ -160,7 +163,7 @@ export default function SignUp({ changeAuthModalType, handleClose }) {
                 <div className="flex justify-center sm:block">
                   <button
                     type="submit"
-                    className="bg-[#0364FF] hover:bg-[#0364FF] text-gray-100 p-4 w-3/4 md:w-5/6 lg:w-3/4 rounded-xl tracking-wide
+                    className="bg-[#0364FF] hover:bg-[#0364FF] text-gray-100 p-4 w-[85%] md:w-5/6 lg:w-3/4 rounded-xl tracking-wide
                   font-semibold font-display focus:outline-none focus:shadow-outline 
                   shadow-lg"
                   >
@@ -170,8 +173,8 @@ export default function SignUp({ changeAuthModalType, handleClose }) {
               </div>
             </form>
             <div className="flex justify-center sm:block">
-              <div className="mt-6 sm:mt-12 gap-6 justify-between items-center flex-row  w-3/4 md:w-5/6 lg:w-3/4 block lg:flex">
-                <button className="pt-3 pb-3 w-full focus:ring-0 focus:outline-none font-medium rounded-xl text-sm text-center inline-flex items-center justify-center border">
+              <div className="mt-6 sm:mt-12 gap-6 justify-between items-center flex-row  w-[85%] md:w-5/6 lg:w-3/4 block lg:flex">
+                <button className="pt-3 pb-3 pr-2 pl-2 w-full focus:ring-0 focus:outline-none font-medium rounded-xl text-sm text-center inline-flex items-center justify-center border">
                   <div className="flex justify-center items-center mr-3">
                     <Image
                       src={googleIcon}
@@ -181,10 +184,10 @@ export default function SignUp({ changeAuthModalType, handleClose }) {
                       layout="fixed"
                     />
                   </div>
-                  <span className="text-black">Login with Google</span>
+                  <span className="text-black whitespace-nowrap">Login with Google</span>
                 </button>
 
-                <button className="pt-3 pb-3 w-full focus:ring-0 focus:outline-none font-medium rounded-xl text-sm text-center inline-flex items-center justify-center border mt-4 lg:mt-0">
+                <button className="pt-3 pb-3 pr-2 pl-2 w-full focus:ring-0 focus:outline-none font-medium rounded-xl text-sm text-center inline-flex items-center justify-center border mt-4 lg:mt-0">
                   <div className="flex justify-center items-center mr-3">
                     <Image
                       src={fbIcon}
@@ -194,7 +197,7 @@ export default function SignUp({ changeAuthModalType, handleClose }) {
                       layout="fixed"
                     />
                   </div>
-                  <span className="text-black">Login with Facebook</span>
+                  <span className="text-black whitespace-nowrap">Login with Facebook</span>
                 </button>
               </div>
             </div>

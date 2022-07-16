@@ -131,3 +131,11 @@ h6 {
 .MuiPopover-paper {
   max-height: 25% !important;
 }
+
+.auth-cover {
+  background: url("../assets/login-cover.png") no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
