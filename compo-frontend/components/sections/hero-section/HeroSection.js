@@ -40,7 +40,7 @@ const HeroSection = () => {
               className="block"
               variants={headingChildrenVariants(0.3)}
             >
-              Every <span className="text-colorPrimary">University</span>.
+              Find your <span className="text-colorPrimary">University</span>.
             </motion.span>
           </span>
           <span className="block overflow-y-hidden">
@@ -48,7 +48,7 @@ const HeroSection = () => {
               variants={headingChildrenVariants(0.6)}
               className="block"
             >
-              Every <span className="text-colorSecondary">Scholarship</span>.
+              Get a <span className="text-colorSecondary">Scholarship</span>.
             </motion.span>
           </span>
         </motion.h1>
@@ -58,24 +58,23 @@ const HeroSection = () => {
           animate="show"
           className="mb-10 lg:mb-20 max-w-[531px]"
         >
-          Research schools, get scholarships, and understand where you fit — at
-          any stage of your college journey.
+        Composite is the leading educational platform in the world, allowing students to connect with Universities and discover the next step in their edcuational journey.
         </motion.p>
         <div>
-          <h3 className="font-semibold text-lg md:text-xl mb-4">What we do</h3>
+          <h3 className="font-semibold text-lg md:text-xl mb-4">What are  you searching for?</h3>
           <ul className="flex items-center gap-2 flex-wrap justify-start">
             <li className="px-4 py-2 border border-colorPrimary text-colorPrimary rounded-3xl bg-colorWhite">
               <span>Universities</span>
             </li>
             <li className="px-4 py-2 border border-colorPrimary text-colorPrimary rounded-3xl bg-colorWhite">
+              <span>Programs</span>
+            </li>
+            <li className="px-4 py-2 border border-colorPrimary text-colorPrimary rounded-3xl bg-colorWhite">
               <span>Scholarships</span>
             </li>
-            <li className="px-4 py-2 border border-colorPrimary text-colorPrimary rounded-3xl bg-colorWhite">
-              <span>Majors</span>
-            </li>
-            <li className="px-4 py-2 border border-colorPrimary text-colorPrimary rounded-3xl bg-colorWhite">
+            {/* <li className="px-4 py-2 border border-colorPrimary text-colorPrimary rounded-3xl bg-colorWhite">
               <span>Articles</span>
-            </li>
+            </li> */}
           </ul>
         </div>
         <HeroIllustration />

@@ -82,7 +82,7 @@ const Header = () => {
                 <li
                   className={`${setActiveLink('/majors')} text-sm xl:text-base`}
                 >
-                  <Link href="/majors">Majors</Link>
+                  <Link href="/majors">Programs</Link>
                 </li>
                 <li
                   className={`${setActiveLink(

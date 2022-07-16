@@ -10,8 +10,8 @@ const FeaturesSection = () => {
         <div className="md:basis-1/2">
           <h3 className="section-subtitle mb-5">What we have</h3>
           <h2 className="section-title mb-10">
-            <span className="text-colorSecondary">Best</span> Universities,
-            Scholarships & programs
+            <span className="text-colorSecondary">Best</span> Universities, 
+            Programs & Scholarships
           </h2>
           <ul className="rounded-2xl features-list overflow-hidden bg-colorWhite">
             {features &&

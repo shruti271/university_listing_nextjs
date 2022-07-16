@@ -8,35 +8,35 @@ import ScholarshipIcon from '../../../assets/offers-section/scholarship-icon.svg
 const offers = [
   {
     id: 1,
-    title: 'The best place to study',
+    title: 'Find The dream University & Program for you',
     icon: PlacesIcon,
     iconColor: 'bg-[#0A11E0]',
     description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+      'Use our edcational database directories to find the best educational outcomes',
   },
   {
     id: 2,
-    title: 'Top institution for chosen programs',
+    title: 'Create a standout Profile',
     icon: InstitutionIcon,
     iconColor: 'bg-colorSecondary',
     description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+      'Allow universities to discover you and your talents by as well receiving personalised recommendations',
   },
   {
     id: 3,
-    title: 'The best program to enter desired field',
+    title: 'Understand your Chances',
     icon: GraduationIcon,
     iconColor: 'bg-[#3ECDAB]',
     description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+      'Use our Understand your Chances Engine to figure out how hard or easy it for you to get in',
   },
   {
     id: 4,
-    title: 'Get a scholarship',
+    title: 'Find a Scholarship',
     icon: ScholarshipIcon,
     iconColor: 'bg-[#41C04E]',
     description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+      'Easily find scholarhips you\'re eligble for according to your profile and chosen educational outcome',
   },
 ];
 
@@ -48,8 +48,7 @@ const OffersSection = () => {
           What <span className="text-colorPrimary">Composite</span> Offers
         </h3>
         <p className="text-center max-w-xl mx-auto mb-9">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua
+        Discover and be discovered by Universities, understand your chances of getting in, and find a scholarship to fund your journey!
         </p>
         <ul className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {offers &&

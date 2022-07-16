@@ -4,7 +4,7 @@ import ManIllustration2 from '../../svg/ManIllustration2';
 
 const options = [
   {
-    title: 'Find schools that match your style',
+    title: 'Find studies that match your style',
     backgroundColorClass: 'bg-[#FFF9E9]',
     illustration: <ManIllustration1 />,
     buttonText: 'Find my match',
