@@ -22,7 +22,7 @@ export default function RangeSlider() {
 
   const handleChange = debounce((event, newValue) => {
     setValue(newValue);
-  }, 300);
+  }, 20);
 
   const dispatch = useDispatch();
 

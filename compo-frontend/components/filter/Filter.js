@@ -1,7 +1,8 @@
 import FilterActions from './filter-actions/FilterActions';
 import MainSearch from './main-search/MainSearch';
+import RankOrder from './rank-order/RankOrder';
 import SearchLocation from './search-location/SearchLocation';
-import StudentPopulation from './StudentPupulation/StudentPopulation';
+import StudentPopulation from './StudentPopulation/StudentPopulation';
 
 const Filter = () => {
   return (
@@ -10,6 +11,7 @@ const Filter = () => {
       <MainSearch />
       <SearchLocation />
       <StudentPopulation />
+      <RankOrder />
     </div>
   );
 };
