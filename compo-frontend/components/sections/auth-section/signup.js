@@ -47,10 +47,7 @@ export default function SignUp({ changeAuthModalType, handleClose }) {
     }, (error) => {
       console.log("error....", error);
       setInvalid(true);
-
       setErrorMsg(error.response.data.detail)
-
-
     });
   }
   const onError = (errors) => console.log("Errors Occurred !! :", errors);

@@ -21,10 +21,7 @@ import { AuthTypeModal } from "../../core/Enum";
 export default function Signin({ changeAuthModalType, handleClose }) {
   const [showPassword, setShowPassword] = useState(false);
   const [invalid, setInvalid] = useState(false);
-  const [errorMsg, setErrorMsg] = useState(false);
-
-
-
+  const [errorRes, setErrorRes] = useState('');
 
   const {
     register,
@@ -37,29 +34,19 @@ export default function Signin({ changeAuthModalType, handleClose }) {
   } = useForm();
   const onSubmit = (data, event) => {
     event.preventDefault();
-
-    console.log("dataaa", (data));
-
-
     signIn({
       email: data.email,
       password: data.password,
     }).then((res) => {
-
-      console.log("resss", res);
       localStorage.setItem("access_token", res.data.access_token);
       localStorage.setItem("refresh_token", res.data.refresh_token);
-      Router.push('/universities');
       handleClose();
     }, (error) => {
       console.log("error....", error);
       setInvalid(true);
-
-      setErrorMsg(error.response.data.detail)
-
+      setErrorRes(error)
       if (error.response.status === 303) {
         localStorage.setItem("email", data.email);
-        setInterval(changeAuthModalType(AuthTypeModal.Onboarding), 2000)
       }
     });
   };
@@ -88,8 +75,14 @@ export default function Signin({ changeAuthModalType, handleClose }) {
             <form onSubmit={handleSubmit(onSubmit, onError)} onReset={reset}>
               <div className="flex flex-col">
                 <div className="flex sm:block justify-center">
-                  <div className="flex  sm:block flex-col mb-6 w-[90%] md:w-5/6 lg:w-3/4">
-                    {invalid && (<Alert severity="error" className="mb-4 -mt-4">{errorMsg}</Alert>)}
+                  <div className="flex sm:block flex-col mb-6 w-[90%] md:w-5/6 lg:w-3/4">
+                    {invalid && 
+                    (<Alert severity="error" className="mb-4 -mt-4">
+                      {errorRes?.response?.data?.detail}
+                      <span className="cursor-pointer text-[rgb(95, 33, 32)] ml-1 font-bold underline" onClick={() => changeAuthModalType(AuthTypeModal.Onboarding)}>
+                        onboarding
+                      </span>
+                      </Alert>)}
 
                     <Box sx={{ display: "flex", alignItems: "flex-end" }}>
                       <EmailIcon

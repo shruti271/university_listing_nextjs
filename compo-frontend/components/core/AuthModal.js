@@ -20,7 +20,7 @@ const style = {
     border: '0px solid #000',
     boxShadow: 24,
     borderRadius: "12px",
-    height:"85%"
+    height:"auto"
 };
 
 const AuthModal = (props) => {

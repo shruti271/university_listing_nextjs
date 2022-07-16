@@ -99,13 +99,9 @@ export default function RegistrationSteps({handleClose}) {
         desired_profession: data.desired_profession,
         desired_major: data.desired_major,
       }).then((res) => {
-
-        console.log("resss", res);
-
-        Router.push("/auth/verificationMsg");
-
+        Router.push("/auth/verify-mail");
       }, (error) => {
-        console.log("error....", error);
+        console.log("Error while onboarding", error);
       });
 
     }

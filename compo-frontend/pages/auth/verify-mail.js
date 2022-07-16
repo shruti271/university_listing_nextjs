@@ -6,7 +6,7 @@ import Logo from "../../assets/logo.svg";
 import { useEffect, useState } from "react";
 
 
-export default function VerificationMsg() {
+export default function VerifyMail() {
 
     const [email, setEmail] = useState();
     useEffect(() => {
@@ -28,8 +28,8 @@ export default function VerificationMsg() {
 
 
                 <div className="p-6">
-                    <h1 className="text-gray-900 text-xl font-bold mb-2">
-                        Verify Your Email
+                    <h1 className="text-gray-900 text-xl font-bold mb-8">
+                    <b className="text-green-600">I</b> Verify Your Email
                     </h1>
                     <p className="text-gray-700 text-base mb-4">
                         To use Composite, click the verification link in the email we sent to <b> {email}</b>. This helps keep your account secure.

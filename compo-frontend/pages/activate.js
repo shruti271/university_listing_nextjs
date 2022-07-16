@@ -57,7 +57,7 @@ export default function Activate() {
 
 
                 <div className="p-6">
-                    <h1 className="text-gray-900 text-xl sm:text-2xl font-bold mb-2">
+                    <h1 className="text-gray-900 text-xl sm:text-2xl font-bold mb-8">
                         <b className="text-green-600">I</b> ACTIVATING ACCOUNT
                     </h1>
                     {!verified ?
@@ -71,11 +71,11 @@ export default function Activate() {
                         :
                         <>
                             <p className="text-gray-700 text-base mb-8">
-                                Your account has been activated. Please Login.....
+                                Your account has been activated
                             </p>
 
                             <button
-                                className="bg-colorPrimary text-colorPale hover:bg-[#0257e2] rounded-2xl py-4 px-8 font-semibold hover:scale-95 transition-all duration-300 text-sm md:text-base "
+                                className="w-full bg-colorPrimary text-colorPale hover:bg-[#0257e2] rounded-2xl py-4 px-8 font-semibold hover:scale-95 transition-all duration-300 text-sm md:text-base "
                                 onClick={() => {
                                     setOpen(true),
                                         setAuthType(AuthType[0])
