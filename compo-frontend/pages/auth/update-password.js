@@ -25,10 +25,9 @@ export default function UpdatePassword() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [errorMsg, setErrorMsg] = useState(false);
   const [invalid, setInvalid] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [successMsg, setSuccessMsg] = useState(false);
+  const [alertMsg, setAlertMsg] = useState(false);
 
   const {
     register,
@@ -58,14 +57,14 @@ export default function UpdatePassword() {
         console.log("response", res);
         setLoading(false);
         setSuccess(true);
-        setSuccessMsg(res.data.detail);
+        setAlertMsg(res.data.detail);
       },
       (error) => {
         console.log("error", error);
         setLoading(false);
 
         setInvalid(true);
-        setErrorMsg(error.response.data.detail);
+        setAlertMsg(error.response.data.detail);
       }
     );
   };
@@ -93,14 +92,12 @@ export default function UpdatePassword() {
         </div>
 
         <div className="p-6">
-          {invalid && (
-            <Alert severity="error" className="mb-4 -mt-4">
-              {errorMsg}
-            </Alert>
-          )}
-          {success && (
-            <Alert severity="success" className="mb-4 -mt-4">
-              {successMsg}
+          {(invalid || success) && (
+            <Alert
+              severity={success ? "success" : "error"}
+              className="mb-4 -mt-4"
+            >
+              {alertMsg}
             </Alert>
           )}
           <h1 className="text-gray-900 text-xl font-bold mb-2">

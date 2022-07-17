@@ -33,6 +33,7 @@ import CoverImage2 from "../../../assets/reg-step-2.png";
 import CoverImage3 from "../../../assets/reg-step-3.png";
 import LoginLogo from "../../../assets/LoginLogo.svg";
 import CircularProgress from "@mui/material/CircularProgress";
+import CloseIcon from "@mui/icons-material/Close";
 
 import countries from "countries-list";
 

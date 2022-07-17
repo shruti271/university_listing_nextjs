@@ -18,8 +18,7 @@ export default function ForgotPassword() {
   const [loading, setLoading] = useState(false);
   const [invalid, setInvalid] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [errorMsg, setErrorMsg] = useState(false);
-  const [successMsg, setSuccessMsg] = useState(false);
+  const [alertMsg, setAlertMsg] = useState(false);
   const {
     register,
     handleSubmit,
@@ -39,7 +38,7 @@ export default function ForgotPassword() {
         console.log("resss", res);
         setLoading(false);
         setSuccess(true);
-        setSuccessMsg(res.data.detail);
+        setAlertMsg(res.data.detail);
         localStorage.setItem("email", data.email);
       },
       (error) => {
@@ -48,7 +47,7 @@ export default function ForgotPassword() {
 
         setInvalid(true);
 
-        setErrorMsg(error.response.data.detail);
+        setAlertMsg(error.response.data.detail);
       }
     );
   };
@@ -76,16 +75,15 @@ export default function ForgotPassword() {
         </div>
 
         <div className="p-6">
-          {invalid && (
-            <Alert severity="error" className="mb-4 -mt-4">
-              {errorMsg}
+          {(invalid || success) && (
+            <Alert
+              severity={success ? "success" : "error"}
+              className="mb-4 -mt-4"
+            >
+              {alertMsg}
             </Alert>
           )}
-          {success && (
-            <Alert severity="success" className="mb-4 -mt-4">
-              {successMsg}
-            </Alert>
-          )}
+
           <h1 className="text-gray-900 text-xl font-bold mb-2">
             Forgot Password
           </h1>
