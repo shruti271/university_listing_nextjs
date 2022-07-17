@@ -12,24 +12,18 @@ const AboutSection = () => {
             About <span className="text-colorPrimary">Composite</span>
           </h2>
           <p className="">
-            The leading scholarship database, our platform is designed to
-            simplify the scholarship search for high school and college
-            students. No more digging to find scholarships you qualify for.
-            Students create a profile and get personalized scholarship
-            recommendations.
+            The leading educational database, our platform will help students find 
+            the right University, Program, and Scholarship for them. You can create a profile to get discovered as well
+            recieving personalized recommendations. No more scattered searching to find youd your 
+            dream subject and place to study!
             <br />
             <br />
-            Composite isn&apos;t just for scholarships. We provide students and
+            Composite isn&apos;t just for discovery. We provide students and
             their parents with helpful information to help them navigate the
-            college journey-- from college-bound status through college,
-            graduate school, and career.
+            University journey-- from University-bound status through,
+            graduate studies, and career.
             <br />
-            <br />
-            The leading scholarship database, our platform is designed to
-            simplify the scholarship search for high school and college
-            students. No more digging to find scholarships you qualify for.
-            Students create a profile and get personalized scholarship
-            recommendations.
+           
           </p>
         </div>
         <div className="relative w-[95%] h-[300px] md:h-[498px] mx-auto about-image lg:basis-1/2">
