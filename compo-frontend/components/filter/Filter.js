@@ -1,23 +1,17 @@
-import CampusSetting from './campus-setting/CampusSetting';
-import CollegeType from './CollegeType/CollegeType';
-import Cost from './cost/Cost';
-import InstituteType from './institute-type/InstituteType';
-import Majors from './majors/Majors';
+import FilterActions from './filter-actions/FilterActions';
+import MainSearch from './main-search/MainSearch';
+import RankOrder from './rank-order/RankOrder';
 import SearchLocation from './search-location/SearchLocation';
-import Selectivity from './selectivity/Selectivity';
-import StudentPopulation from './StudentPupulation/StudentPopulation';
+import StudentPopulation from './StudentPopulation/StudentPopulation';
 
 const Filter = () => {
   return (
     <div className="flex flex-col space-y-4">
+      <FilterActions />
+      <MainSearch />
       <SearchLocation />
-      <InstituteType />
-      <Cost />
-      <Majors />
-      <Selectivity />
-      <CampusSetting />
       <StudentPopulation />
-      <CollegeType />
+      <RankOrder />
     </div>
   );
 };
