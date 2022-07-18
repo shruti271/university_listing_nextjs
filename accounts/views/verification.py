@@ -60,13 +60,11 @@ class SendActivation(APIView):
             if user.is_active==False and student.is_onboarded==True:
                 verification, created = Verification.objects.get_or_create(user=user, used=False, purpose='Activation')
 
-                protocol = 'http'
                 mail_subject = 'Please activate your account'
                 message = render_to_string('accounts/activation.html', {
-                    'domain':'localhost:3000/activate/',
+                    'domain': settings.DOMAIN + 'auth/activate/',
                     'user': user,
                     'verification_token': str(verification.hash),
-                    'protocol': protocol,
                 })
                 to_email = user.email
                 email = settings.EMAIL_HOST_USER
@@ -140,7 +138,7 @@ class SendReset(APIView):
                 protocol = 'http'
                 mail_subject = 'Reset password request'
                 message = render_to_string('accounts/reset_password.html', {
-                    'domain':'localhost:3000/activate/',
+                    'domain': settings.DOMAIN +'auth/update-password/',
                     'user': user,
                     'verification_token': str(verification.hash),
                     'protocol': protocol,

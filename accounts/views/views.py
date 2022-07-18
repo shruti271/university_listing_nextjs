@@ -107,7 +107,7 @@ class StudentSignupView(APIView):
                 protocol = 'http'
                 mail_subject = 'Please activate your account'
                 message = render_to_string('accounts/activation.html', {
-                    'domain':'localhost:3000/activate/',
+                    'domain':settings.DOMAIN + 'auth/activate/',
                     'user': user,
                     'verification_token': str(verification.hash),
                     'protocol': protocol,
