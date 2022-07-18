@@ -51,14 +51,16 @@ export default function Signin({ changeAuthModalType, handleClose }) {
         handleClose();
       },
       (error) => {
-        console.log("error....", error);
+        console.log("error....", error.response.data.detail);
         setLoading(false);
         setInvalid(true);
         setErrorMsg(error.response.data.detail);
 
         if (error.response.status === 303) {
           localStorage.setItem("email", data.email);
-          setInterval(changeAuthModalType(AuthTypeModal.Onboarding), 3000);
+          setTimeout(() => {
+            changeAuthModalType(AuthTypeModal.Onboarding);
+          }, 3000);
         }
       }
     );
