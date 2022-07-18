@@ -1,14 +1,13 @@
-import Modal from '@mui/material/Modal';
-import * as React from 'react';
+import Modal from "@mui/material/Modal";
+import * as React from "react";
 import { useState } from "react";
 
-import Box from '@mui/material/Box';
-import Signin from '../sections/auth-section/signin';
-import Signup from '../sections/auth-section/signup';
-import OnBoarding from '../sections/auth-section/onboarding';
+import Box from "@mui/material/Box";
+import Signin from "../sections/auth-section/signin";
+import Signup from "../sections/auth-section/signup";
+import OnBoarding from "../sections/auth-section/onboarding";
 
 import { AuthTypeModal } from "./Enum";
-
 
 const style = {
     position: 'absolute',
@@ -24,7 +23,7 @@ const style = {
 };
 
 const AuthModal = (props) => {
-    const { open, handleClose, authTypeModal, setauthTypeModal} = props
+  const { open, handleClose, authTypeModal, setauthTypeModal } = props;
 
     return (
         <Modal

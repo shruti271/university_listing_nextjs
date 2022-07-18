@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import CoverImage from "../../../assets/login-cover.png";
+import LoginLogo from "../../../assets/LoginLogo.svg";
 import googleIcon from "../../../assets/googleIcon.svg";
 import fbIcon from "../../../assets/fbIcon.svg";
 import Box from "@mui/material/Box";
@@ -12,17 +13,18 @@ import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import InputAdornment from "@mui/material/InputAdornment";
 import { CustomTextField } from "../../core/CustomMUIComponents";
 import { useForm } from "react-hook-form";
-import Router from 'next/router'
+import Router from "next/router";
 import { signIn } from "../../../services/auth";
 import { Alert } from "@mui/material";
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from "@mui/icons-material/Close";
 import { AuthTypeModal } from "../../core/Enum";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export default function Signin({ changeAuthModalType, handleClose }) {
   const [showPassword, setShowPassword] = useState(false);
   const [invalid, setInvalid] = useState(false);
   const [errorRes, setErrorRes] = useState('');
-
+  const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -41,15 +43,18 @@ export default function Signin({ changeAuthModalType, handleClose }) {
       localStorage.setItem("access_token", res.data.access_token);
       localStorage.setItem("refresh_token", res.data.refresh_token);
       handleClose();
+      Router.push("/universities");
     }, (error) => {
       console.log("error....", error);
+      setLoading(false);
       setInvalid(true);
       setErrorRes(error)
       if (error.response.status === 303) {
         localStorage.setItem("email", data.email);
       }
     });
-  };
+  }
+
   const onError = (errors) => console.log("Errors Occurred !! :", errors);
 
   return (
@@ -174,14 +179,20 @@ export default function Signin({ changeAuthModalType, handleClose }) {
                 </div>
 
                 <div className="flex justify-center sm:block">
-
                   <button
                     type="submit"
 
                     className="bg-[#0364FF] hover:bg-[#0364FF] text-gray-100 p-4 w-[90%] md:w-5/6 lg:w-3/4 rounded-xl tracking-wide
                   font-semibold font-display focus:outline-none focus:shadow-outline 
-                  shadow-lg"
+                  shadow-lg flex items-center justify-center"
                   >
+                    {loading && (
+                      <CircularProgress
+                        size={20}
+                        color="primary"
+                        sx={{ color: "white", mr: 1 }}
+                      />
+                    )}
                     Login to Continue
                   </button>
                 </div>
@@ -219,7 +230,10 @@ export default function Signin({ changeAuthModalType, handleClose }) {
             <div className="flex justify-center sm:justify-between items-center mb-6 w-full md:w-5/6 lg:w-3/4 mt-6 sm:mt-8 whitespace-nowrap">
               <div className="ml-0 sm:ml-auto">
                 <span className="text-black">Don't have an account ?</span>
-                <span className="cursor-pointer text-[#0364FF] ml-1 font-bold" onClick={() => changeAuthModalType(AuthTypeModal.Signup)}>
+                <span
+                  className="cursor-pointer text-[#0364FF] ml-1 font-bold"
+                  onClick={() => changeAuthModalType(AuthTypeModal.Signup)}
+                >
                   Sign up
                 </span>
               </div>

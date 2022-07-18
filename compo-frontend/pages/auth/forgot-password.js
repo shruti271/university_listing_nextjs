@@ -7,10 +7,18 @@ import Box from "@mui/material/Box";
 import EmailIcon from "@mui/icons-material/Email";
 import ArrowBackIosNewOutlinedIcon from "@mui/icons-material/ArrowBackIosNewOutlined";
 import { CustomTextField } from "../../components/core/CustomMUIComponents";
+import CircularProgress from "@mui/material/CircularProgress";
 
 import { useForm } from "react-hook-form";
+import { ResetPassword } from "../../services/auth";
+import { useState } from "react";
+import { Alert } from "@mui/material";
 
 export default function ForgotPassword() {
+  const [loading, setLoading] = useState(false);
+  const [invalid, setInvalid] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [alertMsg, setAlertMsg] = useState(false);
   const {
     register,
     handleSubmit,
@@ -22,6 +30,26 @@ export default function ForgotPassword() {
   } = useForm();
   const onSubmit = async (data) => {
     console.log("dataaa", data);
+    setLoading(true);
+    ResetPassword({
+      email: data.email,
+    }).then(
+      (res) => {
+        console.log("resss", res);
+        setLoading(false);
+        setSuccess(true);
+        setAlertMsg(res.data.detail);
+        localStorage.setItem("email", data.email);
+      },
+      (error) => {
+        console.log("error....", error);
+        setLoading(false);
+
+        setInvalid(true);
+
+        setAlertMsg(error.response.data.detail);
+      }
+    );
   };
   const onError = (errors) => console.log("Errors Occurred !! :", errors);
 
@@ -47,6 +75,15 @@ export default function ForgotPassword() {
         </div>
 
         <div className="p-6">
+          {(invalid || success) && (
+            <Alert
+              severity={success ? "success" : "error"}
+              className="mb-4 -mt-4"
+            >
+              {alertMsg}
+            </Alert>
+          )}
+
           <h1 className="text-gray-900 text-xl font-bold mb-2">
             Forgot Password
           </h1>
@@ -69,6 +106,10 @@ export default function ForgotPassword() {
                   className="w-full"
                   {...register("email", {
                     required: "Email is required",
+                    onChange: (e) => {
+                      setInvalid(false);
+                      setSuccess(false);
+                    },
                     pattern: {
                       value:
                         /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
@@ -86,16 +127,19 @@ export default function ForgotPassword() {
               </div>
             </div>
             <div className="mt-8">
-        
-
-
               <button
                 type="submit"
-
                 className="bg-[#0364FF] hover:bg-[#0364FF] text-gray-100 p-3 w-full rounded-xl tracking-wide
                   font-semibold font-display focus:outline-none focus:shadow-outline 
-                  shadow-lg"
+                  shadow-lg flex items-center justify-center"
               >
+                {loading && (
+                  <CircularProgress
+                    size={20}
+                    color="primary"
+                    sx={{ color: "white", mr: 1 }}
+                  />
+                )}
                 Reset
               </button>
             </div>
