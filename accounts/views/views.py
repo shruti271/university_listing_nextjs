@@ -46,20 +46,21 @@ class StudentSignupView(APIView):
             # Else, create a user with is_active=Fase
             else:
                 # First, we remove everything on the right of @
-                e=email.split('@')[0] 
-                username = ''
+                # e=email.split('@')[0] 
+                # username = ''
 
-                # Let's populate the username variable
-                for i in e:
-                    #Then, we remove every special character.
-                    if i.isalnum():
-                        username+=i
-                username = username
+                # # Let's populate the username variable
+                # for i in e:
+                #     #Then, we remove every special character.
+                #     if i.isalnum():
+                #         username+=i
+                # username = username
 
-                # Here, we're checking if the user with a username without numbers exist, if does not, we remove the numbers from the username
-                if not User.objects.filter(username=''.join([i for i in username if not i.isdigit()]) ).exists():
-                    username = ''.join([i for i in username if not i.isdigit()]) 
-                    
+                # # Here, we're checking if the user with a username without numbers exist, if does not, we remove the numbers from the username
+                # if not User.objects.filter(username=''.join([i for i in username if not i.isdigit()]) ).exists():
+                #     username = ''.join([i for i in username if not i.isdigit()]) 
+                
+                username = email
                 # Creating a User
                 user = User.objects.create_user(username, email, password=data.get('password'))
 
