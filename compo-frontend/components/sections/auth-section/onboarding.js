@@ -164,7 +164,7 @@ export default function RegistrationSteps({ handleClose }) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 h-full">
       {activeStep === 0 && (
-        <div className="abc relative p-4  cover-image hidden sm:block h-full">
+        <div className="cover-image relative p-4  cover-image hidden sm:block h-full">
           <Image
             src={CoverImage1}
             alt="CoverImage1"
@@ -174,7 +174,7 @@ export default function RegistrationSteps({ handleClose }) {
         </div>
       )}
       {activeStep === 1 && (
-        <div className="abc xyz relative p-4  cover-image hidden sm:block h-full">
+        <div className="cover-image onbording-cover2 relative p-4  cover-image hidden sm:block h-full">
           <Image
             src={CoverImage2}
             alt="CoverImage2"
@@ -184,7 +184,7 @@ export default function RegistrationSteps({ handleClose }) {
         </div>
       )}
       {activeStep === 2 && (
-        <div className="abc relative p-4  cover-image hidden sm:block h-full">
+        <div className="cover-image relative p-4  cover-image hidden sm:block h-full">
           <Image
             src={CoverImage3}
             alt="CoverImage3"
