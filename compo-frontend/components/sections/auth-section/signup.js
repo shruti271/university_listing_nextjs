@@ -184,7 +184,7 @@ export default function SignUp({ changeAuthModalType, handleClose }) {
               </div>
             </form>
             <div className="flex justify-center sm:block">
-              <div className="mt-6 sm:mt-12 gap-6 justify-between items-center flex-row  w-[85%] md:w-5/6 lg:w-3/4 block lg:flex">
+              <div className="mt-6 sm:mt-12 gap-6 justify-between items-center flex-row  w-[85%] md:w-5/6 lg:w-3/4 block xl:flex">
                 <button className="pt-3 pb-3 pr-2 pl-2 w-full focus:ring-0 focus:outline-none font-medium rounded-xl text-sm text-center inline-flex items-center justify-center border">
                   <div className="flex justify-center items-center mr-3">
                     <Image
@@ -198,7 +198,7 @@ export default function SignUp({ changeAuthModalType, handleClose }) {
                   <span className="text-black whitespace-nowrap">Login with Google</span>
                 </button>
 
-                <button className="pt-3 pb-3 pr-2 pl-2 w-full focus:ring-0 focus:outline-none font-medium rounded-xl text-sm text-center inline-flex items-center justify-center border mt-4 lg:mt-0">
+                <button className="pt-3 pb-3 pr-2 pl-2 w-full focus:ring-0 focus:outline-none font-medium rounded-xl text-sm text-center inline-flex items-center justify-center border mt-4 xl:mt-0">
                   <div className="flex justify-center items-center mr-3">
                     <Image
                       src={fbIcon}
