@@ -8,6 +8,7 @@ import EmailIcon from "@mui/icons-material/Email";
 import ArrowBackIosNewOutlinedIcon from "@mui/icons-material/ArrowBackIosNewOutlined";
 import { CustomTextField } from "../../components/core/CustomMUIComponents";
 import CircularProgress from "@mui/material/CircularProgress";
+import Router from "next/router";
 
 import { useForm } from "react-hook-form";
 import { ResetPassword } from "../../services/auth";
@@ -75,18 +76,20 @@ export default function ForgotPassword() {
         </div>
 
         <div className="p-6">
-          {(invalid || success) && (
-            <Alert
-              severity={success ? "success" : "error"}
-              className="mb-4 -mt-4"
-            >
-              {alertMsg}
-            </Alert>
-          )}
+
 
           <h1 className="text-gray-900 text-xl font-bold mb-2">
             Forgot Password
           </h1>
+          {(invalid || success) && (
+            <Alert
+              severity={success ? "success" : "error"}
+              className="mb-4"
+            >
+              {alertMsg}
+
+            </Alert>
+          )}
           <p className="text-gray-700 text-base mb-4">
             Enter the email address you used when you joined and we’ll send you
             instructions to reset your password.
@@ -97,6 +100,7 @@ export default function ForgotPassword() {
           </p>
           <form onSubmit={handleSubmit(onSubmit, onError)} onReset={reset}>
             <div className="flex  sm:block flex-col mb-6 ">
+
               <Box sx={{ display: "flex", alignItems: "flex-end" }}>
                 <EmailIcon sx={{ mr: 2, my: 0.5 }} className="text-black" />
                 <CustomTextField

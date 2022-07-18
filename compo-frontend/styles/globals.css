@@ -138,32 +138,25 @@ h6 {
   -o-background-size: cover !important;
   background-size: 100% 100% !important;
 }
+.bg-cover > span {
+  top: 5% !important;
+}
+.onbording-cover2 > span {
+  top: 88% !important;
+}
 
 .auth-cover {
-  background: url("../assets/login-cover.png") no-repeat center center fixed; 
+  background: url("../assets/login-cover.png") no-repeat center center fixed;
 }
 
 .onboarding1-cover {
-  background: url("../assets/reg-step-1.png") no-repeat center center fixed; 
+  background: url("../assets/reg-step-1.png") no-repeat center center fixed;
 }
 
 .onboarding2-cover {
-  background: url("../assets/reg-step-2.png") no-repeat center center fixed; 
+  background: url("../assets/reg-step-2.png") no-repeat center center fixed;
 }
 
 .onboarding3-cover {
-  background: url("../assets/reg-step-3.png") no-repeat center center fixed; 
-}
-.cover-image span:first-child {
-  height: inherit !important;
-}
-.cover-image span:last-child {
-  position: absolute !important;
-  top: 50px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-.onbording-cover2 span:last-child {
-  bottom: 50px !important;
-  top: unset !important;
+  background: url("../assets/reg-step-3.png") no-repeat center center fixed;
 }

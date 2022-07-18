@@ -68,8 +68,8 @@ export default function SignUp({ changeAuthModalType, handleClose }) {
         <div
           className="p-4 hidden sm:block animate__animated animate__zoomIn  h-full"
         >
-          <div className="bg-cover auth-cover w-full h-full">
-            {/* <Image src={CoverImage} alt="CoverImage" /> */}
+          <div className="bg-cover auth-cover w-full h-full text-center">
+            <Image src={LoginLogo} alt="CoverImage" />
           </div>
         </div>
         <div className="p-4 ml-0 sm:ml-4 md:ml-4 lg:ml-12 animate__animated animate__zoomIn">

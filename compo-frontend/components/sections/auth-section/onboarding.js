@@ -51,7 +51,7 @@ const theme = createTheme({
 
 const steps = ["About", "Education", "Profession"];
 
-export default function RegistrationSteps({handleClose}) {
+export default function RegistrationSteps({ handleClose }) {
   const [activeStep, setActiveStep] = React.useState(0);
   const [completed, setCompleted] = React.useState([]);
   const [email, setEmail] = React.useState();
@@ -135,8 +135,8 @@ export default function RegistrationSteps({handleClose}) {
     const newActiveStep =
       isLastStep() && !allStepsCompleted()
         ? // It's the last step, but not all steps have been completed,
-          // find the first step that has been completed
-          steps.findIndex((step, i) => !(i in completed))
+        // find the first step that has been completed
+        steps.findIndex((step, i) => !(i in completed))
         : activeStep + 1;
     setActiveStep(newActiveStep);
   };
@@ -165,19 +165,25 @@ export default function RegistrationSteps({handleClose}) {
         className="p-4 hidden sm:block h-full"
       >
         {
-          activeStep === 0 && <div className="bg-cover w-full h-full animate__animated animate__zoomIn onboarding1-cover"></div>
+          activeStep === 0 && <div className="bg-cover w-full h-full animate__animated animate__zoomIn onboarding1-cover text-center">
+            <Image src={LoginLogo} alt="CoverImage" />
+          </div>
         }
         {
-          activeStep === 1 && <div className="bg-cover w-full h-full animate__animated animate__zoomIn onboarding2-cover"></div>
+          activeStep === 1 && <div className="bg-cover onbording-cover2 w-full h-full animate__animated animate__zoomIn onboarding2-cover text-center">
+            <Image src={LoginLogo} alt="CoverImage" />
+          </div>
         }
         {
-          activeStep === 2 && <div className="bg-cover w-full h-full animate__animated animate__zoomIn onboarding3-cover"></div>
+          activeStep === 2 && <div className="bg-cover w-full h-full animate__animated animate__zoomIn onboarding3-cover text-center">
+            <Image src={LoginLogo} alt="CoverImage" />
+          </div>
         }
       </div>
       <div className="p-4 ml-0 sm:ml-4 md:ml-4 lg:ml-12">
-      <div onClick={handleClose} className="flex">
-            <CloseIcon className="text-black ml-auto cursor-pointer" />
-      </div>
+        <div onClick={handleClose} className="flex">
+          <CloseIcon className="text-black ml-auto cursor-pointer" />
+        </div>
         <Box className="mt-3 sm:mt-16">
           <Stepper
             alternativeLabel

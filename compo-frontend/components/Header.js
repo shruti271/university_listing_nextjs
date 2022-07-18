@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { useRouter } from "next/router";
 import * as React from "react";
 
@@ -12,7 +12,7 @@ import PrimaryButton from "./PrimaryButton";
 import AuthModal from "../components/core/AuthModal";
 import { AuthTypeModal } from "./core/Enum";
 
-const Header = () => {
+const Header = ({modalType}) => {
   const [isMenuOpen, setIsMenuOpen] = useState();
   const mobileMenuStyle = isMenuOpen ? "translate-x-0" : "translate-x-full";
   const handleMobileMenuClick = () => setIsMenuOpen(!isMenuOpen);
@@ -20,13 +20,21 @@ const Header = () => {
   const [authTypeModal, setauthTypeModal] = React.useState();
 
   const [open, setOpen] = React.useState(false);
-
+  
   const router = useRouter();
   const setActiveLink = (path) => {
     return router.pathname === path
-      ? "text-[#06040A] hover:text-[#06040A]"
-      : "text-[#544E5D] hover:opacity-50";
+    ? "text-[#06040A] hover:text-[#06040A]"
+    : "text-[#544E5D] hover:opacity-50";
   };
+  console.log("modalTypemodalType::", modalType)
+  
+  useEffect(()=>{
+    {
+      modalType === "signin" && 
+      setOpen(true), setauthTypeModal("signin");
+    }
+  }, [modalType]);
 
   return (
     <>

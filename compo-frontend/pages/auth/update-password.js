@@ -15,6 +15,8 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import { UpdatePasswords } from "../../services/auth";
 import { Alert, CircularProgress } from "@mui/material";
+import Router from "next/router";
+import { AuthTypeModal } from "../../components/core/Enum";
 
 export default function UpdatePassword() {
   const router = useRouter();
@@ -92,21 +94,29 @@ export default function UpdatePassword() {
         </div>
 
         <div className="p-6">
-          {(invalid || success) && (
-            <Alert
-              severity={success ? "success" : "error"}
-              className="mb-4 -mt-4"
-            >
-              {alertMsg}
-            </Alert>
-          )}
+
           <h1 className="text-gray-900 text-xl font-bold mb-2">
             Update Password
           </h1>
           <p className="text-gray-700 text-sm mb-12">
             update your new password
           </p>
+
           <form onSubmit={handleSubmit(onSubmit, onError)} onReset={reset}>
+            {(invalid || success) && (
+              <Alert
+                severity={success ? "success" : "error"}
+                className="mb-4 -mt-4"
+              >
+                {alertMsg}
+                {success && <span className="cursor-pointer text-[rgb(95, 33, 32)] ml-1 font-bold underline" onClick={() => {
+                  window.history.pushState(AuthTypeModal.Signin, "", "/"),
+                    Router.push("/")
+                }}>
+                  Login
+                </span>}
+              </Alert>
+            )}
             <div className="flex  sm:block flex-col mb-6 ">
               <Box sx={{ display: "flex", alignItems: "flex-end" }}>
                 <LockIcon sx={{ mr: 2, my: 0.5 }} className="text-black" />

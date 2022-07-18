@@ -34,8 +34,8 @@ export default function Signin({ changeAuthModalType, handleClose }) {
     watch,
     getValues,
   } = useForm();
-  const onSubmit = (data, event) => {
-    event.preventDefault();
+  const onSubmit = (data) => {
+    setLoading(true);
     signIn({
       email: data.email,
       password: data.password,
@@ -65,8 +65,8 @@ export default function Signin({ changeAuthModalType, handleClose }) {
         <div
           className="p-4 hidden sm:block animate__animated animate__zoomIn  h-full"
         >
-          <div className="bg-cover auth-cover w-full h-full">
-            {/* <Image src={CoverImage} alt="CoverImage" /> */}
+          <div className="bg-cover auth-cover w-full h-full text-center">
+            <Image src={LoginLogo} alt="CoverImage" />
           </div>
         </div>
         <div className="p-4 mt-3 sm:mt-0 ml-0 sm:ml-4 md:ml-4 lg:ml-12  animate__animated animate__zoomIn">
@@ -81,12 +81,12 @@ export default function Signin({ changeAuthModalType, handleClose }) {
               <div className="flex flex-col">
                 <div className="flex sm:block justify-center">
                   <div className="flex sm:block flex-col mb-6 w-[90%] md:w-5/6 lg:w-3/4">
-                    {invalid && 
-                    (<Alert severity="error" className="mb-4 -mt-4">
-                      {errorRes?.response?.data?.detail}
-                      <span className="cursor-pointer text-[rgb(95, 33, 32)] ml-1 font-bold underline" onClick={() => changeAuthModalType(AuthTypeModal.Onboarding)}>
-                        onboarding
-                      </span>
+                    {invalid &&
+                      (<Alert severity="error" className="mb-4 -mt-4">
+                        {errorRes?.response?.data?.detail}
+                        {errorRes?.response?.status === 303 && <span className="cursor-pointer text-[rgb(95, 33, 32)] ml-1 font-bold underline" onClick={() => changeAuthModalType(AuthTypeModal.Onboarding)}>
+                          onboarding
+                        </span>}
                       </Alert>)}
 
                     <Box sx={{ display: "flex", alignItems: "flex-end" }}>

@@ -10,14 +10,27 @@ import PathsSection from "../components/sections/paths-section/PathsSection";
 import TestimonialsSection from "../components/sections/testimonials-section/TestimonialsSection";
 import ToolsSection from "../components/sections/tools-section/ToolsSection";
 
+import { useState, useEffect } from "react";
 
 
 export default function Home() {
+  const [modalType, setModalType] = useState("");
 
+  useEffect(() => {
+
+    console.log("::::", window.history.state)
+    if (window.history.state === "signin") {
+
+      setModalType(window.history.state)
+    } else {
+      setModalType("")
+    }
+
+  }, [])
   return (
     <>
 
-      <Header />
+      <Header modalType={modalType} />
       <HeroSection />
       <AboutSection />
       <OffersSection />

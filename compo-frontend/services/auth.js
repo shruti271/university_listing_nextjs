@@ -16,6 +16,10 @@ export const Activation = (payload) => {
   return axios.post(`${appConfig.appUrl}/auth/activate/student/`, payload);
 };
 
+export const ResendActivation = (payload) => {
+  return axios.post(`${appConfig.appUrl}/auth/send/activate/student/`, payload);
+};
+
 export const ResetPassword = (payload) => {
   return axios.post(`${appConfig.appUrl}/auth/send/reset-password/`, payload);
 };
