@@ -1,14 +1,24 @@
-import Link from 'next/link';
-import Image from 'next/image';
-import { useRouter } from 'next/router';
+import Link from "next/link";
+import Image from "next/image";
+import { useRouter } from "next/router";
+import { useState } from "react";
 
+import * as React from 'react';
 import closeIcon from '../assets/close-icon.svg';
 import PrimaryButton from './PrimaryButton';
+import AuthModal from './core/AuthModal';
+import { AuthTypeModal } from "./core/Enum";
 
 const MobileMenu = ({ className = '', handleMobileMenuClick, isMenuOpen }) => {
+  
+
+  const [authTypeModal, setauthTypeModal] = React.useState();
+
+  const [open, setOpen] = React.useState(false);
   const router = useRouter();
+
   const setActiveLink = (path) => {
-    return router.pathname === path ? 'text-[#06040A]' : 'text-[#544E5D]';
+    return router.pathname === path ? "text-[#06040A]" : "text-[#544E5D]";
   };
 
   return (
@@ -30,48 +40,66 @@ const MobileMenu = ({ className = '', handleMobileMenuClick, isMenuOpen }) => {
         <nav className="">
           <ul className="flex flex-col items-center gap-6 text-xl">
             <li
-              className={`${setActiveLink('/')}`}
+              className={`${setActiveLink("/")}`}
               onClick={handleMobileMenuClick}
             >
               <Link href="/">Home</Link>
             </li>
             <li
-              className={`${setActiveLink('/universities')}`}
+              className={`${setActiveLink("/universities")}`}
               onClick={handleMobileMenuClick}
             >
               <Link href="/universities">Universities</Link>
             </li>
             <li
-              className={`${setActiveLink('/scholarships')}`}
+              className={`${setActiveLink("/scholarships")}`}
               onClick={handleMobileMenuClick}
             >
               <Link href="/scholarships">Scholarships</Link>
             </li>
             <li
-              className={`${setActiveLink('/majors')}`}
+              className={`${setActiveLink("/majors")}`}
               onClick={handleMobileMenuClick}
             >
               <Link href="/majors">Majors</Link>
             </li>
             <li
-              className={`${setActiveLink('/articles')}`}
+              className={`${setActiveLink("/articles")}`}
               onClick={handleMobileMenuClick}
             >
               <Link href="/articles">Articles</Link>
             </li>
             <li className={`md:hidden`} onClick={handleMobileMenuClick}>
-              <Link href="/signin" passHref>
-                <PrimaryButton type="button" isPrimary={false}>
-                  Sign In
-                </PrimaryButton>
-              </Link>
+              <PrimaryButton
+                type="button"
+                isPrimary={false}
+                onClick={() => {
+                  setOpen(true), setauthTypeModal(AuthTypeModal.Signin);
+                }}
+              >
+                Sign In
+              </PrimaryButton>
             </li>
             <li className={`md:hidden`} onClick={handleMobileMenuClick}>
-              <Link href="/signup" passHref>
-                <PrimaryButton type="button">Join Now</PrimaryButton>
-              </Link>
+              <PrimaryButton
+                className="btn-shadow"
+                type="button"
+                onClick={() => {
+                  setOpen(true), setauthTypeModal(AuthTypeModal.Signup);
+                }}
+              >
+                Join Now
+              </PrimaryButton>
             </li>
           </ul>
+          <AuthModal
+            open={open}
+            handleClose={() => {
+              setOpen(false);
+            }}
+            authTypeModal={authTypeModal}
+            setauthTypeModal={setauthTypeModal}
+          />
         </nav>
       </div>
     </>
