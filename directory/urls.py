@@ -3,7 +3,7 @@ from django.urls import path
 from directory.views.views import  UniversitiesList, UniversityDetail, SearchUniversity, \
                     ProgramsList, ProgramsDetail, SearchProgram, \
                     ScholarshipsList, ScholarshipDetail, SearchScholarship, \
-                    GlobalSearch, collectData, collectScholarships
+                    GlobalSearch, collectData, collectScholarships, loadMasters
 
 
 urlpatterns = [
@@ -26,5 +26,5 @@ urlpatterns = [
     # Global search view (public)
     path('search/', GlobalSearch.as_view()),
 
-    path('collect-data/', collectScholarships)
+    path('collect-data/', loadMasters)
 ]

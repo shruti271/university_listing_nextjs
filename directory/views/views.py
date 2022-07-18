@@ -400,3 +400,44 @@ def collectScholarships(request):
 
 
     return HttpResponse('scholarships done')
+
+from urllib.request import urlopen as uReq, Request
+#from seleniumwire import webdriver
+import undetected_chromedriver as uc
+from fake_useragent import UserAgent
+
+
+
+def loadMasters(request):
+    path = '/Users/mohamed/Downloads/chromedriver'
+    
+    ua = UserAgent()
+    user_agent = ua.random
+    #print(user_agent)
+    options = webdriver.ChromeOptions() 
+    options.add_argument("start-maximized")
+    #ptions.add_argument(f'user-agent={user_agent}')
+    browser = uc.Chrome(options=options)
+
+    #headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36'}
+    
+
+    url = "https://www.mastersportal.com/search/master?page=1"
+    browser.get(url)
+
+    # response = requests.get(url, headers=headers)
+
+    soup = BeautifulSoup(browser.page_source, "lxml")
+    ul = soup.find('ul', {'class':'SearchResultsList'})
+    lis = ul.find_all('li', {'class':'HoverEffect SearchResultItem'})[0]
+    a = lis.find('a', {'class':'SearchStudyCard js-bestFitStudycard'}).get('href')
+    # results = soup.find_all('a', {'class': 'SearchStudyCard js-bestFitStudycard'})
+    print(a)
+
+
+    # req = Request(url,headers=headers)
+    # page = uReq(req)
+    # page_soup = BeautifulSoup(page)
+    # print(page_soup)
+
+    return HttpResponse('masters done')
