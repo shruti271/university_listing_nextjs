@@ -55,7 +55,7 @@ const initialState = {
 };
 
 const setCurrentFilter = () => {
-  const currentFilter = `http://api.composite.digital/v1/universities/filter/?institute_type=&location=${location}&offset=${pageOffset}&rank_order=&rank_order__gt=&rank_order__gte=${rankOrderGTE}&rank_order__lt=&rank_order__lte=${rankOrderLTE}&student_body_size=&student_body_size__gt=&student_body_size__gte=${studentBodySizeGTE}&student_body_size__lt=&student_body_size__lte=${
+  const currentFilter = `https://api.composite.digital/v1/universities/filter/?institute_type=&location=${location}&offset=${pageOffset}&rank_order=&rank_order__gt=&rank_order__gte=${rankOrderGTE}&rank_order__lt=&rank_order__lte=${rankOrderLTE}&student_body_size=&student_body_size__gt=&student_body_size__gte=${studentBodySizeGTE}&student_body_size__lt=&student_body_size__lte=${
     studentBodySizeLTE < FILTER_MAX_BODY_SIZE ? studentBodySizeLTE : ''
   }&search=${searchQuery}`;
 
