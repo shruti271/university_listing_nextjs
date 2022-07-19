@@ -1,9 +1,9 @@
 import datetime
+from lib2to3.pgen2 import token
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 
 from accounts.models import User, Student, Verification
-from accounts.serializers import ResetpasswordSerializer
 
 from rest_framework import permissions, status
 from rest_framework.views import APIView
@@ -20,14 +20,13 @@ class ActivateAccount(APIView):
 
     def post(self, request, format=None):
         data = request.data
-        email = str(data.get('email'))
         token_request = str(data.get('token'))
 
-        if User.objects.filter(email=email).exists() and Student.objects.filter(user = User.objects.get(email=email)).exists() and Verification.objects.filter(user=User.objects.get(email=email), used=False).exists():
+        if Verification.objects.filter(hash = token_request, used=False, purpose = 'Activation').exists():
 
-            user = User.objects.get(email=email)
+            verification = Verification.objects.get(hash=token_request, used=False, purpose='Activation')
+            user = verification.user
             student = Student.objects.get(user=user)
-            verification = Verification.objects.get(user=user, used=False, purpose='Activation')
 
             if user.is_active == True:
                 raise AlreadyActivated
@@ -35,16 +34,14 @@ class ActivateAccount(APIView):
             if not student.is_onboarded == True:
                 raise NotOnboarded
 
-            if token_request == str(verification.hash):
-                user.is_active = True
-                user.save()
-                verification.used = True
-                verification.save()
-                return Response({'detail': u'Your account is activated.'}, status = status.HTTP_200_OK)
-            else:
-                raise InvalidToken
+            user.is_active = True
+            user.save()
+            verification.used = True
+            verification.save()
+            return Response({'detail': u'Your account is activated.'}, status = status.HTTP_200_OK)
+            
         else:
-            raise NotFound
+            raise InvalidToken
 
 class SendActivation(APIView):
     permission_classes = [permissions.AllowAny]
@@ -92,33 +89,30 @@ class ResetPass(APIView):
 
     def post(self, request, format=None):
         data = request.data
-        email = str(data.get('email'))
         token_request = str(data.get('token'))
 
-        if User.objects.filter(email=email).exists() and Student.objects.filter(user = User.objects.get(email=email)).exists() and Verification.objects.filter(user=User.objects.get(email=email), used=False, purpose = 'Password Reset',latest_update__gte=datetime.datetime.now() - datetime.timedelta(minutes=30)).exists(): 
-
-            user = User.objects.get(email=email)
+        if Verification.objects.filter(hash = token_request, used=False, purpose = 'Password Reset').exists(): 
+            
+            verification = Verification.objects.get(hash=token_request, used=False, purpose = 'Password Reset')
+            user = verification.user
             student = Student.objects.get(user=user)
-            verification = Verification.objects.get(user=user, used=False, purpose = 'Password Reset')
 
             if not student.is_onboarded == True:
                 raise NotOnboarded
 
             if user.is_active == True and student.is_onboarded == True:
-                if str(verification.hash) == token_request:
-                    serializer=ResetpasswordSerializer(data=request.data)
-                    if serializer.is_valid(raise_exception=True):
-                        serializer.save()
-                        verification.used=True
-                        verification.save()
-                        return Response({'detail': u'Your password is updated.'}, status = status.HTTP_200_OK)
-                else:
-                    raise InvalidToken
+
+                user.set_password(data.get('password'))
+                user.save()
+                verification.used=True
+                verification.save()
+                return Response({'detail': u'Your password is updated.'}, status = status.HTTP_200_OK)
+
             else:
                 raise IncativeAccount
 
         else:
-            raise NotFound
+            raise InvalidToken
             
 
 class SendReset(APIView):
