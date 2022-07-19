@@ -29,79 +29,95 @@ import UniversityCard from '../../components/university-sections/universities-se
 import dubaiUniLogo from '../../assets/universities-page/universities-section/uni-dubai.jpg';
 import floridaUniLogo from '../../assets/universities-page/universities-section/uni-florida.jpg';
 import withAuth from '../../components/core/PrivateRoute';
+import { useDispatch, useSelector } from 'react-redux';
+import PaginationControlled from '../../components/PaginationControlled/PaginationControlled';
+
+
 
 const UniversitiesDetails = () => {
 
     const [value, setValue] = React.useState(0);
-    const universities = [
-        {
-            id: 1,
-            logo: dubaiUniLogo,
-            location: 'Dubai, United Arab Emirates',
-            type: 'public',
-            acceptanceRate: '59',
-            name: 'University of Dubai',
-            description:
-                'The University of Dubai has been home to talented students and faculty drawn from around the world to teach, create, and study.',
-            stats: { ranking: 10, numberOfStudents: 8000, avgCost: 2300, avgACT: 29 },
-            linkApply: '/universities',
-            linkView: '/universities',
-        },
-        {
-            id: 2,
-            logo: floridaUniLogo,
-            location: 'Florida, United States',
-            type: 'private',
-            acceptanceRate: '76',
-            name: 'University of Central Florida',
-            description:
-                'The University of Central Florida has been home to talented students and faculty drawn from around the world to teach, create, and study.',
-            stats: { ranking: 8, numberOfStudents: 2300, avgCost: 22300, avgACT: 78 },
-            linkApply: '/universities',
-            linkView: '/universities',
-        },
-        {
-            id: 3,
-            logo: floridaUniLogo,
-            location: 'Florida, United States',
-            type: 'private',
-            acceptanceRate: '76',
-            name: 'University of Central Florida',
-            description:
-                'The University of Central Florida has been home to talented students and faculty drawn from around the world to teach, create, and study.',
-            stats: { ranking: 8, numberOfStudents: 2300, avgCost: 22300, avgACT: 78 },
-            linkApply: '/universities',
-            linkView: '/universities',
-        },
-        {
-            id: 4,
-            logo: dubaiUniLogo,
-            location: 'Dubai, United Arab Emirates',
-            type: 'public',
-            acceptanceRate: '59',
-            name: 'University of Dubai',
-            description:
-                'The University of Dubai has been home to talented students and faculty drawn from around the world to teach, create, and study.',
-            stats: { ranking: 10, numberOfStudents: 8000, avgCost: 2300, avgACT: 29 },
-            linkApply: '/universities',
-            linkView: '/universities',
-        },
-        {
-            id: 5,
-            logo: dubaiUniLogo,
-            location: 'New York, United Arab Emirates',
-            type: 'private',
-            acceptanceRate: '59',
-            name: 'University of New York',
-            description:
-                'The University of New York has been home to talented students and faculty drawn from around the world to teach, create, and study.',
-            stats: { ranking: 10, numberOfStudents: 8000, avgCost: 2300, avgACT: 29 },
-            linkApply: '/universities',
-            linkView: '/universities',
-        },
-    ];
+
+
+    const universities = useSelector(
+        (state) => state.universities.filteredUniversities
+    );
+    const countUniversities = useSelector(
+        (state) => state.universities.countUniversities
+    );
+
+
+
+    // const universities = [
+    //     {
+    //         id: 1,
+    //         logo: dubaiUniLogo,
+    //         location: 'Dubai, United Arab Emirates',
+    //         type: 'public',
+    //         acceptanceRate: '59',
+    //         name: 'University of Dubai',
+    //         description:
+    //             'The University of Dubai has been home to talented students and faculty drawn from around the world to teach, create, and study.',
+    //         stats: { ranking: 10, numberOfStudents: 8000, avgCost: 2300, avgACT: 29 },
+    //         linkApply: '/universities',
+    //         linkView: '/universities',
+    //     },
+    //     {
+    //         id: 2,
+    //         logo: floridaUniLogo,
+    //         location: 'Florida, United States',
+    //         type: 'private',
+    //         acceptanceRate: '76',
+    //         name: 'University of Central Florida',
+    //         description:
+    //             'The University of Central Florida has been home to talented students and faculty drawn from around the world to teach, create, and study.',
+    //         stats: { ranking: 8, numberOfStudents: 2300, avgCost: 22300, avgACT: 78 },
+    //         linkApply: '/universities',
+    //         linkView: '/universities',
+    //     },
+    //     {
+    //         id: 3,
+    //         logo: floridaUniLogo,
+    //         location: 'Florida, United States',
+    //         type: 'private',
+    //         acceptanceRate: '76',
+    //         name: 'University of Central Florida',
+    //         description:
+    //             'The University of Central Florida has been home to talented students and faculty drawn from around the world to teach, create, and study.',
+    //         stats: { ranking: 8, numberOfStudents: 2300, avgCost: 22300, avgACT: 78 },
+    //         linkApply: '/universities',
+    //         linkView: '/universities',
+    //     },
+    //     {
+    //         id: 4,
+    //         logo: dubaiUniLogo,
+    //         location: 'Dubai, United Arab Emirates',
+    //         type: 'public',
+    //         acceptanceRate: '59',
+    //         name: 'University of Dubai',
+    //         description:
+    //             'The University of Dubai has been home to talented students and faculty drawn from around the world to teach, create, and study.',
+    //         stats: { ranking: 10, numberOfStudents: 8000, avgCost: 2300, avgACT: 29 },
+    //         linkApply: '/universities',
+    //         linkView: '/universities',
+    //     },
+    //     {
+    //         id: 5,
+    //         logo: dubaiUniLogo,
+    //         location: 'New York, United Arab Emirates',
+    //         type: 'private',
+    //         acceptanceRate: '59',
+    //         name: 'University of New York',
+    //         description:
+    //             'The University of New York has been home to talented students and faculty drawn from around the world to teach, create, and study.',
+    //         stats: { ranking: 10, numberOfStudents: 8000, avgCost: 2300, avgACT: 29 },
+    //         linkApply: '/universities',
+    //         linkView: '/universities',
+    //     },
+    // ];
 
     console.log("universities......", universities);
+    console.log("countUniversities......", countUniversities);
 
 
 
@@ -146,8 +162,8 @@ const UniversitiesDetails = () => {
                     <Image src={CoverImage} alt="CoverImage" />
                 </div>
                 <div className="bg-[#F9F9FA]">
-                    <div className='flex items-center justify-center -mt-12 lg:-mt-16 relative '>
-                        <div className='rounded-xl bg-white  w-full  sm:w-10/12'>
+                    <div className='flex items-center justify-center -mt-8 sm:-mt-12 lg:-mt-16 relative '>
+                        <div className='rounded-xl bg-white w-full sm:w-10/12'>
                             <div className="grid grid-cols-5">
 
                                 <div className='uni-logo col-span-1'>
@@ -155,7 +171,7 @@ const UniversitiesDetails = () => {
                                 </div>
                                 <div className="col-span-4 mt-5" >
                                     <div className="grid grid-cols-3 items-center ml-4">
-                                        <div className='col-span-2 xl:col-span-1'>
+                                        <div className='col-span-3 sm:col-span-2 xl:col-span-1'>
                                             <div className='font-semibold text-2xl lg:text-3xl text-[#000000] ml-4 lg:ml-0'>
                                                 University of Dubai.
                                             </div>
@@ -164,7 +180,7 @@ const UniversitiesDetails = () => {
                                                 Arts and Design
                                             </div>
                                         </div>
-                                        <div className="items-center col-span-1 xl:col-span-2 justify-end gap-4 lg:gap-8 flex xl:mr-20 mr-4">
+                                        <div className="items-center col-span-3 sm:col-span-1 xl:col-span-2 justify-end gap-8 sm:gap-2 lg:gap-8 flex xl:mr-20 mr-4 mt-4 sm:mt-0">
                                             <button
                                                 className="bg-[#1E75FF] hover:bg-[#1E75FF] text-[#FAFAFB] px-6 py-1.5 items-center text-xs rounded font-semibold whitespace-nowrap hover:scale-95 transition-all duration-300 ">
                                                 Apply Now
@@ -179,17 +195,17 @@ const UniversitiesDetails = () => {
                                     <div className='mt-8 ml-4'>
                                         <ul className="flex items-center justify-start gap-4 flex-wrap mb-8 ml-4 lg:ml-0">
                                             <li className="bg-[#F1F1F5] p-2 rounded-md text-[0.625rem]">
-                                                Location: <span className="font-bold">Dubai,UAE</span>
+                                                Location : <span className="font-bold"> Dubai,UAE </span>
                                             </li>
                                             <li className="bg-[#F1F1F5] p-2 rounded-md text-[0.625rem]">
-                                                University Type:
-                                                <span className="font-bold"> Public</span>
+                                                University Type :
+                                                <span className="font-bold"> Public </span>
                                             </li>
                                             <li className="bg-[#F1F1F5] p-2 rounded-md text-[0.625rem]">
-                                                Campus Setting: <span className="font-bold"> Major City</span>
+                                                Campus Setting : <span className="font-bold"> Major City </span>
                                             </li>
                                             <li className="bg-[#F1F1F5] p-2 rounded-md text-[0.625rem]">
-                                                Acceptance Rate: <span className="font-bold">12 percent</span>
+                                                Acceptance Rate : <span className="font-bold"> 12 percent </span>
                                             </li>
                                         </ul>
                                     </div>
@@ -200,11 +216,34 @@ const UniversitiesDetails = () => {
                     </div>
 
 
-                    <div className="w-full  sm:w-10/12 mx-auto">
-
+                    <div className="w-[90%]  sm:w-10/12 mx-auto">
+                        <Box className="rounded-lg sm:hidden mt-6"
+                            sx={{ bgcolor: 'white' }}
+                        >
+                            <CustomTab
+                                variant="scrollable"
+                                scrollButtons
+                                allowScrollButtonsMobile
+                                value={value}
+                                onChange={handleChange}
+                                aria-label="Vertical tabs example"
+                                setWidth="50%"
+                                setJustifyContent="center"
+                                className='w-full'
+                            >
+                                <Tab label="Overview" icon={<AutoAwesomeMosaicOutlinedIcon />} iconPosition="start"  {...a11yProps(0)} className="whitespace-nowrap" />
+                                <Tab label="Academics" icon={<WorkOutlineOutlinedIcon />} iconPosition="start" {...a11yProps(1)} className="whitespace-nowrap" />
+                                <Tab label="Majors" {...a11yProps(2)} icon={<CrisisAlertOutlinedIcon />} iconPosition="start" className="whitespace-nowrap" />
+                                <Tab label="Tution" {...a11yProps(3)} icon={<AccountTreeOutlinedIcon />} iconPosition="start" className="whitespace-nowrap" />
+                                <Tab label="Admissions" {...a11yProps(4)} icon={<SupervisorAccountOutlinedIcon />} iconPosition="start" className="whitespace-nowrap" />
+                                <Tab label="Campus Life" {...a11yProps(5)} icon={<CabinOutlinedIcon />} iconPosition="start" className="whitespace-nowrap" />
+                                <Tab label="After Graduation" {...a11yProps(6)} icon={<SchoolOutlinedIcon />} iconPosition="start" className="whitespace-nowrap" />
+                                <Tab label="Reviews" {...a11yProps(7)} icon={<ReviewsOutlinedIcon />} iconPosition="start" className="whitespace-nowrap" />
+                            </CustomTab>
+                        </Box>
                         <div className="grid grid-cols-3 gap-4">
 
-                            <div className='col-span-1 mt-6'>
+                            <div className='col-span-1 mt-6 hidden sm:block'>
                                 <Box className="rounded-lg"
                                     sx={{ bgcolor: 'white', display: 'flex', height: 300 }}
                                 >
@@ -215,6 +254,8 @@ const UniversitiesDetails = () => {
                                         onChange={handleChange}
                                         aria-label="Vertical tabs example"
                                         className='w-full'
+                                        setWidth="100%"
+                                        setJustifyContent="start"
                                     >
                                         <Tab label="Overview" icon={<AutoAwesomeMosaicOutlinedIcon />} iconPosition="start"  {...a11yProps(0)} />
                                         <Tab label="Academics" icon={<WorkOutlineOutlinedIcon />} iconPosition="start" {...a11yProps(1)} />
@@ -255,7 +296,7 @@ const UniversitiesDetails = () => {
                                 </Box>
                             </div>
 
-                            <div className="col-span-2 mt-6" >
+                            <div className="col-span-3 sm:col-span-2 mt-6" >
 
                                 <TabPanel value={value} index={0}>
                                     <div className='p-6 bg-[#FFFFFF] rounded-lg'>
@@ -412,7 +453,7 @@ const UniversitiesDetails = () => {
                                 </TabPanel>
                                 {
                                     [2, 3, 4, 5, 6, 7].map((tabVal) => (
-                                        <TabPanel value={value} index={tabVal}>
+                                        <TabPanel value={value} index={tabVal} key={tabVal}>
                                             {value + 1} Tab
                                         </TabPanel>
                                     )
@@ -423,27 +464,69 @@ const UniversitiesDetails = () => {
 
 
                     </div>
-                    <div className="w-full  sm:w-10/12 mx-auto flex mt-24 justify-between items-center">
-                        <h4 className="font-semibold text-2xl md:text-3xl lg:text-4xl text-[#363848]">
+
+                    <div className="w-[90%] rounded-lg bg-white mt-4 sm:hidden mx-auto">
+                        <div className="p-4 pb-7 border-b border-colorGrey">
+                            <h4 className="font-semibold text-2xl">
+                                Important Deadlines
+                            </h4>
+
+                        </div>
+                        <div className="p-4">
+
+                            <p className='text-[#000000] text-sm font-normal'>
+                                Application Type
+                            </p>
+                            <p className='text-[#0364FF] text-lg font-bold	mt-1'>
+                                Fall Regular Decision
+                            </p>
+
+                            <p className='text-[#000000] text-sm font-normal mt-5'>
+                                Application Deadline
+                            </p>
+                            <p className='text-[#0364FF] text-lg font-bold	mt-1'>
+                                November 12, 2022
+                            </p>
+                            <button type="button" className="mt-6 inline-block w-full px-6 py-2 border capitalize border-[#0364FF] text-[#0364FF] font-semibold text-sm rounded hover:scale-95 transition-all duration-300">
+                                Apply Now
+                            </button>
+                        </div>
+
+                    </div>
+
+
+                    <div className="w-[90%]  sm:w-10/12 mx-auto flex mt-24 justify-between items-center">
+                        <h4 className="font-semibold text-xl sm:text-2xl md:text-3xl lg:text-4xl text-[#363848] ">
                             Related univeristies
                         </h4>
-                        <button
-
-                            className="bg-[#0364FF] hover:bg-[#0364FF] text-white px-9 py-3 rounded-xl font-semibold shadow-lg hover:scale-95 transition-all duration-300"
+                        <button className="bg-[#0364FF] hover:bg-[#0364FF] text-white px-4 py-2 sm:px-9 sm:py-3 rounded-xl font-semibold shadow-lg hover:scale-95 transition-all duration-300 whitespace-nowrap"
                         >
                             View More
                         </button>
                     </div>
-                    <div className="w-full  sm:w-10/12 mx-auto mt-24">
+                    <div className="w-[90%]  sm:w-10/12 mx-auto mt-24">
 
-                        <div className="grid grid-cols-4 gap-4">
-                            {universities.slice(0, 4).map((university) => (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 ">
+                            {universities.map((university) => (
                                 <UniversityCard key={university.id} university={university} />
                             ))}
+                        </div>
+                        <div className="flex items-center justify-between rounded-lg bg-white mt-4 p-4">
+                            <span className="text-colorBlack">
+                                Showing {universities.length} of {countUniversities}
+                            </span>
+                            <div>
+                                <PaginationControlled
+                                    countPages={countUniversities}
+                                    itemsPerPage={20}
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+
             <Footer />
 
         </>

@@ -15,7 +15,7 @@ import { useState, useEffect } from "react";
 
 export default function Home() {
   const [modalType, setModalType] = useState("");
-
+ 
   useEffect(() => {
 
     console.log("::::", window.history.state)

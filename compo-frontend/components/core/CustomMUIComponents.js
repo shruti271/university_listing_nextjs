@@ -76,7 +76,7 @@ export const CustomBorderLinearProgress = styled(LinearProgress)(({ theme, setCo
 }));
 
 
-export const CustomTab = styled(Tabs)(({ theme }) => ({
+export const CustomTab = styled(Tabs)(({ theme, setWidth, setJustifyContent }) => ({
   [`& .MuiTab-root`]: {
     textTransform: "none",
     color: "#959595",
@@ -84,11 +84,13 @@ export const CustomTab = styled(Tabs)(({ theme }) => ({
     fontSize: "14px",
     lineHeight: "21px",
     minHeight: "55px",
-    justifyContent: "start",
-    width: "100%"
+    paddingTop: "5px",
+    paddingBottom: "5px",
+    justifyContent: setJustifyContent,
+    width: setWidth
   },
   [`& .Mui-selected`]: {
-    color: "#0364FF",
+    color: "#0364FF !important",
     fontWeight: 600,
     fontSize: "14px",
     lineHeight: "21px",
@@ -107,7 +109,7 @@ export const CustomTab = styled(Tabs)(({ theme }) => ({
 
   [`& .MuiTabs-flexContainer`]: {
     alignItems: "start"
-  }
+    }
 }));
 
 
