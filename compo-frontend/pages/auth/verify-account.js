@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import { styled } from "@mui/material/styles";
 import { CustomTextField } from "../../components/core/CustomMUIComponents";
 
+import withAuth from './../../components/core/PrivateRoute';
 
 
 
@@ -17,7 +18,7 @@ const VerifyTextField = styled(CustomTextField)(({ theme }) => ({
   },
 }));
 
-export default function VerifyAccount() {
+const VerifyAccount =()=> {
   return (
     <div
       className="grid grid-cols-12 justify-center items-center"
@@ -107,3 +108,4 @@ export default function VerifyAccount() {
     </div>
   );
 }
+export default withAuth(VerifyAccount);

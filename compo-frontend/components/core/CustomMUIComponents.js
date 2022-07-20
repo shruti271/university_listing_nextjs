@@ -64,19 +64,19 @@ export const CustomSelect = styled(NativeSelect)(({ theme }) => ({
   },
 }));
 
-export const CustomBorderLinearProgress = styled(LinearProgress)(({ theme, setColor }) => ({
+export const CustomBorderLinearProgress = styled(LinearProgress)(({ theme, setcolor }) => ({
   height: 10,
   borderRadius: 5,
   backgroundColor: "#F9F9FA",
 
   [`& .${linearProgressClasses.bar}`]: {
     borderRadius: 5,
-    backgroundColor: setColor,
+    backgroundColor: setcolor,
   },
 }));
 
 
-export const CustomTab = styled(Tabs)(({ theme, setWidth, setJustifyContent }) => ({
+export const CustomTab = styled(Tabs)(({ theme, setwidth, setjustifycontent }) => ({
   [`& .MuiTab-root`]: {
     textTransform: "none",
     color: "#959595",
@@ -86,8 +86,8 @@ export const CustomTab = styled(Tabs)(({ theme, setWidth, setJustifyContent }) =
     minHeight: "55px",
     paddingTop: "5px",
     paddingBottom: "5px",
-    justifyContent: setJustifyContent,
-    width: setWidth
+    justifyContent: setjustifycontent,
+    width: setwidth
   },
   [`& .Mui-selected`]: {
     color: "#0364FF !important",

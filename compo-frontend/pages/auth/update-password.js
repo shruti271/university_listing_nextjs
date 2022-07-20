@@ -17,13 +17,13 @@ import { UpdatePasswords } from "../../services/auth";
 import { Alert, CircularProgress } from "@mui/material";
 import Router from "next/router";
 import { AuthTypeModal } from "../../components/core/Enum";
+import withAuth from './../../components/core/PrivateRoute';
 
-export default function UpdatePassword() {
+const UpdatePassword = () => {
   const router = useRouter();
 
   const { token } = router.query;
   console.log("tkn", token);
-  const [email, setEmail] = useState();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -41,17 +41,11 @@ export default function UpdatePassword() {
     getValues,
   } = useForm();
 
-  useEffect(() => {
-    const userEmail = localStorage.getItem("email");
-    setEmail(userEmail);
-  }, [token, email]);
-
   const onSubmit = async (data) => {
     console.log("dataaa", data);
     setLoading(true);
 
     UpdatePasswords({
-      email: email,
       token: token,
       password: data.password,
     }).then(
@@ -224,3 +218,4 @@ export default function UpdatePassword() {
     </div>
   );
 }
+export default withAuth(UpdatePassword);

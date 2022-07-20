@@ -6,18 +6,17 @@ import { Activation } from "../../services/auth";
 import { useEffect, useState } from "react";
 import { AuthTypeModal } from "../../components/core/Enum";
 import Router from "next/router";
+import withAuth from './../../components/core/PrivateRoute';
 
-export default function Activate() {
+const Activate = () => {
     const router = useRouter();
 
-    const [email, setEmail] = useState();
     const [verified, setVerified] = useState(false);
     const { token } = router.query;
 
 
     const activateEmail = () => {
         Activation({
-            email: email,
             token: token,
         }).then(
             (res) => {
@@ -31,12 +30,12 @@ export default function Activate() {
     };
 
     useEffect(() => {
-        const useremail = localStorage.getItem("email");
-        setEmail(useremail);
-        if (email && token) {
+        if (token) {
             activateEmail();
         }
-    }, [token, email]);
+    }, [token]);
+
+    console.log("token", token);
     return (
         <div
             className="grid grid-cols-12 justify-center items-center"
@@ -83,3 +82,4 @@ export default function Activate() {
         </div>
     );
 }
+export default withAuth(Activate);

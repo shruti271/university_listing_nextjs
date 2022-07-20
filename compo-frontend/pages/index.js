@@ -15,10 +15,10 @@ import { useState, useEffect } from "react";
 
 export default function Home() {
   const [modalType, setModalType] = useState("");
- 
-  useEffect(() => {
 
+  useEffect(() => {
     console.log("::::", window.history.state)
+
     if (window.history.state === "signin") {
 
       setModalType(window.history.state)

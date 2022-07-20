@@ -1,8 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import * as React from "react";
+import Router from "next/router";
 
 import HamburgerIcon from "../assets/hamburger-icon.svg";
 import CompositeLogo from "../assets/composite-logo.svg";
@@ -12,7 +13,7 @@ import PrimaryButton from "./PrimaryButton";
 import AuthModal from "../components/core/AuthModal";
 import { AuthTypeModal } from "./core/Enum";
 
-const Header = ({modalType}) => {
+const Header = ({ modalType }) => {
   const [isMenuOpen, setIsMenuOpen] = useState();
   const mobileMenuStyle = isMenuOpen ? "translate-x-0" : "translate-x-full";
   const handleMobileMenuClick = () => setIsMenuOpen(!isMenuOpen);
@@ -20,21 +21,35 @@ const Header = ({modalType}) => {
   const [authTypeModal, setauthTypeModal] = React.useState();
 
   const [open, setOpen] = React.useState(false);
-  
+  const [accessToken, setAccessToken] = React.useState();
+
+
   const router = useRouter();
+
+
+
   const setActiveLink = (path) => {
     return router.pathname === path
-    ? "text-[#06040A] hover:text-[#06040A]"
-    : "text-[#544E5D] hover:opacity-50";
+      ? "text-[#06040A] hover:text-[#06040A]"
+      : "text-[#544E5D] hover:opacity-50";
   };
   console.log("modalTypemodalType::", modalType)
-  
-  useEffect(()=>{
+
+  useEffect(() => {
     {
-      modalType === "signin" && 
-      setOpen(true), setauthTypeModal("signin");
+      modalType === "signin" &&
+        setOpen(true), setauthTypeModal("signin");
     }
   }, [modalType]);
+
+
+  useEffect(() => {
+
+
+    const getAccessToken = localStorage.getItem("access_token");
+    setAccessToken(getAccessToken);
+
+  }, [(typeof window !== "undefined") && localStorage.getItem("access_token")])
 
   return (
     <>
@@ -52,7 +67,7 @@ const Header = ({modalType}) => {
           </Link>
           <div className="flex items-center gap-8 lg:hidden">
             <div className="hidden md:block">
-              <PrimaryButton
+              {!accessToken && <><PrimaryButton
                 type="button"
                 isPrimary={false}
                 onClick={() => {
@@ -61,16 +76,27 @@ const Header = ({modalType}) => {
               >
                 Sign In
               </PrimaryButton>
-            </div>
-            <div className="hidden md:block">
-              <PrimaryButton
+
+                <PrimaryButton
+                  className="btn-shadow"
+                  type="button"
+                  onClick={() => {
+                    setOpen(true), setauthTypeModal(AuthTypeModal.Signup);
+                  }}
+                >
+                  Join Now
+                </PrimaryButton></>}
+
+              {accessToken && <PrimaryButton
+                isPrimary={false}
                 type="button"
                 onClick={() => {
-                  setOpen(true), setauthTypeModal(AuthTypeModal.Signup);
+                  localStorage.clear();
+                  setAccessToken("")
                 }}
               >
-                Join Now
-              </PrimaryButton>
+                Log Out
+              </PrimaryButton>}
             </div>
             <button type="button" className="relative w-5 h-5">
               <Image src={SearchIcon} alt="Search" layout="fill" />
@@ -122,7 +148,7 @@ const Header = ({modalType}) => {
                 </li>
               </ul>
               <ul className="flex items-center gap-3">
-                <PrimaryButton
+                {!accessToken && <><PrimaryButton
                   type="button"
                   isPrimary={false}
                   onClick={() => {
@@ -132,16 +158,29 @@ const Header = ({modalType}) => {
                   Sign In
                 </PrimaryButton>
 
-                <PrimaryButton
-                  className="btn-shadow"
+                  <PrimaryButton
+                    className="btn-shadow"
+                    type="button"
+                    onClick={() => {
+                      setOpen(true), setauthTypeModal(AuthTypeModal.Signup);
+                    }}
+                  >
+                    Join Now
+                  </PrimaryButton></>}
+
+                {accessToken && <PrimaryButton
+                  isPrimary={false}
                   type="button"
                   onClick={() => {
-                    setOpen(true), setauthTypeModal(AuthTypeModal.Signup);
+                    localStorage.clear();
+                    setAccessToken("")
                   }}
                 >
-                  Join Now
-                </PrimaryButton>
+                  Log Out
+                </PrimaryButton>}
               </ul>
+
+
               <AuthModal
                 open={open}
                 handleClose={() => {
