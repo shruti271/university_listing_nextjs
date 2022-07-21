@@ -87,8 +87,6 @@ const UniversityDetails = ({university}) => {
     },
   ];
 
-  console.log("university......", university);
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -239,19 +237,14 @@ const UniversityDetails = ({university}) => {
 
 // This function gets called at build time
 export async function getStaticPaths() {
-  // Call an external API endpoint to get posts
+  // Call an external API endpoint to get universities
   const res = await fetch('https://api.composite.digital/v1/universities/all/')
   const universities = await res.json()
 
-
-  // console.log("Got All University Data :-", universities)
-
-  // Get the paths we want to pre-render based on posts
+  // Get the paths we want to pre-render based on universities
   const paths = universities.map((university) => ({
     params: { id: university.id.toString() },
   }))
-
-  console.log("University Paths :-", paths);
 
   // We'll pre-render only these paths at build time.
   // { fallback: false } means other routes should 404.
@@ -260,14 +253,11 @@ export async function getStaticPaths() {
 
 // This also gets called at build time
 export async function getStaticProps({ params }) {
-  // params contains the post `id`.
-  // If the route is like /posts/1, then params.id is 1
+  // params contains the university `id`.
   const res = await fetch(`https://api.composite.digital/v1/universities/${params.id}`)
   const university = await res.json()
 
-  console.log("Got University Data :-", university)
-
-  // Pass post data to the page via props
+  // Pass university data to the page via props
   return { props: { university } }
 }
 
