@@ -1,9 +1,13 @@
 from django import views
 from django.urls import path
+
 from directory.views.views import  UniversitiesList, UniversityDetail, SearchUniversity, \
                     ProgramsList, ProgramsDetail, SearchProgram, \
                     ScholarshipsList, ScholarshipDetail, SearchScholarship, \
-                    GlobalSearch, collectData, collectScholarships, loadMasters
+                    GlobalSearch
+
+# Scraping scripts
+from directory.views.scrapers import collectData, collectScholarships, loadMasters
 
 
 urlpatterns = [
@@ -26,5 +30,6 @@ urlpatterns = [
     # Global search view (public)
     path('search/', GlobalSearch.as_view()),
 
+    # Change for each scraper
     path('collect-data/', loadMasters)
 ]
