@@ -160,3 +160,10 @@ h6 {
 .onboarding3-cover {
   background: url("../assets/reg-step-3.png") no-repeat center center fixed;
 }
+
+
+
+.cover-image > span {
+  height: inherit !important;
+}
+
