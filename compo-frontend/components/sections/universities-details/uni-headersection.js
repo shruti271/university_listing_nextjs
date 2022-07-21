@@ -3,7 +3,8 @@ import uniLogo from "../../../assets/uniLogo.svg";
 import heartIcon from "../../../assets/heart.svg";
 import { Box, Grid } from "@mui/material";
 
-export default function UniHeaderSection() {
+export default function UniHeaderSection({university}) {
+
   return (
     <div className="flex justify-center">
       <div className="grid grid-cols-12 w-full sm:w-[80%] rounded-xl bg-white pl-[4%] pr-[4%]">
@@ -16,7 +17,7 @@ export default function UniHeaderSection() {
               <div className="flex justify-between flex-wrap md:flex-nowrap">
                 <div className="flex flex-col mt-5">
                   <div className="font-semibold text-2xl text-[#000000]">
-                    University of Dubai.
+                    {university.name}
                   </div>
                   <div className=" text-[#363848]">
                     Specialty: Creative Design, Arts, Arts and Design
@@ -39,7 +40,7 @@ export default function UniHeaderSection() {
                     <Grid item>
                       <span className="bg-[#F1F1F5] p-2 rounded-md text-[0.625rem] whitespace-nowrap">
                         Location :{" "}
-                        <span className="font-bold"> Dubai,UAE </span>
+                        <span className="font-bold"> {university.location} </span>
                       </span>
                     </Grid>
                     <Grid item>

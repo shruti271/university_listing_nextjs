@@ -29,7 +29,7 @@ import UniAcademics from "../../components/sections/universities-details/uni-aca
 import ImportantDeadlines from "../../components/sections/universities-details/uni-deadlines";
 import UniHeaderSection from "../../components/sections/universities-details/uni-headersection";
 
-const UniversitiesDetails = () => {
+const UniversityDetails = ({university}) => {
   const [value, setValue] = React.useState(0);
 
   const universities = [
@@ -87,7 +87,7 @@ const UniversitiesDetails = () => {
     },
   ];
 
-  console.log("universities......", universities);
+  console.log("university......", university);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -138,7 +138,7 @@ const UniversitiesDetails = () => {
         >
         </section>
         <div className="bg-[#F9F9FA]">
-          <UniHeaderSection />
+          <UniHeaderSection university={university}/>
 
           <div className="w-[90%]  sm:w-10/12 mx-auto">
             <div className="rounded-lg sm:hidden mt-6 bg-white">
@@ -196,7 +196,7 @@ const UniversitiesDetails = () => {
 
               <div className="col-span-3 sm:col-span-2 mt-6">
                 <TabPanel value={value} index={0}>
-                  <UniOverview />
+                  <UniOverview university={university} />
                 </TabPanel>
                 <TabPanel value={value} index={1}>
                   <UniAcademics />
@@ -237,4 +237,38 @@ const UniversitiesDetails = () => {
   );
 };
 
-export default UniversitiesDetails;
+// This function gets called at build time
+export async function getStaticPaths() {
+  // Call an external API endpoint to get posts
+  const res = await fetch('https://api.composite.digital/v1/universities/all/')
+  const universities = await res.json()
+
+
+  // console.log("Got All University Data :-", universities)
+
+  // Get the paths we want to pre-render based on posts
+  const paths = universities.map((university) => ({
+    params: { id: university.id.toString() },
+  }))
+
+  console.log("University Paths :-", paths);
+
+  // We'll pre-render only these paths at build time.
+  // { fallback: false } means other routes should 404.
+  return { paths, fallback: false }
+}
+
+// This also gets called at build time
+export async function getStaticProps({ params }) {
+  // params contains the post `id`.
+  // If the route is like /posts/1, then params.id is 1
+  const res = await fetch(`https://api.composite.digital/v1/universities/${params.id}`)
+  const university = await res.json()
+
+  console.log("Got University Data :-", university)
+
+  // Pass post data to the page via props
+  return { props: { university } }
+}
+
+export default UniversityDetails;
