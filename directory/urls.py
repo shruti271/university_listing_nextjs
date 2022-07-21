@@ -1,6 +1,6 @@
 from django import views
 from django.urls import path
-from directory.views.views import  UniversitiesList, UniversityDetail, SearchUniversity, \
+from directory.views.views import  UniversitiesList, UniversityDetail, SearchUniversity, AllUniversitiesList, \
                     ProgramsList, ProgramsDetail, SearchProgram, \
                     ScholarshipsList, ScholarshipDetail, SearchScholarship, \
                     GlobalSearch, collectData, collectScholarships
@@ -10,6 +10,7 @@ urlpatterns = [
 
     # Universities views (public)
     path('universities/', UniversitiesList.as_view()),
+    path('universities/all/', AllUniversitiesList.as_view()),
     path('universities/<int:pk>', UniversityDetail.as_view()),
     path('universities/filter/', SearchUniversity.as_view()),
 
