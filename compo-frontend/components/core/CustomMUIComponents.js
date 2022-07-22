@@ -111,6 +111,42 @@ export const CustomTab = styled(Tabs)(({ theme }) => ({
 }));
 
 
+export const CustomMajorsTab = styled(Tabs)(({ theme, setwidth, setjustifycontent }) => ({
+  [`& .MuiTab-root`]: {
+    textTransform: "none",
+    color: "#959595",
+    fontWeight: 500,
+    fontSize: "14px",
+    lineHeight: "21px",
+    minHeight: "55px",
+    paddingTop: "10px",
+    paddingBottom: "0px",
+    justifyContent: setjustifycontent,
+    width: setwidth
+  },
+  [`& .Mui-selected`]: {
+    color: "#1C1D1F !important",
+    fontWeight: 600,
+    fontSize: "14px",
+    lineHeight: "21px",
+
+  },
+  [`& .MuiTabs-indicator`]: {
+    left: 0,
+    display: "flex",
+    justifyContent: "center",
+    backgroundColor: "#0364FF",
+    maxHeight: 25,
+    alignItems: "center",
+    marginTop: 15,
+    borderRadius: "0px 100px 100px 0px"
+  },
+
+  [`& .MuiTabs-flexContainer`]: {
+    alignItems: "start"
+  }
+}));
+
 
 export function TabPanel(props) {
   const { children, value, index, ...other } = props;
