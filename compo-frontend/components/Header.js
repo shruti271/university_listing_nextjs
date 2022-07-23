@@ -106,7 +106,7 @@ const Header = ({modalType}) => {
                 <li
                   className={`${setActiveLink("/majors")} text-sm xl:text-base`}
                 >
-                  <Link href="/majors">Programs</Link>
+                  <Link href="/majors">Majors</Link>
                 </li>
                 <li
                   className={`${setActiveLink(

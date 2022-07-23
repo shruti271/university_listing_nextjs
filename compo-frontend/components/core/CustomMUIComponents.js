@@ -114,28 +114,28 @@ export const CustomTab = styled(Tabs)(({ theme }) => ({
 export const CustomMajorsTab = styled(Tabs)(({ theme, setwidth, setjustifycontent }) => ({
   [`& .MuiTab-root`]: {
     textTransform: "none",
-    color: "#959595",
-    fontWeight: 500,
-    fontSize: "14px",
-    lineHeight: "21px",
+    color: "#757575",
+    fontWeight: 400,
+    fontSize: "16px",
+    lineHeight: "140%",
     minHeight: "55px",
-    paddingTop: "10px",
+    paddingTop: "15px",
     paddingBottom: "0px",
     justifyContent: setjustifycontent,
     width: setwidth
   },
   [`& .Mui-selected`]: {
     color: "#1C1D1F !important",
-    fontWeight: 600,
-    fontSize: "14px",
-    lineHeight: "21px",
+    fontWeight: 700,
+    fontSize: "16px",
+    lineHeight: "140%",
 
   },
   [`& .MuiTabs-indicator`]: {
     left: 0,
     display: "flex",
     justifyContent: "center",
-    backgroundColor: "#0364FF",
+    backgroundColor: "#0038FF",
     maxHeight: 25,
     alignItems: "center",
     marginTop: 15,

@@ -162,9 +162,6 @@ export default function Majors() {
                     <div className='col-span-8 lg:col-span-5 container mx-auto'>
 
                         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                            {/* <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" variant="scrollable"
-                                scrollButtons={false}
-                            > */}
 
                             <CustomMajorsTab
                                 variant="scrollable"
@@ -181,7 +178,7 @@ export default function Majors() {
                                 <Tab label="Univeristies offering this course" {...a11yProps(1)} />
                                 <Tab label="Announcements" {...a11yProps(2)} />
                             </CustomMajorsTab>
-                            {/* </Tabs> */}
+
                         </Box>
                     </div>
                 </div>
@@ -192,12 +189,12 @@ export default function Majors() {
 
                         <TabPanel value={value} index={0}>
                             <div className="pb-10 border-b border-[#1C1D1F] border-opacity-25	">
-                                <div className='font-bold text-2xl	text-[#000000]'>About this Course</div>
+                                <div className='font-bold text-2xl leading-[120%]	text-[#000000]'>About this Course</div>
                                 <div className='font-normal text-base mt-4	text-[#1C1D1F]'>Hello there! Ed here and welcome to the new tutorial. I am a subscriber of @Pencilmation and I laugh and enjoy their animation. I thought of making a tutorial just like theirs, and here it is! I have another video on the works and hopefully be done on or before Christmas. I've been pushing myself to finish it, but for safety, I made this. I hope you guys are doing great and for the upcoming new year. Cheers! -ed</div>
                             </div>
 
                             <div className="pb-10 border-b border-[#1C1D1F] border-opacity-25 mt-10	">
-                                <div className='font-bold text-2xl	text-[#000000]'>Description</div>
+                                <div className='font-bold text-2xl leading-[120%]	text-[#000000]'>Description</div>
                                 <div className='font-normal text-base mt-4	text-[#1C1D1F]'>This course is continually updated in response to student suggestions - it has been completely updated to Blender 2.8 or later.
                                     Blender is a fantastic platform which enables you to make AAA-quality models which can be exported to any game engine, 3D printer, or other software. Here are some of the reasons why you want to learn Blender with this online tutorial...
                                 </div>
@@ -210,7 +207,7 @@ export default function Majors() {
                             </div>
 
                             <div className='mt-14 '>
-                                <div className='font-bold text-2xl	text-[#000000]'>Recently added majors</div>
+                                <div className='font-bold text-2xl leading-[120%]	text-[#000000]'>Recently added majors</div>
 
                                 <div className="grid grid-cols-3 border mt-8 sm:w-[200%] lg:w-full">
                                     <div className='col-span-3 sm:col-span-1 major'>
@@ -228,7 +225,6 @@ export default function Majors() {
                                                 value="5"
                                                 readOnly
                                                 precision={0.5}
-
                                                 emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
                                             />
                                             <li className='text-[#1C1D1F] font-normal text-base'>14 Univeristy offerings</li>
@@ -318,7 +314,7 @@ export default function Majors() {
 
                     </div>
 
-                    <div className="col-span-8 sm:col-span-4 lg:col-span-3 sm:mt-8 p-2 lg:relative lg:top-[-34%]">
+                    <div className="col-span-8 sm:col-span-4 lg:col-span-3 sm:mt-8 p-2 lg:relative lg:top-[-33%]">
                         <TabPanel value={value} index={0} className="border ">
 
 
@@ -369,7 +365,8 @@ export default function Majors() {
                             </div>
                             <div className="mt-4">
                                 <button
-                                    className="bg-[#FFFFFF] w-full hover:bg-[#FFFFFF] text-[#1C1D1F] border-[#e0e0e0] border  py-2 items-center text-lg rounded font-semibold whitespace-nowrap  ">
+                                    className="bg-[#FFFFFF] w-full hover:bg-[#FFFFFF] text-[#1C1D1F] border-[#e0e0e0] border  p-2 rounded tracking-wide
+                                                        font-bold focus:outline-none focus:shadow-outline text-sm leading-[140%]  ">
                                     Share
                                 </button>
                             </div>
