@@ -8,6 +8,7 @@ import FavoriteButton from '../../FavoriteButton';
 
 const UniversityCard = ({ university }) => {
   const {
+    id,
     logo = dubaiUniLogo,
     location,
     institute_type = 'public',
@@ -19,6 +20,8 @@ const UniversityCard = ({ university }) => {
     linkApply = '/',
     linkView = '/',
   } = university;
+
+  console.log("University card :-", university);
   return (
     <div
       className="bg-colorWhite p-5 rounded-xl"
@@ -73,7 +76,7 @@ const UniversityCard = ({ university }) => {
             Apply Now
           </PrimaryButton>
         </Link>
-        <Link href={linkView} passHref>
+        <Link href={`/universities/${university.id}`} passHref>
           <PrimaryButton
             isPrimary={false}
             type="button"

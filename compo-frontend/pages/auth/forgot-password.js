@@ -14,8 +14,9 @@ import { useForm } from "react-hook-form";
 import { ResetPassword } from "../../services/auth";
 import { useState } from "react";
 import { Alert } from "@mui/material";
+import withAuth from './../../components/core/PrivateRoute';
 
-export default function ForgotPassword() {
+const ForgotPassword=() =>{
   const [loading, setLoading] = useState(false);
   const [invalid, setInvalid] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -153,3 +154,5 @@ export default function ForgotPassword() {
     </div>
   );
 }
+
+export default withAuth(ForgotPassword);

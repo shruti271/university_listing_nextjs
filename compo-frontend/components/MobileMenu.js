@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import * as React from 'react';
 import closeIcon from '../assets/close-icon.svg';
@@ -10,7 +10,8 @@ import AuthModal from './core/AuthModal';
 import { AuthTypeModal } from "./core/Enum";
 
 const MobileMenu = ({ className = '', handleMobileMenuClick, isMenuOpen }) => {
-  
+  const [accessToken, setAccessToken] = React.useState();
+
 
   const [authTypeModal, setauthTypeModal] = React.useState();
 
@@ -21,6 +22,13 @@ const MobileMenu = ({ className = '', handleMobileMenuClick, isMenuOpen }) => {
     return router.pathname === path ? "text-[#06040A]" : "text-[#544E5D]";
   };
 
+  useEffect(() => {
+
+
+    const getAccessToken = localStorage.getItem("access_token");
+    setAccessToken(getAccessToken);
+
+  }, [(typeof window !== "undefined") && localStorage.getItem("access_token")])
   return (
     <>
       {isMenuOpen && (
@@ -69,7 +77,7 @@ const MobileMenu = ({ className = '', handleMobileMenuClick, isMenuOpen }) => {
             >
               <Link href="/articles">Articles</Link>
             </li>
-            <li className={`md:hidden`} onClick={handleMobileMenuClick}>
+            {!accessToken && <li className={`md:hidden`} onClick={handleMobileMenuClick}>
               <PrimaryButton
                 type="button"
                 isPrimary={false}
@@ -79,8 +87,8 @@ const MobileMenu = ({ className = '', handleMobileMenuClick, isMenuOpen }) => {
               >
                 Sign In
               </PrimaryButton>
-            </li>
-            <li className={`md:hidden`} onClick={handleMobileMenuClick}>
+            </li>}
+            {!accessToken && <li className={`md:hidden`} onClick={handleMobileMenuClick}>
               <PrimaryButton
                 className="btn-shadow"
                 type="button"
@@ -90,7 +98,20 @@ const MobileMenu = ({ className = '', handleMobileMenuClick, isMenuOpen }) => {
               >
                 Join Now
               </PrimaryButton>
-            </li>
+            </li>}
+
+            {accessToken && <li className={`md:hidden`} onClick={handleMobileMenuClick}>
+              <PrimaryButton
+                isPrimary={false}
+                type="button"
+                onClick={() => {
+                  localStorage.clear();
+                  setAccessToken("");
+                }}
+              >
+                Log Out
+              </PrimaryButton>
+            </li>}
           </ul>
           <AuthModal
             open={open}

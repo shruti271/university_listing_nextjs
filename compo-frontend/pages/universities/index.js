@@ -1,6 +1,3 @@
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import withAuth from '../../components/core/PrivateRoute';
 import Filter from '../../components/filter/Filter';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
@@ -9,6 +6,7 @@ import HeroSection from '../../components/university-sections/hero-section/HeroS
 import UniversitiesSection from '../../components/university-sections/universities-section/UniversitiesSection';
 
 const Universities = () => {
+
   return (
     <>
       <Header />
@@ -31,3 +29,4 @@ const Universities = () => {
 };
 
 export default Universities;
+

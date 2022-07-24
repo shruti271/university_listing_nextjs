@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CoverImage from "../../../assets/login-cover.png";
 import LoginLogo from "../../../assets/LoginLogo.svg";
 import googleIcon from "../../../assets/googleIcon.svg";
@@ -34,6 +34,8 @@ export default function Signin({ changeAuthModalType, handleClose }) {
     watch,
     getValues,
   } = useForm();
+
+
   const onSubmit = (data) => {
     setLoading(true);
     signIn({
@@ -43,7 +45,6 @@ export default function Signin({ changeAuthModalType, handleClose }) {
       localStorage.setItem("access_token", res.data.access_token);
       localStorage.setItem("refresh_token", res.data.refresh_token);
       handleClose();
-      Router.push("/universities");
     }, (error) => {
       console.log("error....", error);
       setLoading(false);
