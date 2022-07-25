@@ -124,7 +124,10 @@ const ScholarshipDetails = ({ scholarship }) => {
                         Eligible Majors
                       </p>
                       {EligibleMajors?.map((itm) => (
-                        <div className="flex items-center text-[#06040A] font-normal text-md  mb-3 ">
+                        <div
+                          className="flex items-center text-[#06040A] font-normal text-md  mb-3 "
+                          key={itm}
+                        >
                           <CheckRoundedIcon
                             fontSize="inherit"
                             sx={{ marginRight: 2 }}
@@ -141,7 +144,10 @@ const ScholarshipDetails = ({ scholarship }) => {
                         Enrollment Level
                       </p>
                       {EnrollmentLevel?.map((itm) => (
-                        <div className="flex items-center text-[#06040A]  font-normal text-md mb-3">
+                        <div
+                          className="flex items-center text-[#06040A]  font-normal text-md mb-3"
+                          key={itm}
+                        >
                           <CheckRoundedIcon
                             fontSize="inherit"
                             sx={{ marginRight: 2 }}

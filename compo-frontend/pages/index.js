@@ -12,24 +12,20 @@ import ToolsSection from "../components/sections/tools-section/ToolsSection";
 
 import { useState, useEffect } from "react";
 
-
 export default function Home() {
   const [modalType, setModalType] = useState("");
 
   useEffect(() => {
-    console.log("::::", window.history.state)
+    console.log("::::", window.history.state);
 
     if (window.history.state === "signin") {
-
-      setModalType(window.history.state)
+      setModalType(window.history.state);
     } else {
-      setModalType("")
+      setModalType("");
     }
-
-  }, [])
+  }, []);
   return (
     <>
-
       <Header modalType={modalType} />
       <HeroSection />
       <AboutSection />
