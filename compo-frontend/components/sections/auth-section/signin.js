@@ -44,6 +44,7 @@ export default function Signin({ changeAuthModalType, handleClose }) {
     }).then((res) => {
       localStorage.setItem("access_token", res.data.access_token);
       localStorage.setItem("refresh_token", res.data.refresh_token);
+      localStorage.setItem("email", data.email);
       handleClose();
     }, (error) => {
       console.log("error....", error);
