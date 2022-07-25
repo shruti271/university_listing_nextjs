@@ -97,9 +97,9 @@ const ScholarshipDetails = ({ scholarship }) => {
           <div className="col-span-12">
             <div className="flex flex-col sm:flex-row">
               <div className="flex flex-col w-[100%] sm:w-[50%] md:w-[60%] mr-10">
-                <div className="bg-[#FFFFFF] rounded-lg">
+                <div className="bg-[#FFFFFF] rounded-lg min-h-auto h-auto sm:min-h-[650px] md:min-h-[650px] lg:min-h-auto ">
                   <p className="text-[#000000] text-xl font-semibold">Brief</p>
-                  <p className="text-[#06040A] font-normal text-lg mt-2 sm:h-[650px] lg:h-auto">
+                  <p className="text-[#06040A] font-normal text-lg mt-2  ">
                     {scholarship.description}
                   </p>
                 </div>
