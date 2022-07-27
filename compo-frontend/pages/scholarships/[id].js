@@ -96,8 +96,8 @@ const ScholarshipDetails = ({ scholarship }) => {
         <div className="grid grid-cols-12 mt-20 mx-[5%] lg:mx-[10%]">
           <div className="col-span-12">
             <div className="flex flex-col sm:flex-row">
-              <div className="flex flex-col w-[100%] sm:w-[50%] md:w-[60%] mr-10">
-                <div className="bg-[#FFFFFF] rounded-lg min-h-auto h-auto sm:min-h-[650px] md:min-h-[650px] lg:min-h-auto ">
+              <div className="flex flex-col w-[100%] sm:w-[50%] lg:w-[100%] mr-10">
+                <div className="bg-[#FFFFFF] rounded-lg min-h-auto h-auto sm:min-h-[650px] lg:min-h-[auto] ">
                   <p className="text-[#000000] text-xl font-semibold">Brief</p>
                   <p className="text-[#06040A] font-normal text-lg mt-2  ">
                     {scholarship.description}
@@ -171,7 +171,7 @@ const ScholarshipDetails = ({ scholarship }) => {
                   </div>
                 </div>
               </div>
-              <div className="w-[100%] sm:w-[50%] md:w-[60%] h-[460px] sm:h-[650px] mt-10 sm:mt-0 p-6 bg-cover auth-cover rounded-xl animate__animated animate__zoomIn relative">
+              <div className="w-[100%] sm:w-[50%] lg:w-[60%] h-[460px] sm:h-[650px] mt-10 sm:mt-0 p-6 bg-cover auth-cover rounded-xl animate__animated animate__zoomIn relative">
                 <div className="absolute w-[95%] lg:w-[75%] left-[50%] bottom-[25px] sm:bottom-[15px] translate-x-[-50%]">
                   <div className="text-[#FFFFFF] font-semibold text-2xl sm:text-3xl text-center !leading-10">
                     Start applying today!
