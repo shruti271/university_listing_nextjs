@@ -9,9 +9,10 @@ import { Alert } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 import Router from "next/router";
 import { AuthTypeModal } from "../../components/core/Enum";
+import withAuth from './../../components/core/PrivateRoute';
 
 
-export default function VerifyMail() {
+const VerifyMail=()=> {
     const [loading, setLoading] = useState(false);
     const [invalid, setInvalid] = useState(false);
     const [success, setSuccess] = useState(false);
@@ -110,3 +111,5 @@ export default function VerifyMail() {
         </div>
     )
 }
+
+export default withAuth(VerifyMail);

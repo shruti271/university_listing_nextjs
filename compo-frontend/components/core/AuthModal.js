@@ -1,12 +1,11 @@
-import Modal from "@mui/material/Modal";
 import * as React from "react";
 import { useState } from "react";
 
+import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Signin from "../sections/auth-section/signin";
 import Signup from "../sections/auth-section/signup";
 import OnBoarding from "../sections/auth-section/onboarding";
-
 import { AuthTypeModal } from "./Enum";
 
 const style = {
@@ -19,11 +18,11 @@ const style = {
     border: '0px solid #000',
     boxShadow: 24,
     borderRadius: "12px",
-    height:"auto"
+    height: "auto"
 };
 
 const AuthModal = (props) => {
-  const { open, handleClose, authTypeModal, setauthTypeModal } = props;
+    const { open, handleClose, authTypeModal, setauthTypeModal } = props;
 
     return (
         <Modal

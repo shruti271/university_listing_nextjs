@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import { AuthTypeModal } from "./Enum";
 
 
 const withAuth = (WrappedComponent) => {
@@ -10,8 +11,9 @@ const withAuth = (WrappedComponent) => {
             const accessToken = localStorage.getItem("access_token");
 
             // If there is no access token we redirect to "/" page.
-            if (!accessToken) {
-                Router.replace("/auth/signin");
+            if (accessToken) {
+
+                Router.push("/");
                 return null;
             }
 
