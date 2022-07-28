@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   @apply bg-colorWhite text-colorStone;
 }
 
@@ -129,7 +129,6 @@ h6 {
   }
 }
 
-
 .MuiPopover-paper {
   max-height: 25% !important;
 }
@@ -162,10 +161,30 @@ h6 {
 .onboarding3-cover {
   background: url("../assets/reg-step-3.png") no-repeat center center fixed;
 }
-
-
-
-.cover-image > span {
-  height: inherit !important;
+.profile-cover {
+  background: url("../assets/profile-cover.png") no-repeat center center fixed;
 }
 
+::-webkit-scrollbar {
+  width: 2px;
+  height: 2px;
+}
+
+/* Track */
+
+::-webkit-scrollbar-track {
+  background: #f1f2f6;
+}
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 5px;
+}
+
+.upgrade-cover > span {
+  position: absolute !important;
+  left: -4% !important;
+  bottom: -10% !important;
+}
