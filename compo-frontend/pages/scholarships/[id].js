@@ -3,13 +3,13 @@ import Footer from "../../components/Footer";
 import NewsletterSection from "../../components/sections/newsletter-section/NewsletterSection";
 import Image from "next/image";
 import heartIcon from "../../assets/heart.svg";
-import AmountIcon from "../../assets/amount-icon.svg";
-import CalenderIcon from "../../assets/calender-icon.svg";
-import AwardIcon from "../../assets/award-icon.svg";
 
 import EastIcon from "@mui/icons-material/East";
 import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
 import WaveElement from "../../components/svg/WaveElement";
+import CalenderIcon from "../../components/svg/CalenderIcon";
+import AmountIcon from "../../components/svg/AmountIcon";
+import AwardIcon from "../../components/svg/AwardIcon";
 
 const ScholarshipDetails = ({ scholarship }) => {
   console.log("scholarship::::::", scholarship);
@@ -64,30 +64,30 @@ const ScholarshipDetails = ({ scholarship }) => {
           <div className=" flex items-center justify-between container mx-auto">
             <div className="flex items-center justify-center flex-col">
               <div className="rounded-full bg-[#EB6B09] w-[75px] h-[75px] sm:w-[100px] sm:h-[100px] flex items-center justify-center">
-                <Image src={AmountIcon} alt="heart" />
+                <AmountIcon />
               </div>
-              <div className="text-[#06040A] mt-5 sm:mt-10 font-medium text-lg sm:text-xl lg:text-2xl	 text-center sm:flex items-center ">
-                <div>Amount:</div>
+              <div className="text-[#06040A] mt-5 sm:mt-10 font-medium text-lg sm:text-xl	 text-center sm:flex items-center ">
+                <div className="mr-1">Amount:</div>
                 <div>$500</div>
               </div>
             </div>
 
             <div className="flex items-center justify-center flex-col">
               <div className="rounded-full bg-[#EB6B09] w-[75px] h-[75px] sm:w-[100px] sm:h-[100px] flex items-center justify-center ">
-                <Image src={CalenderIcon} alt="heart" />
+                <CalenderIcon />
               </div>
-              <div className="text-[#06040A] mt-5 sm:mt-10 font-medium text-lg sm:text-xl lg:text-2xl text-center sm:flex items-center ">
-                <div>Deadline:</div>
+              <div className="text-[#06040A] mt-5 sm:mt-10 font-medium text-lg sm:text-xl text-center sm:flex items-center ">
+                <div className="mr-1">Deadline:</div>
                 <div>{scholarship.application_deadline}</div>
               </div>
             </div>
 
             <div className="flex items-center justify-center flex-col">
               <div className="rounded-full bg-[#EB6B09]  w-[75px] h-[75px] sm:w-[100px] sm:h-[100px] flex items-center justify-center">
-                <Image src={AwardIcon} alt="heart" />
+                <AwardIcon />
               </div>
-              <div className="text-[#06040A] mt-5 sm:mt-10 font-medium text-lg sm:text-xl lg:text-2xl text-center sm:flex items-center ">
-                <div>Award:</div>
+              <div className="text-[#06040A] mt-5 sm:mt-10 font-medium text-lg sm:text-xl  text-center sm:flex items-center ">
+                <div className="mr-1">Award:</div>
                 <div>1</div>
               </div>
             </div>
@@ -97,7 +97,7 @@ const ScholarshipDetails = ({ scholarship }) => {
           <div className="col-span-12">
             <div className="flex flex-col sm:flex-row">
               <div className="flex flex-col w-[100%] sm:w-[50%] lg:w-[100%] mr-10">
-                <div className="bg-[#FFFFFF] rounded-lg min-h-auto h-auto sm:min-h-[650px] lg:min-h-[auto] ">
+                <div className="bg-[#FFFFFF] rounded-lg min-h-auto h-auto sm:min-h-[650px] lg:min-h-[auto]">
                   <p className="text-[#000000] text-xl font-semibold">Brief</p>
                   <p className="text-[#06040A] font-normal text-lg mt-2  ">
                     {scholarship.description}
@@ -184,8 +184,8 @@ const ScholarshipDetails = ({ scholarship }) => {
                     <button
                       type="button"
                       className="bg-[#0364FF] hover:bg-[#0364FF] text-gray-100 p-2 sm:p-4 w-full rounded-xl tracking-wide
-                                                        font-semibold font-display focus:outline-none focus:shadow-outline 
-                                                        shadow-lg flex items-center justify-center"
+                                  font-semibold font-display focus:outline-none focus:shadow-outline shadow-lg 
+                                  flex items-center justify-center"
                     >
                       Sign up Now <EastIcon className="ml-2" />
                     </button>
