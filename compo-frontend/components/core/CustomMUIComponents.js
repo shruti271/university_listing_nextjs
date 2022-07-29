@@ -162,7 +162,7 @@ export function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box >
+        <Box sx={{p: props.padding}}>
           <Typography>{children}</Typography>
         </Box>
       )}
