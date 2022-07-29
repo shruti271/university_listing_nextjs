@@ -5,7 +5,7 @@ import StarIcon from "@mui/icons-material/Star";
 const MajorRecentCard = ({ itm }) => {
   return (
     <>
-      <div className="grid grid-cols-3 border mt-8 sm:w-[200%] lg:w-full">
+      <div className="grid grid-cols-3 border mt-8">
         <div className="col-span-3 sm:col-span-1 major">
           <Image src={itm} alt="majorImage" />
         </div>

@@ -4,9 +4,9 @@ import StarIcon from "@mui/icons-material/Star";
 
 const MajorHeader = () => {
   return (
-    <div className="pb-10 lg:pb-20 container mx-auto relative mt-32 ">
-      <div className="mt-[112px] grid grid-cols-8 gap-8 mx-[5%] sm:mx-[0%]">
-        <div className="col-span-8  pr-0 lg:col-span-5 lg:pr-16">
+    <div className="pb-10 lg:pb-20 ml-[5%] lg:ml-[5%]  relative mt-32 ">
+      <div className="mt-[130px] grid grid-cols-8 gap-8 mx-[5%] sm:mx-[0%]">
+        <div className="col-span-8  pr-0 lg:col-span-8 lg:pr-10">
           <div className="font-bold text-2xl sm:text-3xl text-[#000000]">
             Art/Art Studies, General
           </div>
@@ -32,12 +32,9 @@ const MajorHeader = () => {
                 value="5"
                 readOnly
                 precision={0.5}
-                sx={{color:"#FFCC00"}}
+                sx={{ color: "#FFCC00" }}
                 emptyIcon={
-                  <StarIcon
-                    style={{ opacity: 0.55}}
-                    fontSize="inherit"
-                  />
+                  <StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />
                 }
               />
               <div className="ml-2 text-[#000000]">
@@ -52,12 +49,12 @@ const MajorHeader = () => {
           </div>
         </div>
       </div>
-      <div className="w-full  h-full left-[0%] bottom-[-5%] translate-x-[-10%]  absolute -z-10 rotate-6">
+      {/* <div className="w-full  h-full left-[0%] bottom-[-5%] translate-x-[-10%]  absolute -z-10 rotate-6">
         <WaveElement />
       </div>
       <div className="w-full  h-full left-[10%] bottom-[70%] translate-x-[-50%] absolute -z-10 -rotate-6">
         <WaveElement />
-      </div>
+      </div> */}
     </div>
   );
 };

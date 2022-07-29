@@ -1,6 +1,3 @@
-import majorImage from "../../../assets/major-img.png";
-import majorImage1 from "../../../assets/major-img1.png";
-import MajorRecentCard from "./major-recent-card";
 
 const MajorOverview = () => {
   return (
@@ -40,14 +37,7 @@ const MajorOverview = () => {
         </div>
       </div>
 
-      <div className="mt-14 ">
-        <div className="font-bold text-2xl leading-[120%]	text-[#000000]">
-          Recently added majors
-        </div>
-        {[majorImage, majorImage1, majorImage1]?.map((itm) => (
-          <MajorRecentCard itm={itm} />
-        ))}
-      </div>
+      
     </>
   );
 };

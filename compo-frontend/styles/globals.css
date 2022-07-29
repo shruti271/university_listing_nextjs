@@ -120,14 +120,6 @@ h6 {
 .carousel-image > span {
   margin-right: 25px !important;
 }
-@media only screen and (max-width: 1200px) {
-  .uni-logo > span {
-    width: 150px !important;
-    height: 150px !important;
-    left: 25px !important;
-    top: -50px !important;
-  }
-}
 
 
 .MuiPopover-paper {
@@ -162,12 +154,3 @@ h6 {
 .onboarding3-cover {
   background: url("../assets/reg-step-3.png") no-repeat center center fixed;
 }
-
-.major > span {
-  height: 100% !important;
-}
-
-.cover-image > span {
-  height: inherit !important;
-}
-
