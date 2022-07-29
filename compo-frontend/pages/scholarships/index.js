@@ -232,7 +232,7 @@ export default function Scholarships() {
                     </div>
                   </div>
                 </div>
-                <div className="w-[100%] sm:w-[50%] md:w-[60%] h-[460px] sm:h-[650px] mt-10 sm:mt-0 p-6 bg-cover auth-cover rounded-xl animate__animated animate__zoomIn relative">
+                <div className="w-[100%] sm:w-[50%] md:w-[60%] h-[460px] sm:h-[650px] mt-10 sm:mt-0 p-6 scholarship-bg-cover scholarship-auth-cover rounded-xl animate__animated animate__zoomIn relative">
                   {/* <Image src={CoverImage} alt="CoverImage" className="rounded-xl" /> */}
                   <div className="absolute w-[95%] lg:w-[75%] left-[50%] bottom-[25px] sm:bottom-[15px] translate-x-[-50%]">
                     <div className="text-[#FFFFFF] font-semibold text-2xl sm:text-3xl text-center !leading-10">
