@@ -41,12 +41,12 @@ export default function RangeSlider() {
         step={5000}
         getAriaValueText={valuetext}
         valueLabelFormat={valuetext}
-        className="text-[#131045]"
+        className="!text-[#131045]"
         disableSwap
         componentsProps={{
           valueLabel: {
             className:
-              'bg-[#F4F4F4] top-14 text-colorBlack before:-top-2 before:bottom-auto',
+              '!bg-[#F4F4F4] !top-14 !text-colorBlack before:!-top-2 before:!bottom-auto',
           },
         }}
       />

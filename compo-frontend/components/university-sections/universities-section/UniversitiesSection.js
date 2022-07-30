@@ -27,7 +27,7 @@ const UniversitiesSection = ({ className = '' }) => {
           <UniversityCard key={university.id} university={university} />
         ))}
       </div>
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col md:flex-row gap-6 md:items-center md:justify-between">
         <span className="text-colorBlack">
           Showing {universities.length} of {countUniversities}
         </span>
