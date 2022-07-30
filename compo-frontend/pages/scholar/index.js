@@ -1,4 +1,6 @@
 import FavoriteButton from '../../components/FavoriteButton';
+import Filter from '../../components/filter/Filter';
+import CardInteractive from '../../components/filter/shared/card-interactive/CardInteractive';
 import DirectoryLayout from '../../components/layouts/DirectoryLayout';
 import UpperFilter from '../../components/upper-filter/UpperFilter';
 
@@ -15,9 +17,25 @@ const Scholarships = () => {
   return (
     <DirectoryLayout>
       <section className="lg:basis-[200px] xl:basis-[350px] hidden lg:block pt-14 pb-20">
-        filter
+        <h2 className="font-semibold text-3xl xl:text-5xl mb-6">
+          Filter option
+        </h2>
+        <div className="flex flex-col space-y-4">
+          <CardInteractive
+            cardTitle="Application Deadline"
+            bottomComponent={<h3>option</h3>}
+          />
+          <CardInteractive
+            cardTitle="Minimum Award Amount"
+            bottomComponent={<h3>option</h3>}
+          />
+          <CardInteractive
+            cardTitle="Application Deadline"
+            bottomComponent={<h3>option</h3>}
+          />
+        </div>
       </section>
-      <section className={`pt-32 pb-11`}>
+      <section className={`pt-32 pb-11 flex-1`}>
         <UpperFilter />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-11 mb-14">
           {scholarshipCards.map((card) => (
