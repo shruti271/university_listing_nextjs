@@ -1,8 +1,8 @@
 import FavoriteButton from '../../components/FavoriteButton';
-import Filter from '../../components/filter/Filter';
 import CardInteractive from '../../components/filter/shared/card-interactive/CardInteractive';
 import DirectoryLayout from '../../components/layouts/DirectoryLayout';
 import UpperFilter from '../../components/upper-filter/UpperFilter';
+import heroBg from '../../assets/scholarship-page/hero-bg.png';
 
 const scholarshipCards = [
   { id: 1 },
@@ -15,7 +15,7 @@ const scholarshipCards = [
 
 const Scholarships = () => {
   return (
-    <DirectoryLayout>
+    <DirectoryLayout heroBg={heroBg.src} pageTitle="Scholarships">
       <section className="lg:basis-[200px] xl:basis-[350px] hidden lg:block pt-14 pb-20">
         <h2 className="font-semibold text-3xl xl:text-5xl mb-6">
           Filter option

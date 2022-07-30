@@ -4,7 +4,11 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { debounce } from 'lodash';
-import { filterByStudentBodySize } from '../../../../store/university/universitySlice';
+import {
+  filterByStudentBodySize,
+  resetFilter,
+  resetPage,
+} from '../../../../store/university/universitySlice';
 import {
   FILTER_MAX_BODY_SIZE,
   FILTER_MIN_BODY_SIZE,
@@ -22,6 +26,7 @@ export default function RangeSlider() {
 
   const handleChange = debounce((event, newValue) => {
     setValue(newValue);
+    dispatch(resetPage());
   }, 20);
 
   const dispatch = useDispatch();

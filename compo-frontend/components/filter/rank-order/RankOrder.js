@@ -8,7 +8,10 @@ import {
   FILTER_RANK_ORDER_MAX,
   FILTER_RANK_ORDER_MIN,
 } from '../../../data/constants';
-import { filterByRankOrder } from '../../../store/university/universitySlice';
+import {
+  filterByRankOrder,
+  resetPage,
+} from '../../../store/university/universitySlice';
 
 const RankOrder = () => {
   const [value, setValue] = useState([
@@ -20,6 +23,7 @@ const RankOrder = () => {
 
   const handleChange = debounce((event, newValue) => {
     setValue(newValue);
+    dispatch(resetPage());
   }, 15);
 
   useEffect(() => {

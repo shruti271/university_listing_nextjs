@@ -3,7 +3,11 @@ import TextField from '@mui/material/TextField';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { filterMainSearch } from '../../../store/university/universitySlice';
+import {
+  filterMainSearch,
+  resetFilter,
+  resetPage,
+} from '../../../store/university/universitySlice';
 
 const MainSearch = () => {
   const [query, setQuery] = useState('');
@@ -12,6 +16,7 @@ const MainSearch = () => {
 
   const handleChange = (e) => {
     setQuery(e.target.value);
+    dispatch(resetPage());
   };
 
   useEffect(() => {

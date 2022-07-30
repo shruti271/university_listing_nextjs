@@ -1,9 +1,15 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUniversities } from '../../../store/university/universitySlice';
-import PaginationControlled from '../../PaginationControlled/PaginationControlled';
+import {
+  appendToUniversities,
+  getUniversities,
+  incrementPage,
+  resetFilter,
+} from '../../../store/university/universitySlice';
+import CircularProgress from '@mui/material/CircularProgress';
 import UpperFilter from '../../upper-filter/UpperFilter';
 import UniversityCard from './UniversityCard';
+import { useInView } from 'react-intersection-observer';
 
 const UniversitiesSection = ({ className = '' }) => {
   const dispatch = useDispatch();
@@ -11,33 +17,57 @@ const UniversitiesSection = ({ className = '' }) => {
   const universities = useSelector(
     (state) => state.universities.filteredUniversities
   );
-  const countUniversities = useSelector(
-    (state) => state.universities.countUniversities
-  );
+
+  const isLoading = useSelector((state) => state.universities.pending);
+  const currentPage = useSelector((state) => state.universities.currentPage);
+
+  const handleAppend = () => {
+    dispatch(appendToUniversities({ universities, page: currentPage }));
+  };
+
+  const { ref, inView } = useInView({
+    threshold: 0,
+  });
 
   useEffect(() => {
     dispatch(getUniversities());
   }, []);
 
+  useEffect(() => {
+    if (inView && universities.length) {
+      dispatch(incrementPage());
+    }
+  }, [inView]);
+
+  useEffect(() => {
+    if (currentPage > 1)
+      dispatch(appendToUniversities({ universities, page: currentPage }));
+  }, [currentPage]);
+
   return (
     <section className={`pt-32 pb-11 ${className}`}>
       <UpperFilter />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-11 mb-14">
-        {universities?.map((university) => (
-          <UniversityCard key={university.id} university={university} />
-        ))}
+        {universities?.map((university, index) =>
+          universities.length === index + 1 ? (
+            <UniversityCard key={university.id} university={university} />
+          ) : (
+            <UniversityCard key={university.id} university={university} />
+          )
+        )}
       </div>
-      <div className="flex flex-col md:flex-row gap-6 md:items-center md:justify-between">
-        <span className="text-colorBlack">
-          Showing {universities.length} of {countUniversities}
-        </span>
-        <div>
-          <PaginationControlled
-            countPages={countUniversities}
-            itemsPerPage={20}
-          />
+      <button
+        className="p-2 border mb-2 opacity-0"
+        onClick={handleAppend}
+        ref={ref}
+      >
+        append
+      </button>
+      {isLoading && (
+        <div className="text-center">
+          <CircularProgress />
         </div>
-      </div>
+      )}
     </section>
   );
 };

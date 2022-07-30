@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { filterByNameAndLocation } from '../../../store/university/universitySlice';
+import {
+  filterByNameAndLocation,
+  resetFilter,
+  resetPage,
+} from '../../../store/university/universitySlice';
 
 export const useSearchLocation = () => {
   const [countryName, setCountryName] = useState('');
@@ -11,6 +15,7 @@ export const useSearchLocation = () => {
       target: { value },
     } = e;
     setCountryName(value);
+    dispatch(resetPage());
   };
 
   useEffect(() => {
