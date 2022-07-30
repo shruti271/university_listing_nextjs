@@ -40,7 +40,7 @@ const RankOrder = () => {
           value={value}
           valueLabelDisplay="on"
           onChange={handleChange}
-          className="!text-[#131045]"
+          className="!text-colorPrimary"
           step={10}
           disableSwap
           componentsProps={{

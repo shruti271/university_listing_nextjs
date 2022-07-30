@@ -46,7 +46,7 @@ export default function RangeSlider() {
         step={5000}
         getAriaValueText={valuetext}
         valueLabelFormat={valuetext}
-        className="!text-[#131045]"
+        className="!text-colorPrimary"
         disableSwap
         componentsProps={{
           valueLabel: {
