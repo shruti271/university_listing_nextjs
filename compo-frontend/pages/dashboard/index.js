@@ -109,6 +109,7 @@ export default function Dashboard() {
                 value={80}
                 size={100}
                 color="#8743DF"
+                strokeLinecap="round"
               />
             </div>
             <div className="flex flex-col items-center justify-center mt-6">

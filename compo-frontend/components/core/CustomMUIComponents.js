@@ -228,19 +228,26 @@ export const CustomAvatarGroup = styled(AvatarGroup)(({ theme }) => ({
   },
 }));
 
+const CustomCircularProgress = styled(CircularProgress)(
+  ({ theme, setcolor, setstrokeLinecap }) => ({
+    [`& .MuiCircularProgress-circle`]: {
+      strokeLinecap: setstrokeLinecap,
+      color: setcolor,
+    },
+  })
+);
 
 export function CircularProgressWithLabel(props) {
   return (
     <Box sx={{ position: "relative", display: "inline-flex" }}>
-      <CircularProgress
+      <CustomCircularProgress
         variant="determinate"
+        disableShrink
         value={props.value}
         size={props.size}
+        setcolor={props.color}
+        setstrokeLinecap={props.strokeLinecap}
         thickness={2.5}
-        sx={{
-          color: `${props.color}`,
-          borderRadius: "20px !important",
-        }}
       />
       <Box
         sx={{
