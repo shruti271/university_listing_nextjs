@@ -1,10 +1,10 @@
 import { styled } from "@mui/material/styles";
 import TextField from "@mui/material/TextField";
 
-import NativeSelect from '@mui/material/NativeSelect';
+import NativeSelect from "@mui/material/NativeSelect";
 import { LinearProgress, linearProgressClasses, Tabs } from "@mui/material";
-import PropTypes from 'prop-types';
-import { Box, Typography } from '@mui/material';
+import PropTypes from "prop-types";
+import { Box, Typography } from "@mui/material";
 import StepConnector, {
   stepConnectorClasses,
 } from "@mui/material/StepConnector";
@@ -15,7 +15,6 @@ import VideoLabelIcon from "@mui/icons-material/VideoLabel";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
-
 
 export const CustomTextField = styled(TextField)(({ theme }) => ({
   [`& .MuiInput-input`]: {
@@ -37,8 +36,6 @@ export const CustomTextField = styled(TextField)(({ theme }) => ({
   [`& .MuiInputLabel-root.Mui-focused`]: {
     color: "#544E5D",
   },
-
-
 }));
 
 export const CustomSelect = styled(NativeSelect)(({ theme }) => ({
@@ -64,55 +61,55 @@ export const CustomSelect = styled(NativeSelect)(({ theme }) => ({
   },
 }));
 
-export const CustomBorderLinearProgress = styled(LinearProgress)(({ theme, setcolor }) => ({
-  height: 10,
-  borderRadius: 5,
-  backgroundColor: "#F9F9FA",
-
-  [`& .${linearProgressClasses.bar}`]: {
+export const CustomBorderLinearProgress = styled(LinearProgress)(
+  ({ theme, setcolor }) => ({
+    height: 10,
     borderRadius: 5,
-    backgroundColor: setcolor,
-  },
-}));
+    backgroundColor: "#F9F9FA",
 
+    [`& .${linearProgressClasses.bar}`]: {
+      borderRadius: 5,
+      backgroundColor: setcolor,
+    },
+  })
+);
 
-export const CustomTab = styled(Tabs)(({ theme, setwidth, setjustifycontent }) => ({
-  [`& .MuiTab-root`]: {
-    textTransform: "none",
-    color: "#959595",
-    fontWeight: 500,
-    fontSize: "14px",
-    lineHeight: "21px",
-    minHeight: "55px",
-    paddingTop: "5px",
-    paddingBottom: "5px",
-    justifyContent: setjustifycontent,
-    width: setwidth
-  },
-  [`& .Mui-selected`]: {
-    color: "#0364FF !important",
-    fontWeight: 600,
-    fontSize: "14px",
-    lineHeight: "21px",
+export const CustomTab = styled(Tabs)(
+  ({ theme, setwidth, setjustifycontent }) => ({
+    [`& .MuiTab-root`]: {
+      textTransform: "none",
+      color: "#959595",
+      fontWeight: 500,
+      fontSize: "14px",
+      lineHeight: "21px",
+      minHeight: "55px",
+      paddingTop: "5px",
+      paddingBottom: "5px",
+      justifyContent: setjustifycontent,
+      width: setwidth,
+    },
+    [`& .Mui-selected`]: {
+      color: "#0364FF !important",
+      fontWeight: 600,
+      fontSize: "14px",
+      lineHeight: "21px",
+    },
+    [`& .MuiTabs-indicator`]: {
+      left: 0,
+      display: "flex",
+      justifyContent: "center",
+      backgroundColor: "#0364FF",
+      maxHeight: 25,
+      alignItems: "center",
+      marginTop: 15,
+      borderRadius: "0px 100px 100px 0px",
+    },
 
-  },
-  [`& .MuiTabs-indicator`]: {
-    left: 0,
-    display: "flex",
-    justifyContent: "center",
-    backgroundColor: "#0364FF",
-    maxHeight: 25,
-    alignItems: "center",
-    marginTop: 15,
-    borderRadius: "0px 100px 100px 0px"
-  },
-
-  [`& .MuiTabs-flexContainer`]: {
-    alignItems: "start"
-    }
-}));
-
-
+    [`& .MuiTabs-flexContainer`]: {
+      alignItems: "start",
+    },
+  })
+);
 
 export function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -126,7 +123,7 @@ export function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box >
+        <Box>
           <Typography>{children}</Typography>
         </Box>
       )}
@@ -143,11 +140,9 @@ TabPanel.propTypes = {
 export function a11yProps(index) {
   return {
     id: `vertical-tab-${index}`,
-    'aria-controls': `vertical-tabpanel-${index}`,
+    "aria-controls": `vertical-tabpanel-${index}`,
   };
 }
-
-
 
 export const QontoConnector = styled(StepConnector)(({ theme }) => ({
   [`&.${stepConnectorClasses.alternativeLabel}`]: {
