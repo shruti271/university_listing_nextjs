@@ -11,25 +11,37 @@ import TestimonialsSection from "../components/sections/testimonials-section/Tes
 import ToolsSection from "../components/sections/tools-section/ToolsSection";
 
 import { useState, useEffect } from "react";
-
+import { useRouter } from "next/router";
 
 export default function Home() {
   const [modalType, setModalType] = useState("");
 
+  const router = useRouter();
+
   useEffect(() => {
-    console.log("::::", window.history.state)
+    console.log("::::", window.history.state);
 
     if (window.history.state === "signin") {
-
-      setModalType(window.history.state)
+      setModalType(window.history.state);
     } else {
-      setModalType("")
+      setModalType("");
     }
+  }, []);
 
-  }, [])
+  const forceReload = () => {
+    router.reload();
+  };
+
+  useEffect(() => {
+    window.addEventListener("storage", () => {
+      // When local storage changes, dump the list to
+      console.log(":::----", localStorage.getItem("access_token"));
+      forceReload();
+    });
+  }, [typeof window !== "undefined" && localStorage.getItem("access_token")]);
+
   return (
     <>
-
       <Header modalType={modalType} />
       <HeroSection />
       <AboutSection />

@@ -1,10 +1,10 @@
 import { styled } from "@mui/material/styles";
 import TextField from "@mui/material/TextField";
 
-import NativeSelect from '@mui/material/NativeSelect';
+import NativeSelect from "@mui/material/NativeSelect";
 import { LinearProgress, linearProgressClasses, Tabs } from "@mui/material";
-import PropTypes from 'prop-types';
-import { Box, Typography } from '@mui/material';
+import PropTypes from "prop-types";
+import { Box, Typography } from "@mui/material";
 import StepConnector, {
   stepConnectorClasses,
 } from "@mui/material/StepConnector";
@@ -15,7 +15,8 @@ import VideoLabelIcon from "@mui/icons-material/VideoLabel";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
-
+import { AvatarGroup } from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export const CustomTextField = styled(TextField)(({ theme }) => ({
   [`& .MuiInput-input`]: {
@@ -37,8 +38,6 @@ export const CustomTextField = styled(TextField)(({ theme }) => ({
   [`& .MuiInputLabel-root.Mui-focused`]: {
     color: "#544E5D",
   },
-
-
 }));
 
 export const CustomSelect = styled(NativeSelect)(({ theme }) => ({
@@ -64,43 +63,80 @@ export const CustomSelect = styled(NativeSelect)(({ theme }) => ({
   },
 }));
 
-export const CustomBorderLinearProgress = styled(LinearProgress)(({ theme, setcolor }) => ({
-  height: 10,
-  borderRadius: 5,
-  backgroundColor: "#F9F9FA",
-
-  [`& .${linearProgressClasses.bar}`]: {
+export const CustomBorderLinearProgress = styled(LinearProgress)(
+  ({ theme, setcolor }) => ({
+    height: 10,
     borderRadius: 5,
-    backgroundColor: setcolor,
-  },
-}));
+    backgroundColor: "#F9F9FA",
 
+    [`& .${linearProgressClasses.bar}`]: {
+      borderRadius: 5,
+      backgroundColor: setcolor,
+    },
+  })
+);
 
-export const CustomTab = styled(Tabs)(({ theme, setwidth, setjustifycontent }) => ({
+export const CustomTab = styled(Tabs)(
+  ({ theme, setwidth, setjustifycontent }) => ({
+    [`& .MuiTab-root`]: {
+      textTransform: "none",
+      color: "#959595",
+      fontWeight: 500,
+      fontSize: "14px",
+      lineHeight: "21px",
+      minHeight: "55px",
+      paddingTop: "5px",
+      paddingBottom: "5px",
+      justifyContent: setjustifycontent,
+      width: setwidth,
+    },
+    [`& .Mui-selected`]: {
+      color: "#0364FF !important",
+      fontWeight: 600,
+      fontSize: "14px",
+      lineHeight: "21px",
+    },
+    [`& .MuiTabs-indicator`]: {
+      left: 0,
+      display: "flex",
+      justifyContent: "center",
+      backgroundColor: "#0364FF",
+      maxHeight: 25,
+      alignItems: "center",
+      marginTop: 15,
+      borderRadius: "0px 100px 100px 0px",
+    },
+    [`& .MuiTabs-flexContainer`]: {
+      alignItems: "start",
+    },
+  })
+);
+
+export const CustomMajorsTab = styled(Tabs)(({ theme, setwidth, setjustifycontent }) => ({
   [`& .MuiTab-root`]: {
     textTransform: "none",
-    color: "#959595",
-    fontWeight: 500,
-    fontSize: "14px",
-    lineHeight: "21px",
+    color: "#757575",
+    fontWeight: 400,
+    fontSize: "16px",
+    lineHeight: "140%",
     minHeight: "55px",
-    paddingTop: "5px",
-    paddingBottom: "5px",
+    paddingTop: "15px",
+    paddingBottom: "0px",
     justifyContent: setjustifycontent,
     width: setwidth
   },
   [`& .Mui-selected`]: {
-    color: "#0364FF !important",
-    fontWeight: 600,
-    fontSize: "14px",
-    lineHeight: "21px",
+    color: "#1C1D1F !important",
+    fontWeight: 700,
+    fontSize: "16px",
+    lineHeight: "140%",
 
   },
   [`& .MuiTabs-indicator`]: {
     left: 0,
     display: "flex",
     justifyContent: "center",
-    backgroundColor: "#0364FF",
+    backgroundColor: "#0038FF",
     maxHeight: 25,
     alignItems: "center",
     marginTop: 15,
@@ -109,10 +145,8 @@ export const CustomTab = styled(Tabs)(({ theme, setwidth, setjustifycontent }) =
 
   [`& .MuiTabs-flexContainer`]: {
     alignItems: "start"
-    }
+  }
 }));
-
-
 
 export function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -126,7 +160,7 @@ export function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box >
+        <Box sx={{p: props.padding}}>
           <Typography>{children}</Typography>
         </Box>
       )}
@@ -143,11 +177,9 @@ TabPanel.propTypes = {
 export function a11yProps(index) {
   return {
     id: `vertical-tab-${index}`,
-    'aria-controls': `vertical-tabpanel-${index}`,
+    "aria-controls": `vertical-tabpanel-${index}`,
   };
 }
-
-
 
 export const QontoConnector = styled(StepConnector)(({ theme }) => ({
   [`&.${stepConnectorClasses.alternativeLabel}`]: {
@@ -221,4 +253,63 @@ QontoStepIcon.propTypes = {
    * @default false
    */
   completed: PropTypes.bool,
+};
+
+export const CustomAvatarGroup = styled(AvatarGroup)(({ theme }) => ({
+  [`& .MuiAvatarGroup-avatar`]: {
+    width: "24px",
+    height: "24px",
+    fontSize: "1rem",
+  },
+}));
+
+const CustomCircularProgress = styled(CircularProgress)(
+  ({ theme, setcolor, setstrokeLinecap }) => ({
+    [`& .MuiCircularProgress-circle`]: {
+      strokeLinecap: setstrokeLinecap,
+      color: setcolor,
+    },
+  })
+);
+
+export function CircularProgressWithLabel(props) {
+  return (
+    <Box sx={{ position: "relative", display: "inline-flex" }}>
+      <CustomCircularProgress
+        variant="determinate"
+        disableShrink
+        value={props.value}
+        size={props.size}
+        setcolor={props.color}
+        setstrokeLinecap={props.strokeLinecap}
+        thickness={2.5}
+      />
+      <Box
+        sx={{
+          top: 0,
+          left: 0,
+          bottom: 0,
+          right: 0,
+          padding: 2,
+          position: "absolute",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Typography variant="caption" component="div" color="text.secondary">
+          {props.profile}
+        </Typography>
+      </Box>
+    </Box>
+  );
+}
+
+CircularProgressWithLabel.propTypes = {
+  /**
+   * The value of the progress indicator for the determinate variant.
+   * Value between 0 and 100.
+   * @default 0
+   */
+  value: PropTypes.number.isRequired,
 };

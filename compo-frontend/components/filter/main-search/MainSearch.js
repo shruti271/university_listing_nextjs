@@ -12,6 +12,8 @@ import {
 const MainSearch = () => {
   const [query, setQuery] = useState('');
 
+const MainSearch = ({ title = "" }) => {
+  const [query, setQuery] = useState("");
   const dispatch = useDispatch();
 
   const handleChange = (e) => {
@@ -25,7 +27,7 @@ const MainSearch = () => {
 
   return (
     <CardInteractive
-      cardTitle="Search By Name"
+      cardTitle={title || "Search By Name"}
       bottomComponent={
         <TextField
           id="outlined-search"
