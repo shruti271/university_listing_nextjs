@@ -1,6 +1,6 @@
-import Head from 'next/head';
-import { Provider } from 'react-redux';
-import Script from 'next/script';
+import Head from "next/head";
+import { Provider } from "react-redux";
+import Script from "next/script";
 
 import store from '../store/store';
 import '../styles/globals.css';
