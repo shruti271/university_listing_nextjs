@@ -7,7 +7,6 @@ import { filterMainSearch } from "../../../store/university/universitySlice";
 
 const MainSearch = ({ title = "" }) => {
   const [query, setQuery] = useState("");
-  console.log(":::", title);
   const dispatch = useDispatch();
 
   const handleChange = (e) => {

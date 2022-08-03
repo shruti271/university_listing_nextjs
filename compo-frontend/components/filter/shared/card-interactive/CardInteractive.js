@@ -1,20 +1,29 @@
-import CardWrapper from '../card-wrapper/CardWrapper';
-import FilterTitle from '../filter-title/FilterTitle';
-import { useState } from 'react';
+import CardWrapper from "../card-wrapper/CardWrapper";
+import FilterTitle from "../filter-title/FilterTitle";
+import { useState } from "react";
 
-const CardInteractive = ({ cardTitle = '', bottomComponent }) => {
-  const [cardOpen, setCardOpen] = useState(true);
+const CardInteractive = ({
+  cardTitle = "",
+  bottomComponent,
+  borderNone,
+  titleClass,
+}) => {
+  const [cardOpen, setCardOpen] = useState(false);
   const handleOpenClick = () => setCardOpen(!cardOpen);
 
   return (
-    <CardWrapper>
-      <FilterTitle className="flex items-center justify-between">
+    <CardWrapper borderNone={borderNone}>
+      <FilterTitle
+        handleOpenClick={handleOpenClick}
+        className="flex items-center justify-between"
+        borderNone={borderNone}
+        titleClass={titleClass}
+      >
         <span>{cardTitle}</span>
         <button
           type="button"
-          onClick={handleOpenClick}
           className={`w-3 h-2 transition-transform duration-300 ${
-            cardOpen ? '' : 'rotate-180'
+            cardOpen ? "" : "rotate-180"
           }`}
         >
           <svg
