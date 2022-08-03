@@ -2,10 +2,13 @@ import Head from "next/head";
 import { Provider } from "react-redux";
 import Script from "next/script";
 
-import store from "../store/store";
-import "../styles/globals.css";
-import "../styles/university.css";
-import "animate.css";
+import store from '../store/store';
+
+import '../styles/globals.css';
+import '../styles/university.css';
+import '../styles/scholarship.css';
+import '../styles/auth.css';
+import 'animate.css';
 
 function MyApp({ Component, pageProps }) {
   return (

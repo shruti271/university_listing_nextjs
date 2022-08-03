@@ -8,3 +8,8 @@
         height: 100px !important;
     }
 }
+
+
+.carousel-image > span {
+    margin-right: 25px !important;
+  }

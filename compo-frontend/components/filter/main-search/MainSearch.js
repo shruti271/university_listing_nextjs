@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { filterMainSearch } from '../../../store/university/universitySlice';
 
-const MainSearch = () => {
+const MainSearch = ({cardTitle}) => {
   const [query, setQuery] = useState('');
 
   const dispatch = useDispatch();
@@ -20,7 +20,7 @@ const MainSearch = () => {
 
   return (
     <CardInteractive
-      cardTitle="Search By Name"
+      cardTitle={cardTitle || "Search By Name"}
       bottomComponent={
         <TextField
           id="outlined-search"
