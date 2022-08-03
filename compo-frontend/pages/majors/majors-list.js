@@ -17,7 +17,7 @@ export default function majorsList() {
 
         <div className="grid grid-cols-12 gap-4 sm:gap-6 container mx-auto">
           <div className="col-span-12 sm:col-span-5 lg:col-span-4 container mx-auto ">
-            <MainSearch cardTitle="Search Courses" />
+            <MainSearch title="Search Courses" />
             <TopCourses />
           </div>
           <div className="col-span-12 sm:col-span-7 lg:col-span-8  container mx-auto">

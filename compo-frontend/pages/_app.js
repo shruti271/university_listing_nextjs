@@ -9,6 +9,7 @@ import '../styles/university.css';
 import '../styles/scholarship.css';
 import '../styles/auth.css';
 import 'animate.css';
+import "../styles/major.css";
 
 function MyApp({ Component, pageProps }) {
   return (

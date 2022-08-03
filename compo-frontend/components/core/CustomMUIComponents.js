@@ -106,12 +106,47 @@ export const CustomTab = styled(Tabs)(
       marginTop: 15,
       borderRadius: "0px 100px 100px 0px",
     },
-
     [`& .MuiTabs-flexContainer`]: {
       alignItems: "start",
     },
   })
 );
+
+export const CustomMajorsTab = styled(Tabs)(({ theme, setwidth, setjustifycontent }) => ({
+  [`& .MuiTab-root`]: {
+    textTransform: "none",
+    color: "#757575",
+    fontWeight: 400,
+    fontSize: "16px",
+    lineHeight: "140%",
+    minHeight: "55px",
+    paddingTop: "15px",
+    paddingBottom: "0px",
+    justifyContent: setjustifycontent,
+    width: setwidth
+  },
+  [`& .Mui-selected`]: {
+    color: "#1C1D1F !important",
+    fontWeight: 700,
+    fontSize: "16px",
+    lineHeight: "140%",
+
+  },
+  [`& .MuiTabs-indicator`]: {
+    left: 0,
+    display: "flex",
+    justifyContent: "center",
+    backgroundColor: "#0038FF",
+    maxHeight: 25,
+    alignItems: "center",
+    marginTop: 15,
+    borderRadius: "0px 100px 100px 0px"
+  },
+
+  [`& .MuiTabs-flexContainer`]: {
+    alignItems: "start"
+  }
+}));
 
 export function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -125,7 +160,7 @@ export function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box>
+        <Box sx={{p: props.padding}}>
           <Typography>{children}</Typography>
         </Box>
       )}
