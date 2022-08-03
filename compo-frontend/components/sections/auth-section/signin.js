@@ -23,7 +23,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 export default function Signin({ changeAuthModalType, handleClose }) {
   const [showPassword, setShowPassword] = useState(false);
   const [invalid, setInvalid] = useState(false);
-  const [errorRes, setErrorRes] = useState('');
+  const [errorRes, setErrorRes] = useState("");
   const [loading, setLoading] = useState(false);
   const {
     register,
@@ -35,37 +35,36 @@ export default function Signin({ changeAuthModalType, handleClose }) {
     getValues,
   } = useForm();
 
-
   const onSubmit = (data) => {
     setLoading(true);
     signIn({
       email: data.email,
       password: data.password,
-    }).then((res) => {
-      localStorage.setItem("access_token", res.data.access_token);
-      localStorage.setItem("refresh_token", res.data.refresh_token);
-      handleClose();
-    }, (error) => {
-      console.log("error....", error);
-      setLoading(false);
-      setInvalid(true);
-      setErrorRes(error)
-      if (error.response.status === 303) {
+    }).then(
+      (res) => {
+        localStorage.setItem("access_token", res.data.access_token);
+        localStorage.setItem("refresh_token", res.data.refresh_token);
         localStorage.setItem("email", data.email);
+        handleClose();
+      },
+      (error) => {
+        console.log("error....", error);
+        setLoading(false);
+        setInvalid(true);
+        setErrorRes(error);
+        if (error.response.status === 303) {
+          localStorage.setItem("email", data.email);
+        }
       }
-    });
-  }
+    );
+  };
 
   const onError = (errors) => console.log("Errors Occurred !! :", errors);
 
   return (
     <>
-      <div
-        className="grid grid-cols-1 sm:grid-cols-2 h-full"
-      >
-        <div
-          className="p-4 hidden sm:block animate__animated animate__zoomIn  h-full"
-        >
+      <div className="grid grid-cols-1 sm:grid-cols-2 h-full">
+        <div className="p-4 hidden sm:block animate__animated animate__zoomIn  h-full">
           <div className="bg-cover auth-cover w-full h-full text-center">
             <Image src={LoginLogo} alt="CoverImage" />
           </div>
@@ -82,13 +81,21 @@ export default function Signin({ changeAuthModalType, handleClose }) {
               <div className="flex flex-col">
                 <div className="flex sm:block justify-center">
                   <div className="flex sm:block flex-col mb-6 w-[90%] md:w-5/6 lg:w-3/4">
-                    {invalid &&
-                      (<Alert severity="error" className="mb-4 -mt-4">
+                    {invalid && (
+                      <Alert severity="error" className="mb-4 -mt-4">
                         {errorRes?.response?.data?.detail}
-                        {errorRes?.response?.status === 303 && <span className="cursor-pointer text-[rgb(95, 33, 32)] ml-1 font-bold underline" onClick={() => changeAuthModalType(AuthTypeModal.Onboarding)}>
-                          onboarding
-                        </span>}
-                      </Alert>)}
+                        {errorRes?.response?.status === 303 && (
+                          <span
+                            className="cursor-pointer text-[rgb(95, 33, 32)] ml-1 font-bold underline"
+                            onClick={() =>
+                              changeAuthModalType(AuthTypeModal.Onboarding)
+                            }
+                          >
+                            onboarding
+                          </span>
+                        )}
+                      </Alert>
+                    )}
 
                     <Box sx={{ display: "flex", alignItems: "flex-end" }}>
                       <EmailIcon
@@ -182,7 +189,6 @@ export default function Signin({ changeAuthModalType, handleClose }) {
                 <div className="flex justify-center sm:block">
                   <button
                     type="submit"
-
                     className="bg-[#0364FF] hover:bg-[#0364FF] text-gray-100 p-4 w-[90%] md:w-5/6 lg:w-3/4 rounded-xl tracking-wide
                   font-semibold font-display focus:outline-none focus:shadow-outline 
                   shadow-lg flex items-center justify-center"
@@ -211,7 +217,9 @@ export default function Signin({ changeAuthModalType, handleClose }) {
                       layout="fixed"
                     />
                   </div>
-                  <span className="text-black whitespace-nowrap">Login with Google</span>
+                  <span className="text-black whitespace-nowrap">
+                    Login with Google
+                  </span>
                 </button>
 
                 <button className="pt-3 pb-3 pr-2 pl-2  social-icon w-full focus:ring-0 focus:outline-none font-medium rounded-xl text-sm text-center inline-flex items-center justify-center border mt-4 xl:mt-0">
@@ -224,7 +232,9 @@ export default function Signin({ changeAuthModalType, handleClose }) {
                       layout="fixed"
                     />
                   </div>
-                  <span className="text-black whitespace-nowrap">Login with Facebook</span>
+                  <span className="text-black whitespace-nowrap">
+                    Login with Facebook
+                  </span>
                 </button>
               </div>
             </div>
