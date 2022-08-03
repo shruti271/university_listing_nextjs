@@ -31,7 +31,7 @@ import { onBoarding } from "../../../services/auth";
 import CoverImage1 from "../../../assets/reg-step-1.png";
 import CoverImage2 from "../../../assets/reg-step-2.png";
 import CoverImage3 from "../../../assets/reg-step-3.png";
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from "@mui/icons-material/Close";
 import LoginLogo from "../../../assets/LoginLogo.svg";
 import CircularProgress from "@mui/material/CircularProgress";
 
@@ -103,13 +103,16 @@ export default function RegistrationSteps({ handleClose }) {
         graduated_date: formatDate(data.graduated_date),
         desired_profession: data.desired_profession,
         desired_major: data.desired_major,
-      }).then((res) => {
-        setLoading(false);
-        Router.push("/auth/verify-mail");
-      }, (error) => {
-        setLoading(false);
-        console.log("Error while onboarding", error);
-      });
+      }).then(
+        (res) => {
+          setLoading(false);
+          Router.push("/auth/verify-mail");
+        },
+        (error) => {
+          setLoading(false);
+          console.log("Error while onboarding", error);
+        }
+      );
     }
   };
 
@@ -135,8 +138,8 @@ export default function RegistrationSteps({ handleClose }) {
     const newActiveStep =
       isLastStep() && !allStepsCompleted()
         ? // It's the last step, but not all steps have been completed,
-        // find the first step that has been completed
-        steps.findIndex((step, i) => !(i in completed))
+          // find the first step that has been completed
+          steps.findIndex((step, i) => !(i in completed))
         : activeStep + 1;
     setActiveStep(newActiveStep);
   };
@@ -158,27 +161,23 @@ export default function RegistrationSteps({ handleClose }) {
   }, [errors]);
 
   return (
-    <div
-      className="grid grid-cols-1 sm:grid-cols-2 h-full"
-    >
-      <div
-        className="p-4 hidden sm:block h-full"
-      >
-        {
-          activeStep === 0 && <div className="bg-cover w-full h-full animate__animated animate__zoomIn onboarding1-cover text-center">
+    <div className="grid grid-cols-1 sm:grid-cols-2 h-full">
+      <div className="p-4 hidden sm:block h-full">
+        {activeStep === 0 && (
+          <div className="bg-cover w-full h-full animate__animated animate__zoomIn onboarding1-cover text-center">
             <Image src={LoginLogo} alt="CoverImage" />
           </div>
-        }
-        {
-          activeStep === 1 && <div className="bg-cover onbording-cover2 w-full h-full animate__animated animate__zoomIn onboarding2-cover text-center">
+        )}
+        {activeStep === 1 && (
+          <div className="bg-cover onbording-cover2 w-full h-full animate__animated animate__zoomIn onboarding2-cover text-center">
             <Image src={LoginLogo} alt="CoverImage" />
           </div>
-        }
-        {
-          activeStep === 2 && <div className="bg-cover w-full h-full animate__animated animate__zoomIn onboarding3-cover text-center">
+        )}
+        {activeStep === 2 && (
+          <div className="bg-cover w-full h-full animate__animated animate__zoomIn onboarding3-cover text-center">
             <Image src={LoginLogo} alt="CoverImage" />
           </div>
-        }
+        )}
       </div>
       <div className="p-4 ml-0 sm:ml-4 md:ml-4 lg:ml-12">
         <div onClick={handleClose} className="flex">
@@ -578,9 +577,7 @@ export default function RegistrationSteps({ handleClose }) {
               </div>
             )}
             <div className="flex justify-center sm:block">
-              <Box
-                className="flex pt-2 mt-4 w-[90%] sm:w-3/4 md:w-5/6 lg:w-3/4 justify-between"
-              >
+              <Box className="flex pt-2 mt-4 w-[90%] sm:w-3/4 md:w-5/6 lg:w-3/4 justify-between">
                 <button
                   type="submit"
                   disabled={activeStep === 0}
