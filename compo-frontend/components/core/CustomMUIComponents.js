@@ -15,6 +15,8 @@ import VideoLabelIcon from "@mui/icons-material/VideoLabel";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
+import { AvatarGroup } from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export const CustomTextField = styled(TextField)(({ theme }) => ({
   [`& .MuiInput-input`]: {
@@ -216,4 +218,63 @@ QontoStepIcon.propTypes = {
    * @default false
    */
   completed: PropTypes.bool,
+};
+
+export const CustomAvatarGroup = styled(AvatarGroup)(({ theme }) => ({
+  [`& .MuiAvatarGroup-avatar`]: {
+    width: "24px",
+    height: "24px",
+    fontSize: "1rem",
+  },
+}));
+
+const CustomCircularProgress = styled(CircularProgress)(
+  ({ theme, setcolor, setstrokeLinecap }) => ({
+    [`& .MuiCircularProgress-circle`]: {
+      strokeLinecap: setstrokeLinecap,
+      color: setcolor,
+    },
+  })
+);
+
+export function CircularProgressWithLabel(props) {
+  return (
+    <Box sx={{ position: "relative", display: "inline-flex" }}>
+      <CustomCircularProgress
+        variant="determinate"
+        disableShrink
+        value={props.value}
+        size={props.size}
+        setcolor={props.color}
+        setstrokeLinecap={props.strokeLinecap}
+        thickness={2.5}
+      />
+      <Box
+        sx={{
+          top: 0,
+          left: 0,
+          bottom: 0,
+          right: 0,
+          padding: 2,
+          position: "absolute",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Typography variant="caption" component="div" color="text.secondary">
+          {props.profile}
+        </Typography>
+      </Box>
+    </Box>
+  );
+}
+
+CircularProgressWithLabel.propTypes = {
+  /**
+   * The value of the progress indicator for the determinate variant.
+   * Value between 0 and 100.
+   * @default 0
+   */
+  value: PropTypes.number.isRequired,
 };

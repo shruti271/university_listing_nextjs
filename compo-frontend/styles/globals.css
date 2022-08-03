@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   @apply bg-colorWhite text-colorStone;
 }
 
@@ -112,3 +112,26 @@ h6 {
   height: 5px;
 }
 
+::-webkit-scrollbar {
+  width: 2px;
+  height: 2px;
+}
+
+/* Track */
+
+::-webkit-scrollbar-track {
+  background: #f1f2f6;
+}
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 5px;
+}
+
+.upgrade-cover > span {
+  position: absolute !important;
+  left: -4% !important;
+  bottom: -10% !important;
+}
