@@ -7,8 +7,10 @@ const CardInteractive = ({
   bottomComponent,
   borderNone,
   titleClass,
+  defaultValue
 }) => {
-  const [cardOpen, setCardOpen] = useState(false);
+  console.log("defaultValue",defaultValue)
+  const [cardOpen, setCardOpen] = useState(defaultValue !== undefined ? defaultValue : true);
   const handleOpenClick = () => setCardOpen(!cardOpen);
 
   return (

@@ -23,7 +23,7 @@ export default function Majors() {
       <div className="pb-20">
         <Header />
 
-        <div className="grid grid-cols-12 container mx-auto ">
+        <div className="grid grid-cols-12 container gap-4">
           <div
             className={`${
               changeTab === 0
@@ -43,11 +43,11 @@ export default function Majors() {
               <MajorHeader />
             </div>
             </div>
-            <div className="grid grid-cols-8  container mx-auto">
+            <div className="grid grid-cols-8">
               <div
                 className={`col-span-8 ${
                   changeTab === 0 ? "lg:col-span-8" : "lg:col-span-5"
-                } container mx-auto`}
+                }`}
               >
                 <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
                   <CustomMajorsTab
@@ -77,7 +77,7 @@ export default function Majors() {
             <MajorUniTab changeTab={changeTab} />
           </div>
 
-          <div className="col-span-4 xl:col-span-3 mt-[130px] hidden lg:block mr-[5%] lg:mr-[15%]">
+          <div className="col-span-4 xl:col-span-3 mt-[130px] hidden lg:block ">
             <TabPanel
               value={changeTab}
               index={0}

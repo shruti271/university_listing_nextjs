@@ -23,33 +23,24 @@ const Header = ({ modalType }) => {
   const [open, setOpen] = React.useState(false);
   const [accessToken, setAccessToken] = React.useState();
 
-
   const router = useRouter();
-
-
 
   const setActiveLink = (path) => {
     return router.pathname === path
       ? "text-[#06040A] hover:text-[#06040A]"
       : "text-[#544E5D] hover:opacity-50";
   };
-  console.log("modalTypemodalType::", modalType)
 
   useEffect(() => {
     {
-      modalType === "signin" &&
-        setOpen(true), setauthTypeModal("signin");
+      modalType === "signin" && setOpen(true), setauthTypeModal("signin");
     }
   }, [modalType]);
 
-
   useEffect(() => {
-
-
     const getAccessToken = localStorage.getItem("access_token");
     setAccessToken(getAccessToken);
-
-  }, [(typeof window !== "undefined") && localStorage.getItem("access_token")])
+  }, [typeof window !== "undefined" && localStorage.getItem("access_token")]);
 
   return (
     <>
@@ -67,36 +58,42 @@ const Header = ({ modalType }) => {
           </Link>
           <div className="flex items-center gap-8 lg:hidden">
             <div className="hidden md:block">
-              {!accessToken && <><PrimaryButton
-                type="button"
-                isPrimary={false}
-                onClick={() => {
-                  setOpen(true), setauthTypeModal(AuthTypeModal.Signin);
-                }}
-              >
-                Sign In
-              </PrimaryButton>
+              {!accessToken && (
+                <>
+                  <PrimaryButton
+                    type="button"
+                    isPrimary={false}
+                    onClick={() => {
+                      setOpen(true), setauthTypeModal(AuthTypeModal.Signin);
+                    }}
+                  >
+                    Sign In
+                  </PrimaryButton>
 
+                  <PrimaryButton
+                    className="btn-shadow"
+                    type="button"
+                    onClick={() => {
+                      setOpen(true), setauthTypeModal(AuthTypeModal.Signup);
+                    }}
+                  >
+                    Join Now
+                  </PrimaryButton>
+                </>
+              )}
+
+              {accessToken && (
                 <PrimaryButton
-                  className="btn-shadow"
+                  isPrimary={false}
                   type="button"
                   onClick={() => {
-                    setOpen(true), setauthTypeModal(AuthTypeModal.Signup);
+                    localStorage.clear();
+                    setAccessToken("");
                   }}
                 >
-                  Join Now
-                </PrimaryButton></>}
-
-              {accessToken && <PrimaryButton
-                isPrimary={false}
-                type="button"
-                onClick={() => {
-                  localStorage.clear();
-                  setAccessToken("")
-                }}
-              >
-                Log Out
-              </PrimaryButton>}
+                  Log Out
+                </PrimaryButton>
+              )}
             </div>
             <button type="button" className="relative w-5 h-5">
               <Image src={SearchIcon} alt="Search" layout="fill" />
@@ -148,38 +145,43 @@ const Header = ({ modalType }) => {
                 </li>
               </ul>
               <ul className="flex items-center gap-3">
-                {!accessToken && <><PrimaryButton
-                  type="button"
-                  isPrimary={false}
-                  onClick={() => {
-                    setOpen(true), setauthTypeModal(AuthTypeModal.Signin);
-                  }}
-                >
-                  Sign In
-                </PrimaryButton>
+                {!accessToken && (
+                  <>
+                    <PrimaryButton
+                      type="button"
+                      isPrimary={false}
+                      onClick={() => {
+                        setOpen(true), setauthTypeModal(AuthTypeModal.Signin);
+                      }}
+                    >
+                      Sign In
+                    </PrimaryButton>
 
+                    <PrimaryButton
+                      className="btn-shadow"
+                      type="button"
+                      onClick={() => {
+                        setOpen(true), setauthTypeModal(AuthTypeModal.Signup);
+                      }}
+                    >
+                      Join Now
+                    </PrimaryButton>
+                  </>
+                )}
+
+                {accessToken && (
                   <PrimaryButton
-                    className="btn-shadow"
+                    isPrimary={false}
                     type="button"
                     onClick={() => {
-                      setOpen(true), setauthTypeModal(AuthTypeModal.Signup);
+                      localStorage.clear();
+                      setAccessToken("");
                     }}
                   >
-                    Join Now
-                  </PrimaryButton></>}
-
-                {accessToken && <PrimaryButton
-                  isPrimary={false}
-                  type="button"
-                  onClick={() => {
-                    localStorage.clear();
-                    setAccessToken("")
-                  }}
-                >
-                  Log Out
-                </PrimaryButton>}
+                    Log Out
+                  </PrimaryButton>
+                )}
               </ul>
-
 
               <AuthModal
                 open={open}

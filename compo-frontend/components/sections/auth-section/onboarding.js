@@ -74,8 +74,6 @@ export default function RegistrationSteps({ handleClose }) {
     setEmail(email);
   }, []);
 
-  console.log("Email Provide: ", email);
-
   const formatDate = (date) => {
     const day = date.toLocaleString("default", { day: "2-digit" });
     const month = date.toLocaleString("default", { month: "2-digit" });
@@ -164,26 +162,33 @@ export default function RegistrationSteps({ handleClose }) {
     <div className="grid grid-cols-1 sm:grid-cols-2 h-full">
       <div className="p-4 hidden sm:block h-full">
         {activeStep === 0 && (
-          <div className="bg-cover w-full h-full animate__animated animate__zoomIn onboarding1-cover text-center">
+          <div className="bg-cover-auth w-full h-full animate__animated animate__zoomIn onboarding1-cover text-center">
             <Image src={LoginLogo} alt="CoverImage" />
           </div>
         )}
         {activeStep === 1 && (
-          <div className="bg-cover onbording-cover2 w-full h-full animate__animated animate__zoomIn onboarding2-cover text-center">
+          <div className="bg-cover-auth onbording-cover2 w-full h-full animate__animated animate__zoomIn onboarding2-cover text-center">
             <Image src={LoginLogo} alt="CoverImage" />
           </div>
         )}
         {activeStep === 2 && (
-          <div className="bg-cover w-full h-full animate__animated animate__zoomIn onboarding3-cover text-center">
+          <div className="bg-cover-auth w-full h-full animate__animated animate__zoomIn onboarding3-cover text-center">
             <Image src={LoginLogo} alt="CoverImage" />
           </div>
         )}
       </div>
       <div className="p-4 ml-0 sm:ml-4 md:ml-4 lg:ml-12">
-        <div onClick={handleClose} className="flex">
-          <CloseIcon className="text-black ml-auto cursor-pointer" />
+        <div className="flex">
+          <CloseIcon
+            className="text-black ml-auto cursor-pointer"
+            onClick={handleClose}
+          />
         </div>
-        <Box className="mt-3 sm:mt-16">
+        <Box
+          className={`mt-3 sm:mt-24 ${activeStep === 1 && "sm:!mt-8"} ${
+            activeStep === 2 && "!mt-20 sm:!mt-24"
+          }`}
+        >
           <Stepper
             alternativeLabel
             activeStep={activeStep}
@@ -352,7 +357,7 @@ export default function RegistrationSteps({ handleClose }) {
                   For us to filter the best results for you
                 </p>
 
-                <div className="flex flex-col mt-8 max-h-[316px] sm:max-h-full overflow-y-scroll">
+                <div className="flex flex-col mt-8 max-h-[345px] sm:max-h-full overflow-y-scroll">
                   <div className="flex justify-center sm:block">
                     <div className="flex  sm:block flex-col mb-6 w-[90%] md:w-5/6 lg:w-3/4">
                       <Box sx={{ display: "flex", alignItems: "flex-end" }}>
@@ -576,7 +581,11 @@ export default function RegistrationSteps({ handleClose }) {
                 </div>
               </div>
             )}
-            <div className="flex justify-center sm:block">
+            <div
+              className={`flex justify-center sm:block ${
+                activeStep === 2 && "pb-28 sm:pb-36"
+              } `}
+            >
               <Box className="flex pt-2 mt-4 w-[90%] sm:w-3/4 md:w-5/6 lg:w-3/4 justify-between">
                 <button
                   type="submit"

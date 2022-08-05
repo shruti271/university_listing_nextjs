@@ -12,9 +12,10 @@ const ScholarshipDetails = ({ scholarship }) => {
       <div className="pb-20">
         <Header />
         <ScholarshipHeader scholarship={scholarship} />
-
+<div className="container">
         <ScholarshipInfo scholarship={scholarship} />
         <ScholarshipContent scholarship={scholarship} />
+      </div>
       </div>
       <NewsletterSection />
       <Footer />

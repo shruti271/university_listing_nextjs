@@ -13,7 +13,7 @@ const TopCourses = () => {
       <div className="mt-[60px] flex flex-col gap-8">
        {TopCourses?.map((itm)=>(
  <CardInteractive
- cardTitle= {itm} borderNone="border-none !p-0" titleClass="!font-semibold !text-xl !text-[#000000]"
+ cardTitle= {itm} borderNone="border-none !p-0" titleClass="!font-semibold !text-xl !text-[#000000]" defaultValue={false}
  bottomComponent={
    <h1>{itm}</h1>
  }

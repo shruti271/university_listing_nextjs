@@ -6,11 +6,11 @@ import { Box, Grid } from "@mui/material";
 export default function UniHeaderSection({university}) {
 
   return (
-    <div className="flex justify-center">
-      <div className="grid grid-cols-12 w-full sm:w-[80%] rounded-xl bg-white pl-[4%] pr-[4%]">
+    <div className="flex justify-center container">
+      <div className="grid grid-cols-12 w-full mt-[-50px]   rounded-xl bg-white pl-[4%] pr-[4%]">
         <div className="col-span-12">
-          <div className="flex">
-            <div className="mt-[-50px] sm:mt-[-85px] uni-details-logo">
+          <div className="flex flex-col	sm:flex-row	">
+            <div className="mt-[-40px] sm:mt-[-70px] uni-details-logo flex justify-center">
               <Image src={uniLogo} alt="uni-details-logo" layout="fixed" />
             </div>
             <div className="flex flex-col w-full ml-[4%]">

@@ -135,10 +135,10 @@ const UniversityDetails = ({university}) => {
           style={{ backgroundImage: `url(${CoverImage.src})` }}
         >
         </section>
-        <div className="bg-[#F9F9FA]">
+        <div className="bg-[#F9F9FA] container">
           <UniHeaderSection university={university}/>
 
-          <div className="w-[90%]  sm:w-10/12 mx-auto">
+          <div className="container">
             <div className="rounded-lg sm:hidden mt-6 bg-white">
               <CustomTab
                 variant="scrollable"
@@ -192,7 +192,7 @@ const UniversityDetails = ({university}) => {
                 </div>
               </div>
 
-              <div className="col-span-3 sm:col-span-2 mt-6">
+              <div className="col-span-3 sm:col-span-2 mt-6 ">
                 <TabPanel value={value} index={0}>
                   <UniOverview university={university} />
                 </TabPanel>
@@ -208,11 +208,11 @@ const UniversityDetails = ({university}) => {
             </div>
           </div>
 
-          <div className="w-[90%] rounded-lg bg-white mt-4 sm:hidden mx-auto">
+          <div className="container rounded-lg bg-white mt-4 sm:hidden">
             <ImportantDeadlines />
           </div>
 
-          <div className="w-[90%]  sm:w-10/12 mx-auto flex mt-24 justify-between items-center">
+          <div className="container flex mt-12 justify-between items-center">
             <h4 className="font-semibold text-xl sm:text-2xl md:text-3xl lg:text-4xl text-[#363848] ">
               Related univeristies
             </h4>
@@ -220,7 +220,7 @@ const UniversityDetails = ({university}) => {
               View More
             </button>
           </div>
-          <div className="w-[90%]  sm:w-10/12 mx-auto mt-24">
+          <div className="container mt-12">
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 ">
               {universities.map((university) => (
                 <UniversityCard key={university.id} university={university} />

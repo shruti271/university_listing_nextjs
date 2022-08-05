@@ -1,0 +1,14 @@
+.upgrade-cover > span {
+  position: absolute !important;
+  left: -4% !important;
+  bottom: -10% !important;
+}
+
+.profile-cover {
+  background: url("../assets/dashboard-profile.png") no-repeat center center
+    fixed;
+}
+
+.design-tool-cover > span {
+  height: 100% !important;
+}

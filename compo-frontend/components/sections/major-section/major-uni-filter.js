@@ -1,4 +1,4 @@
-import MainSearch from "../../filter/main-search/MainSearch";
+import MainSearch from "../../filter/major-filter/MainSearch";
 
 const MajorUniversitiesFilter = () => {
   return (
@@ -7,7 +7,7 @@ const MajorUniversitiesFilter = () => {
         Universities Offering this Major
       </div>
       <div className="mt-7">
-        <MainSearch title="Search university" />
+        <MainSearch />
       </div>
     </>
   );

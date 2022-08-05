@@ -6,28 +6,17 @@ import { useDispatch } from "react-redux";
 import { filterMainSearch } from "../../../store/university/universitySlice";
 
 const MainSearch = () => {
-  const [query, setQuery] = useState("");
-  const dispatch = useDispatch();
-
-  const handleChange = (e) => {
-    setQuery(e.target.value);
-  };
-
-  useEffect(() => {
-    dispatch(filterMainSearch(query));
-  }, [query]);
+  
 
   return (
     <CardInteractive
-      cardTitle="Search By Name"
+      cardTitle="Search Courses"
       bottomComponent={
         <TextField
           id="outlined-search"
           label="Search"
           type="search"
           className="w-full"
-          onChange={handleChange}
-          value={query}
         />
       }
     />

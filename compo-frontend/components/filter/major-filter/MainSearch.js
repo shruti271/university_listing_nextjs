@@ -19,7 +19,7 @@ const MainSearch = () => {
 
   return (
     <CardInteractive
-      cardTitle="Search By Name"
+      cardTitle="Search university"
       bottomComponent={
         <TextField
           id="outlined-search"

@@ -112,41 +112,42 @@ export const CustomTab = styled(Tabs)(
   })
 );
 
-export const CustomMajorsTab = styled(Tabs)(({ theme, setwidth, setjustifycontent }) => ({
-  [`& .MuiTab-root`]: {
-    textTransform: "none",
-    color: "#757575",
-    fontWeight: 400,
-    fontSize: "16px",
-    lineHeight: "140%",
-    minHeight: "55px",
-    paddingTop: "15px",
-    paddingBottom: "0px",
-    justifyContent: setjustifycontent,
-    width: setwidth
-  },
-  [`& .Mui-selected`]: {
-    color: "#1C1D1F !important",
-    fontWeight: 700,
-    fontSize: "16px",
-    lineHeight: "140%",
+export const CustomMajorsTab = styled(Tabs)(
+  ({ theme, setwidth, setjustifycontent }) => ({
+    [`& .MuiTab-root`]: {
+      textTransform: "none",
+      color: "#757575",
+      fontWeight: 400,
+      fontSize: "16px",
+      lineHeight: "140%",
+      minHeight: "55px",
+      paddingTop: "15px",
+      paddingBottom: "0px",
+      justifyContent: setjustifycontent,
+      width: setwidth,
+    },
+    [`& .Mui-selected`]: {
+      color: "#1C1D1F !important",
+      fontWeight: 700,
+      fontSize: "16px",
+      lineHeight: "140%",
+    },
+    [`& .MuiTabs-indicator`]: {
+      left: 0,
+      display: "flex",
+      justifyContent: "center",
+      backgroundColor: "#0038FF",
+      maxHeight: 25,
+      alignItems: "center",
+      marginTop: 15,
+      borderRadius: "0px 100px 100px 0px",
+    },
 
-  },
-  [`& .MuiTabs-indicator`]: {
-    left: 0,
-    display: "flex",
-    justifyContent: "center",
-    backgroundColor: "#0038FF",
-    maxHeight: 25,
-    alignItems: "center",
-    marginTop: 15,
-    borderRadius: "0px 100px 100px 0px"
-  },
-
-  [`& .MuiTabs-flexContainer`]: {
-    alignItems: "start"
-  }
-}));
+    [`& .MuiTabs-flexContainer`]: {
+      alignItems: "start",
+    },
+  })
+);
 
 export function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -160,7 +161,7 @@ export function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box sx={{p: props.padding}}>
+        <Box sx={{ p: props.padding }}>
           <Typography>{children}</Typography>
         </Box>
       )}
@@ -264,9 +265,9 @@ export const CustomAvatarGroup = styled(AvatarGroup)(({ theme }) => ({
 }));
 
 const CustomCircularProgress = styled(CircularProgress)(
-  ({ theme, setcolor, setstrokeLinecap }) => ({
+  ({ theme, setcolor, setstrokelinecap }) => ({
     [`& .MuiCircularProgress-circle`]: {
-      strokeLinecap: setstrokeLinecap,
+      strokeLinecap: setstrokelinecap,
       color: setcolor,
     },
   })
@@ -277,11 +278,10 @@ export function CircularProgressWithLabel(props) {
     <Box sx={{ position: "relative", display: "inline-flex" }}>
       <CustomCircularProgress
         variant="determinate"
-        disableShrink
         value={props.value}
         size={props.size}
         setcolor={props.color}
-        setstrokeLinecap={props.strokeLinecap}
+        setstrokelinecap={props.strokeLinecap}
         thickness={2.5}
       />
       <Box

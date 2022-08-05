@@ -42,7 +42,7 @@ export default function UniOverview({university}) {
 
     return (
         <>
-            <div className='p-6 bg-[#FFFFFF] rounded-lg'>
+            <div className='p-6 bg-[#FFFFFF] rounded-lg '>
                 <p className='text-[#000000] text-xl font-semibold'>About University</p>
                 <p className='text-[#717171] font-normal text-sm mt-2 tracking-wide'>
                     {university.description}
