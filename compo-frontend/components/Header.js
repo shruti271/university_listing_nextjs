@@ -127,9 +127,9 @@ const Header = ({ modalType }) => {
                   <Link href="/scholarships">Scholarships</Link>
                 </li>
                 <li
-                  className={`${setActiveLink("/majors")} text-sm xl:text-base`}
+                  className={`${setActiveLink("/programs")} text-sm xl:text-base`}
                 >
-                  <Link href="/majors">Majors</Link>
+                  <Link href="/programs">Programs</Link>
                 </li>
                 <li
                   className={`${setActiveLink(

@@ -1,11 +1,11 @@
 import { Typography } from "@mui/material";
 import Image from "next/image";
-import majorImage from "../../../assets/major-img.png";
+import ProgramImage from "../../../assets/program-img.png";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import VpnKeyOutlinedIcon from "@mui/icons-material/VpnKeyOutlined";
 
-const MajorOverviewCard = () => {
+const ProgramOverviewCard = () => {
   const CourseBenefits = [
     { icon: AccessTimeIcon, label: "Anytime, Anywhere" },
     { icon: FileDownloadOutlinedIcon, label: " Downloadable Resources" },
@@ -14,8 +14,8 @@ const MajorOverviewCard = () => {
 
   return (
     <>
-      <div className="major ">
-        <Image src={majorImage} alt="majorImage" />
+      <div className="Program">
+        <Image src={ProgramImage} alt="ProgramImage" />
       </div>
       <div className="font-bold text-xl text-[#1C1D1F] mt-2 	leading-[140%]">
         Design & Development
@@ -71,4 +71,4 @@ const MajorOverviewCard = () => {
   );
 };
 
-export default MajorOverviewCard;
+export default ProgramOverviewCard;

@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 
-const MajorCard = ({image,title}) => {
+const ProgramsCard = ({image,title}) => {
   return (
     <div className="pb-5">
       <Image src={image} />
@@ -23,4 +23,4 @@ const MajorCard = ({image,title}) => {
   );
 };
 
-export default MajorCard;
+export default ProgramsCard;

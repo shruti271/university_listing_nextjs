@@ -66,10 +66,10 @@ const MobileMenu = ({ className = '', handleMobileMenuClick, isMenuOpen }) => {
               <Link href="/scholarships">Scholarships</Link>
             </li>
             <li
-              className={`${setActiveLink("/majors")}`}
+              className={`${setActiveLink("/programs")}`}
               onClick={handleMobileMenuClick}
             >
-              <Link href="/majors">Majors</Link>
+              <Link href="/programs">Programs</Link>
             </li>
             <li
               className={`${setActiveLink("/articles")}`}

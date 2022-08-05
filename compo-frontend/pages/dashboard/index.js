@@ -48,7 +48,21 @@ export default function Dashboard() {
           <Activities />
           <UpgradeAccount />
         </div>
-     
+        {/* <div className="col-span-12  sm:hidden">
+          <AliceCarousel
+            mouseTracking
+            infinite
+            autoPlayInterval={5000}
+            animationDuration={1500}
+            disableDotsControls
+            // disableButtonsControls
+            responsive={responsive}
+            autoPlay
+            items={items}
+            renderPrevButton={renderPrevButton}
+            renderNextButton={renderNextButton}
+          />
+        </div> */}
         <div className="col-span-12 sm:col-span-7 lg:col-span-6 ">
           <CompleteProfileCard />
           <DashboardMiddleSection />

@@ -9,7 +9,6 @@ const CardInteractive = ({
   titleClass,
   defaultValue
 }) => {
-  console.log("defaultValue",defaultValue)
   const [cardOpen, setCardOpen] = useState(defaultValue !== undefined ? defaultValue : true);
   const handleOpenClick = () => setCardOpen(!cardOpen);
 

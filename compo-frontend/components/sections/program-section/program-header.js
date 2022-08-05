@@ -2,7 +2,7 @@ import { Rating } from "@mui/material";
 import WaveElement from "../../svg/WaveElement";
 import StarIcon from "@mui/icons-material/Star";
 
-const MajorHeader = () => {
+const ProgramHeader = () => {
   return (
     <div className="pb-10 lg:pb-20   relative mt-32 ">
       <div className="mt-[130px] grid grid-cols-8 gap-8 ">
@@ -59,4 +59,4 @@ const MajorHeader = () => {
   );
 };
 
-export default MajorHeader;
+export default ProgramHeader;

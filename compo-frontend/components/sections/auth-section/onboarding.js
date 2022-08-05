@@ -210,7 +210,7 @@ export default function RegistrationSteps({ handleClose }) {
           <React.Fragment>
             {activeStep === 0 && (
               <div>
-                <h3 className="pb-2 mt-8 font-semibold text-[21px] sm:text-2xl text-[#03014C] flex justify-center sm:block whitespace-nowrap">
+                <h3 className="pb-2 mt-8 font-semibold text-[21px] sm:text-2xl text-[#03014C] flex justify-center sm:block text-center sm:text-start ">
                   Tell us about yourself
                 </h3>
                 <span className="text-[#92929D] text-base mb-4 flex justify-center sm:block text-center sm:text-start">
@@ -350,7 +350,7 @@ export default function RegistrationSteps({ handleClose }) {
             )}
             {activeStep === 1 && (
               <div>
-                <h3 className="pb-2 mt-8 font-semibold text-2xl text-[#03014C] flex justify-center sm:block text-[21px] sm:text-2xl whitespace-nowrap">
+                <h3 className="pb-2 mt-8 font-semibold text-2xl text-[#03014C] flex justify-center sm:block text-[21px] sm:text-2xl text-center sm:text-start">
                   Insights of your education
                 </h3>
                 <p className=" text-[#92929D] text-base mb-4 flex justify-center sm:block text-center sm:text-start">
@@ -446,7 +446,7 @@ export default function RegistrationSteps({ handleClose }) {
                   </div>
                   <div className="flex sm:justify-center sm:block">
                     <div className="mb-4 mt-2 flex flex-col sm:flex-row sm:justify-between sm:items-center w-[90%] md:w-5/6 lg:w-3/4">
-                      <span className="pb-2 mt-2.5 font-semibold text-md text-[#11142D] ml-5 sm:ml-9">
+                      <span className="pb-2 mt-2.5 font-semibold text-md text-[#11142D] ml-12 sm:ml-9">
                         Are you graduated?
                       </span>
                       <ThemeProvider theme={theme}>
@@ -454,7 +454,7 @@ export default function RegistrationSteps({ handleClose }) {
                           row
                           aria-labelledby="demo-form-control-label-placement"
                           name="position"
-                          className="ml-5 sm:ml-0"
+                          className="ml-12 sm:ml-0"
                         >
                           <FormControlLabel
                             value="True"
@@ -519,7 +519,7 @@ export default function RegistrationSteps({ handleClose }) {
             )}
             {activeStep === 2 && (
               <div>
-                <h3 className="pb-2 mt-8 font-semibold text-2xl text-[#03014C] flex justify-center sm:block text-[21px] sm:text-2xl whitespace-nowrap">
+                <h3 className="pb-2 mt-8 font-semibold text-2xl text-[#03014C] flex justify-center sm:block text-[21px] sm:text-2xl text-center sm:text-start">
                   Your future plans
                 </h3>
                 <span className=" text-[#92929D] text-base mb-4 flex justify-center sm:block text-center sm:text-start">

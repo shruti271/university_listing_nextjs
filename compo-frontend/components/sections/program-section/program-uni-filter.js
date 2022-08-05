@@ -1,6 +1,6 @@
-import MainSearch from "../../filter/major-filter/MainSearch";
+import MainSearch from "../../filter/program-filter/MainSearch";
 
-const MajorUniversitiesFilter = () => {
+const ProgramUniversitiesFilter = () => {
   return (
     <>
       <div className="font-semibold text-[#000000] text-xl xl:text-2xl">
@@ -12,4 +12,4 @@ const MajorUniversitiesFilter = () => {
     </>
   );
 };
-export default MajorUniversitiesFilter;
+export default ProgramUniversitiesFilter;

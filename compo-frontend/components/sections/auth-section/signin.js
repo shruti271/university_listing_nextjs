@@ -238,7 +238,7 @@ export default function Signin({ changeAuthModalType, handleClose }) {
                 </button>
               </div>
             </div>
-            <div className="flex justify-center sm:justify-between items-center mb-6 w-full md:w-5/6 lg:w-3/4 mt-6 sm:mt-8 whitespace-nowrap">
+            <div className="flex justify-center sm:justify-between items-center mb-6 w-full md:w-5/6 lg:w-3/4 mt-6 sm:mt-8 text-center">
               <div className="ml-0 sm:ml-auto">
                 <span className="text-black">Don't have an account ?</span>
                 <span

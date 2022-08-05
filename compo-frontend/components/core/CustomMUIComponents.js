@@ -112,7 +112,7 @@ export const CustomTab = styled(Tabs)(
   })
 );
 
-export const CustomMajorsTab = styled(Tabs)(
+export const CustomProgramTab = styled(Tabs)(
   ({ theme, setwidth, setjustifycontent }) => ({
     [`& .MuiTab-root`]: {
       textTransform: "none",
