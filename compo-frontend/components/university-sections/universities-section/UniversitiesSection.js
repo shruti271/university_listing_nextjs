@@ -10,6 +10,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import UpperFilter from '../../upper-filter/UpperFilter';
 import UniversityCard from './UniversityCard';
 import { useInView } from 'react-intersection-observer';
+import MobileFilter from '../../universities-dir-filter/MobileFilter/MobileFilter';
 
 const UniversitiesSection = ({ className = '' }) => {
   const dispatch = useDispatch();
@@ -45,8 +46,11 @@ const UniversitiesSection = ({ className = '' }) => {
   }, [currentPage]);
 
   return (
-    <section className={`pt-32 pb-11 ${className}`}>
+    <section className={`pt-20 md:pt-32 pb-11 ${className}`}>
       <UpperFilter />
+      <div className="mb-10">
+        <MobileFilter />
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-11 mb-14">
         {universities?.map((university, index) =>
           universities.length === index + 1 ? (
