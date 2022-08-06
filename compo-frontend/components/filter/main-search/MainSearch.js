@@ -9,11 +9,8 @@ import {
   resetPage,
 } from '../../../store/university/universitySlice';
 
-const MainSearch = () => {
+const MainSearch = ({ title = '' }) => {
   const [query, setQuery] = useState('');
-
-const MainSearch = ({ title = "" }) => {
-  const [query, setQuery] = useState("");
   const dispatch = useDispatch();
 
   const handleChange = (e) => {
@@ -27,7 +24,7 @@ const MainSearch = ({ title = "" }) => {
 
   return (
     <CardInteractive
-      cardTitle={title || "Search By Name"}
+      cardTitle={title || 'Search By Name'}
       bottomComponent={
         <TextField
           id="outlined-search"
@@ -41,5 +38,4 @@ const MainSearch = ({ title = "" }) => {
     />
   );
 };
-
 export default MainSearch;
