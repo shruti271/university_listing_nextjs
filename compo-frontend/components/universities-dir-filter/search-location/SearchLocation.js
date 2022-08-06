@@ -4,7 +4,7 @@ import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import countries from 'countries-list';
-import CardInteractive from '../shared/card-interactive/CardInteractive';
+import CardInteractive from '../../shared/card-interactive/CardInteractive';
 
 const countryCodes = Object.keys(countries.countries);
 const countryNames = countryCodes.map((code) => countries.countries[code].name);

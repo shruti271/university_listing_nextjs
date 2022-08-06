@@ -1,5 +1,5 @@
 import DirectoryHero from '../../components/DirectoryHero/DirectoryHero';
-import Filter from '../../components/filter/Filter';
+import Filter from '../../components/universities-dir-filter/Filter';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import NewsletterSection from '../../components/sections/newsletter-section/NewsletterSection';

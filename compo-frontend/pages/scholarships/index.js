@@ -1,5 +1,5 @@
 import FavoriteButton from '../../components/FavoriteButton';
-import CardInteractive from '../../components/filter/shared/card-interactive/CardInteractive';
+import CardInteractive from '../../components/shared/card-interactive/CardInteractive';
 import DirectoryLayout from '../../components/layouts/DirectoryLayout';
 import UpperFilter from '../../components/upper-filter/UpperFilter';
 import heroBg from '../../assets/scholarship-page/hero-bg.png';

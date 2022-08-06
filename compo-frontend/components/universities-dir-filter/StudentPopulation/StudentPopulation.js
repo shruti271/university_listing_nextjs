@@ -1,4 +1,4 @@
-import CardInteractive from '../shared/card-interactive/CardInteractive';
+import CardInteractive from '../../shared/card-interactive/CardInteractive';
 import RangeSlider from './RangeSlider/RangeSlider';
 
 const StudentPopulation = () => {

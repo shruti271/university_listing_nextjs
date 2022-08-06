@@ -1,4 +1,4 @@
-import CardInteractive from '../shared/card-interactive/CardInteractive';
+import CardInteractive from '../../shared/card-interactive/CardInteractive';
 import Slider from '@mui/material/Slider';
 import { useEffect } from 'react';
 import { useState } from 'react';
