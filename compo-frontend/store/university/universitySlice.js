@@ -52,6 +52,7 @@ const initialState = {
   countUniversities: 0,
   pending: false,
   error: false,
+  currentPage: 1,
 };
 
 const setCurrentFilter = () => {
@@ -121,6 +122,24 @@ export const setNewPage = createAsyncThunk(
   }
 );
 
+export const appendToUniversities = createAsyncThunk(
+  'universities/appendToUniversities',
+  async ({ universities: currentUniversities, page }) => {
+    pageOffset = (page - 1) * 20;
+    const nextUniversities = await fetchFromApi();
+
+    const appendedUniversities = [
+      ...currentUniversities,
+      ...nextUniversities.results,
+    ];
+
+    return {
+      results: appendedUniversities,
+      count: appendedUniversities.length,
+    };
+  }
+);
+
 export const universitySlice = createSlice({
   name: 'universities',
   initialState,
@@ -140,6 +159,13 @@ export const universitySlice = createSlice({
       state.filteredUniversities = state.universities.filter((uni) =>
         uni.type.toLowerCase().includes(action.payload.toLowerCase())
       );
+    },
+    incrementPage: (state) => {
+      state.currentPage += 1;
+    },
+    resetPage: (state) => {
+      pageOffset = 0;
+      state.currentPage = 1;
     },
   },
   extraReducers: (builder) => {
@@ -234,6 +260,19 @@ export const universitySlice = createSlice({
       .addCase(filterByRankOrder.rejected, (state) => {
         state.pending = false;
         state.error = true;
+      })
+      .addCase(appendToUniversities.pending, (state) => {
+        state.pending = true;
+      })
+      .addCase(appendToUniversities.fulfilled, (state, { payload }) => {
+        state.pending = false;
+        state.universities = payload.results;
+        state.filteredUniversities = payload.results;
+        state.countUniversities = payload.count;
+      })
+      .addCase(appendToUniversities.rejected, (state) => {
+        state.pending = false;
+        state.error = true;
       });
   },
 });
@@ -242,6 +281,8 @@ export const {
   rehydrate,
   filterUniversitiesByLocation,
   filterUniversitiesByType,
+  incrementPage,
+  resetPage,
 } = universitySlice.actions;
 
 export default universitySlice.reducer;

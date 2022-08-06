@@ -21,7 +21,6 @@ const UniversityCard = ({ university }) => {
     linkView = '/',
   } = university;
 
-  console.log("University card :-", university);
   return (
     <div
       className="bg-colorWhite p-5 rounded-xl"

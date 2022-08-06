@@ -1,4 +1,4 @@
-import MainSearch from "../../filter/main-search/MainSearch";
+import MainSearch from '../../universities-dir-filter/main-search/MainSearch';
 
 const MajorUniversitiesFilter = () => {
   return (
