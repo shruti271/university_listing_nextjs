@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import * as React from "react";
+import { useState } from "react";
 import StepLabel from "@mui/material/StepLabel";
 
 import PersonIcon from "@mui/icons-material/Person";
@@ -28,9 +29,6 @@ import {
 import { useForm, Controller } from "react-hook-form";
 import Router from "next/router";
 import { onBoarding } from "../../../services/auth";
-import CoverImage1 from "../../../assets/reg-step-1.png";
-import CoverImage2 from "../../../assets/reg-step-2.png";
-import CoverImage3 from "../../../assets/reg-step-3.png";
 import CloseIcon from "@mui/icons-material/Close";
 import LoginLogo from "../../../assets/LoginLogo.svg";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -56,6 +54,8 @@ export default function RegistrationSteps({ handleClose }) {
   const [completed, setCompleted] = React.useState([]);
   const [email, setEmail] = React.useState();
   const [loading, setLoading] = React.useState(false);
+  const [label, setLabel] = useState("Projected Graduation Date");
+  const [graduatedValue, setGraduatedValue] = useState("False");
 
   const {
     register,
@@ -69,6 +69,7 @@ export default function RegistrationSteps({ handleClose }) {
     control,
   } = useForm();
 
+  console.log("::::", getValues("graduated"));
   React.useEffect(() => {
     const email = localStorage.getItem("email");
     setEmail(email);
@@ -455,6 +456,17 @@ export default function RegistrationSteps({ handleClose }) {
                           aria-labelledby="demo-form-control-label-placement"
                           name="position"
                           className="ml-12 sm:ml-0"
+                          value={graduatedValue}
+                          onChange={(e) => {
+                            console.log("first:::", e.target.value);
+                            if (e.target.value === "True") {
+                              setLabel("Graduation Date");
+                              setGraduatedValue("True");
+                            } else {
+                              setLabel("Projected Graduation Date");
+                              setGraduatedValue("False");
+                            }
+                          }}
                         >
                           <FormControlLabel
                             value="True"
@@ -487,7 +499,7 @@ export default function RegistrationSteps({ handleClose }) {
                               formState: { error },
                             }) => (
                               <DesktopDatePicker
-                                label="Projected Graduation Date"
+                                label={label}
                                 error={!!error}
                                 helperText={error ? error.message : null}
                                 renderInput={(params) => (

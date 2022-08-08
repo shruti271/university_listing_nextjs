@@ -101,7 +101,7 @@ const UniversityDetails = ({university}) => {
       icon: <WorkOutlineOutlinedIcon />,
     },
     {
-      label: "Majors",
+      label: "Programs",
       icon: <CrisisAlertOutlinedIcon />,
     },
     {
