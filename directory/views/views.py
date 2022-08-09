@@ -237,7 +237,7 @@ from selenium.webdriver.chrome.options import Options
 
 def collectData(request):
     
-    path = '/Users/mohamed/Downloads/chromedriver'
+    path = 'F:\composite\chromedriver'
     
     chrome_options = Options()
     chrome_options.add_argument("--headless")

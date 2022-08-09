@@ -27,5 +27,5 @@ urlpatterns = [
     # Global search view (public)
     path('search/', GlobalSearch.as_view()),
 
-    path('collect-data/', collectScholarships)
+    # path('collect-data/', collectData)
 ]
