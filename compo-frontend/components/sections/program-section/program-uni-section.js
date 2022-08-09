@@ -4,7 +4,7 @@ import UniversityCard from "../../university-sections/universities-section/Unive
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 
-const MajorUniversities = () => {
+const ProgramUniversities = () => {
   const dispatch = useDispatch();
 
   const universities = useSelector(
@@ -39,4 +39,4 @@ const MajorUniversities = () => {
     </>
   );
 };
-export default MajorUniversities;
+export default ProgramUniversities;

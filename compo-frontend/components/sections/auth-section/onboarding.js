@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import * as React from "react";
+import { useState } from "react";
 import StepLabel from "@mui/material/StepLabel";
 
 import PersonIcon from "@mui/icons-material/Person";
@@ -28,9 +29,6 @@ import {
 import { useForm, Controller } from "react-hook-form";
 import Router from "next/router";
 import { onBoarding } from "../../../services/auth";
-import CoverImage1 from "../../../assets/reg-step-1.png";
-import CoverImage2 from "../../../assets/reg-step-2.png";
-import CoverImage3 from "../../../assets/reg-step-3.png";
 import CloseIcon from "@mui/icons-material/Close";
 import LoginLogo from "../../../assets/LoginLogo.svg";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -56,6 +54,8 @@ export default function RegistrationSteps({ handleClose }) {
   const [completed, setCompleted] = React.useState([]);
   const [email, setEmail] = React.useState();
   const [loading, setLoading] = React.useState(false);
+  const [label, setLabel] = useState("Projected Graduation Date");
+  const [graduatedValue, setGraduatedValue] = useState("False");
 
   const {
     register,
@@ -69,12 +69,11 @@ export default function RegistrationSteps({ handleClose }) {
     control,
   } = useForm();
 
+  console.log("::::", getValues("graduated"));
   React.useEffect(() => {
     const email = localStorage.getItem("email");
     setEmail(email);
   }, []);
-
-  console.log("Email Provide: ", email);
 
   const formatDate = (date) => {
     const day = date.toLocaleString("default", { day: "2-digit" });
@@ -164,26 +163,33 @@ export default function RegistrationSteps({ handleClose }) {
     <div className="grid grid-cols-1 sm:grid-cols-2 h-full">
       <div className="p-4 hidden sm:block h-full">
         {activeStep === 0 && (
-          <div className="bg-cover w-full h-full animate__animated animate__zoomIn onboarding1-cover text-center">
+          <div className="bg-cover-auth w-full h-full animate__animated animate__zoomIn onboarding1-cover text-center">
             <Image src={LoginLogo} alt="CoverImage" />
           </div>
         )}
         {activeStep === 1 && (
-          <div className="bg-cover onbording-cover2 w-full h-full animate__animated animate__zoomIn onboarding2-cover text-center">
+          <div className="bg-cover-auth onbording-cover2 w-full h-full animate__animated animate__zoomIn onboarding2-cover text-center">
             <Image src={LoginLogo} alt="CoverImage" />
           </div>
         )}
         {activeStep === 2 && (
-          <div className="bg-cover w-full h-full animate__animated animate__zoomIn onboarding3-cover text-center">
+          <div className="bg-cover-auth w-full h-full animate__animated animate__zoomIn onboarding3-cover text-center">
             <Image src={LoginLogo} alt="CoverImage" />
           </div>
         )}
       </div>
       <div className="p-4 ml-0 sm:ml-4 md:ml-4 lg:ml-12">
-        <div onClick={handleClose} className="flex">
-          <CloseIcon className="text-black ml-auto cursor-pointer" />
+        <div className="flex">
+          <CloseIcon
+            className="text-black ml-auto cursor-pointer"
+            onClick={handleClose}
+          />
         </div>
-        <Box className="mt-3 sm:mt-16">
+        <Box
+          className={`mt-3 sm:mt-24 ${activeStep === 1 && "sm:!mt-8"} ${
+            activeStep === 2 && "!mt-20 sm:!mt-24"
+          }`}
+        >
           <Stepper
             alternativeLabel
             activeStep={activeStep}
@@ -205,7 +211,7 @@ export default function RegistrationSteps({ handleClose }) {
           <React.Fragment>
             {activeStep === 0 && (
               <div>
-                <h3 className="pb-2 mt-8 font-semibold text-[21px] sm:text-2xl text-[#03014C] flex justify-center sm:block whitespace-nowrap">
+                <h3 className="pb-2 mt-8 font-semibold text-[21px] sm:text-2xl text-[#03014C] flex justify-center sm:block text-center sm:text-start ">
                   Tell us about yourself
                 </h3>
                 <span className="text-[#92929D] text-base mb-4 flex justify-center sm:block text-center sm:text-start">
@@ -345,14 +351,14 @@ export default function RegistrationSteps({ handleClose }) {
             )}
             {activeStep === 1 && (
               <div>
-                <h3 className="pb-2 mt-8 font-semibold text-2xl text-[#03014C] flex justify-center sm:block text-[21px] sm:text-2xl whitespace-nowrap">
+                <h3 className="pb-2 mt-8 font-semibold text-2xl text-[#03014C] flex justify-center sm:block text-[21px] sm:text-2xl text-center sm:text-start">
                   Insights of your education
                 </h3>
                 <p className=" text-[#92929D] text-base mb-4 flex justify-center sm:block text-center sm:text-start">
                   For us to filter the best results for you
                 </p>
 
-                <div className="flex flex-col mt-8 max-h-[316px] sm:max-h-full overflow-y-scroll">
+                <div className="flex flex-col mt-8 max-h-[345px] sm:max-h-full overflow-y-scroll">
                   <div className="flex justify-center sm:block">
                     <div className="flex  sm:block flex-col mb-6 w-[90%] md:w-5/6 lg:w-3/4">
                       <Box sx={{ display: "flex", alignItems: "flex-end" }}>
@@ -441,7 +447,7 @@ export default function RegistrationSteps({ handleClose }) {
                   </div>
                   <div className="flex sm:justify-center sm:block">
                     <div className="mb-4 mt-2 flex flex-col sm:flex-row sm:justify-between sm:items-center w-[90%] md:w-5/6 lg:w-3/4">
-                      <span className="pb-2 mt-2.5 font-semibold text-md text-[#11142D] ml-5 sm:ml-9">
+                      <span className="pb-2 mt-2.5 font-semibold text-md text-[#11142D] ml-12 sm:ml-9">
                         Are you graduated?
                       </span>
                       <ThemeProvider theme={theme}>
@@ -449,7 +455,18 @@ export default function RegistrationSteps({ handleClose }) {
                           row
                           aria-labelledby="demo-form-control-label-placement"
                           name="position"
-                          className="ml-5 sm:ml-0"
+                          className="ml-12 sm:ml-0"
+                          value={graduatedValue}
+                          onChange={(e) => {
+                            console.log("first:::", e.target.value);
+                            if (e.target.value === "True") {
+                              setLabel("Graduation Date");
+                              setGraduatedValue("True");
+                            } else {
+                              setLabel("Projected Graduation Date");
+                              setGraduatedValue("False");
+                            }
+                          }}
                         >
                           <FormControlLabel
                             value="True"
@@ -482,7 +499,7 @@ export default function RegistrationSteps({ handleClose }) {
                               formState: { error },
                             }) => (
                               <DesktopDatePicker
-                                label="Projected Graduation Date"
+                                label={label}
                                 error={!!error}
                                 helperText={error ? error.message : null}
                                 renderInput={(params) => (
@@ -514,7 +531,7 @@ export default function RegistrationSteps({ handleClose }) {
             )}
             {activeStep === 2 && (
               <div>
-                <h3 className="pb-2 mt-8 font-semibold text-2xl text-[#03014C] flex justify-center sm:block text-[21px] sm:text-2xl whitespace-nowrap">
+                <h3 className="pb-2 mt-8 font-semibold text-2xl text-[#03014C] flex justify-center sm:block text-[21px] sm:text-2xl text-center sm:text-start">
                   Your future plans
                 </h3>
                 <span className=" text-[#92929D] text-base mb-4 flex justify-center sm:block text-center sm:text-start">
@@ -576,7 +593,11 @@ export default function RegistrationSteps({ handleClose }) {
                 </div>
               </div>
             )}
-            <div className="flex justify-center sm:block">
+            <div
+              className={`flex justify-center sm:block ${
+                activeStep === 2 && "pb-28 sm:pb-36"
+              } `}
+            >
               <Box className="flex pt-2 mt-4 w-[90%] sm:w-3/4 md:w-5/6 lg:w-3/4 justify-between">
                 <button
                   type="submit"

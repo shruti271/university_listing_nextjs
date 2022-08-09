@@ -1,5 +1,5 @@
 import Link from "next/link";
-import FavoriteButton from "./FavoriteButton";
+import FavoriteButton from "../../FavoriteButton";
 
 const ScholarshipCard = () => {
   return (

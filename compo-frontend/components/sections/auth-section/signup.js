@@ -64,13 +64,16 @@ export default function SignUp({ changeAuthModalType, handleClose }) {
     <>
       <div className="grid grid-cols-1 sm:grid-cols-2 h-full">
         <div className="p-4 hidden sm:block animate__animated animate__zoomIn  h-full">
-          <div className="bg-cover auth-cover w-full h-full text-center">
+          <div className="bg-cover-auth auth-cover w-full h-full text-center">
             <Image src={LoginLogo} alt="CoverImage" />
           </div>
         </div>
         <div className="p-4 ml-0 sm:ml-4 md:ml-4 lg:ml-12 animate__animated animate__zoomIn">
-          <div onClick={handleClose} className="flex">
-            <CloseIcon className="text-black ml-auto cursor-pointer" />
+          <div className="flex">
+            <CloseIcon
+              className="text-black ml-auto cursor-pointer"
+              onClick={handleClose}
+            />
           </div>
           <h3 className="pb-2 mt-3 sm:mt-16 font-semibold text-xl sm:text-2xl text-[#03014C] flex justify-center sm:block">
             Sign up to Compoisite
@@ -216,7 +219,7 @@ export default function SignUp({ changeAuthModalType, handleClose }) {
                 </button>
               </div>
             </div>
-            <div className="flex justify-center sm:justify-between items-center mb-6  w-full md:w-5/6 lg:w-3/4 mt-6 sm:mt-8 whitespace-nowrap">
+            <div className="flex justify-center sm:justify-between items-center mb-6  w-full md:w-5/6 lg:w-3/4 mt-6 sm:mt-8  text-center">
               <div className="ml-0 sm:ml-auto">
                 <span className="text-black">Already have an account?</span>
                 <span

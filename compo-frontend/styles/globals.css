@@ -129,9 +129,3 @@ h6 {
   background: #888;
   border-radius: 5px;
 }
-
-.upgrade-cover > span {
-  position: absolute !important;
-  left: -4% !important;
-  bottom: -10% !important;
-}

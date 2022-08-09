@@ -1,4 +1,4 @@
-import MajorCard from "./MajorCard";
+import ProgramsCard from "./ProgramsCard";
 import Mjr1 from "../../../assets/mjr1.png";
 import Mjr2 from "../../../assets/mjr2.png";
 import Mjr3 from "../../../assets/mjr3.png";
@@ -9,7 +9,7 @@ import Mjr7 from "../../../assets/mjr7.png";
 import Mjr8 from "../../../assets/mjr8.png";
 import Mjr9 from "../../../assets/mjr9.png";
 
-const MajorsSection = () => {
+const ProgramsSection = () => {
   const MajorLists = [
     { image: Mjr1, title: "Health" },
     { image: Mjr2, title: "Creatives" },
@@ -28,11 +28,11 @@ const MajorsSection = () => {
       </h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  gap-4 mt-10 ">
         {MajorLists?.map((itm) => (
-          <MajorCard image={itm.image} title={itm?.title} />
+          <ProgramsCard image={itm.image} title={itm?.title} />
         ))}
       </div>
     </div>
   );
 };
 
-export default MajorsSection;
+export default ProgramsSection;

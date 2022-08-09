@@ -10,6 +10,7 @@ import '../styles/scholarship.css';
 import '../styles/auth.css';
 import 'animate.css';
 import "../styles/major.css";
+import "../styles/dashboard.css";
 
 function MyApp({ Component, pageProps }) {
   return (

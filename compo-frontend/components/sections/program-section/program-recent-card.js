@@ -2,7 +2,7 @@ import { Rating } from "@mui/material";
 import Image from "next/image";
 import StarIcon from "@mui/icons-material/Star";
 
-const MajorRecentCard = ({ itm }) => {
+const ProgramRecentCard = ({ itm }) => {
   return (
     <>
       <div className="grid grid-cols-3 border mt-8">
@@ -50,4 +50,4 @@ const MajorRecentCard = ({ itm }) => {
   );
 };
 
-export default MajorRecentCard;
+export default ProgramRecentCard;

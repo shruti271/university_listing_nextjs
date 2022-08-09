@@ -19,8 +19,6 @@ export default function Home() {
   const router = useRouter();
 
   useEffect(() => {
-    console.log("::::", window.history.state);
-
     if (window.history.state === "signin") {
       setModalType(window.history.state);
     } else {
@@ -35,7 +33,7 @@ export default function Home() {
   useEffect(() => {
     window.addEventListener("storage", () => {
       // When local storage changes, dump the list to
-      console.log(":::----", localStorage.getItem("access_token"));
+
       forceReload();
     });
   }, [typeof window !== "undefined" && localStorage.getItem("access_token")]);

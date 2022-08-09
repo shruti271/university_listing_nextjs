@@ -4,8 +4,8 @@ import CalenderIcon from "../../svg/CalenderIcon";
 
 const ScholarshipInfo = ({ scholarship }) => {
   return (
-    <div className="-mt-[35px] sm:-mt-[50px] container mx-auto w-full md:w-[70%] lg:w-[55%]">
-      <div className=" flex items-center justify-between container mx-auto">
+    <div className="-mt-[35px] sm:-mt-[50px] container w-full md:w-[70%] lg:w-[55%]">
+      <div className=" flex items-center justify-between">
         <div className="flex items-center justify-center flex-col">
           <div className="rounded-full bg-[#EB6B09] w-[75px] h-[75px] sm:w-[100px] sm:h-[100px] flex items-center justify-center">
             <AmountIcon />

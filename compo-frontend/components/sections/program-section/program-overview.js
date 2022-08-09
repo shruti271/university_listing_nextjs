@@ -1,5 +1,5 @@
 
-const MajorOverview = () => {
+const ProgramOverview = () => {
   return (
     <>
       <div className="pb-10 border-b border-[#1C1D1F] border-opacity-25	">
@@ -41,4 +41,4 @@ const MajorOverview = () => {
     </>
   );
 };
-export default MajorOverview;
+export default ProgramOverview;

@@ -1,8 +1,8 @@
-import Image from 'next/image';
-import { motion } from 'framer-motion';
+import Image from "next/image";
+import { motion } from "framer-motion";
 
-import CirclesText from '../../../assets/hero-section/circles-0.svg';
-import HeroIllustration from './Illustration';
+import CirclesText from "../../../assets/hero-section/circles-0.svg";
+import HeroIllustration from "./Illustration";
 
 const headingParentVariants = {
   hidden: {},
@@ -15,7 +15,7 @@ const headingParentVariants = {
 
 const headingChildrenVariants = (delay) => {
   return {
-    hidden: { y: '100%', opacity: 0 },
+    hidden: { y: "100%", opacity: 0 },
     show: { y: 0, opacity: 1, transition: { duration: 1, delay } },
   };
 };
@@ -58,10 +58,14 @@ const HeroSection = () => {
           animate="show"
           className="mb-10 lg:mb-20 max-w-[531px]"
         >
-        Composite is the leading educational platform in the world, allowing students to connect with Universities and discover the next step in their edcuational journey.
+          Composite is the leading educational platform in the world, allowing
+          students to connect with Universities and discover the next step in
+          their edcuational journey.
         </motion.p>
         <div>
-          <h3 className="font-semibold text-lg md:text-xl mb-4">What are  you searching for?</h3>
+          <h3 className="font-semibold text-lg md:text-xl mb-4">
+            What are you searching for?
+          </h3>
           <ul className="flex items-center gap-2 flex-wrap justify-start">
             <li className="px-4 py-2 border border-colorPrimary text-colorPrimary rounded-3xl bg-colorWhite">
               <span>Universities</span>

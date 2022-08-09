@@ -2,10 +2,10 @@ import { Rating } from "@mui/material";
 import WaveElement from "../../svg/WaveElement";
 import StarIcon from "@mui/icons-material/Star";
 
-const MajorHeader = () => {
+const ProgramHeader = () => {
   return (
-    <div className="pb-10 lg:pb-20 ml-[5%] lg:ml-[5%]  relative mt-32 ">
-      <div className="mt-[130px] grid grid-cols-8 gap-8 mx-[5%] sm:mx-[0%]">
+    <div className="pb-10 lg:pb-20   relative mt-32 ">
+      <div className="mt-[130px] grid grid-cols-8 gap-8 ">
         <div className="col-span-8  pr-0 lg:col-span-8 lg:pr-10">
           <div className="font-bold text-2xl sm:text-3xl text-[#000000]">
             Art/Art Studies, General
@@ -59,4 +59,4 @@ const MajorHeader = () => {
   );
 };
 
-export default MajorHeader;
+export default ProgramHeader;
