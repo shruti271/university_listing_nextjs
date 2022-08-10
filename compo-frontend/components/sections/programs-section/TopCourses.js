@@ -1,5 +1,5 @@
 import React from "react";
-import CardInteractive from "../../filter/shared/card-interactive/CardInteractive";
+import CardInteractive from "../../shared/card-interactive/CardInteractive";
 
 const TopCourses = () => {
   const TopCourses = [
