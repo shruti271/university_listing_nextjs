@@ -17,7 +17,7 @@ h6 {
 }
 
 .container {
-  @apply w-[95%] max-w-[1336px] 2xl:max-w-[1536px] mx-auto;
+  @apply w-[95%] max-w-[1206px] 2xl:max-w-[1536px] mx-auto;
 }
 
 .container-fluid {
