@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUniversities } from '../../../store/university/universitySlice';
@@ -7,6 +8,7 @@ import UniversityCard from './UniversityCard';
 
 const UniversitiesSection = ({ className = '' }) => {
   const dispatch = useDispatch();
+
   const universities = useSelector(
     (state) => state.universities.filteredUniversities
   );

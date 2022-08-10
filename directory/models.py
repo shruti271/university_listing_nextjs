@@ -1,21 +1,43 @@
+from this import d
 from django.db import models
+from django.forms import CharField
 from accounts.models import User
 from django.urls import reverse
 from autoslug import AutoSlugField
+
+
+class Discipline(models.Model):
+    name = models.CharField(max_length=200, null=True)
+
+    def __str__(self):
+        return self.name
+
+class Ranking(models.Model):
+    name = models.CharField(max_length=200, null=True)
+    ranking = models.IntegerField(null=True)
+    year = models.IntegerField(null=True)
+    link = models.CharField(max_length=200, null=True, blank=True)
+
+    def __str__(self):
+        return self.name
 
 
 class University(models.Model):
     name = models.CharField(max_length=200, null=True)
     slug = AutoSlugField(populate_from='name', always_update=True, unique = True, null=True)
     rank = models.CharField(max_length=200, blank=True)
+    ranking = models.ManyToManyField(Ranking)
     rank_order = models.IntegerField(default=0, null=True, blank=True)
     image = models.ImageField(upload_to='university_images/', blank=True)
-    #image_url = models.CharField(max_length=200, blank=True)
+    image_url = models.URLField(max_length=200, blank=True, null=True)
     description = models.TextField(blank=True)
-    #description_sp = models.TextField(blank=True)
+    description_sp = models.TextField(null=True, blank=True)
+    about_sp = models.TextField(null=True, blank=True)
+    student_life = models.TextField(null=True, blank=True)
+    maps_link = models.URLField(max_length=200, null=True)
     institute_type = models.CharField(max_length=200, blank=True)
     campus_settings = models.CharField(max_length=200, blank=True)
-    student_body_size = models.IntegerField(default=0)
+    student_body_size = models.IntegerField(default=0, null=True, blank=True)
     prince_range = models.CharField(max_length = 50, null=True, blank=True)
     scores_overall =  models.CharField(max_length = 50, null=True, blank=True)
     scores_overall_rank =models.CharField(max_length = 50, null=True, blank=True)
@@ -42,40 +64,69 @@ class University(models.Model):
     subjects_offered = models.TextField(null=True, blank=True)
     closed = models.BooleanField(default=False, null=True, blank=True)
     unaccredited = models.BooleanField(default=False, null=True, blank=True)
+    sp_masters = models.BooleanField(default=False, null=True)
+    sp_bachelors = models.BooleanField(default=False, null=True)
+    sp_phd = models.BooleanField(default=False, null=True)
+
     #disabled = models.BooleanField(default=False, null=True, blank=True)
     #apply_link = models.URLField(null=True, blank=True)
 
     class Meta:
         verbose_name_plural = "Universities"
 
-    # def get_url(self):
-    #     retun str(self.slug) + '/'
 
     def __str__(self):
         return self.name
 
-    # def get_absolute_url(self):
-    #     return reverse("university-detail", kwargs={"pk": self.pk})
+class Duration(models.Model):
+    type = models.CharField(max_length=200, null=True)
+    duration = models.CharField(max_length=200, null=True)
     
+    def __str__(self):
+        return self.type + ' ' + self.duration
+
+class Deadlines(models.Model):
+    start_date = models.CharField(max_length=200, null=True)
+    apply_deadline = models.CharField(max_length=200, null=True, blank=True)
+    apply_anytime = models.BooleanField(default=False, null=True)
+
+    def __str__(self):
+        return self.start_date + ', apply before: ' + self.apply_deadline if not self.apply_anytime else 'Apply anytime'
+
+class AcademicRequirement(models.Model):
+    name = models.CharField(max_length=200, null=True)
+    score = models.FloatField(null=True)
+    no_req = models.BooleanField(default=False, null=False)
+
+    def __str__(self):
+        return self.name + ' ' + self.score if not self.no_req else 'No academic requirements.'
+
 
 class Program(models.Model):
     name = models.CharField(max_length=200, null=True)
     slug = AutoSlugField(populate_from='name', always_update=True, unique = True, null=True)
-    university = models.ForeignKey(University, on_delete=models.CASCADE)
+    image_url = models.URLField(max_length=200, blank=True)
     description = models.TextField(blank=True, null=True)
-    degree_level = models.CharField(max_length=200, blank=True, null=True)
-    years_of_study = models.IntegerField(default=0)
-    format_name = models.CharField(max_length=200, blank=True, null=True)
-    language = models.CharField(max_length=200, blank=True, null=True)
-    schedule = models.CharField(max_length=200, blank=True, null=True)
-    application_deadline = models.DateField(blank=True, null=True)
-    is_favorite = models.BooleanField(default=False)
+    university = models.ForeignKey(University, on_delete=models.CASCADE)
+    durations = models.ManyToManyField(Duration)
+    deadlines = models.ManyToManyField(Deadlines)
+    credits = models.CharField(max_length=200, null=True)
+    delivered = models.CharField(max_length=200, null=True)
+    disciplines = models.ManyToManyField(Discipline)
+    link_to_website = models.URLField(null=True)
+    program_structure = models.TextField(null=True)
+    academic_requirements = models.ManyToManyField(AcademicRequirement)
+    other_requirements = models.TextField(null=True, blank=False)
+    tuition_fee = models.IntegerField(null=True)
+    living_cost_min = models.IntegerField(null=True, blank=True)
+    living_cost_max = models.IntegerField(null=True, blank=True)
+    location = models.CharField(max_length=200, blank=True, null=True)
+    type = models.CharField(max_length=200, blank=True, null=True)
+
 
     def __str__(self):
-        return self.name
+        return self.name + ' ' + self.university.name
 
-    def get_absolute_url(self):
-        return reverse("program-detail", kwargs={"pk": self.pk})
 
 from django.core.validators import URLValidator
 

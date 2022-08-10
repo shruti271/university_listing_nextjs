@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from accounts.models import User, Student
+from accounts.models import User, Student, Verification
 
 class ClosedUserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -24,3 +24,4 @@ class ClosedStudentSerializer(serializers.ModelSerializer):
             return request.build_absolute_uri(obj.profile_picture.url)
         else:
             return None
+

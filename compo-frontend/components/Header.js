@@ -1,25 +1,40 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { useRouter } from "next/router";
+import * as React from "react";
 
 import HamburgerIcon from "../assets/hamburger-icon.svg";
 import CompositeLogo from "../assets/composite-logo.svg";
 import SearchIcon from "../assets/search-icon.svg";
 import MobileMenu from "./MobileMenu";
 import PrimaryButton from "./PrimaryButton";
+import AuthModal from "../components/core/AuthModal";
+import { AuthTypeModal } from "./core/Enum";
 
-const Header = () => {
+const Header = ({modalType}) => {
   const [isMenuOpen, setIsMenuOpen] = useState();
   const mobileMenuStyle = isMenuOpen ? "translate-x-0" : "translate-x-full";
   const handleMobileMenuClick = () => setIsMenuOpen(!isMenuOpen);
 
+  const [authTypeModal, setauthTypeModal] = React.useState();
+
+  const [open, setOpen] = React.useState(false);
+  
   const router = useRouter();
   const setActiveLink = (path) => {
     return router.pathname === path
-      ? "text-[#06040A] hover:text-[#06040A]"
-      : "text-[#544E5D] hover:opacity-50";
+    ? "text-[#06040A] hover:text-[#06040A]"
+    : "text-[#544E5D] hover:opacity-50";
   };
+  console.log("modalTypemodalType::", modalType)
+  
+  useEffect(()=>{
+    {
+      modalType === "signin" && 
+      setOpen(true), setauthTypeModal("signin");
+    }
+  }, [modalType]);
 
   return (
     <>
@@ -37,16 +52,25 @@ const Header = () => {
           </Link>
           <div className="flex items-center gap-8 lg:hidden">
             <div className="hidden md:block">
-              <Link href="/auth/signin">
-                <PrimaryButton type="button" isPrimary={false}>
-                  Sign In
-                </PrimaryButton>
-              </Link>
+              <PrimaryButton
+                type="button"
+                isPrimary={false}
+                onClick={() => {
+                  setOpen(true), setauthTypeModal(AuthTypeModal.Signin);
+                }}
+              >
+                Sign In
+              </PrimaryButton>
             </div>
             <div className="hidden md:block">
-              <Link href="/auth/signup">
-                <PrimaryButton type="button">Join Now</PrimaryButton>
-              </Link>
+              <PrimaryButton
+                type="button"
+                onClick={() => {
+                  setOpen(true), setauthTypeModal(AuthTypeModal.Signup);
+                }}
+              >
+                Join Now
+              </PrimaryButton>
             </div>
             <button type="button" className="relative w-5 h-5">
               <Image src={SearchIcon} alt="Search" layout="fill" />
@@ -62,31 +86,31 @@ const Header = () => {
           <nav className="hidden lg:block">
             <div className="flex items-center gap-5 xl:gap-12">
               <ul className="flex items-center gap-5 xl:gap-8">
-                <li className={`${setActiveLink('/')} text-sm xl:text-base`}>
+                <li className={`${setActiveLink("/")} text-sm xl:text-base`}>
                   <Link href="/">Home</Link>
                 </li>
                 <li
                   className={`${setActiveLink(
-                    '/universities'
+                    "/universities"
                   )} text-sm xl:text-base`}
                 >
                   <Link href="/universities">Universities</Link>
                 </li>
                 <li
                   className={`${setActiveLink(
-                    '/scholarships'
+                    "/scholarships"
                   )} text-sm xl:text-base`}
                 >
                   <Link href="/scholarships">Scholarships</Link>
                 </li>
                 <li
-                  className={`${setActiveLink('/majors')} text-sm xl:text-base`}
+                  className={`${setActiveLink("/majors")} text-sm xl:text-base`}
                 >
-                  <Link href="/majors">Majors</Link>
+                  <Link href="/majors">Programs</Link>
                 </li>
                 <li
                   className={`${setActiveLink(
-                    '/articles'
+                    "/articles"
                   )} text-sm xl:text-base`}
                 >
                   <Link href="/articles">Articles</Link>
@@ -98,17 +122,34 @@ const Header = () => {
                 </li>
               </ul>
               <ul className="flex items-center gap-3">
-                <Link href="/auth/signin">
-                  <PrimaryButton type="button" isPrimary={false}>
-                    Sign In
-                  </PrimaryButton>
-                </Link>
-                <Link href="/auth/signup">
-                  <PrimaryButton className="btn-shadow" type="button">
-                    Join Now
-                  </PrimaryButton>
-                </Link>
+                <PrimaryButton
+                  type="button"
+                  isPrimary={false}
+                  onClick={() => {
+                    setOpen(true), setauthTypeModal(AuthTypeModal.Signin);
+                  }}
+                >
+                  Sign In
+                </PrimaryButton>
+
+                <PrimaryButton
+                  className="btn-shadow"
+                  type="button"
+                  onClick={() => {
+                    setOpen(true), setauthTypeModal(AuthTypeModal.Signup);
+                  }}
+                >
+                  Join Now
+                </PrimaryButton>
               </ul>
+              <AuthModal
+                open={open}
+                handleClose={() => {
+                  setOpen(false);
+                }}
+                authTypeModal={authTypeModal}
+                setauthTypeModal={setauthTypeModal}
+              />
             </div>
           </nav>
         </div>

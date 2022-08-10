@@ -6,26 +6,26 @@ import Link from 'next/link';
 const paths = [
   {
     id: 1,
-    title: 'Majors & Bachelors Degree',
+    title: 'Universities',
     description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-    backgroundImage: imageGirl,
+      'Search our global Universities database to find where you want to study',
+    backgroundImage: imageCollege,
     href: '/',
   },
   {
     id: 2,
-    title: 'Graduate Programs',
+    title: 'Programs',
     description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-    backgroundImage: imageTeam,
+      'Discover Bachelors, Masters, & Phd programs',
+    backgroundImage: imageGirl,
     href: '/',
   },
   {
     id: 3,
-    title: 'Colleges & Schools',
+    title: 'Scholarships',
     description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-    backgroundImage: imageCollege,
+      'Find scholarships to help you pay for your dream education',
+    backgroundImage: imageTeam,
     href: '/',
   },
 ];

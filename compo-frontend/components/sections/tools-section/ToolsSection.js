@@ -24,11 +24,12 @@ const Chances = ({ className = "" }) => (
     className={`p-6 flex flex-col items-center gap-2 rounded-md ${className}`}
     style={boxShadow}
   >
+    <span>Chances</span>
     <span className="font-semibold text-3xl lg:text-5xl text-colorBlack">
       76.8%
     </span>
-    <span>Chances</span>
-    <span className="text-colorPrimary">18,21%</span>
+    <span>Acceptance rate</span>
+    <span className="text-colorPrimary">18%</span>
   </div>
 );
 
@@ -47,9 +48,9 @@ const Scholarship = ({ className = "" }) => (
     </div>
     <div className="px-5 py-3 text-left h-[40%]">
       <p className="text-xl font-semibold max-w-[220px] text-colorBlack">
-        Carter Roger Williams Scholarship
+      Chernivtsi National University
       </p>
-      <span className="text-colorPrimary">$2700</span>
+      <span className="text-colorPrimary">$12700</span>
     </div>
   </div>
 );
@@ -70,11 +71,11 @@ const Applications = ({ className = "" }) => {
   return (
     <div className={`px-6 py-5 rounded-md ${className}`} style={boxShadow}>
       <h4 className="text-xl font-semibold text-left mb-4">
-        Total Scholarship Applied
+        Total Applicants
       </h4>
       <div className="flex items-center gap-20">
         <div className="flex flex-col">
-          <span className="font-semibold text-3xl text-colorBlack">+4201</span>
+          <span className="font-semibold text-3xl text-colorBlack">+1120</span>
           <span className="text-colorPrimary">Students</span>
         </div>
       </div>
@@ -102,13 +103,10 @@ const ToolsSection = () => {
             Tools and resources for every student.
           </h2>
           <p>
-            Start planning as a senior, junior, sophomore, or freshman. Get
-            exactly what you need at any stage of your college journey. <br />
+            Start planning as a high-school, undergraduate, or even graduate student. Find your ideal next step no matter what stage of your educational journey you're in. <br />
             <br />
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliquaLorem
-            ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua
+            Search our gloval directory of Universities, Programs, and Scholarships to discover different paths. Use the Chances Engine to figure out your success chances.
+            And create your own profile to get discovered and recieve tailored recommendations.
           </p>
         </div>
         <div className="grid grid-cols-5 grid-rows-6 gap-4 md:gap-10 h-[545px] max-w-[536px] md:basis-1/2">

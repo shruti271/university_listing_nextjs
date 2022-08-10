@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import withAuth from '../../components/core/PrivateRoute';
 import Filter from '../../components/filter/Filter';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
@@ -15,7 +16,7 @@ const Universities = () => {
         <HeroSection />
         <div className="lg:flex w-[90%] mx-auto max-w-[1580px] gap-10 xl:gap-20">
           <section className="lg:basis-[200px] xl:basis-[350px] hidden lg:block pt-14 pb-20">
-            <h2 className="font-semibold text-3xl xl:text-5xl mb-4">
+            <h2 className="font-semibold text-3xl xl:text-5xl mb-6">
               Filter option
             </h2>
             <Filter />

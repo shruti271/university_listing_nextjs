@@ -1,21 +1,21 @@
 export const features = [
   {
     id: 1,
-    title: 'Best Places to Study',
+    title: 'Best University to study',
     description:
-      'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium',
+      'Discover Universities by rank, research level, price, location, or any feature important to you',
   },
   {
     id: 2,
-    title: 'Search scholarships',
+    title: 'Right Program for you',
     description:
-      'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium',
+      'Find the right program according to your interests, career ambitions, and profile',
   },
   {
     id: 3,
-    title: 'figuring out what should you study',
+    title: 'Search potential Scholarships',
     description:
-      'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium',
+      'Automatically filter and search through scholarships you\'re elibile for you',
   },
 ];
 
