@@ -2,8 +2,6 @@ import CardInteractive from "../../shared/card-interactive/CardInteractive";
 import TextField from "@mui/material/TextField";
 
 const MainSearch = () => {
-  
-
   return (
     <CardInteractive
       cardTitle="Search Courses"

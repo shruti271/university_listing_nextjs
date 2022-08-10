@@ -1,8 +1,14 @@
-import { getUniversities } from "../../../store/university/universitySlice";
-import PaginationControlled from "../../PaginationControlled/PaginationControlled";
+import {
+  appendToUniversities,
+  getUniversities,
+  incrementPage,
+} from "../../../store/university/universitySlice";
 import UniversityCard from "../../university-sections/universities-section/UniversityCard";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import { CircularProgress } from "@mui/material";
+import { useInView } from "react-intersection-observer";
+import MobileFilterMajorUni from "./MobileFilterMajorUni";
 
 const ProgramUniversities = () => {
   const dispatch = useDispatch();
@@ -10,32 +16,55 @@ const ProgramUniversities = () => {
   const universities = useSelector(
     (state) => state.universities.filteredUniversities
   );
-  const countUniversities = useSelector(
-    (state) => state.universities.countUniversities
-  );
+
+  const isLoading = useSelector((state) => state.universities.pending);
+  const currentPage = useSelector((state) => state.universities.currentPage);
+
+  const handleAppend = () => {
+    dispatch(appendToUniversities({ universities, page: currentPage }));
+  };
+
+  const { ref, inView } = useInView({
+    threshold: 0,
+  });
 
   useEffect(() => {
     dispatch(getUniversities());
   }, []);
 
+  useEffect(() => {
+    if (inView && universities.length) {
+      dispatch(incrementPage());
+    }
+  }, [inView]);
+
+  useEffect(() => {
+    if (currentPage > 1)
+      dispatch(appendToUniversities({ universities, page: currentPage }));
+  }, [currentPage]);
+
   return (
     <>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4  mb-14">
+      <div className="mb-10 lg:hidden">
+        <MobileFilterMajorUni />
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {universities.map((university) => (
           <UniversityCard key={university.id} university={university} />
         ))}
       </div>
-      <div className="flex items-center justify-between">
-        <span className="text-colorBlack">
-          Showing {universities.length} of {countUniversities}
-        </span>
-        <div>
-          <PaginationControlled
-            countPages={countUniversities}
-            itemsPerPage={20}
-          />
+      <button
+        className="p-2 border mb-2 opacity-0"
+        onClick={handleAppend}
+        ref={ref}
+      >
+        append
+      </button>
+      {isLoading && (
+        <div className="text-center">
+          <CircularProgress />
         </div>
-      </div>
+      )}
     </>
   );
 };
