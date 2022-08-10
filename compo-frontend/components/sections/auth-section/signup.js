@@ -63,12 +63,12 @@ export default function SignUp({ changeAuthModalType, handleClose }) {
   return (
     <>
       <div className="grid grid-cols-1 sm:grid-cols-2 h-full">
-        <div className="p-4 hidden sm:block animate__animated animate__zoomIn  h-full">
+        <div className="p-4 hidden sm:block h-full">
           <div className="bg-cover-auth auth-cover w-full h-full text-center">
             <Image src={LoginLogo} alt="CoverImage" />
           </div>
         </div>
-        <div className="p-4 ml-0 sm:ml-4 md:ml-4 lg:ml-12 animate__animated animate__zoomIn">
+        <div className="p-4 ml-0 sm:ml-4 md:ml-4 lg:ml-12 ">
           <div className="flex">
             <CloseIcon
               className="text-black ml-auto cursor-pointer"

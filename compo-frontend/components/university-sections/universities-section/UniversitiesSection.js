@@ -1,18 +1,17 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   appendToUniversities,
   getUniversities,
   incrementPage,
-  resetFilter,
-} from '../../../store/university/universitySlice';
-import CircularProgress from '@mui/material/CircularProgress';
-import UpperFilter from '../../upper-filter/UpperFilter';
-import UniversityCard from './UniversityCard';
-import { useInView } from 'react-intersection-observer';
-import MobileFilter from '../../universities-dir-filter/MobileFilter/MobileFilter';
+} from "../../../store/university/universitySlice";
+import CircularProgress from "@mui/material/CircularProgress";
+import UpperFilter from "../../upper-filter/UpperFilter";
+import UniversityCard from "./UniversityCard";
+import { useInView } from "react-intersection-observer";
+import MobileFilter from "../../universities-dir-filter/MobileFilter/MobileFilter";
 
-const UniversitiesSection = ({ className = '' }) => {
+const UniversitiesSection = ({ className = "" }) => {
   const dispatch = useDispatch();
 
   const universities = useSelector(

@@ -74,17 +74,19 @@ export default function Programs() {
             <ProgramUniTab changeTab={changeTab} />
           </div>
 
-          <div className="col-span-4 xl:col-span-3 mt-[130px] hidden lg:block ">
-            <TabPanel
-              value={changeTab}
-              index={0}
-              className="border rounded"
-              padding={3}
-              style={{ boxShadow: "0px 0px 40px rgba(0, 0, 0, 0.08)" }}
-            >
-              <ProgramOverviewCard />
-            </TabPanel>
-          </div>
+          {changeTab === 0 && (
+            <div className="col-span-4 xl:col-span-3 mt-[130px] hidden lg:block ">
+              <TabPanel
+                value={changeTab}
+                index={0}
+                className="border rounded"
+                padding={3}
+                style={{ boxShadow: "0px 0px 40px rgba(0, 0, 0, 0.08)" }}
+              >
+                <ProgramOverviewCard />
+              </TabPanel>
+            </div>
+          )}
         </div>
       </div>
 

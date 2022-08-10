@@ -2,7 +2,12 @@ import { styled } from "@mui/material/styles";
 import TextField from "@mui/material/TextField";
 
 import NativeSelect from "@mui/material/NativeSelect";
-import { LinearProgress, linearProgressClasses, Tabs } from "@mui/material";
+import {
+  LinearProgress,
+  linearProgressClasses,
+  Modal,
+  Tabs,
+} from "@mui/material";
 import PropTypes from "prop-types";
 import { Box, Typography } from "@mui/material";
 import StepConnector, {
@@ -313,3 +318,9 @@ CircularProgressWithLabel.propTypes = {
    */
   value: PropTypes.number.isRequired,
 };
+
+export const CustomAuthModal = styled(Modal)(({ theme }) => ({
+  [`& .MuiBackdrop-root`]: {
+    backgroundColor: "transparent !important",
+  },
+}));
