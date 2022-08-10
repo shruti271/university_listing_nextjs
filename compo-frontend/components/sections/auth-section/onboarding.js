@@ -163,17 +163,17 @@ export default function RegistrationSteps({ handleClose }) {
     <div className="grid grid-cols-1 sm:grid-cols-2 h-full">
       <div className="p-4 hidden sm:block h-full">
         {activeStep === 0 && (
-          <div className="bg-cover-auth w-full h-full animate__animated animate__zoomIn onboarding1-cover text-center">
+          <div className="bg-cover-auth w-full h-full onboarding1-cover text-center">
             <Image src={LoginLogo} alt="CoverImage" />
           </div>
         )}
         {activeStep === 1 && (
-          <div className="bg-cover-auth onbording-cover2 w-full h-full animate__animated animate__zoomIn onboarding2-cover text-center">
+          <div className="bg-cover-auth onboarding-cover-2 w-full h-full  onboarding2-cover text-center">
             <Image src={LoginLogo} alt="CoverImage" />
           </div>
         )}
         {activeStep === 2 && (
-          <div className="bg-cover-auth w-full h-full animate__animated animate__zoomIn onboarding3-cover text-center">
+          <div className="bg-cover-auth w-full h-full  onboarding3-cover text-center">
             <Image src={LoginLogo} alt="CoverImage" />
           </div>
         )}

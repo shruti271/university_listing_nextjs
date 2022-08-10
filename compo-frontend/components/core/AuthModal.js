@@ -7,6 +7,7 @@ import Signin from "../sections/auth-section/signin";
 import Signup from "../sections/auth-section/signup";
 import OnBoarding from "../sections/auth-section/onboarding";
 import { AuthTypeModal } from "./Enum";
+import { CustomAuthModal } from "./CustomMUIComponents";
 
 const style = {
   position: "absolute",
@@ -26,11 +27,12 @@ const AuthModal = (props) => {
   const { open, handleClose, authTypeModal, setauthTypeModal } = props;
 
   return (
-    <Modal
+    <CustomAuthModal
       open={open}
       onClose={handleClose}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
+      className="animate__animated animate__slideInDown"
     >
       <Box sx={style}>
         {authTypeModal === AuthTypeModal.Signin && (
@@ -49,7 +51,7 @@ const AuthModal = (props) => {
           <OnBoarding handleClose={handleClose} />
         )}
       </Box>
-    </Modal>
+    </CustomAuthModal>
   );
 };
 
