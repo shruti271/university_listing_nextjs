@@ -1,12 +1,16 @@
-import Head from 'next/head';
-import { Provider } from 'react-redux';
-import Script from 'next/script';
+import Head from "next/head";
+import { Provider } from "react-redux";
+import Script from "next/script";
 
-import Footer from '../components/Footer';
-import Header from '../components/Header';
 import store from '../store/store';
+
 import '../styles/globals.css';
+import '../styles/university.css';
+import '../styles/scholarship.css';
+import '../styles/auth.css';
 import 'animate.css';
+import "../styles/major.css";
+import "../styles/dashboard.css";
 
 function MyApp({ Component, pageProps }) {
   return (

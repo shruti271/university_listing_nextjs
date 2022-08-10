@@ -62,19 +62,18 @@ export default function SignUp({ changeAuthModalType, handleClose }) {
 
   return (
     <>
-      <div
-        className="grid grid-cols-1 sm:grid-cols-2 h-full"
-      >
-        <div
-          className="p-4 hidden sm:block animate__animated animate__zoomIn  h-full"
-        >
-          <div className="bg-cover auth-cover w-full h-full text-center">
+      <div className="grid grid-cols-1 sm:grid-cols-2 h-full">
+        <div className="p-4 hidden sm:block animate__animated animate__zoomIn  h-full">
+          <div className="bg-cover-auth auth-cover w-full h-full text-center">
             <Image src={LoginLogo} alt="CoverImage" />
           </div>
         </div>
         <div className="p-4 ml-0 sm:ml-4 md:ml-4 lg:ml-12 animate__animated animate__zoomIn">
-          <div onClick={handleClose} className="flex">
-            <CloseIcon className="text-black ml-auto cursor-pointer" />
+          <div className="flex">
+            <CloseIcon
+              className="text-black ml-auto cursor-pointer"
+              onClick={handleClose}
+            />
           </div>
           <h3 className="pb-2 mt-3 sm:mt-16 font-semibold text-xl sm:text-2xl text-[#03014C] flex justify-center sm:block">
             Sign up to Compoisite
@@ -84,7 +83,11 @@ export default function SignUp({ changeAuthModalType, handleClose }) {
               <div className="flex flex-col">
                 <div className="flex sm:block justify-center">
                   <div className="flex  sm:block flex-col mb-6 w-[85%] md:w-5/6 lg:w-3/4">
-                    {invalid && (<Alert severity="error" className="mb-4 -mt-4">{errorMsg}</Alert>)}
+                    {invalid && (
+                      <Alert severity="error" className="mb-4 -mt-4">
+                        {errorMsg}
+                      </Alert>
+                    )}
                     <Box sx={{ display: "flex", alignItems: "flex-end" }}>
                       <EmailIcon
                         sx={{ mr: 2, my: 0.5 }}
@@ -195,7 +198,9 @@ export default function SignUp({ changeAuthModalType, handleClose }) {
                       layout="fixed"
                     />
                   </div>
-                  <span className="text-black whitespace-nowrap">Login with Google</span>
+                  <span className="text-black whitespace-nowrap">
+                    Login with Google
+                  </span>
                 </button>
 
                 <button className="pt-3 pb-3 pr-2 pl-2 w-full focus:ring-0 focus:outline-none font-medium rounded-xl text-sm text-center inline-flex items-center justify-center border mt-4 xl:mt-0">
@@ -208,11 +213,13 @@ export default function SignUp({ changeAuthModalType, handleClose }) {
                       layout="fixed"
                     />
                   </div>
-                  <span className="text-black whitespace-nowrap">Login with Facebook</span>
+                  <span className="text-black whitespace-nowrap">
+                    Login with Facebook
+                  </span>
                 </button>
               </div>
             </div>
-            <div className="flex justify-center sm:justify-between items-center mb-6  w-full md:w-5/6 lg:w-3/4 mt-6 sm:mt-8 whitespace-nowrap">
+            <div className="flex justify-center sm:justify-between items-center mb-6  w-full md:w-5/6 lg:w-3/4 mt-6 sm:mt-8  text-center">
               <div className="ml-0 sm:ml-auto">
                 <span className="text-black">Already have an account?</span>
                 <span
