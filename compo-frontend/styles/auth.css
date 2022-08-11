@@ -13,7 +13,7 @@
   top: 5% !important;
 }
 
-.onbording-cover2 > span {
+.onboarding-cover-2 > span {
   top: 88% !important;
 }
 
@@ -32,3 +32,4 @@
 .onboarding3-cover {
   background: url("../assets/reg-step-3.png") no-repeat center center fixed;
 }
+

@@ -1,16 +1,15 @@
-import CardInteractive from '../../shared/card-interactive/CardInteractive';
-import TextField from '@mui/material/TextField';
-import { useState } from 'react';
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import CardInteractive from "../../shared/card-interactive/CardInteractive";
+import TextField from "@mui/material/TextField";
+import { useState } from "react";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import {
   filterMainSearch,
-  resetFilter,
   resetPage,
-} from '../../../store/university/universitySlice';
+} from "../../../store/university/universitySlice";
 
-const MainSearch = ({ title = '' }) => {
-  const [query, setQuery] = useState('');
+const MainSearch = () => {
+  const [query, setQuery] = useState("");
   const dispatch = useDispatch();
 
   const handleChange = (e) => {
@@ -24,7 +23,7 @@ const MainSearch = ({ title = '' }) => {
 
   return (
     <CardInteractive
-      cardTitle={title || 'Search By Name'}
+      cardTitle="Search By Name"
       bottomComponent={
         <TextField
           id="outlined-search"

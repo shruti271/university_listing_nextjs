@@ -1,19 +1,21 @@
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
-import HeroSection from "../../components/sections/programs-section/HeroSection";
 import FavCourses from "../../components/sections/programs-section/fav-courses-section.js";
 import ProgramsSection from "../../components/sections/programs-section/ProgramsSection.js";
 
 import MainSearch from "../../components/filter/programs-filter/MainSearch";
 import TopCourses from "../../components/sections/programs-section/TopCourses";
 import NewsletterSection from "../../components/sections/newsletter-section/NewsletterSection";
+import DirectoryHero from "../../components/DirectoryHero/DirectoryHero.js";
+import heroBg from "../../assets/major-hero-bg.png";
 
 export default function ProgramsList() {
   return (
     <>
       <Header />
       <div className="bg-colorPale pb-20 md:pb-28 ">
-        <HeroSection />
+        <DirectoryHero bgImg={heroBg.src} title="Majors" />
+
         <FavCourses />
 
         <div className="grid grid-cols-12 gap-4 sm:gap-6 container ">
