@@ -193,6 +193,7 @@ from fake_useragent import UserAgent
 from directory.models import University, Program
 
 def loadMasters(request):
+    print('loading............')
     path = '/Users/mohamed/Downloads/chromedriver'
     options = webdriver.ChromeOptions()
     options.add_argument("--headless")
@@ -203,7 +204,7 @@ def loadMasters(request):
     #try:
     soup = BeautifulSoup(browser.page_source, "lxml")
     ul = soup.find('ul', {'class':'SearchResultsList'})
-    lis = ul.find_all('li', {'class':'HoverEffect SearchResultItem'})[0]
+    lis = ul.find_all('li', {'class':'HoverEffect SearchResultItem'})[0] if ul.text!='' else loadMasters()
     a = lis.find('a', {'class':'SearchStudyCard js-bestFitStudycard'}).get('href')
     # univ_name_listing = lis.find('strong', {'class':'OrganisationName'}).text
     print('major link: ', a)
@@ -231,10 +232,13 @@ def loadMasters(request):
             #deadlines_type.append(a.find('span').text[:14].strip())
             #print(application_deadline)
             application_deadlines_dates.append(a.find('time').get('datetime'))
-            deadlines_type.append(a.find('span').text[:14].strip())
+            deadlines_type.append(a.find('span').text[:14].strip()) if a.find('span') is not None else print('No application deadline type')
 
-    deadlines_with_type = dict(zip(deadlines_type, application_deadlines_dates))
-    print(deadlines_with_type)
+    #deadlines_with_type = dict(zip(deadlines_type, application_deadlines_dates))
+    #we would use the application deadline and the deadline types fron the lists directly.
+    # print(application_deadlines_dates)
+    # print(deadlines_type)
+
 
     key_info = subkeyfacts.find_all('article', {'class':'FactItem'})
     list_indxs_key_info = []
@@ -250,36 +254,39 @@ def loadMasters(request):
             list_items_key_info.append(disciplines)
     key_info_dict = dict(zip(list_indxs_key_info,list_items_key_info))
     link = soup.find('article', {'class':'ProgrammeWebsiteContainer'}).find('a').get('href')
-    print(key_info_dict)
+    #print(key_info_dict)
+
 
 
     # -Programme structure:
-    # program_structure = soup.find('article', {'id':'StudyContents'}).find_all('li')
-    # list_items = []
-    # for i in program_structure:
-    #     list_items.append(i.text)
+    program_structure = soup.find('article', {'id':'StudyContents'}).find_all('li')
+    list_items = []
+    for i in program_structure:
+        list_items.append(i.text)
+    #print(list_items)
 
     # -Admissiom Requirements:
-    # titles = []
-    # scores = []
-    # english_req = soup.find_all('div', {'class':'MainContent'})
-    # for e in english_req:
-    #     titles.append(e.find('div',{'class':'ScoreLabelContainer'}).find('span').text.strip())
-    #     scores.append(e.find('div',{'class':'ScoreInformationContainer'}).text.strip())
-    # language_req_dict = dict(zip(titles,scores))
-    # other_req = soup.find('div', {'class':'OtherRequirementsContent'}).find_all('li')
-    # other_req_list = []
-    # for req in other_req:
-    #     other_req_list.append(req.text)
+    titles = []
+    scores = []
+    english_req = soup.find_all('div', {'class':'MainContent'})
+    for e in english_req:
+        titles.append(e.find('div',{'class':'ScoreLabelContainer'}).find('span').text.strip())
+        scores.append(e.find('div',{'class':'ScoreInformationContainer'}).text.strip())
+    language_req_dict = dict(zip(titles,scores))
+    #print(language_req_dict)
+    other_req = soup.find('div', {'class':'OtherRequirementsContent'}).find_all('li')
+    other_req_list = []
+    for req in other_req:
+        other_req_list.append(req.text)
+    #print(other_req_list)
 
     # -Fees and funding:
-
     # fees_titles = []
     # fees_ammount = []
     # fee_details = soup.find_all('div', {'class':'FeeDetails'})
     # for fee in fee_details:
-    #     print(fee.find('div', {'class':'Label'}).text)
-    #     print(fee.find('div', {'class':'Amount'}).text)
+        #print(fee.find('div', {'class':'Label'}).text)
+        #print(fee.find('div', {'class':'Amount'}).text)
 
     # -university link
     univ_link = soup.find('a', {'class': 'Name TextLink Connector js-organisation-info-link'}).get('href')
@@ -317,7 +324,7 @@ def loadMasters(request):
     # Logic:
     # Now we are in the masters site, we shall create the logic based on that
     # if University.objects.filter(name=univ_name_listing).exists():
-    #     university = University.objects.get(name = univ_name_listing)[0]
+    #     university = University.objects.filter(name = univ_name_listing)[0]
     #     if university.sp_masters == False:
 
     #         # Here we shall update the university
@@ -325,17 +332,15 @@ def loadMasters(request):
     #         options_.add_argument("--headless")
     #         browser_ = uc.Chrome(options=options_)
     #         url_ = 'https://www.mastersportal.com' + univ_link
-    #         print(url_)
+    #         print('university: ',url_)
     #         browser_.get(url_)
     #         soup_ = BeautifulSoup(browser_.page_source, "lxml")
+    #         title = soup_.find('span', {'class':'OrganisationTitle'}).text
+    #         image_link = soup_.find('picture', {'class':'js-coverImage'}).find('img').get('src')
+    #         image_link = 'http:'+image_link
+    #         desc_sp = soup_.find('div', {'id': 'ShortDescription'}).text
 
-    #         #university, created = University.objects.update_or_create(sp_masters=True)
-
-
-    #         if not created:
-    #             print('updating university: ', university.name)
-    #         elif created:
-    #             print('University created...?')
+    #         university, created = University.objects.update_or_create(description_sp = desc_sp)
 
     #         # Here we should scrape the masters from the university
 
@@ -353,8 +358,10 @@ def loadMasters(request):
     #             programs_list_links.append(programs.find_all('a'))
 
     #         programs_links_by_discipline = dict(zip(disciplines_list,programs_list_links))
+
     #         for item in programs_links_by_discipline:
-    #             discipline = item
+    #             disc = item
+    #             discipline, created = Discipline.objects.get_or_create(name=disc)
     #             for l in programs_links_by_discipline[item]:
     #                 print('getting into major: ', l.get('href'))
 
@@ -363,12 +370,10 @@ def loadMasters(request):
     #                 options = webdriver.ChromeOptions()
     #                 options.add_argument("--headless")
     #                 browser = uc.Chrome(options=options)
-    #                 # Masters link here
     #                 browser.get(l.get('href'))
     #                 soup = BeautifulSoup(browser.page_source, "lxml")
 
     #                 name = soup.find('h1', {'class':'StudyTitle'}).find('a').text
-    #                 print('scraping major: ', name)
     #                 description = soup.find('section', {'id':'StudySummary'}).find('p').text
 
     #                 # -Key information:
@@ -429,7 +434,19 @@ def loadMasters(request):
     #                 univ_link = soup.find('a', {'class': 'Name TextLink Connector js-organisation-info-link'}).get('href')
 
 
-    #                 # program, created = Program.objects.get_or_create()
+    #                 program, created = Program.objects.get_or_create(
+    #                   name = name,
+    #                   description = description,    
+    #                   image_url = None,
+    #                   university = university,
+    #                   credits = credits,
+    #                   delivered = delivered,
+    #                   link_to_website = link,
+    #                   program_structure = 
+    #                   )
+    #                 program.disciplines.add(discipline)
+    #                 program.disciplines.add(durations)
+    #                 program.disciplines.add(deadlines)
 #                 university.sp_masters=True
 #                 university.save()
     #     else:
