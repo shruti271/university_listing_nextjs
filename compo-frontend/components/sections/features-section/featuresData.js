@@ -22,42 +22,42 @@ export const features = [
 export const universities = [
   {
     id: 1,
-    name: 'abc university',
+    name: 'University of Cambridge',
     rank: '5th',
   },
   {
     id: 2,
-    name: 'abc university',
+    name: 'Stanford University',
     rank: '4th',
   },
   {
     id: 3,
-    name: 'abc university',
+    name: 'Harvard University',
     rank: '3rd',
   },
   {
     id: 4,
-    name: 'abc university',
+    name: 'California Institute of Technology',
     rank: '2nd',
   },
   {
     id: 5,
-    name: 'abc university',
+    name: 'University of Oxford',
     rank: '1st',
   },
   {
     id: 6,
-    name: 'abc university',
+    name: 'Massachusetts Institute of Technology',
     rank: '6th',
   },
   {
     id: 7,
-    name: 'abc university',
+    name: 'Princeton University',
     rank: '7th',
   },
   {
     id: 8,
-    name: 'abc university',
+    name: 'University of California, Berkeley',
     rank: '8th',
   },
 ];
