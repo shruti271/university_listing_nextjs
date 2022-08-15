@@ -73,7 +73,7 @@ const Header = ({ modalType }) => {
             </div>
           </Link>
           <div className="flex items-center gap-8 lg:hidden">
-            <div className="hidden md:block">
+            <div className="hidden md:flex items-center gap-4">
               {!accessToken && (
                 <>
                   <PrimaryButton
