@@ -14,9 +14,9 @@ class Discipline(models.Model):
 
 class Ranking(models.Model):
     name = models.CharField(max_length=200, null=True)
-    ranking = models.IntegerField(null=True)
+    rank = models.IntegerField(null=True)
     year = models.IntegerField(null=True)
-    link = models.CharField(max_length=200, null=True, blank=True)
+    link = models.URLField(max_length=200, null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -85,13 +85,22 @@ class Duration(models.Model):
     def __str__(self):
         return self.type + ' ' + self.duration
 
-class Deadlines(models.Model):
-    start_date = models.CharField(max_length=200, null=True)
+class ApplicationDeadline(models.Model):
     apply_deadline = models.CharField(max_length=200, null=True, blank=True)
+    deadline_type = models.CharField(max_length=200, null=True, blank=True)
     apply_anytime = models.BooleanField(default=False, null=True)
 
     def __str__(self):
-        return self.start_date + ', apply before: ' + self.apply_deadline if not self.apply_anytime else 'Apply anytime'
+        return 'apply before: ' + self.apply_deadline if not self.apply_anytime else 'Apply anytime'
+
+
+class Deadline(models.Model):
+    start_date = models.CharField(max_length=200, null=True)
+    application_deadlines = models.ManyToManyField(ApplicationDeadline)
+
+    def __str__(self):
+        return self.start_date
+
 
 class AcademicRequirement(models.Model):
     name = models.CharField(max_length=200, null=True)
@@ -105,11 +114,12 @@ class AcademicRequirement(models.Model):
 class Program(models.Model):
     name = models.CharField(max_length=200, null=True)
     slug = AutoSlugField(populate_from='name', always_update=True, unique = True, null=True)
-    image_url = models.URLField(max_length=200, blank=True)
+    image_url = models.URLField(max_length=200, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
+    language = models.CharField(max_length=200, null=True)
     university = models.ForeignKey(University, on_delete=models.CASCADE)
     durations = models.ManyToManyField(Duration)
-    deadlines = models.ManyToManyField(Deadlines)
+    deadlines = models.ManyToManyField(Deadline)
     credits = models.CharField(max_length=200, null=True)
     delivered = models.CharField(max_length=200, null=True)
     disciplines = models.ManyToManyField(Discipline)
@@ -118,14 +128,15 @@ class Program(models.Model):
     academic_requirements = models.ManyToManyField(AcademicRequirement)
     other_requirements = models.TextField(null=True, blank=False)
     tuition_fee = models.IntegerField(null=True)
+    tuition_fee_currency = models.CharField(max_length=50, null=True)
+    tuition_fee_duration = models.CharField(max_length = 50, null=True)
     living_cost_min = models.IntegerField(null=True, blank=True)
     living_cost_max = models.IntegerField(null=True, blank=True)
     location = models.CharField(max_length=200, blank=True, null=True)
-    type = models.CharField(max_length=200, blank=True, null=True)
 
 
     def __str__(self):
-        return self.name + ' ' + self.university.name
+        return self.name 
 
 
 from django.core.validators import URLValidator
