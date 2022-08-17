@@ -35,7 +35,7 @@ const Articles = () => {
       <div className="bg-colorPale pb-20 md:pb-28">
         <DirectoryHero bgImg={ArtBg.src} title="Articles" />
         <div className="container mt-20">
-          <div className="w-[75%] items-center mx-auto">
+          <div className="w-[95%] sm:w-[75%] items-center mx-auto">
             <CustomArticleTextField
               id="outlined-search"
               label="Find the topics you care about"
