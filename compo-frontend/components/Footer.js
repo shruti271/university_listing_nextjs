@@ -40,7 +40,7 @@ const Footer = () => {
   return (
     <footer className="pt-20 text-sm bg-colorWhite">
       <div className="container pb-20">
-        <div className="flex flex-col lg:flex-row items-start gap-20 lg:gap-10">
+        <div className="flex flex-col lg:flex-row items-start justify-between gap-20 lg:gap-10 2xl:justify-start 2xl:gap-20">
           <div className="flex flex-col items-start gap-10 max-w-[420px] ">
             <div className="w-[220px] h-[50px] relative">
               <Image src={CompositeLogo} alt="Composite logo" layout="fill" />
@@ -65,7 +65,7 @@ const Footer = () => {
               </ul>
             </nav>
           </div>
-          <ul className="flex flex-wrap gap-10">
+          <ul className="hidden md:flex flex-wrap justify-between w-full gap-4">
             <li>
               <h4 className="font-semibold text-xl mb-5">Composite</h4>
               <ul className="flex flex-col items-start gap-3">

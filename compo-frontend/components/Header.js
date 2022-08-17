@@ -42,6 +42,22 @@ const Header = ({ modalType }) => {
     setAccessToken(getAccessToken);
   }, [typeof window !== "undefined" && localStorage.getItem("access_token")]);
 
+  const [headerClasses, setHeaderClasses] = useState('bg-transparent');
+  const changeHeader = () => {
+    if (window !== undefined) {
+      let windowHeight = window.scrollY;
+      windowHeight > 20 ? setHeaderClasses('bg-colorWhite shadow-sm') : setHeaderClasses('bg-transparent');
+    }
+  };
+  useEffect(() => {
+    window.addEventListener('scroll', changeHeader);
+
+    return () => {
+      window.removeEventListener('scroll', changeHeader);
+    }
+  });
+  
+
   return (
     <>
       <MobileMenu
@@ -49,7 +65,7 @@ const Header = ({ modalType }) => {
         className={`${mobileMenuStyle}`}
         handleMobileMenuClick={handleMobileMenuClick}
       />
-      <header className="header py-7 absolute w-full left-0 top-0 z-20 bg-colorWhite">
+      <header className={`header py-7 fixed w-full left-0 top-0 z-20 transition-all ${headerClasses}`}>
         <div className="container flex items-center justify-between">
           <Link href="/">
             <div className="logo-container relative h-10 w-36 cursor-pointer">
@@ -57,7 +73,7 @@ const Header = ({ modalType }) => {
             </div>
           </Link>
           <div className="flex items-center gap-8 lg:hidden">
-            <div className="hidden md:block">
+            <div className="hidden md:flex items-center gap-4">
               {!accessToken && (
                 <>
                   <PrimaryButton
