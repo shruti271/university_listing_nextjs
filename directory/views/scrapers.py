@@ -262,25 +262,25 @@ def loadMasters(request):
         for i in fee.find('div', {'class':'Amount'}).find_all('span', {'class':'CurrencyType'}):
             print(i.text)
 
-    # program, created = Program.objects.get_or_create(
-    #     name = name,
-    #     image_url = None,
-    #     description = description,    
-    #     language = key_info_dict['Language'] if 'Language' in key_info_dict.keys() else None,
-    #     university = None,
-    #     durations = None,
-    #     deadlines = None,
-    #     credits = key_info_dict['Credits'] if 'Credits' in key_info_dict.keys() else None ,
-    #     delivered = key_info_dict['Delivered'] if 'Delivered' in key_info_dict.keys() else None ,
-    #     link_to_website = link,
-    #     program_structure = prog_struc,
-    #     academic_requirements = None,
-    #     other_requirements = other_req,
-    #     tuition_fee_usd_year = None,
-    #     living_cost_min = None,
-    #     living_cost_max = None,
-    #     location = None
-    # )
+    program, created = Program.objects.get_or_create(
+        name = name,
+        image_url = None,
+        description = description,    
+        language = key_info_dict['Language'] if 'Language' in key_info_dict.keys() else None,
+        #university = None,
+        #durations = None,
+        #deadlines = None,
+        credits = key_info_dict['Credits'] if 'Credits' in key_info_dict.keys() else None ,
+        delivered = key_info_dict['Delivered'] if 'Delivered' in key_info_dict.keys() else None ,
+        link_to_website = link,
+        program_structure = prog_struc,
+        #academic_requirements = None,
+        other_requirements = other_req,
+        tuition_fee = None,
+        living_cost_min = None,
+        living_cost_max = None,
+        location = None
+    )
 
 
     # -Application 
@@ -291,29 +291,29 @@ def loadMasters(request):
     for d in dates:
         start_date = d.find('time').get('datetime')
         #create a deadline instance
-        #deadline, created = Deadline.objects.get_or_create(start_date = start_date)
+        deadline, created = Deadline.objects.get_or_create(start_date = start_date)
         print('starting date: ', start_date)
         application_deadlines = d.find_all('li', {'class':'ApplicationDeadline'})
         if len(application_deadlines) == 0:
             apply_anytime = True
             print('application deadline: apply anytime')
             #create the application deadline and assign it to the deadline instance
-            #application_deadline, created = ApplicationDeadline.objects.get_or_create(apply_anytime=True)
-            #deadline.application_deadlines.add(application_deadline)
-            #deadline.save()
+            application_deadline, created = ApplicationDeadline.objects.get_or_create(apply_anytime=True)
+            deadline.application_deadlines.add(application_deadline)
+            deadline.save()
             #assign the deadline instance to the program instance
-            # program.deadlines.add(deadline)
-            # program.save()
+            program.deadlines.add(deadline)
+            program.save()
         else:
             for a in application_deadlines:
                 application_deadlines_dates.append(a.find('time').get('datetime'))
                 deadlines_type.append(a.find('span').text[:14].strip()) if a.find('span') is not None else print('No application deadline type')
                 application_deadline, created = ApplicationDeadline.objects.get_or_create(apply_deadline=a.find('time').get('datetime'), deadline_type=a.find('span').text[:14].strip() if a.find('span') is not None else None)
-                # deadline.application_deadlines.add(application_deadline)
-                # deadline.save()
+                deadline.application_deadlines.add(application_deadline)
+                deadline.save()
                 #assign the deadline instance to the program instance
-                # program.deadlines.add(deadline)
-                # program.save()
+                program.deadlines.add(deadline)
+                program.save()
 
             print('application_deadlines_dates: ', application_deadlines_dates)
             print('deadlines_type: ', deadlines_type)
@@ -328,9 +328,9 @@ def loadMasters(request):
         score = e.find('div',{'class':'ScoreInformationContainer'}).text.strip()
         titles.append(title)
         scores.append(score)
-        #req, created = AcademicRequirement.objects.get_or_create(name=title, score=score )
-        #program.add(req)
-        #program.save()
+        req, created = AcademicRequirement.objects.get_or_create(name=title, score=score )
+        program.academic_requirements.add(req)
+        program.save()
     req_dict = dict(zip(titles,scores))
     # create the req instances and assign to the program
     print('requirements dict: ', req_dict)

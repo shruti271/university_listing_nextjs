@@ -108,7 +108,7 @@ class AcademicRequirement(models.Model):
     no_req = models.BooleanField(default=False, null=False)
 
     def __str__(self):
-        return self.name + ' ' + self.score if not self.no_req else 'No academic requirements.'
+        return self.name 
 
 
 class Program(models.Model):
@@ -117,7 +117,7 @@ class Program(models.Model):
     image_url = models.URLField(max_length=200, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     language = models.CharField(max_length=200, null=True)
-    university = models.ForeignKey(University, on_delete=models.CASCADE)
+    university = models.ForeignKey(University, on_delete=models.CASCADE, null=True)
     durations = models.ManyToManyField(Duration)
     deadlines = models.ManyToManyField(Deadline)
     credits = models.CharField(max_length=200, null=True)
