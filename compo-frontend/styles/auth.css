@@ -2,18 +2,18 @@
   max-height: 25% !important;
 }
 
-.bg-cover-auth {
-  -webkit-background-size: cover !important;
-  -moz-background-size: cover !important;
-  -o-background-size: cover !important;
-  background-size: 100% 100% !important;
+.auth-cover > span {
+  top: 5% !important;
 }
-
-.bg-cover-auth > span {
+.onboarding1-cover > span {
   top: 5% !important;
 }
 
-.onboarding-cover-2 > span {
+.onboarding3-cover > span {
+  top: 5% !important;
+}
+
+.onboarding2-cover > span {
   top: 88% !important;
 }
 
@@ -32,4 +32,3 @@
 .onboarding3-cover {
   background: url("../assets/reg-step-3.png") no-repeat center center fixed;
 }
-

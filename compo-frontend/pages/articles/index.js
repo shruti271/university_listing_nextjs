@@ -52,41 +52,44 @@ const Articles = () => {
           </div>
         </div>
 
-        <div className="container mt-12 mb-16 md:mb-20 lg:mb-24 ">
-          <div className="w-[90%] mx-auto flex flex-wrap gap-4 items-center justify-center">
+        <div className="container mt-12 mb-12 md:mb-20 lg:mb-24 ">
+          <div className="w-[90%] mx-auto flex flex-wrap gap-2 md:gap-4 items-center justify-center">
             {Topics?.map((itm) => (
-              <div className="w-[auto] p-2 border rounded-xl" key={itm}>
+              <div
+                className="w-[auto] p-2 border rounded-xl font-normal text-sm md:text-base text-center text-[#000000]"
+                key={itm}
+              >
                 {itm}
               </div>
             ))}
           </div>
         </div>
 
-        <div className="grid grid-cols-8 container gap-12 mb-12">
+        <div className="grid grid-cols-8 gap-12 mb-12 container">
           <div className="col-span-8 md:col-span-5">
             <div>
-              <p className="font-bold text-3xl leading-[54px] text-[#232E52] mb-4">
+              <p className="font-bold text-2xl md:text-3xl leading-[40px] md:leading-[54px] text-[#232E52] mb-4">
                 Design Tools
               </p>
               {[0, 1, 2]?.map((itm) => (
-                <div className="border-t border-[#EBF2FE] ">
+                <div className="border-t-2 border-[#EBF2FE] ">
                   <DesignTool />
                 </div>
               ))}
             </div>
 
             <div className="mt-4 sm:mt-16">
-              <p className="font-bold text-3xl leading-[54px] text-[#232E52] mb-4">
+              <p className="font-bold text-2xl md:text-3xl leading-[40px] md:leading-[54px] text-[#232E52] mb-4">
                 Weekly Updates
               </p>
               {[0, 1, 2]?.map((itm) => (
-                <div className="border-t border-[#EBF2FE] ">
+                <div className="border-t-2 border-[#EBF2FE] ">
                   <DesignTool />
                 </div>
               ))}
             </div>
           </div>
-          <div className="col-span-8 md:col-span-3 bg-cover-auth auth-cover rounded-xl animate__animated animate__zoomIn relative h-[460px] sm:h-[650px] ">
+          <div className="col-span-8 md:col-span-3 auth-cover !bg-cover rounded-xl animate__animated animate__zoomIn relative h-[500px] sm:h-[650px] ">
             <SignupCard />
           </div>
         </div>

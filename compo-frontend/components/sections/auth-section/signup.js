@@ -64,7 +64,7 @@ export default function SignUp({ changeAuthModalType, handleClose }) {
     <>
       <div className="grid grid-cols-1 sm:grid-cols-2 h-full">
         <div className="p-4 hidden sm:block h-full">
-          <div className="bg-cover-auth auth-cover w-full h-full text-center">
+          <div className="auth-cover !bg-cover w-full h-full text-center">
             <Image src={LoginLogo} alt="CoverImage" />
           </div>
         </div>
