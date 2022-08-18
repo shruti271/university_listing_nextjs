@@ -53,7 +53,7 @@ const Articles = () => {
         </div>
 
         <div className="container mt-12 mb-12 md:mb-20 lg:mb-24 ">
-          <div className="w-[90%] mx-auto flex flex-wrap gap-2 md:gap-4 items-center justify-center">
+          <div className="w-[90%] mx-auto flex flex-wrap gap-2 md:gap-4 items-center justify-start sm:justify-center">
             {Topics?.map((itm) => (
               <div
                 className="w-[auto] p-2 border rounded-xl font-normal text-sm md:text-base text-center text-[#000000]"
