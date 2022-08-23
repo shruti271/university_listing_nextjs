@@ -1,6 +1,6 @@
 const CompleteProfileCard = () => {
   return (
-    <div className="w-[100%] bg-cover-auth profile-cover rounded-xl animate__animated animate__zoomIn p-12">
+    <div className="w-[100%] !bg-cover profile-cover rounded-xl animate__animated animate__zoomIn p-12">
       <div className="w-[60%] relative">
         <div className="text-[#FFFFFF] text-xl font-extrabold uppercase mt-5">
           Welcome Back! Ali

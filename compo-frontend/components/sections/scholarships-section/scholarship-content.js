@@ -1,6 +1,6 @@
 import ScholarshipDescription from "./scholarship-description";
 import ScholarshipEligibility from "./scholarship-eligibility";
-import ScholarshipSignup from "./scholarship-signup";
+import SignupCard from "../../SignupCard";
 
 const ScholarshipContent = ({ scholarship }) => {
   return (
@@ -11,8 +11,8 @@ const ScholarshipContent = ({ scholarship }) => {
             <ScholarshipDescription scholarship={scholarship} />
             <ScholarshipEligibility />
           </div>
-          <div className="w-[100%] sm:w-[50%] lg:w-[60%] h-[460px] sm:h-[650px] mt-10 sm:mt-0 p-6 bg-cover-auth auth-cover rounded-xl animate__animated animate__zoomIn relative">
-            <ScholarshipSignup />
+          <div className="w-[100%] sm:w-[50%] lg:w-[60%] h-[500px] sm:h-[650px] mt-10 sm:mt-0 p-6 auth-cover !bg-cover rounded-xl animate__animated animate__zoomIn relative">
+            <SignupCard />
           </div>
         </div>
       </div>

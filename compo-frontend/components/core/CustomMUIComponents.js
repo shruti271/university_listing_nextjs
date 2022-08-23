@@ -44,7 +44,21 @@ export const CustomTextField = styled(TextField)(({ theme }) => ({
     color: "#544E5D",
   },
 }));
-
+export const CustomArticleTextField = styled(TextField)(({ theme }) => ({
+  [`& label`]: {
+    fontWeight: 400,
+    fontSize: "16px",
+    lineHeight: "22px",
+    color: "rgba(0, 0, 0, 0.5)",
+    textOverflow: "ellipsis",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    width: "70%",
+  },
+  [`& .MuiInputLabel-root.Mui-focused`]: {
+    width: "100%",
+  },
+}));
 export const CustomSelect = styled(NativeSelect)(({ theme }) => ({
   [`& .MuiInput-input`]: {
     fontWeight: 600,

@@ -1,6 +1,6 @@
 import EastIcon from "@mui/icons-material/East";
 
-const ScholarshipSignup = () => {
+const SignupCard = () => {
   return (
     <div className="absolute w-[95%] lg:w-[75%] left-[50%] bottom-[25px] sm:bottom-[15px] translate-x-[-50%]">
       <div className="text-[#FFFFFF] font-semibold text-2xl sm:text-3xl text-center !leading-10">
@@ -24,4 +24,4 @@ const ScholarshipSignup = () => {
   );
 };
 
-export default ScholarshipSignup;
+export default SignupCard;
