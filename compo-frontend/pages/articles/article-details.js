@@ -106,10 +106,9 @@ const ArticleDetails = () => {
             sapien mauris.
           </p>
 
-          {/* <div className="mt-5 w-full h-[225px] relative">
-            <Image src={ArtSS1} layout="fill" className="object-cover" />
-          </div> */}
-          <div className="xyz mt-5"></div>
+          <div className="mt-9">
+            <Image src={ArtSS1}/>
+          </div>
           <p className="mt-1 text-md sm:text-lg md:text-xl text-[#000000] font-normal font-['PT_Serif']">
             Augue laoreet vulputate risus leo lacus consectetur. Sed vitae
             mollis ornare tincidunt arcu lorem auctor. Massa
@@ -126,10 +125,9 @@ const ArticleDetails = () => {
             non ac dictum.
           </p>
 
-          {/* <div className="mt-9 w-full h-[225px] relative">
-            <Image src={ArtSS2} layout="fill" className="object-cover" />
-          </div> */}
-          <div className="abc mt-9"></div>
+          <div className="mt-9">
+            <Image src={ArtSS2}/>
+          </div>
 
           <p className="mt-2 text-md sm:text-lg md:text-xl text-[#000000] font-normal font-['PT_Serif']">
             Lacinia ut gravida tempus sollicitudin condimentum sit urna cursus

@@ -130,18 +130,3 @@ h6 {
   border-radius: 5px;
 }
 
-.xyz {
-  width: 100%;
-  height: 225px;
-  background-image: url("../assets/art-ss-1.png");
-  background-size: cover;
-  background-repeat: no-repeat;
-}
-.abc {
-  width: 100%;
-  height: 225px;
-  background-image: url("../assets/art-ss-2.png");
-  background-size: cover;
-  background-repeat: no-repeat;
-}
-
