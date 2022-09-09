@@ -1,0 +1,69 @@
+steps:
+  - name: 'python:3.7-slim'
+    args:
+      - '-c'
+      - >-
+        (python -m venv compo_venv && . compo_venv/bin/activate && pip install
+        -r requirements.txt && ls)
+    id: setup-venv
+    waitFor:
+      - '-'
+    entrypoint: sh
+    timeout: 100s
+  - name: 'alpine:3.10'
+    args:
+      - '-c'
+      - >-
+        wget -O /workspace/cloud_sql_proxy
+        https://storage.googleapis.com/cloudsql-proxy/v1.21.0/cloud_sql_proxy.linux.amd64
+        &&  chmod +x /workspace/cloud_sql_proxy
+    id: proxy-install
+    waitFor:
+      - setup-venv
+    entrypoint: sh
+  - name: 'python:3.7-slim'
+    env:
+      - CLOUD_BUILD=1
+      - PYTHONPATH=/workspace
+      - GOOGLE_CLOUD_PROJECT=composite-353517
+      - USE_CLOUD_SQL_AUTH_PROXY=1
+    args:
+      - '-c'
+      - >-
+        (/workspace/cloud_sql_proxy -dir=/workspace
+        -instances="composite-353517:europe-west6:compodb=tcp:5433" & sleep 2)
+        && (. compo_venv/bin/activate && python manage.py test --noinput &&
+        python manage.py migrate && python manage.py migrate && python manage.py collectstatic --no-input -v3 )
+    id: run-django-internal
+    timeout: 1200s
+    waitFor:
+      - proxy-install
+    entrypoint: sh
+    secretEnv:
+      - django_settings
+
+  # if tests fail, these sections will not execute coz they waitFor tests section
+  - id: upload-static-to-bucket
+    name: 'gcr.io/cloud-builders/gsutil'
+    entrypoint: 'bash'
+    args: [ '-c', 'gsutil rsync -R ./static/ gs://composite-353517.appspot.com/static' ]
+    waitFor: [ 'run-django-internal' ]
+    timeout: 1200s
+
+  - id: deploy
+    name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'bash'
+    args: [ '-c', 'gcloud app deploy --quiet'  ]
+    waitFor: [ 'upload-static-to-bucket' ]
+    timeout: 600s
+    env:
+      - CLOUD_BUILD=1
+      - GOOGLE_CLOUD_PROJECT=composite-353517
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+
+availableSecrets:
+  secretManager:
+    - versionName: projects/composite-353517/secrets/django_settings/versions/latest
+      env: django_settings
